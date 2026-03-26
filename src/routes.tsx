@@ -18,7 +18,6 @@ function Lazy({ children }: { children: ReactNode }) {
 
 const Home = lazy(() => import("./pages/Home"));
 const ExperienceList = lazy(() => import("./pages/experiences/ExperienceList"));
-const ExperienceDetail = lazy(() => import("./pages/experiences/ExperienceDetail"));
 const RouteList = lazy(() => import("./pages/routes/RouteList"));
 const RouteDetail = lazy(() => import("./pages/routes/RouteDetail"));
 const EventList = lazy(() => import("./pages/events/EventList"));
@@ -47,7 +46,6 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Lazy><Home /></Lazy> },
       { path: "experiencias", element: <Lazy><ExperienceList /></Lazy> },
-      { path: "experiencias/:slug", element: <Lazy><ExperienceDetail /></Lazy> },
       { path: "roteiros", element: <Lazy><RouteList /></Lazy> },
       { path: "roteiros/:slug", element: <Lazy><RouteDetail /></Lazy> },
       { path: "agenda", element: <Lazy><EventList /></Lazy> },
