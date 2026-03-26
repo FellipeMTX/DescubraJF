@@ -229,7 +229,7 @@ export default function ExperienceAdmin() {
                       {exp.categoria && (
                         <Badge
                           className="text-white"
-                          style={{ backgroundColor: exp.categoria.cor ?? "#3b82f6" }}
+                          style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}
                         >
                           {exp.categoria.nome}
                         </Badge>

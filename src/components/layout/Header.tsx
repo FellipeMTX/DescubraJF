@@ -1,26 +1,55 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router";
 import { Search, Menu, ChevronDown } from "lucide-react";
-import { NAV_ITEMS, SITE_NAME } from "../../lib/constants";
+import { NAV_ITEMS, SITE_NAME } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import { MobileMenu } from "./MobileMenu";
 
 type NavItem =
   | { label: string; href: string; children?: undefined }
   | { label: string; children: ReadonlyArray<{ label: string; href: string }>; href?: undefined };
-import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 50);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const transparent = isHome && !scrolled;
 
   return (
-    <header className="sticky top-0 z-50 bg-primary-700 shadow-sm">
+    <header
+      className={cn(
+        "fixed top-0 z-50 w-full transition-all duration-300",
+        transparent
+          ? "bg-transparent"
+          : "bg-primary-700/95 shadow-lg backdrop-blur-sm"
+      )}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/descubraLogo.png" alt={SITE_NAME} className="h-19 w-35" />
+          <img
+            src="/descubraLogo.png"
+            alt={SITE_NAME}
+            className={cn(
+              "transition-all duration-300",
+              transparent ? "h-16" : "h-10"
+            )}
+          />
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-0.5 lg:flex">
           {(NAV_ITEMS as readonly NavItem[]).map((item) =>
             item.children ? (
               <NavDropdown key={item.label} item={item} />
@@ -40,24 +69,24 @@ export function Header() {
         <div className="flex items-center gap-2">
           <button
             aria-label="Buscar"
-            className="rounded-md p-2 text-white/80 hover:bg-white/10 hover:text-white"
+            className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
           >
             <Search size={20} />
           </button>
 
-          {/* Language selector placeholder */}
-          <div className="hidden items-center gap-1 text-xs font-medium text-white/50 sm:flex">
-            <span className="rounded bg-white/20 px-1.5 py-0.5 text-white">
+          {/* Language selector */}
+          <div className="hidden items-center gap-1 text-xs font-medium sm:flex">
+            <span className="rounded-full bg-white/20 px-2 py-0.5 text-white">
               PT
             </span>
-            <span className="cursor-not-allowed px-1.5 py-0.5">EN</span>
-            <span className="cursor-not-allowed px-1.5 py-0.5">ES</span>
+            <span className="cursor-not-allowed px-2 py-0.5 text-white/40">EN</span>
+            <span className="cursor-not-allowed px-2 py-0.5 text-white/40">ES</span>
           </div>
 
           {/* Mobile hamburger */}
           <button
             aria-label="Menu"
-            className="rounded-md p-2 text-white/80 hover:bg-white/10 hover:text-white lg:hidden"
+            className="rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white lg:hidden"
             onClick={() => setMobileOpen(true)}
           >
             <Menu size={24} />
@@ -85,16 +114,16 @@ function NavDropdown({
     >
       <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white">
         {item.label}
-        <ChevronDown size={14} />
+        <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-50 min-w-48 rounded-md border border-gray-100 bg-white py-1 shadow-lg">
+        <div className="absolute left-0 top-full z-50 min-w-52 overflow-hidden rounded-xl border border-white/10 bg-white p-1 shadow-xl">
           {item.children.map((child) => (
             <Link
               key={child.href}
               to={child.href}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700"
+              className="block rounded-lg px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
               onClick={() => setOpen(false)}
             >
               {child.label}
