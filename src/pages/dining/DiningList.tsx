@@ -1,164 +1,166 @@
 import { useState } from "react";
-import { Link } from "react-router";
-import { MapPin, UtensilsCrossed, DollarSign } from "lucide-react";
+import { MapPin, UtensilsCrossed, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Car, Share2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { InteractiveMap, type MapItem } from "@/components/ui/InteractiveMap";
-import { cn } from "@/lib/utils";
-import { useDiningEstablishments, useDiningCategories } from "@/hooks/useDining";
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  FilterBar, MapSection, ItemCard, CardsGrid,
+  DetailModal, toMapItems,
+} from "@/components/ui/ListPageLayout";
+import { useDiningEstablishments, useDiningCategories, useDiningBySlug } from "@/hooks/useDining";
 
-const JF_CENTER: [number, number] = [-21.7612, -43.3496];
+const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
 const PRICE_DOTS = ["", "$", "$$", "$$$"];
 
 export default function DiningList() {
   const [selected, setSelected] = useState("todos");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+
   const { data: categories, isLoading: loadingCats } = useDiningCategories();
   const { data: establishments, isLoading: loadingList } = useDiningEstablishments(selected);
 
-  const mapItems: MapItem[] = (establishments ?? [])
-    .filter((e) => e.latitude && e.longitude)
-    .map((e) => ({ id: e.id, name: e.nome, lat: e.latitude!, lng: e.longitude! }));
+  const filterOptions = [
+    { label: "Todos", value: "todos" },
+    ...(categories?.map((c) => ({ label: c.nome, value: c.slug })) ?? []),
+  ];
+
+  const mapItems = toMapItems(establishments ?? []);
 
   return (
     <div className="min-h-screen bg-primary-50 pt-20">
       <div className="mx-auto max-w-7xl px-4 py-8">
         <h1 className="text-3xl font-bold text-primary-800">Onde Comer e Beber</h1>
-        <p className="mt-2 text-accent-500">
-          Experimente tudo que nossa gastronomia oferece
-        </p>
+        <p className="mt-2 text-accent-500">Experimente tudo que nossa gastronomia oferece</p>
 
-        {/* Category filter */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          <FilterButton active={selected === "todos"} onClick={() => setSelected("todos")}>
-            Todos
-          </FilterButton>
-          {loadingCats
-            ? Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} className="h-9 w-28 rounded-full" />
-              ))
-            : categories?.map((cat) => (
-                <FilterButton
-                  key={cat.id}
-                  active={selected === cat.slug}
-                  onClick={() => setSelected(cat.slug)}
-                >
-                  {cat.nome}
-                </FilterButton>
-              ))}
-        </div>
+        <FilterBar options={filterOptions} selected={selected} onSelect={setSelected} isLoading={loadingCats} />
+        <MapSection items={mapItems} activeId={hoveredId} isLoading={loadingList} />
 
-        {/* Map */}
-        <div className="sticky top-20 z-10 mt-6">
-          {mapItems.length > 0 ? (
-            <InteractiveMap
-              items={mapItems}
-              activeId={hoveredId}
-              center={JF_CENTER}
-              zoom={13}
-              className="h-72 w-full rounded-xl shadow-lg md:h-80"
-            />
-          ) : (
-            <div className="flex h-72 items-center justify-center rounded-xl bg-primary-100 text-primary-300 md:h-80">
-              {loadingList ? "Carregando mapa..." : "Nenhum local com coordenadas"}
-            </div>
-          )}
-        </div>
-
-        {/* Cards */}
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {loadingList
-            ? Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} className="h-40 rounded-xl" />
-              ))
-            : establishments?.map((est) => (
-                <Link
-                  key={est.id}
-                  to={`/onde-comer/${est.slug}`}
-                  onMouseEnter={() => setHoveredId(est.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                >
-                  <Card
-                    className={cn(
-                      "group h-full overflow-hidden rounded-xl border-0 bg-accent-50 shadow-sm transition-all duration-200 hover:shadow-lg",
-                      hoveredId === est.id && "ring-2 ring-primary-400 shadow-lg"
-                    )}
-                  >
-                    <div className="flex h-full">
-                      {/* Image */}
-                      <div className="relative w-32 shrink-0 overflow-hidden bg-primary-100 sm:w-36">
-                        {est.imagem_destaque ? (
-                          <img
-                            src={est.imagem_destaque}
-                            alt={est.nome}
-                            loading="lazy"
-                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
-                        ) : (
-                          <div className="flex h-full items-center justify-center">
-                            <UtensilsCrossed size={28} className="text-primary-300" />
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Content */}
-                      <CardContent className="flex flex-col justify-center p-4">
-                        {est.categoria && (
-                          <Badge className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50">
-                            {est.categoria.nome}
-                          </Badge>
-                        )}
-                        <h3 className="font-bold text-primary-800 group-hover:text-primary-600">
-                          {est.nome}
-                        </h3>
-                        {est.endereco && (
-                          <p className="mt-1 flex items-center gap-1 text-xs text-accent-500">
-                            <MapPin size={11} className="shrink-0" /> {est.endereco}
-                          </p>
-                        )}
-                        {est.faixa_preco && (
-                          <p className="mt-1 flex items-center gap-1 text-xs font-medium text-primary-500">
-                            <DollarSign size={11} /> {PRICE_DOTS[est.faixa_preco]}
-                          </p>
-                        )}
-                      </CardContent>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-        </div>
-
-        {!loadingList && !establishments?.length && (
-          <p className="mt-12 text-center text-accent-500">
-            Nenhum estabelecimento encontrado nesta categoria.
-          </p>
-        )}
+        <CardsGrid isLoading={loadingList} isEmpty={!establishments?.length} emptyMessage="Nenhum estabelecimento encontrado nesta categoria.">
+          {establishments?.map((est) => (
+            <ItemCard
+              key={est.id}
+              imageUrl={est.imagem_destaque}
+              placeholder={<UtensilsCrossed size={28} className="text-primary-300" />}
+              isHovered={hoveredId === est.id}
+              onHover={() => setHoveredId(est.id)}
+              onLeave={() => setHoveredId(null)}
+              onClick={() => setSelectedSlug(est.slug)}
+            >
+              {est.categoria && (
+                <Badge className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50">{est.categoria.nome}</Badge>
+              )}
+              <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{est.nome}</h3>
+              {est.endereco && (
+                <p className="mt-1 flex items-center gap-1 text-xs text-accent-500">
+                  <MapPin size={11} className="shrink-0" /> {est.endereco}
+                </p>
+              )}
+              {est.faixa_preco && (
+                <p className="mt-1 text-xs font-medium text-primary-500">
+                  <DollarSign size={11} className="inline" /> {PRICE_DOTS[est.faixa_preco]}
+                </p>
+              )}
+            </ItemCard>
+          ))}
+        </CardsGrid>
       </div>
+
+      <DetailModal open={!!selectedSlug} onClose={() => setSelectedSlug(null)}>
+        {selectedSlug && <DiningModalContent slug={selectedSlug} />}
+      </DetailModal>
     </div>
   );
 }
 
-function FilterButton({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
+function DiningModalContent({ slug }: { slug: string }) {
+  const { data: est, isLoading } = useDiningBySlug(slug);
+
+  if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
+  if (!est) return <p className="text-accent-500">Estabelecimento não encontrado.</p>;
+
+  const hasContact = est.contato && Object.values(est.contato).some(Boolean);
+  const hasSchedule = est.horario_funcionamento && Object.keys(est.horario_funcionamento).length > 0;
+
   return (
-    <button
-      onClick={onClick}
-      className={cn(
-        "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-        active
-          ? "border-primary-400 bg-primary-400 text-accent-50"
-          : "border-primary-200 text-primary-700 hover:border-primary-400"
+    <>
+      <DialogHeader>
+        {est.categoria && <Badge className="w-fit bg-primary-700 text-accent-50">{est.categoria.nome}</Badge>}
+        <DialogTitle className="text-xl font-bold text-primary-800">{est.nome}</DialogTitle>
+      </DialogHeader>
+
+      {est.imagem_destaque && (
+        <img src={est.imagem_destaque} alt={est.nome} className="h-56 w-full rounded-xl object-cover" />
       )}
-    >
-      {children}
-    </button>
+
+      <div className="flex flex-wrap gap-2">
+        {est.faixa_preco && (
+          <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
+            <DollarSign size={14} /> {PRICE_LABELS[est.faixa_preco]}
+          </div>
+        )}
+        {est.estacionamento && (
+          <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
+            <Car size={14} /> Estacionamento
+          </div>
+        )}
+      </div>
+
+      {est.descricao && <p className="whitespace-pre-line text-sm leading-relaxed text-primary-700">{est.descricao}</p>}
+
+      <Separator className="bg-primary-100" />
+
+      {hasSchedule && (
+        <div>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">
+            <Clock size={14} /> Horários
+          </h3>
+          <dl className="mt-2 space-y-1">
+            {Object.entries(est.horario_funcionamento!).map(([day, hours]) => (
+              <div key={day} className="flex justify-between text-sm">
+                <dt className="capitalize text-accent-500">{day}</dt>
+                <dd className="font-medium text-primary-800">{hours as string}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+
+      {est.endereco && (
+        <div>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">
+            <MapPin size={14} /> Endereço
+          </h3>
+          <p className="mt-1 text-sm text-accent-500">{est.endereco}{est.bairro && ` - ${est.bairro}`}</p>
+        </div>
+      )}
+
+      {hasContact && (
+        <div>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">
+            <Phone size={14} /> Contato
+          </h3>
+          <div className="mt-2 space-y-1">
+            {est.contato?.telefone && <a href={`tel:${est.contato.telefone}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Phone size={12} /> {est.contato.telefone}</a>}
+            {est.contato?.email && <a href={`mailto:${est.contato.email}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Mail size={12} /> {est.contato.email}</a>}
+            {est.contato?.site && <a href={est.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Globe size={12} /> Site oficial</a>}
+            {est.contato?.instagram && <a href={est.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><ExternalLink size={12} /> Instagram</a>}
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-2">
+        {est.contato?.maps_link && (
+          <a href={est.contato.maps_link} target="_blank" rel="noopener noreferrer">
+            <Button variant="outline" size="sm"><MapPin size={14} /> Google Maps</Button>
+          </a>
+        )}
+        <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(window.location.href)}>
+          <Share2 size={14} /> Compartilhar
+        </Button>
+      </div>
+    </>
   );
 }
