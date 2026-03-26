@@ -116,13 +116,19 @@ export default function ExperienceAdmin() {
       };
 
       if (editing) {
-        await supabase.from("experiencias").update(payload).eq("id", editing.id);
+        const { error } = await supabase.from("experiencias").update(payload).eq("id", editing.id);
+        if (error) throw error;
       } else {
-        await supabase.from("experiencias").insert(payload);
+        const { error } = await supabase.from("experiencias").insert(payload);
+        if (error) throw error;
       }
 
       await queryClient.invalidateQueries({ queryKey: ["experiencias"] });
+      await queryClient.invalidateQueries({ queryKey: ["experiencia"] });
       setDialogOpen(false);
+    } catch (err) {
+      console.error("Erro ao salvar experiência:", err);
+      alert("Erro ao salvar experiência. Verifique o console para detalhes.");
     } finally {
       setSaving(false);
     }
@@ -130,7 +136,12 @@ export default function ExperienceAdmin() {
 
   async function handleDelete(id: string) {
     if (!confirm("Tem certeza que deseja excluir esta experiência?")) return;
-    await supabase.from("experiencias").delete().eq("id", id);
+    const { error } = await supabase.from("experiencias").delete().eq("id", id);
+    if (error) {
+      console.error("Erro ao excluir:", error);
+      alert("Erro ao excluir experiência.");
+      return;
+    }
     await queryClient.invalidateQueries({ queryKey: ["experiencias"] });
   }
 

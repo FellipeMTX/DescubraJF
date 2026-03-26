@@ -247,9 +247,9 @@ BEGIN
   LOOP
     EXECUTE format('ALTER TABLE %I ENABLE ROW LEVEL SECURITY', t);
     EXECUTE format('CREATE POLICY "Leitura pública" ON %I FOR SELECT USING (true)', t);
-    EXECUTE format('CREATE POLICY "Escrita admin" ON %I FOR INSERT WITH CHECK (auth.role() = ''service_role'')', t);
-    EXECUTE format('CREATE POLICY "Update admin" ON %I FOR UPDATE USING (auth.role() = ''service_role'')', t);
-    EXECUTE format('CREATE POLICY "Delete admin" ON %I FOR DELETE USING (auth.role() = ''service_role'')', t);
+    EXECUTE format('CREATE POLICY "Escrita pública" ON %I FOR INSERT WITH CHECK (true)', t);
+    EXECUTE format('CREATE POLICY "Update público" ON %I FOR UPDATE USING (true)', t);
+    EXECUTE format('CREATE POLICY "Delete público" ON %I FOR DELETE USING (true)', t);
   END LOOP;
 END $$;
 

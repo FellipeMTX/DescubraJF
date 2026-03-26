@@ -93,14 +93,19 @@ export default function BannerAdmin() {
       };
 
       if (editing) {
-        await supabase.from("banners").update(payload).eq("id", editing.id);
+        const { error } = await supabase.from("banners").update(payload).eq("id", editing.id);
+        if (error) throw error;
       } else {
-        await supabase.from("banners").insert(payload);
+        const { error } = await supabase.from("banners").insert(payload);
+        if (error) throw error;
       }
 
       await queryClient.invalidateQueries({ queryKey: ["admin", "banners"] });
       await queryClient.invalidateQueries({ queryKey: ["banners"] });
       setDialogOpen(false);
+    } catch (err) {
+      console.error("Erro ao salvar banner:", err);
+      alert("Erro ao salvar banner. Verifique o console para detalhes.");
     } finally {
       setSaving(false);
     }
@@ -108,7 +113,12 @@ export default function BannerAdmin() {
 
   async function handleDelete(id: string) {
     if (!confirm("Tem certeza que deseja excluir este banner?")) return;
-    await supabase.from("banners").delete().eq("id", id);
+    const { error } = await supabase.from("banners").delete().eq("id", id);
+    if (error) {
+      console.error("Erro ao excluir banner:", error);
+      alert("Erro ao excluir banner.");
+      return;
+    }
     await queryClient.invalidateQueries({ queryKey: ["admin", "banners"] });
     await queryClient.invalidateQueries({ queryKey: ["banners"] });
   }

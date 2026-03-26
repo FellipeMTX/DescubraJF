@@ -23,7 +23,12 @@ export default function MessagesAdmin() {
   });
 
   async function markAsRead(id: string) {
-    await supabase.from("contato_mensagens").update({ lida: true }).eq("id", id);
+    const { error } = await supabase.from("contato_mensagens").update({ lida: true }).eq("id", id);
+    if (error) {
+      console.error("Erro ao marcar como lida:", error);
+      alert("Erro ao atualizar mensagem.");
+      return;
+    }
     await queryClient.invalidateQueries({ queryKey: ["admin", "mensagens"] });
   }
 
