@@ -219,22 +219,11 @@ CREATE TABLE IF NOT EXISTS banners (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
--- 12. Mensagens de Contato
-CREATE TABLE IF NOT EXISTS contato_mensagens (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  nome TEXT NOT NULL,
-  email TEXT NOT NULL,
-  assunto TEXT,
-  mensagem TEXT NOT NULL,
-  lida BOOLEAN DEFAULT false,
-  created_at TIMESTAMPTZ DEFAULT now()
-);
-
 -- ===========================================
 -- ROW LEVEL SECURITY (RLS)
 -- ===========================================
 
--- Tabelas com leitura pública (apenas ativos) e escrita admin
+-- Tabelas com leitura pública e escrita aberta (protegido por Clerk no frontend)
 DO $$
 DECLARE
   t TEXT;
@@ -252,15 +241,6 @@ BEGIN
     EXECUTE format('CREATE POLICY "Delete público" ON %I FOR DELETE USING (true)', t);
   END LOOP;
 END $$;
-
--- Contato: INSERT público, leitura somente admin
-ALTER TABLE contato_mensagens ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Envio público" ON contato_mensagens
-  FOR INSERT WITH CHECK (true);
-
-CREATE POLICY "Leitura admin" ON contato_mensagens
-  FOR SELECT USING (auth.role() = 'service_role');
 
 -- ===========================================
 -- DADOS DE SEED (experiências de exemplo)

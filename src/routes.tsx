@@ -38,10 +38,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Admin
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
-const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const ExperienceAdmin = lazy(() => import("./pages/admin/ExperienceAdmin"));
 const BannerAdmin = lazy(() => import("./pages/admin/BannerAdmin"));
-const MessagesAdmin = lazy(() => import("./pages/admin/MessagesAdmin"));
 
 export const router = createBrowserRouter([
   {
@@ -72,10 +70,8 @@ export const router = createBrowserRouter([
     path: "admin",
     element: <Lazy><AdminLayout /></Lazy>,
     children: [
-      { index: true, element: <Lazy><Dashboard /></Lazy> },
-      { path: "experiencias", element: <Lazy><ExperienceAdmin /></Lazy> },
+      { index: true, element: <Lazy><ExperienceAdmin /></Lazy> },
       { path: "banners", element: <Lazy><BannerAdmin /></Lazy> },
-      { path: "mensagens", element: <Lazy><MessagesAdmin /></Lazy> },
     ],
   },
 ]);

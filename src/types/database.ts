@@ -198,12 +198,3 @@ export type Banner = {
   created_at: string;
 };
 
-export type ContatoMensagem = {
-  id: string;
-  nome: string;
-  email: string;
-  assunto: string | null;
-  mensagem: string;
-  lida: boolean;
-  created_at: string;
-};

@@ -6,18 +6,15 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 import {
-  LayoutDashboard, MapPin, CalendarDays, Image,
-  MessageSquare, ChevronLeft
+  MapPin, CalendarDays, Image, ChevronLeft
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SITE_NAME } from "@/lib/constants";
 
 const NAV_LINKS = [
-  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Experiências", href: "/admin/experiencias", icon: MapPin },
+  { label: "Experiências", href: "/admin", icon: MapPin },
   { label: "Banners", href: "/admin/banners", icon: Image },
   { label: "Eventos", href: "/admin/eventos", icon: CalendarDays },
-  { label: "Mensagens", href: "/admin/mensagens", icon: MessageSquare },
 ];
 
 export default function AdminLayout() {
