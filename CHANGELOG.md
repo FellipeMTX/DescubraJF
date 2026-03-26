@@ -5,6 +5,54 @@
 
 ---
 
+## [2026-03-25] Fase 1.3 - Home Page completa com dados reais
+
+### O que foi feito
+- Criado script SQL completo para setup do banco (`supabase/setup.sql`) com:
+  - 12 tabelas com todas as colunas, foreign keys e constraints
+  - Row Level Security (RLS) em todas as tabelas
+  - Seed de 9 categorias de experiência e 10 de gastronomia
+  - Seed de 6 experiências reais de JF (Museu Mariano Procópio, Parque da Lajinha, Cine-Theatro Central, Morro do Imperador, Catedral Metropolitana, Parque Halfeld)
+  - Seed de 3 banners e 5 eventos de exemplo
+  - 5 páginas de conteúdo pré-cadastradas (História, Informações, Como Chegar, Imprensa, Setur)
+- Criados hooks de dados com React Query:
+  - `useBanners` - busca banners ativos ordenados
+  - `useExperiences` - lista com filtro por categoria
+  - `useFeaturedExperiences` - experiências em destaque para a Home
+  - `useExperienceBySlug` - detalhe de uma experiência
+  - `useExperienceCategories` - lista de categorias
+  - `useUpcomingEvents` - próximos eventos (com limit)
+  - `useEvents` - todos os eventos
+  - `useEventBySlug` - detalhe de um evento
+- Implementados componentes de seção da Home:
+  - `HeroBanner` - Banner rotativo com Swiper (autoplay 5s, indicadores, loop)
+  - `HomeHighlights` - 2 botões de destaque (Atrativos Turísticos + Caminhando pela História)
+  - `HomeExperiences` - Carrossel horizontal de experiências em destaque com badges de categoria
+  - `HomeEvents` - Seção "Acontece em JF" com cards de eventos, badges de gratuidade e data
+- Montada Home.tsx compondo todas as seções
+- Adicionada declaração de tipos para CSS do Swiper (`swiper.d.ts`)
+
+### Por que foi feito
+A Home é o "cartão de visitas" do portal. Precisa estar atrativa e funcional para o MVP ir ao ar. Ter dados reais do seed permite validar o fluxo completo (banco → hook → componente → tela).
+
+### Decisões técnicas
+
+| Decisão | Escolha | Motivo |
+|---|---|---|
+| RLS com loop PL/pgSQL | Automatizado para todas as tabelas | Evita repetir 11 blocos de CREATE POLICY manualmente, menos erro humano |
+| `buttonVariants` em vez de `asChild` | Link com classes do Button | shadcn v4 usa @base-ui/react que não suporta `asChild` como v3 |
+| Swiper CSS types | `swiper.d.ts` manual | Swiper não exporta tipos para seus CSS modules, declaração manual resolve o build |
+| Fallback no banner | Fundo azul sólido quando imagem é path local | Banners de seed usam paths placeholder, fallback garante visual aceitável sem fotos reais |
+| Seed com dados reais de JF | Nomes, coordenadas e descrições verdadeiras | Validação mais realista, conteúdo aproveitável no lançamento |
+
+### Próximos passos
+- Implementar página de Experiências (lista com filtros + detalhe)
+- Refinar Header/Footer usando componentes shadcn (Sheet, DropdownMenu)
+- Upload de fotos reais para substituir placeholders
+- Painel admin básico com Clerk
+
+---
+
 ## [2026-03-25] Fase 1.1 - Setup inicial do projeto
 
 ### O que foi feito
