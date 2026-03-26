@@ -18,15 +18,12 @@ function Lazy({ children }: { children: ReactNode }) {
 
 const Home = lazy(() => import("./pages/Home"));
 const ExperienceList = lazy(() => import("./pages/experiences/ExperienceList"));
-const ExperienceDetail = lazy(() => import("./pages/experiences/ExperienceDetail"));
 const RouteList = lazy(() => import("./pages/routes/RouteList"));
 const RouteDetail = lazy(() => import("./pages/routes/RouteDetail"));
 const EventList = lazy(() => import("./pages/events/EventList"));
 const EventDetail = lazy(() => import("./pages/events/EventDetail"));
 const DiningList = lazy(() => import("./pages/dining/DiningList"));
-const DiningDetail = lazy(() => import("./pages/dining/DiningDetail"));
 const LodgingList = lazy(() => import("./pages/lodging/LodgingList"));
-const LodgingDetail = lazy(() => import("./pages/lodging/LodgingDetail"));
 const History = lazy(() => import("./pages/city/History"));
 const TouristInfo = lazy(() => import("./pages/city/TouristInfo"));
 const HowToGetHere = lazy(() => import("./pages/city/HowToGetHere"));
@@ -47,15 +44,12 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Lazy><Home /></Lazy> },
       { path: "experiencias", element: <Lazy><ExperienceList /></Lazy> },
-      { path: "experiencias/:slug", element: <Lazy><ExperienceDetail /></Lazy> },
       { path: "roteiros", element: <Lazy><RouteList /></Lazy> },
       { path: "roteiros/:slug", element: <Lazy><RouteDetail /></Lazy> },
       { path: "agenda", element: <Lazy><EventList /></Lazy> },
       { path: "agenda/:slug", element: <Lazy><EventDetail /></Lazy> },
       { path: "onde-comer", element: <Lazy><DiningList /></Lazy> },
-      { path: "onde-comer/:slug", element: <Lazy><DiningDetail /></Lazy> },
       { path: "onde-ficar", element: <Lazy><LodgingList /></Lazy> },
-      { path: "onde-ficar/:slug", element: <Lazy><LodgingDetail /></Lazy> },
       { path: "juiz-de-fora/historia", element: <Lazy><History /></Lazy> },
       { path: "juiz-de-fora/informacoes", element: <Lazy><TouristInfo /></Lazy> },
       { path: "juiz-de-fora/como-chegar", element: <Lazy><HowToGetHere /></Lazy> },

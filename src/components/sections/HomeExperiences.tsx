@@ -130,7 +130,7 @@ export function HomeExperiences() {
 
 function ExperienceSlide({ exp }: { exp: { id: string; slug: string; nome: string; descricao_curta: string | null; imagem_destaque: string | null; categoria?: { nome: string; cor: string | null } | null } }) {
   return (
-    <Link to={`/experiencias/${exp.slug}`} className="group block">
+    <Link to="/experiencias" className="group block">
       <div className="relative h-80 overflow-hidden rounded-2xl bg-primary-800">
         {exp.imagem_destaque ? (
           <img
