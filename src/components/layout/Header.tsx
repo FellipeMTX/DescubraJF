@@ -12,11 +12,11 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 bg-primary-700 shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link to="/" className="text-xl font-bold text-primary-700">
-          {SITE_NAME}
+        <Link to="/" className="flex items-center">
+          <img src="/descubraLogo.png" alt={SITE_NAME} className="h-19 w-35" />
         </Link>
 
         {/* Desktop Nav */}
@@ -28,7 +28,7 @@ export function Header() {
               <Link
                 key={item.label}
                 to={item.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
+                className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 {item.label}
               </Link>
@@ -40,14 +40,14 @@ export function Header() {
         <div className="flex items-center gap-2">
           <button
             aria-label="Buscar"
-            className="rounded-md p-2 text-gray-500 hover:bg-gray-100"
+            className="rounded-md p-2 text-white/80 hover:bg-white/10 hover:text-white"
           >
             <Search size={20} />
           </button>
 
           {/* Language selector placeholder */}
-          <div className="hidden items-center gap-1 text-xs font-medium text-gray-400 sm:flex">
-            <span className="rounded bg-primary-600 px-1.5 py-0.5 text-white">
+          <div className="hidden items-center gap-1 text-xs font-medium text-white/50 sm:flex">
+            <span className="rounded bg-white/20 px-1.5 py-0.5 text-white">
               PT
             </span>
             <span className="cursor-not-allowed px-1.5 py-0.5">EN</span>
@@ -57,7 +57,7 @@ export function Header() {
           {/* Mobile hamburger */}
           <button
             aria-label="Menu"
-            className="rounded-md p-2 text-gray-500 hover:bg-gray-100 lg:hidden"
+            className="rounded-md p-2 text-white/80 hover:bg-white/10 hover:text-white lg:hidden"
             onClick={() => setMobileOpen(true)}
           >
             <Menu size={24} />
@@ -83,7 +83,7 @@ function NavDropdown({
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700">
+      <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white">
         {item.label}
         <ChevronDown size={14} />
       </button>
