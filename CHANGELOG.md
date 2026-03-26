@@ -5,6 +5,48 @@
 
 ---
 
+## [2026-03-25] Fase 1.4 - Página de Experiências (lista + detalhe)
+
+### O que foi feito
+- Criado `CategoryFilter` - filtro de categorias com ícones Lucide mapeados por nome
+- Criado `ExperienceCard` - card reutilizável com imagem, badges de categoria/gratuito, hover effect
+- Criado `MapView` - componente Leaflet reutilizável (aceita center, zoom, markers)
+- Implementada `ExperienceList` - página `/experiencias` com:
+  - Filtro por categorias dinâmico (dados do Supabase)
+  - Grid responsivo 1/2/3/4 colunas
+  - Skeleton loading durante carregamento
+  - Mensagem quando nenhuma experiência encontrada
+- Implementada `ExperienceDetail` - página `/experiencias/:slug` com:
+  - Breadcrumb de navegação
+  - Imagem principal + galeria
+  - Badges: Gratuito, Acessível, Pet Friendly
+  - Descrição completa
+  - Horário de funcionamento
+  - Endereço com bairro
+  - Contato (telefone, email, site, Instagram)
+  - Mapa Leaflet com pin da localização
+  - Botões Google Maps, Waze e Compartilhar
+  - Tela de erro/404 quando experiência não encontrada
+
+### Por que foi feito
+A página de experiências é o core do portal — é onde o visitante descobre os atrativos turísticos. O filtro por categoria permite navegação rápida. A página de detalhe reúne todas as informações que um turista precisa em um só lugar.
+
+### Decisões técnicas
+
+| Decisão | Escolha | Motivo |
+|---|---|---|
+| Fix ícones do Leaflet | Import manual dos PNGs + `mergeOptions` | Bug conhecido do React-Leaflet: ícones default quebram com bundlers |
+| ICON_MAP no CategoryFilter | Mapeamento string→componente | Permite que o nome do ícone salvo no banco (`"trees"`) seja convertido para o componente Lucide correspondente |
+| `line-clamp-2` na descrição curta | Truncar em 2 linhas | Mantém cards com altura uniforme no grid |
+| `scrollWheelZoom={false}` no mapa | Desabilitar zoom com scroll | Evita scroll acidental quando o usuário está rolando a página |
+
+### Próximos passos
+- Painel Admin com Clerk (CRUD de experiências + upload de fotos)
+- Página de Agenda/Eventos
+- Página de Roteiros
+
+---
+
 ## [2026-03-25] Fase 1.3 - Home Page completa com dados reais
 
 ### O que foi feito
