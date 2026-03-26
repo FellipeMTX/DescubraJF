@@ -62,7 +62,7 @@ export default function ExperienceDetail() {
         {exp.categoria && (
           <Badge
             className="mb-2 text-white"
-            style={{ backgroundColor: exp.categoria.cor ?? "#3b82f6" }}
+            style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}
           >
             {exp.categoria.nome}
           </Badge>

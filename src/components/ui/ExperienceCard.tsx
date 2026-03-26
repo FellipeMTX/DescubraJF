@@ -33,7 +33,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
         {experience.categoria && (
           <Badge
             className="absolute left-3 top-3 text-white"
-            style={{ backgroundColor: experience.categoria.cor ?? "#3b82f6" }}
+            style={{ backgroundColor: experience.categoria.cor ?? "#7b9669" }}
           >
             {experience.categoria.nome}
           </Badge>
