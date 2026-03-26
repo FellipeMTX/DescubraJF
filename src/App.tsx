@@ -1,7 +1,10 @@
 import { RouterProvider } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
+import { ClerkProvider } from "@clerk/clerk-react";
 import { router } from "./routes";
+
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string;
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,10 +17,12 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </HelmetProvider>
+    <ClerkProvider publishableKey={clerkPubKey}>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </HelmetProvider>
+    </ClerkProvider>
   );
 }
