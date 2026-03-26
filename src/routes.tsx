@@ -37,6 +37,9 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const ExperienceAdmin = lazy(() => import("./pages/admin/ExperienceAdmin"));
 const BannerAdmin = lazy(() => import("./pages/admin/BannerAdmin"));
+const DiningAdmin = lazy(() => import("./pages/admin/DiningAdmin"));
+const LodgingAdmin = lazy(() => import("./pages/admin/LodgingAdmin"));
+const EventAdmin = lazy(() => import("./pages/admin/EventAdmin"));
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +68,9 @@ export const router = createBrowserRouter([
     element: <Lazy><AdminLayout /></Lazy>,
     children: [
       { index: true, element: <Lazy><ExperienceAdmin /></Lazy> },
+      { path: "gastronomia", element: <Lazy><DiningAdmin /></Lazy> },
+      { path: "hospedagens", element: <Lazy><LodgingAdmin /></Lazy> },
+      { path: "eventos", element: <Lazy><EventAdmin /></Lazy> },
       { path: "banners", element: <Lazy><BannerAdmin /></Lazy> },
     ],
   },

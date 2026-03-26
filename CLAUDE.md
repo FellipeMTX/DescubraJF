@@ -15,6 +15,9 @@ Portal turístico oficial de Juiz de Fora (MG). Frontend React + Vite + TypeScri
 7. **Imports**: Usar alias `@/` para imports (ex: `import { cn } from "@/lib/utils"`).
 8. **Imagens placeholder**: Quando não houver imagens reais, usar cores sólidas ou divs com texto descritivo.
 9. **Testes**: Não crie testes a menos que o humano peça.
+10. **Componentização obrigatória**: Antes de criar código novo, verifique se já existe um componente reutilizável. Se duas ou mais páginas/seções compartilham padrões visuais ou lógicos semelhantes (layout, cards, filtros, modais, listas), **extraia para um componente compartilhado**. Código duplicado é inaceitável — prefira sempre um componente genérico com props a copiar/colar entre arquivos.
+11. **Limpeza contínua**: Após refatorações ou mudanças estruturais, **sempre faça uma revisão de código morto** — arquivos não importados, componentes não usados, rotas removidas mas arquivos mantidos, links apontando para rotas que não existem mais. Código morto deve ser deletado imediatamente, nunca mantido "para referência".
+12. **Código enxuto**: Menos código é melhor código. Se uma abstração reduz duplicação sem adicionar complexidade desnecessária, faça. Se três linhas resolvem, não escreva dez. Priorize legibilidade e reaproveitamento.
 
 ## Regras de Commit e Documentação
 
