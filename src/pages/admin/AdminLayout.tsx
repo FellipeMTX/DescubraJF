@@ -50,8 +50,8 @@ function AdminSidebar() {
     <aside className="flex w-64 flex-col border-r bg-white">
       {/* Header */}
       <div className="border-b p-4">
-        <h2 className="text-sm font-bold text-gray-900">{SITE_NAME}</h2>
-        <p className="text-xs text-gray-500">Painel Admin</p>
+        <img src="/descubraLogo.png" alt={SITE_NAME} className="h-8" />
+        <p className="mt-1 text-xs text-gray-500">Painel Admin</p>
       </div>
 
       {/* Nav */}
