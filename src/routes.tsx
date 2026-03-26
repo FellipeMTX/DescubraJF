@@ -36,6 +36,11 @@ const MapsAndGuides = lazy(() => import("./pages/MapsAndGuides"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+// Admin
+const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
+const ExperienceAdmin = lazy(() => import("./pages/admin/ExperienceAdmin"));
+const BannerAdmin = lazy(() => import("./pages/admin/BannerAdmin"));
+
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -59,6 +64,14 @@ export const router = createBrowserRouter([
       { path: "mapas-e-guias", element: <Lazy><MapsAndGuides /></Lazy> },
       { path: "contato", element: <Lazy><Contact /></Lazy> },
       { path: "*", element: <Lazy><NotFound /></Lazy> },
+    ],
+  },
+  {
+    path: "admin",
+    element: <Lazy><AdminLayout /></Lazy>,
+    children: [
+      { index: true, element: <Lazy><ExperienceAdmin /></Lazy> },
+      { path: "banners", element: <Lazy><BannerAdmin /></Lazy> },
     ],
   },
 ]);

@@ -5,6 +5,90 @@
 
 ---
 
+## [2026-03-25] Fase 1.5 - Painel Administrativo
+
+### O que foi feito
+- Configurado Clerk como provider de autenticação no App.tsx
+- Criado `AdminLayout` com sidebar, navegação e proteção por login (SignedIn/SignedOut)
+- Criado `Dashboard` com contadores de experiências, eventos, banners e mensagens
+- Criado CRUD completo de Experiências (`ExperienceAdmin`):
+  - Tabela com imagem, nome, categoria, badges de status
+  - Dialog para criar/editar com todos os campos
+  - Upload de foto principal para Supabase Storage
+  - Exclusão com confirmação
+- Criado CRUD completo de Banners (`BannerAdmin`):
+  - Lista visual com preview de imagem, título e link
+  - Dialog para criar/editar com upload de imagem
+  - Campo de ordem para controlar sequência
+- Criado visualizador de Mensagens (`MessagesAdmin`):
+  - Lista de mensagens do formulário de contato
+  - Indicador visual de não lida / lida
+  - Botão "Marcar como lida"
+- Criado `storage.ts` com funções `uploadImage` e `deleteImage` para Supabase Storage
+- Adicionadas rotas admin no routes.tsx (/admin, /admin/experiencias, /admin/banners, /admin/mensagens)
+
+### Por que foi feito
+O painel admin permite que a equipe da Setur gerencie todo o conteúdo do portal sem precisar acessar o Supabase diretamente ou escrever SQL. Com isso, o MVP está completo — site público + gerenciamento.
+
+### Decisões técnicas
+
+| Decisão | Escolha | Motivo |
+|---|---|---|
+| Clerk SignedIn/SignedOut | Ao invés de middleware ou route guard | Mais simples, renderização condicional direta, sem server-side |
+| Dialog para formulários | Ao invés de páginas separadas /admin/experiencias/nova | Menos rotas, fluxo mais rápido para o admin |
+| Upload client-side | Direto do browser para Supabase Storage | Sem necessidade de backend intermediário, mais simples |
+| `slugify` automático | Gerado a partir do nome | Admin não precisa se preocupar com URLs amigáveis |
+| Sem `asChild` nos triggers | DialogTrigger com className direto | shadcn v4 (base-ui) não suporta asChild como v3 (radix) |
+
+### Próximos passos
+- Criar bucket "images" no Supabase Storage (público)
+- Criar conta de admin no Clerk e testar fluxo de login
+- Fase 2: Agenda de Eventos + Roteiros
+
+---
+
+## [2026-03-25] Fase 1.4 - Página de Experiências (lista + detalhe)
+
+### O que foi feito
+- Criado `CategoryFilter` - filtro de categorias com ícones Lucide mapeados por nome
+- Criado `ExperienceCard` - card reutilizável com imagem, badges de categoria/gratuito, hover effect
+- Criado `MapView` - componente Leaflet reutilizável (aceita center, zoom, markers)
+- Implementada `ExperienceList` - página `/experiencias` com:
+  - Filtro por categorias dinâmico (dados do Supabase)
+  - Grid responsivo 1/2/3/4 colunas
+  - Skeleton loading durante carregamento
+  - Mensagem quando nenhuma experiência encontrada
+- Implementada `ExperienceDetail` - página `/experiencias/:slug` com:
+  - Breadcrumb de navegação
+  - Imagem principal + galeria
+  - Badges: Gratuito, Acessível, Pet Friendly
+  - Descrição completa
+  - Horário de funcionamento
+  - Endereço com bairro
+  - Contato (telefone, email, site, Instagram)
+  - Mapa Leaflet com pin da localização
+  - Botões Google Maps, Waze e Compartilhar
+  - Tela de erro/404 quando experiência não encontrada
+
+### Por que foi feito
+A página de experiências é o core do portal — é onde o visitante descobre os atrativos turísticos. O filtro por categoria permite navegação rápida. A página de detalhe reúne todas as informações que um turista precisa em um só lugar.
+
+### Decisões técnicas
+
+| Decisão | Escolha | Motivo |
+|---|---|---|
+| Fix ícones do Leaflet | Import manual dos PNGs + `mergeOptions` | Bug conhecido do React-Leaflet: ícones default quebram com bundlers |
+| ICON_MAP no CategoryFilter | Mapeamento string→componente | Permite que o nome do ícone salvo no banco (`"trees"`) seja convertido para o componente Lucide correspondente |
+| `line-clamp-2` na descrição curta | Truncar em 2 linhas | Mantém cards com altura uniforme no grid |
+| `scrollWheelZoom={false}` no mapa | Desabilitar zoom com scroll | Evita scroll acidental quando o usuário está rolando a página |
+
+### Próximos passos
+- Painel Admin com Clerk (CRUD de experiências + upload de fotos)
+- Página de Agenda/Eventos
+- Página de Roteiros
+
+---
+
 ## [2026-03-25] Fase 1.3 - Home Page completa com dados reais
 
 ### O que foi feito
