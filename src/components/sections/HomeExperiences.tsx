@@ -101,13 +101,13 @@ export function HomeExperiences() {
                   style={{ transitionDelay: `${300 + (experiences?.length ?? 0) * 100}ms` }}
                 >
                   <Link
-                    to="/experiencias"
+                    to="/atrativos"
                     className="flex h-80 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-primary-400/40 text-primary-200 transition-all hover:border-primary-400/70 hover:bg-primary-400/10"
                   >
                     <ArrowRight size={36} className="mb-3" />
                     <span className="text-xl font-bold text-accent-50">Tudo e muito mais!</span>
                     <span className="mt-1 text-sm text-primary-300">
-                      Ver todas as experiências
+                      Ver todos os atrativos
                     </span>
                   </Link>
                 </div>
@@ -130,7 +130,7 @@ export function HomeExperiences() {
 
 function ExperienceSlide({ exp }: { exp: { id: string; slug: string; nome: string; descricao_curta: string | null; imagem_destaque: string | null; categoria?: { nome: string; cor: string | null } | null } }) {
   return (
-    <Link to="/experiencias" className="group block">
+    <Link to="/atrativos" className="group block">
       <div className="relative h-80 overflow-hidden rounded-2xl bg-primary-800">
         {exp.imagem_destaque ? (
           <img

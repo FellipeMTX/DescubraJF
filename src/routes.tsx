@@ -29,7 +29,6 @@ const TouristInfo = lazy(() => import("./pages/city/TouristInfo"));
 const HowToGetHere = lazy(() => import("./pages/city/HowToGetHere"));
 const Press = lazy(() => import("./pages/city/Press"));
 const AboutSetur = lazy(() => import("./pages/city/AboutSetur"));
-const MapsAndGuides = lazy(() => import("./pages/MapsAndGuides"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -46,7 +45,7 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Lazy><Home /></Lazy> },
-      { path: "experiencias", element: <Lazy><ExperienceList /></Lazy> },
+      { path: "atrativos", element: <Lazy><ExperienceList /></Lazy> },
       { path: "roteiros", element: <Lazy><RouteList /></Lazy> },
       { path: "roteiros/:slug", element: <Lazy><RouteDetail /></Lazy> },
       { path: "agenda", element: <Lazy><EventList /></Lazy> },
@@ -58,7 +57,6 @@ export const router = createBrowserRouter([
       { path: "juiz-de-fora/como-chegar", element: <Lazy><HowToGetHere /></Lazy> },
       { path: "juiz-de-fora/imprensa", element: <Lazy><Press /></Lazy> },
       { path: "juiz-de-fora/setur", element: <Lazy><AboutSetur /></Lazy> },
-      { path: "mapas-e-guias", element: <Lazy><MapsAndGuides /></Lazy> },
       { path: "contato", element: <Lazy><Contact /></Lazy> },
       { path: "*", element: <Lazy><NotFound /></Lazy> },
     ],

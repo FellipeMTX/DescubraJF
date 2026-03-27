@@ -29,7 +29,7 @@ export default function ExperienceList() {
   return (
     <div className="min-h-screen bg-primary-50 pt-20">
       <div className="mx-auto max-w-7xl px-4 py-8">
-        <h1 className="text-3xl font-bold text-primary-800">Experiências</h1>
+        <h1 className="text-3xl font-bold text-primary-800">Atrativos</h1>
         <p className="mt-2 text-accent-500">Explore o melhor de Juiz de Fora</p>
 
         <div className="mt-6">
@@ -46,7 +46,7 @@ export default function ExperienceList() {
 
         <MapSection items={mapItems} activeId={hoveredId} isLoading={loadingExps} />
 
-        <CardsGrid isLoading={loadingExps} isEmpty={!experiences?.length} emptyMessage="Nenhuma experiência encontrada nesta categoria.">
+        <CardsGrid isLoading={loadingExps} isEmpty={!experiences?.length} emptyMessage="Nenhum atrativo encontrado nesta categoria.">
           {experiences?.map((exp) => (
             <ItemCard
               key={exp.id}
@@ -87,7 +87,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
   const { data: exp, isLoading } = useExperienceBySlug(slug);
 
   if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (!exp) return <p className="text-accent-500">Experiência não encontrada.</p>;
+  if (!exp) return <p className="text-accent-500">Atrativo não encontrado.</p>;
 
   const hasContact = exp.contato && Object.values(exp.contato).some(Boolean);
   const hasSchedule = exp.horario_funcionamento && Object.keys(exp.horario_funcionamento).length > 0;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import { Search, Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { NAV_ITEMS, SITE_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
@@ -65,33 +65,14 @@ export function Header() {
           )}
         </nav>
 
-        {/* Right side */}
-        <div className="flex items-center gap-2">
-          <button
-            aria-label="Buscar"
-            className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-          >
-            <Search size={20} />
-          </button>
-
-          {/* Language selector */}
-          <div className="hidden items-center gap-1 text-xs font-medium sm:flex">
-            <span className="rounded-full bg-white/20 px-2 py-0.5 text-white">
-              PT
-            </span>
-            <span className="cursor-not-allowed px-2 py-0.5 text-white/40">EN</span>
-            <span className="cursor-not-allowed px-2 py-0.5 text-white/40">ES</span>
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            aria-label="Menu"
-            className="rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white lg:hidden"
-            onClick={() => setMobileOpen(true)}
-          >
-            <Menu size={24} />
-          </button>
-        </div>
+        {/* Mobile hamburger */}
+        <button
+          aria-label="Menu"
+          className="rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white lg:hidden"
+          onClick={() => setMobileOpen(true)}
+        >
+          <Menu size={24} />
+        </button>
       </div>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />

@@ -10,13 +10,12 @@ export function Footer() {
     <footer className="bg-primary-900 text-primary-200">
       {/* Top: logos */}
       <div className="mx-auto max-w-7xl px-4 pt-16">
-        <div className="flex flex-wrap items-center justify-center gap-8 border-b border-primary-700 pb-12">
-          <div className="flex h-14 items-center rounded-lg bg-primary-800 px-6 text-sm text-primary-300">
-            Logo Prefeitura
-          </div>
-          <div className="flex h-14 items-center rounded-lg bg-primary-800 px-6 text-sm text-primary-300">
-            Logo Setur
-          </div>
+        <div className="flex items-center justify-center border-b border-primary-700 pb-12">
+          <img
+            src="/LogoSeturColor.png"
+            alt="Secretaria de Turismo - Prefeitura de Juiz de Fora"
+            className="h-18 object-contain"
+          />
         </div>
       </div>
 

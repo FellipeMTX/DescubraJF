@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 import { MapPin, UtensilsCrossed, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Car, Share2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,8 @@ const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
 const PRICE_DOTS = ["", "$", "$$", "$$$"];
 
 export default function DiningList() {
-  const [selected, setSelected] = useState("todos");
+  const [searchParams] = useSearchParams();
+  const [selected, setSelected] = useState(searchParams.get("categoria") ?? "todos");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
