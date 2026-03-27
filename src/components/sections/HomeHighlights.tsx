@@ -12,7 +12,7 @@ export function HomeHighlights() {
       <div className="grid gap-6 md:grid-cols-2">
         <Link
           ref={leftRef}
-          to="/mapas-e-guias"
+          to="/atrativos"
           className={cn(
             "group relative overflow-hidden rounded-2xl bg-primary-700 p-8 text-accent-100 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-2xl",
             leftVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"

@@ -128,19 +128,19 @@ export default function ExperienceAdmin() {
       await queryClient.invalidateQueries({ queryKey: ["experiencia"] });
       setDialogOpen(false);
     } catch (err) {
-      console.error("Erro ao salvar experiência:", err);
-      alert("Erro ao salvar experiência. Verifique o console para detalhes.");
+      console.error("Erro ao salvar atrativo:", err);
+      alert("Erro ao salvar atrativo. Verifique o console para detalhes.");
     } finally {
       setSaving(false);
     }
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Tem certeza que deseja excluir esta experiência?")) return;
+    if (!confirm("Tem certeza que deseja excluir este atrativo?")) return;
     const { error } = await supabase.from("experiencias").delete().eq("id", id);
     if (error) {
       console.error("Erro ao excluir:", error);
-      alert("Erro ao excluir experiência.");
+      alert("Erro ao excluir atrativo.");
       return;
     }
     await queryClient.invalidateQueries({ queryKey: ["experiencias"] });
@@ -154,7 +154,7 @@ export default function ExperienceAdmin() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Experiências</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Atrativos</h1>
           <p className="text-sm text-gray-500">
             Gerencie os atrativos turísticos
           </p>
@@ -164,12 +164,12 @@ export default function ExperienceAdmin() {
             onClick={openCreate}
             className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80"
           >
-            <Plus size={16} /> Nova Experiência
+            <Plus size={16} /> Novo Atrativo
           </DialogTrigger>
           <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
-                {editing ? "Editar Experiência" : "Nova Experiência"}
+                {editing ? "Editar Atrativo" : "Novo Atrativo"}
               </DialogTitle>
             </DialogHeader>
             <ExperienceForm
@@ -304,7 +304,7 @@ function ExperienceForm({
           value={form.descricao}
           onChange={(e) => onUpdate("descricao", e.target.value)}
           rows={4}
-          placeholder="Descrição detalhada da experiência"
+          placeholder="Descrição detalhada do atrativo"
         />
       </div>
 

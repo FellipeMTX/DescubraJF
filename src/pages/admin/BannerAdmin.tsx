@@ -167,7 +167,7 @@ export default function BannerAdmin() {
                 <Input
                   value={form.link}
                   onChange={(e) => setForm({ ...form, link: e.target.value })}
-                  placeholder="/experiencias/museu-mariano-procopio"
+                  placeholder="/atrativos"
                 />
               </div>
               <div>
