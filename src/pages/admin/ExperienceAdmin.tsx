@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { AddressSearch } from "@/components/ui/AddressSearch";
 import { useExperiences, useExperienceCategories } from "@/hooks/useExperiences";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
@@ -127,19 +128,19 @@ export default function ExperienceAdmin() {
       await queryClient.invalidateQueries({ queryKey: ["experiencia"] });
       setDialogOpen(false);
     } catch (err) {
-      console.error("Erro ao salvar experiência:", err);
-      alert("Erro ao salvar experiência. Verifique o console para detalhes.");
+      console.error("Erro ao salvar atrativo:", err);
+      alert("Erro ao salvar atrativo. Verifique o console para detalhes.");
     } finally {
       setSaving(false);
     }
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Tem certeza que deseja excluir esta experiência?")) return;
+    if (!confirm("Tem certeza que deseja excluir este atrativo?")) return;
     const { error } = await supabase.from("experiencias").delete().eq("id", id);
     if (error) {
       console.error("Erro ao excluir:", error);
-      alert("Erro ao excluir experiência.");
+      alert("Erro ao excluir atrativo.");
       return;
     }
     await queryClient.invalidateQueries({ queryKey: ["experiencias"] });
@@ -153,7 +154,7 @@ export default function ExperienceAdmin() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Experiências</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Atrativos</h1>
           <p className="text-sm text-gray-500">
             Gerencie os atrativos turísticos
           </p>
@@ -163,12 +164,12 @@ export default function ExperienceAdmin() {
             onClick={openCreate}
             className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80"
           >
-            <Plus size={16} /> Nova Experiência
+            <Plus size={16} /> Novo Atrativo
           </DialogTrigger>
           <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
-                {editing ? "Editar Experiência" : "Nova Experiência"}
+                {editing ? "Editar Atrativo" : "Novo Atrativo"}
               </DialogTitle>
             </DialogHeader>
             <ExperienceForm
@@ -229,7 +230,7 @@ export default function ExperienceAdmin() {
                       {exp.categoria && (
                         <Badge
                           className="text-white"
-                          style={{ backgroundColor: exp.categoria.cor ?? "#3b82f6" }}
+                          style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}
                         >
                           {exp.categoria.nome}
                         </Badge>
@@ -303,7 +304,7 @@ function ExperienceForm({
           value={form.descricao}
           onChange={(e) => onUpdate("descricao", e.target.value)}
           rows={4}
-          placeholder="Descrição detalhada da experiência"
+          placeholder="Descrição detalhada do atrativo"
         />
       </div>
 
@@ -335,38 +336,37 @@ function ExperienceForm({
         )}
       </div>
 
+      <AddressSearch
+        onSelect={(data) => {
+          onUpdate("endereco", data.endereco);
+          onUpdate("bairro", data.bairro);
+          onUpdate("latitude", data.latitude);
+          onUpdate("longitude", data.longitude);
+        }}
+      />
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-medium text-gray-700">Endereço</label>
-          <Input
-            value={form.endereco}
-            onChange={(e) => onUpdate("endereco", e.target.value)}
-          />
+          <Input value={form.endereco} onChange={(e) => onUpdate("endereco", e.target.value)} />
         </div>
         <div>
           <label className="text-sm font-medium text-gray-700">Bairro</label>
-          <Input
-            value={form.bairro}
-            onChange={(e) => onUpdate("bairro", e.target.value)}
-          />
+          <Input value={form.bairro} onChange={(e) => onUpdate("bairro", e.target.value)} />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-medium text-gray-700">Latitude</label>
-          <Input
-            value={form.latitude}
-            onChange={(e) => onUpdate("latitude", e.target.value)}
-            placeholder="-21.7469"
-          />
+          <Input value={form.latitude} onChange={(e) => onUpdate("latitude", e.target.value)} placeholder="-21.7469" readOnly className="bg-gray-50" />
         </div>
         <div>
           <label className="text-sm font-medium text-gray-700">Longitude</label>
           <Input
             value={form.longitude}
             onChange={(e) => onUpdate("longitude", e.target.value)}
-            placeholder="-43.3560"
+            placeholder="-43.3560" readOnly className="bg-gray-50"
           />
         </div>
       </div>

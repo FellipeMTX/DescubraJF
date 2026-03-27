@@ -9,8 +9,6 @@ export function useUpcomingEvents(limit = 5) {
       const { data, error } = await supabase
         .from("eventos")
         .select("*")
-        .eq("ativo", true)
-        .gte("data_inicio", new Date().toISOString())
         .order("data_inicio")
         .limit(limit);
 
