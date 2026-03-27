@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { AddressSearch } from "@/components/ui/AddressSearch";
 import { useExperiences, useExperienceCategories } from "@/hooks/useExperiences";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
@@ -335,38 +336,37 @@ function ExperienceForm({
         )}
       </div>
 
+      <AddressSearch
+        onSelect={(data) => {
+          onUpdate("endereco", data.endereco);
+          onUpdate("bairro", data.bairro);
+          onUpdate("latitude", data.latitude);
+          onUpdate("longitude", data.longitude);
+        }}
+      />
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-medium text-gray-700">Endereço</label>
-          <Input
-            value={form.endereco}
-            onChange={(e) => onUpdate("endereco", e.target.value)}
-          />
+          <Input value={form.endereco} onChange={(e) => onUpdate("endereco", e.target.value)} />
         </div>
         <div>
           <label className="text-sm font-medium text-gray-700">Bairro</label>
-          <Input
-            value={form.bairro}
-            onChange={(e) => onUpdate("bairro", e.target.value)}
-          />
+          <Input value={form.bairro} onChange={(e) => onUpdate("bairro", e.target.value)} />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-medium text-gray-700">Latitude</label>
-          <Input
-            value={form.latitude}
-            onChange={(e) => onUpdate("latitude", e.target.value)}
-            placeholder="-21.7469"
-          />
+          <Input value={form.latitude} onChange={(e) => onUpdate("latitude", e.target.value)} placeholder="-21.7469" readOnly className="bg-gray-50" />
         </div>
         <div>
           <label className="text-sm font-medium text-gray-700">Longitude</label>
           <Input
             value={form.longitude}
             onChange={(e) => onUpdate("longitude", e.target.value)}
-            placeholder="-43.3560"
+            placeholder="-43.3560" readOnly className="bg-gray-50"
           />
         </div>
       </div>

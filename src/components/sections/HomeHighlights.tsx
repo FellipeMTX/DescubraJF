@@ -46,7 +46,7 @@ export function HomeHighlights() {
               <Footprints size={32} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-accent-50">Caminhando pela História</h2>
+              <h2 className="text-2xl font-bold text-accent-50">Roteiros de Juiz de Fora</h2>
               <p className="mt-1 text-primary-200">Um roteiro para cada experiência</p>
             </div>
           </div>

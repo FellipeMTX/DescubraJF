@@ -3,16 +3,7 @@ export const SITE_DESCRIPTION =
   "Portal turístico oficial de Juiz de Fora. Descubra experiências, roteiros, gastronomia e hospedagens.";
 
 export const NAV_ITEMS = [
-  {
-    label: "Juiz de Fora",
-    children: [
-      { label: "História", href: "/juiz-de-fora/historia" },
-      { label: "Informações Turísticas", href: "/juiz-de-fora/informacoes" },
-      { label: "Como Chegar", href: "/juiz-de-fora/como-chegar" },
-      { label: "Assessoria de Imprensa", href: "/juiz-de-fora/imprensa" },
-      { label: "Setur - JF", href: "/juiz-de-fora/setur" },
-    ],
-  },
+  { label: "História", href: "/juiz-de-fora/historia" },
   {
     label: "O que Fazer",
     children: [

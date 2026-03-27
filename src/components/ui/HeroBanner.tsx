@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, EffectFade } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { ChevronRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useBanners } from "@/hooks/useBanners";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 export function HeroBanner() {
   const { data: banners, isLoading } = useBanners();
@@ -34,11 +35,16 @@ export function HeroBanner() {
   return (
     <section>
       <Swiper
-        modules={[Autoplay, Pagination, EffectFade]}
+        modules={[Autoplay, Pagination, Navigation]}
         autoplay={{ delay: 6000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
+        pagination={{
+          clickable: true,
+          renderBullet: (_: number, className: string) =>
+            `<span class="${className}" style="width:12px;height:12px;background:rgba(255,255,255,0.5);opacity:1;"></span>`,
+        }}
+        navigation
         loop={banners.length > 1}
-        className="h-screen"
+        className="h-screen hero-swiper"
       >
         {banners.map((banner) => (
           <SwiperSlide key={banner.id}>

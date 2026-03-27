@@ -63,7 +63,7 @@ export function MapSection({
   isLoading: boolean;
 }) {
   return (
-    <div className="sticky top-20 z-10 mt-6">
+    <div className="relative z-0 mt-6">
       {items.length > 0 ? (
         <InteractiveMap
           items={items}

@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
+import { AddressSearch } from "@/components/ui/AddressSearch";
 import { useLodgingEstablishments } from "@/hooks/useLodging";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
@@ -141,13 +142,14 @@ export default function LodgingAdmin() {
                 </Field>
               </div>
               <Field label="Foto principal"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
+              <AddressSearch onSelect={(data) => { update("endereco", data.endereco); update("bairro", data.bairro); update("latitude", data.latitude); update("longitude", data.longitude); }} />
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Endereço"><Input value={form.endereco} onChange={(e) => update("endereco", e.target.value)} /></Field>
                 <Field label="Bairro"><Input value={form.bairro} onChange={(e) => update("bairro", e.target.value)} /></Field>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Field label="Latitude"><Input value={form.latitude} onChange={(e) => update("latitude", e.target.value)} placeholder="-21.76" /></Field>
-                <Field label="Longitude"><Input value={form.longitude} onChange={(e) => update("longitude", e.target.value)} placeholder="-43.35" /></Field>
+                <Field label="Latitude"><Input value={form.latitude} readOnly className="bg-gray-50" /></Field>
+                <Field label="Longitude"><Input value={form.longitude} readOnly className="bg-gray-50" /></Field>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Faixa de preço">
