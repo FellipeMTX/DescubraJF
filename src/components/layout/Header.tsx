@@ -57,7 +57,7 @@ export function Header() {
               <Link
                 key={item.label}
                 to={item.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                className="rounded-md px-3 py-2 text-sm font-medium uppercase tracking-wider text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 {item.label}
               </Link>
@@ -93,7 +93,7 @@ function NavDropdown({
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white">
+      <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium uppercase tracking-wider text-white/90 transition-colors hover:bg-white/10 hover:text-white">
         {item.label}
         <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
       </button>
@@ -104,7 +104,7 @@ function NavDropdown({
             <Link
               key={child.href}
               to={child.href}
-              className="block rounded-lg px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
+              className="block rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-wider text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
               onClick={() => setOpen(false)}
             >
               {child.label}
