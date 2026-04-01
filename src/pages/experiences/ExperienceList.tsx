@@ -8,8 +8,9 @@ import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { CategoryFilter } from "@/components/ui/CategoryFilter";
 import {
   FilterBar, MapSection, ItemCard, CardsGrid,
-  DetailModal, AttributePill, toMapItems,
+  DetailModal, AttributePill,
 } from "@/components/ui/ListPageLayout";
+import { toMapItems } from "@/lib/utils";
 import {
   useExperiences,
   useExperienceCategories,

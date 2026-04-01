@@ -8,8 +8,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   FilterBar, MapSection, ItemCard, CardsGrid,
-  DetailModal, toMapItems,
+  DetailModal,
 } from "@/components/ui/ListPageLayout";
+import { toMapItems } from "@/lib/utils";
 import { useDiningEstablishments, useDiningCategories, useDiningBySlug } from "@/hooks/useDining";
 
 const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];

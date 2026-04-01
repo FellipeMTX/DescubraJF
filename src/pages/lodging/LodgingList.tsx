@@ -7,8 +7,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   FilterBar, MapSection, ItemCard, CardsGrid,
-  DetailModal, toMapItems,
+  DetailModal,
 } from "@/components/ui/ListPageLayout";
+import { toMapItems } from "@/lib/utils";
 import { useLodgingEstablishments, useLodgingBySlug } from "@/hooks/useLodging";
 
 const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
