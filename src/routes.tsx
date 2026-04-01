@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { lazy, Suspense, type ReactNode } from "react";
 import { createBrowserRouter } from "react-router";
 import { Layout } from "./components/layout/Layout";

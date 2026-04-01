@@ -35,11 +35,15 @@ export default function DiningList() {
       emptyMessage="Nenhum estabelecimento encontrado nesta categoria."
       filters={{ options: filterOptions, selected, onSelect: setSelected, isLoading: loadingCats }}
       placeholderIcon={<UtensilsCrossed size={28} className="text-primary-300" />}
-      renderCardContent={(est) => (
+      renderCardContent={(est) => {
+        const displayCat = selected !== "todos"
+          ? est.categorias?.find((c) => c.slug === selected)
+          : est.categorias?.[0];
+        return (
         <>
-          {est.categorias?.map((cat) => (
-            <Badge key={cat.id} className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50">{cat.nome}</Badge>
-          ))}
+          {displayCat && (
+            <Badge className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50">{displayCat.nome}</Badge>
+          )}
           <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{est.nome}</h3>
           {est.endereco && (
             <p className="mt-1 flex items-center gap-1 text-xs text-accent-500">
@@ -52,7 +56,7 @@ export default function DiningList() {
             </p>
           )}
         </>
-      )}
+      );}}
       selectedSlug={selectedSlug}
       onSelectSlug={setSelectedSlug}
       renderModalContent={(slug) => <DiningModalContent slug={slug} />}
