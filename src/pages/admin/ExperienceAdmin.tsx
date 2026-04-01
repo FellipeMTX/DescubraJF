@@ -14,6 +14,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { AddressSearch } from "@/components/ui/AddressSearch";
+import { MapPreview } from "@/components/ui/MapPreview";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { useExperiences, useExperienceCategories } from "@/hooks/useExperiences";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
@@ -26,6 +28,7 @@ type FormData = {
   descricao: string;
   categoria_id: string;
   endereco: string;
+  numero: string;
   bairro: string;
   latitude: string;
   longitude: string;
@@ -41,6 +44,7 @@ const EMPTY_FORM: FormData = {
   descricao: "",
   categoria_id: "",
   endereco: "",
+  numero: "",
   bairro: "",
   latitude: "",
   longitude: "",
@@ -76,6 +80,7 @@ export default function ExperienceAdmin() {
       descricao: exp.descricao ?? "",
       categoria_id: exp.categoria_id ?? "",
       endereco: exp.endereco ?? "",
+      numero: "",
       bairro: exp.bairro ?? "",
       latitude: exp.latitude?.toString() ?? "",
       longitude: exp.longitude?.toString() ?? "",
@@ -104,7 +109,7 @@ export default function ExperienceAdmin() {
         descricao_curta: form.descricao_curta || null,
         descricao: form.descricao || null,
         categoria_id: form.categoria_id || null,
-        endereco: form.endereco || null,
+        endereco: [form.endereco, form.numero].filter(Boolean).join(", ") || null,
         bairro: form.bairro || null,
         latitude: form.latitude ? parseFloat(form.latitude) : null,
         longitude: form.longitude ? parseFloat(form.longitude) : null,
@@ -336,38 +341,46 @@ function ExperienceForm({
         )}
       </div>
 
-      <AddressSearch
-        onSelect={(data) => {
-          onUpdate("endereco", data.endereco);
-          onUpdate("bairro", data.bairro);
-          onUpdate("latitude", data.latitude);
-          onUpdate("longitude", data.longitude);
-        }}
-      />
+      <div className="flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-gray-800">Localização</h3>
+        <InfoTooltip text="Use a ferramenta de buscar endereço para facilitar a busca. Caso não seja encontrado, digite o endereço manualmente e busque sua geolocalização no Google Maps." />
+      </div>
+      <div className="flex gap-2">
+        <AddressSearch
+          onSelect={(data) => {
+            onUpdate("endereco", data.endereco);
+            onUpdate("bairro", data.bairro);
+            onUpdate("latitude", data.latitude);
+            onUpdate("longitude", data.longitude);
+          }}
+        />
+        <MapPreview latitude={form.latitude} longitude={form.longitude} />
+      </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
+      <div className="grid grid-cols-3 gap-4">
+        <div className="col-span-2">
           <label className="text-sm font-medium text-gray-700">Endereço</label>
           <Input value={form.endereco} onChange={(e) => onUpdate("endereco", e.target.value)} />
         </div>
         <div>
-          <label className="text-sm font-medium text-gray-700">Bairro</label>
-          <Input value={form.bairro} onChange={(e) => onUpdate("bairro", e.target.value)} />
+          <label className="text-sm font-medium text-gray-700">Número</label>
+          <Input value={form.numero} onChange={(e) => onUpdate("numero", e.target.value)} placeholder="123" />
         </div>
       </div>
+      <div>
+        <label className="text-sm font-medium text-gray-700">Bairro</label>
+        <Input value={form.bairro} onChange={(e) => onUpdate("bairro", e.target.value)} />
+      </div>
+
 
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-medium text-gray-700">Latitude</label>
-          <Input value={form.latitude} onChange={(e) => onUpdate("latitude", e.target.value)} placeholder="-21.7469" readOnly className="bg-gray-50" />
+          <Input value={form.latitude} onChange={(e) => onUpdate("latitude", e.target.value)} placeholder="-21.7469" />
         </div>
         <div>
           <label className="text-sm font-medium text-gray-700">Longitude</label>
-          <Input
-            value={form.longitude}
-            onChange={(e) => onUpdate("longitude", e.target.value)}
-            placeholder="-43.3560" readOnly className="bg-gray-50"
-          />
+          <Input value={form.longitude} onChange={(e) => onUpdate("longitude", e.target.value)} placeholder="-43.3560" />
         </div>
       </div>
 

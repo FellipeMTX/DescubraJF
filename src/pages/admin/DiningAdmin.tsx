@@ -10,6 +10,8 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import { AddressSearch } from "@/components/ui/AddressSearch";
+import { MapPreview } from "@/components/ui/MapPreview";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { cn } from "@/lib/utils";
 import { useDiningEstablishments, useDiningCategories } from "@/hooks/useDining";
 import { supabase } from "@/lib/supabase";
@@ -23,6 +25,7 @@ type FormData = {
   descricao: string;
   categoria_ids: string[];
   endereco: string;
+  numero: string;
   bairro: string;
   latitude: string;
   longitude: string;
@@ -32,7 +35,7 @@ type FormData = {
 
 const EMPTY: FormData = {
   nome: "", descricao_curta: "", descricao: "", categoria_ids: [],
-  endereco: "", bairro: "", latitude: "", longitude: "", faixa_preco: "1", estacionamento: false,
+  endereco: "", numero: "", bairro: "", latitude: "", longitude: "", faixa_preco: "1", estacionamento: false,
 };
 
 export default function DiningAdmin() {
@@ -53,7 +56,7 @@ export default function DiningAdmin() {
     setForm({
       nome: item.nome, descricao_curta: item.descricao_curta ?? "", descricao: item.descricao ?? "",
       categoria_ids: item.categorias?.map((c) => c.id) ?? [], endereco: item.endereco ?? "",
-      bairro: item.bairro ?? "", latitude: item.latitude?.toString() ?? "",
+      numero: "", bairro: item.bairro ?? "", latitude: item.latitude?.toString() ?? "",
       longitude: item.longitude?.toString() ?? "", faixa_preco: item.faixa_preco?.toString() ?? "1",
       estacionamento: item.estacionamento,
     });
@@ -70,7 +73,7 @@ export default function DiningAdmin() {
       const payload = {
         nome: form.nome, slug: slugify(form.nome), descricao_curta: form.descricao_curta || null,
         descricao: form.descricao || null,
-        endereco: form.endereco || null, bairro: form.bairro || null,
+        endereco: [form.endereco, form.numero].filter(Boolean).join(", ") || null, bairro: form.bairro || null,
         latitude: form.latitude ? parseFloat(form.latitude) : null,
         longitude: form.longitude ? parseFloat(form.longitude) : null,
         faixa_preco: parseInt(form.faixa_preco) || 1, estacionamento: form.estacionamento,
@@ -160,14 +163,22 @@ export default function DiningAdmin() {
                 </div>
               </Field>
               <Field label="Foto principal"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
-              <AddressSearch onSelect={(data) => { update("endereco", data.endereco); update("bairro", data.bairro); update("latitude", data.latitude); update("longitude", data.longitude); }} />
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Endereço"><Input value={form.endereco} onChange={(e) => update("endereco", e.target.value)} /></Field>
-                <Field label="Bairro"><Input value={form.bairro} onChange={(e) => update("bairro", e.target.value)} /></Field>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-gray-800">Localização</h3>
+                <InfoTooltip text="Use a ferramenta de buscar endereço para facilitar a busca. Caso não seja encontrado, digite o endereço manualmente e busque sua geolocalização no Google Maps." />
               </div>
+              <div className="flex gap-2">
+                <AddressSearch onSelect={(data) => { update("endereco", data.endereco); update("bairro", data.bairro); update("latitude", data.latitude); update("longitude", data.longitude); }} />
+                <MapPreview latitude={form.latitude} longitude={form.longitude} />
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="col-span-2"><Field label="Endereço"><Input value={form.endereco} onChange={(e) => update("endereco", e.target.value)} /></Field></div>
+                <Field label="Número"><Input value={form.numero} onChange={(e) => update("numero", e.target.value)} placeholder="123" /></Field>
+              </div>
+              <Field label="Bairro"><Input value={form.bairro} onChange={(e) => update("bairro", e.target.value)} /></Field>
               <div className="grid grid-cols-2 gap-4">
-                <Field label="Latitude"><Input value={form.latitude} readOnly className="bg-gray-50" /></Field>
-                <Field label="Longitude"><Input value={form.longitude} readOnly className="bg-gray-50" /></Field>
+                <Field label="Latitude"><Input value={form.latitude} onChange={(e) => update("latitude", e.target.value)} placeholder="-21.7469" /></Field>
+                <Field label="Longitude"><Input value={form.longitude} onChange={(e) => update("longitude", e.target.value)} placeholder="-43.3560" /></Field>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Faixa de preço">
