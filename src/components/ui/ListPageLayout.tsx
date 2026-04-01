@@ -101,7 +101,7 @@ export function ItemCard({
   children: ReactNode;
 }) {
   return (
-    <div onMouseEnter={onHover} onMouseLeave={onLeave} onClick={onClick} className="cursor-pointer">
+    <div onMouseEnter={onHover} onMouseLeave={onLeave} onClick={onClick} className="w-80 shrink-0 cursor-pointer">
       <div
         className={cn(
           "group flex h-full overflow-hidden rounded-xl border-0 bg-accent-50 shadow-sm transition-all duration-200 hover:shadow-lg",
@@ -143,9 +143,9 @@ export function CardsGrid({
 }) {
   if (isLoading) {
     return (
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 flex gap-4 overflow-x-auto pb-4">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-36 rounded-xl" />
+          <Skeleton key={i} className="h-36 w-80 shrink-0 rounded-xl" />
         ))}
       </div>
     );
@@ -156,7 +156,9 @@ export function CardsGrid({
   }
 
   return (
-    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
+    <div className="mt-6 grid max-h-[340px] auto-rows-[160px] grid-flow-col grid-rows-2 gap-4 overflow-x-auto pb-4">
+      {children}
+    </div>
   );
 }
 
@@ -190,12 +192,3 @@ export function AttributePill({ children }: { children: ReactNode }) {
   );
 }
 
-/* ─── Helper: items to map items ─── */
-
-export function toMapItems(
-  items: Array<{ id: string; nome: string; latitude?: number | null; longitude?: number | null }>
-): MapItem[] {
-  return items
-    .filter((i) => i.latitude && i.longitude)
-    .map((i) => ({ id: i.id, name: i.nome, lat: i.latitude!, lng: i.longitude! }));
-}

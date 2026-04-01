@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { lazy, Suspense, type ReactNode } from "react";
 import { createBrowserRouter } from "react-router";
 import { Layout } from "./components/layout/Layout";
@@ -39,6 +40,7 @@ const BannerAdmin = lazy(() => import("./pages/admin/BannerAdmin"));
 const DiningAdmin = lazy(() => import("./pages/admin/DiningAdmin"));
 const LodgingAdmin = lazy(() => import("./pages/admin/LodgingAdmin"));
 const EventAdmin = lazy(() => import("./pages/admin/EventAdmin"));
+const RouteAdmin = lazy(() => import("./pages/admin/RouteAdmin"));
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +70,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Lazy><ExperienceAdmin /></Lazy> },
       { path: "gastronomia", element: <Lazy><DiningAdmin /></Lazy> },
       { path: "hospedagens", element: <Lazy><LodgingAdmin /></Lazy> },
+      { path: "roteiros", element: <Lazy><RouteAdmin /></Lazy> },
       { path: "eventos", element: <Lazy><EventAdmin /></Lazy> },
       { path: "banners", element: <Lazy><BannerAdmin /></Lazy> },
     ],
