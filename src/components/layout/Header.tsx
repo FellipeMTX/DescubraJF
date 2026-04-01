@@ -43,7 +43,7 @@ export function Header() {
             alt={SITE_NAME}
             className={cn(
               "transition-all duration-300",
-              transparent ? "h-16" : "h-10"
+              transparent ? "h-16" : "h-15"
             )}
           />
         </Link>
