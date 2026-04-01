@@ -35,9 +35,9 @@ export default function AdminLayout() {
       </SignedOut>
 
       <SignedIn>
-        <div className="flex min-h-screen">
+        <div className="flex h-screen overflow-hidden">
           <AdminSidebar />
-          <main className="flex-1 bg-gray-50 p-6">
+          <main className="flex-1 overflow-y-auto bg-gray-50 p-6">
             <Outlet />
           </main>
         </div>

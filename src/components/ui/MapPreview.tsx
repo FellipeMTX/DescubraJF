@@ -19,16 +19,14 @@ export function MapPreview({ latitude, longitude }: MapPreviewProps) {
   const lng = parseFloat(longitude);
   const hasCoords = !isNaN(lat) && !isNaN(lng);
 
-  if (!hasCoords) return null;
-
   return (
     <>
-      <Button type="button" variant="outline" size="sm" className="flex-1" onClick={() => setOpen(true)}>
+      <Button type="button" variant="outline" size="sm" className="flex-1" disabled={!hasCoords} onClick={() => setOpen(true)}>
         <MapPin size={14} /> Ver no mapa
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-h-[80vh] max-w-lg overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Pré-visualização do mapa</DialogTitle>
           </DialogHeader>

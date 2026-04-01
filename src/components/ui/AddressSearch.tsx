@@ -99,7 +99,7 @@ export function AddressSearch({ onSelect }: AddressSearchProps) {
       </Button>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-h-[80vh] max-w-lg overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Buscar endereço</DialogTitle>
           </DialogHeader>
