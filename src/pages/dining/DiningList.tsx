@@ -51,9 +51,9 @@ export default function DiningList() {
               onLeave={() => setHoveredId(null)}
               onClick={() => setSelectedSlug(est.slug)}
             >
-              {est.categoria && (
-                <Badge className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50">{est.categoria.nome}</Badge>
-              )}
+              {est.categorias?.map((cat) => (
+                <Badge key={cat.id} className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50">{cat.nome}</Badge>
+              ))}
               <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{est.nome}</h3>
               {est.endereco && (
                 <p className="mt-1 flex items-center gap-1 text-xs text-accent-500">
@@ -89,7 +89,9 @@ function DiningModalContent({ slug }: { slug: string }) {
   return (
     <>
       <DialogHeader>
-        {est.categoria && <Badge className="w-fit bg-primary-700 text-accent-50">{est.categoria.nome}</Badge>}
+        {est.categorias?.map((cat) => (
+          <Badge key={cat.id} className="w-fit bg-primary-700 text-accent-50">{cat.nome}</Badge>
+        ))}
         <DialogTitle className="text-xl font-bold text-primary-800">{est.nome}</DialogTitle>
       </DialogHeader>
 

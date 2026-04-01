@@ -10,6 +10,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import { AddressSearch } from "@/components/ui/AddressSearch";
+import { cn } from "@/lib/utils";
 import { useDiningEstablishments, useDiningCategories } from "@/hooks/useDining";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
@@ -20,7 +21,7 @@ type FormData = {
   nome: string;
   descricao_curta: string;
   descricao: string;
-  categoria_gastronomia_id: string;
+  categoria_ids: string[];
   endereco: string;
   bairro: string;
   latitude: string;
@@ -30,7 +31,7 @@ type FormData = {
 };
 
 const EMPTY: FormData = {
-  nome: "", descricao_curta: "", descricao: "", categoria_gastronomia_id: "",
+  nome: "", descricao_curta: "", descricao: "", categoria_ids: [],
   endereco: "", bairro: "", latitude: "", longitude: "", faixa_preco: "1", estacionamento: false,
 };
 
@@ -51,7 +52,7 @@ export default function DiningAdmin() {
     setEditing(item);
     setForm({
       nome: item.nome, descricao_curta: item.descricao_curta ?? "", descricao: item.descricao ?? "",
-      categoria_gastronomia_id: item.categoria_gastronomia_id ?? "", endereco: item.endereco ?? "",
+      categoria_ids: item.categorias?.map((c) => c.id) ?? [], endereco: item.endereco ?? "",
       bairro: item.bairro ?? "", latitude: item.latitude?.toString() ?? "",
       longitude: item.longitude?.toString() ?? "", faixa_preco: item.faixa_preco?.toString() ?? "1",
       estacionamento: item.estacionamento,
@@ -68,7 +69,7 @@ export default function DiningAdmin() {
 
       const payload = {
         nome: form.nome, slug: slugify(form.nome), descricao_curta: form.descricao_curta || null,
-        descricao: form.descricao || null, categoria_gastronomia_id: form.categoria_gastronomia_id || null,
+        descricao: form.descricao || null,
         endereco: form.endereco || null, bairro: form.bairro || null,
         latitude: form.latitude ? parseFloat(form.latitude) : null,
         longitude: form.longitude ? parseFloat(form.longitude) : null,
@@ -76,12 +77,23 @@ export default function DiningAdmin() {
         imagem_destaque, updated_at: new Date().toISOString(),
       };
 
+      let estabelecimentoId: string;
+
       if (editing) {
         const { error } = await supabase.from("estabelecimentos_gastronomia").update(payload).eq("id", editing.id);
         if (error) throw error;
+        estabelecimentoId = editing.id;
       } else {
-        const { error } = await supabase.from("estabelecimentos_gastronomia").insert(payload);
+        const { data, error } = await supabase.from("estabelecimentos_gastronomia").insert(payload).select("id").single();
         if (error) throw error;
+        estabelecimentoId = data.id;
+      }
+
+      // Update categories via junction table
+      await supabase.from("estabelecimento_categorias").delete().eq("estabelecimento_id", estabelecimentoId);
+      if (form.categoria_ids.length > 0) {
+        const rows = form.categoria_ids.map((catId) => ({ estabelecimento_id: estabelecimentoId, categoria_id: catId }));
+        await supabase.from("estabelecimento_categorias").insert(rows);
       }
 
       await qc.invalidateQueries({ queryKey: ["gastronomia"] });
@@ -122,11 +134,30 @@ export default function DiningAdmin() {
               <Field label="Nome *"><Input value={form.nome} onChange={(e) => update("nome", e.target.value)} /></Field>
               <Field label="Descrição curta"><Input value={form.descricao_curta} onChange={(e) => update("descricao_curta", e.target.value)} /></Field>
               <Field label="Descrição completa"><Textarea value={form.descricao} onChange={(e) => update("descricao", e.target.value)} rows={3} /></Field>
-              <Field label="Categoria">
-                <select value={form.categoria_gastronomia_id} onChange={(e) => update("categoria_gastronomia_id", e.target.value)} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm">
-                  <option value="">Selecione...</option>
-                  {categories?.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
-                </select>
+              <Field label="Categorias">
+                <div className="mt-1 flex flex-wrap gap-2">
+                  {categories?.map((c) => (
+                    <label key={c.id} className={cn(
+                      "cursor-pointer rounded-full border px-3 py-1 text-sm transition-colors",
+                      form.categoria_ids.includes(c.id)
+                        ? "border-primary-400 bg-primary-400 text-white"
+                        : "border-gray-300 text-gray-600 hover:border-primary-300"
+                    )}>
+                      <input
+                        type="checkbox"
+                        className="hidden"
+                        checked={form.categoria_ids.includes(c.id)}
+                        onChange={(e) => {
+                          const ids = e.target.checked
+                            ? [...form.categoria_ids, c.id]
+                            : form.categoria_ids.filter((id) => id !== c.id);
+                          setForm((p) => ({ ...p, categoria_ids: ids }));
+                        }}
+                      />
+                      {c.nome}
+                    </label>
+                  ))}
+                </div>
               </Field>
               <Field label="Foto principal"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
               <AddressSearch onSelect={(data) => { update("endereco", data.endereco); update("bairro", data.bairro); update("latitude", data.latitude); update("longitude", data.longitude); }} />
@@ -180,7 +211,7 @@ export default function DiningAdmin() {
                     <div><p className="font-medium text-gray-900">{item.nome}</p><p className="text-xs text-gray-500">{item.endereco}</p></div>
                   </div>
                 </td>
-                <td className="px-4 py-3">{item.categoria && <Badge variant="secondary">{item.categoria.nome}</Badge>}</td>
+                <td className="px-4 py-3"><div className="flex flex-wrap gap-1">{item.categorias?.map((c) => <Badge key={c.id} variant="secondary">{c.nome}</Badge>)}</div></td>
                 <td className="px-4 py-3 text-gray-500">{item.bairro}</td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-1">

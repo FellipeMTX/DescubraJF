@@ -94,7 +94,6 @@ export type EstabelecimentoGastronomia = {
   slug: string;
   descricao: string | null;
   descricao_curta: string | null;
-  categoria_gastronomia_id: string | null;
   imagem_destaque: string | null;
   imagens: string[] | null;
   endereco: string | null;
@@ -116,7 +115,7 @@ export type EstabelecimentoGastronomia = {
   ordem: number;
   created_at: string;
   updated_at: string;
-  categoria?: CategoriaGastronomia;
+  categorias?: CategoriaGastronomia[];
 };
 
 export type Hospedagem = {
