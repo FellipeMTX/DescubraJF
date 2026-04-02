@@ -28,3 +28,11 @@ export function formatDateShort(date: string): string {
     month: "short",
   });
 }
+
+export function toMapItems(
+  items: Array<{ id: string; nome: string; latitude?: number | null; longitude?: number | null }>
+) {
+  return items
+    .filter((i) => i.latitude && i.longitude)
+    .map((i) => ({ id: i.id, name: i.nome, lat: i.latitude!, lng: i.longitude! }));
+}

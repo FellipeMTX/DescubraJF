@@ -6,7 +6,7 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 import {
-  MapPin, CalendarDays, Image, UtensilsCrossed, BedDouble, ChevronLeft
+  MapPin, CalendarDays, Image, UtensilsCrossed, BedDouble, Route, ChevronLeft
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SITE_NAME } from "@/lib/constants";
@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { label: "Atrativos", href: "/admin", icon: MapPin },
   { label: "Gastronomia", href: "/admin/gastronomia", icon: UtensilsCrossed },
   { label: "Hospedagens", href: "/admin/hospedagens", icon: BedDouble },
+  { label: "Roteiros", href: "/admin/roteiros", icon: Route },
   { label: "Banners", href: "/admin/banners", icon: Image },
   { label: "Eventos", href: "/admin/eventos", icon: CalendarDays },
 ];
@@ -34,9 +35,9 @@ export default function AdminLayout() {
       </SignedOut>
 
       <SignedIn>
-        <div className="flex min-h-screen">
+        <div className="flex h-screen overflow-hidden">
           <AdminSidebar />
-          <main className="flex-1 bg-gray-50 p-6">
+          <main className="flex-1 overflow-y-auto bg-gray-50 p-6">
             <Outlet />
           </main>
         </div>
