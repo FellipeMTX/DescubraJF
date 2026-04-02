@@ -6,27 +6,36 @@ export function useDiningEstablishments(categorySlug?: string) {
   return useQuery({
     queryKey: ["gastronomia", categorySlug],
     queryFn: async () => {
-      let query = supabase
+      // Fetch establishments with their categories via junction table
+      const { data: establishments, error } = await supabase
         .from("estabelecimentos_gastronomia")
-        .select("*, categoria:categorias_gastronomia(*)")
+        .select("*")
         .eq("ativo", true)
         .order("ordem");
 
-      if (categorySlug && categorySlug !== "todos") {
-        const { data: cat } = await supabase
-          .from("categorias_gastronomia")
-          .select("id")
-          .eq("slug", categorySlug)
-          .single();
+      if (error) throw error;
 
-        if (cat) {
-          query = query.eq("categoria_gastronomia_id", cat.id);
-        }
+      // Fetch all category relations
+      const { data: relations } = await supabase
+        .from("estabelecimento_categorias")
+        .select("estabelecimento_id, categoria:categorias_gastronomia(*)");
+
+      // Map categories to establishments
+      const result = establishments.map((est) => ({
+        ...est,
+        categorias: (relations ?? [])
+          .filter((r) => r.estabelecimento_id === est.id)
+          .map((r) => r.categoria as unknown as CategoriaGastronomia),
+      })) as EstabelecimentoGastronomia[];
+
+      // Filter by category if specified
+      if (categorySlug && categorySlug !== "todos") {
+        return result.filter((est) =>
+          est.categorias?.some((c) => c.slug === categorySlug)
+        );
       }
 
-      const { data, error } = await query;
-      if (error) throw error;
-      return data as EstabelecimentoGastronomia[];
+      return result;
     },
   });
 }
@@ -35,14 +44,24 @@ export function useDiningBySlug(slug: string) {
   return useQuery({
     queryKey: ["gastronomia", "detalhe", slug],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data: est, error } = await supabase
         .from("estabelecimentos_gastronomia")
-        .select("*, categoria:categorias_gastronomia(*)")
+        .select("*")
         .eq("slug", slug)
         .single();
 
       if (error) throw error;
-      return data as EstabelecimentoGastronomia;
+
+      // Fetch categories for this establishment
+      const { data: relations } = await supabase
+        .from("estabelecimento_categorias")
+        .select("categoria:categorias_gastronomia(*)")
+        .eq("estabelecimento_id", est.id);
+
+      return {
+        ...est,
+        categorias: (relations ?? []).map((r) => r.categoria as unknown as CategoriaGastronomia),
+      } as EstabelecimentoGastronomia;
     },
     enabled: !!slug,
   });

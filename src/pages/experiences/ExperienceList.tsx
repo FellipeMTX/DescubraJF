@@ -6,35 +6,33 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { CategoryFilter } from "@/components/ui/CategoryFilter";
-import {
-  FilterBar, MapSection, ItemCard, CardsGrid,
-  DetailModal, AttributePill, toMapItems,
-} from "@/components/ui/ListPageLayout";
+import { AttributePill } from "@/components/ui/ListPageLayout";
+import { ListPage } from "@/components/ui/ListPage";
 import {
   useExperiences,
   useExperienceCategories,
   useExperienceBySlug,
 } from "@/hooks/useExperiences";
+import type { Experiencia } from "@/types/database";
 
 export default function ExperienceList() {
   const [selectedCategory, setSelectedCategory] = useState("todos");
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
   const { data: categories, isLoading: loadingCats } = useExperienceCategories();
   const { data: experiences, isLoading: loadingExps } = useExperiences(selectedCategory);
 
-  const mapItems = toMapItems(experiences ?? []);
-
   return (
-    <div className="min-h-screen bg-primary-50 pt-20">
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <h1 className="text-3xl font-bold text-primary-800">Atrativos</h1>
-        <p className="mt-2 text-accent-500">Explore o melhor de Juiz de Fora</p>
-
+    <ListPage<Experiencia>
+      title="Atrativos"
+      subtitle="Explore o melhor de Juiz de Fora"
+      items={experiences}
+      isLoading={loadingExps}
+      emptyMessage="Nenhum atrativo encontrado nesta categoria."
+      filterSlot={
         <div className="mt-6">
           {loadingCats ? (
-            <FilterBar options={[]} selected="" onSelect={() => {}} isLoading />
+            <Skeleton className="h-9 w-full" />
           ) : categories ? (
             <CategoryFilter
               categories={categories}
@@ -43,43 +41,30 @@ export default function ExperienceList() {
             />
           ) : null}
         </div>
-
-        <MapSection items={mapItems} activeId={hoveredId} isLoading={loadingExps} />
-
-        <CardsGrid isLoading={loadingExps} isEmpty={!experiences?.length} emptyMessage="Nenhum atrativo encontrado nesta categoria.">
-          {experiences?.map((exp) => (
-            <ItemCard
-              key={exp.id}
-              imageUrl={exp.imagem_destaque}
-              placeholder={<MapPin size={28} className="text-primary-300" />}
-              isHovered={hoveredId === exp.id}
-              onHover={() => setHoveredId(exp.id)}
-              onLeave={() => setHoveredId(null)}
-              onClick={() => setSelectedSlug(exp.slug)}
-            >
-              {exp.categoria && (
-                <Badge className="mb-1 w-fit text-[10px] text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}>
-                  {exp.categoria.nome}
-                </Badge>
-              )}
-              <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{exp.nome}</h3>
-              {exp.descricao_curta && (
-                <p className="mt-1 line-clamp-2 text-xs text-accent-500">{exp.descricao_curta}</p>
-              )}
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {exp.gratuito && <AttributePill>Gratuito</AttributePill>}
-                {exp.acessibilidade && <AttributePill>Acessível</AttributePill>}
-                {exp.pet_friendly && <AttributePill>Pet Friendly</AttributePill>}
-              </div>
-            </ItemCard>
-          ))}
-        </CardsGrid>
-      </div>
-
-      <DetailModal open={!!selectedSlug} onClose={() => setSelectedSlug(null)}>
-        {selectedSlug && <ExperienceModalContent slug={selectedSlug} />}
-      </DetailModal>
-    </div>
+      }
+      placeholderIcon={<MapPin size={28} className="text-primary-300" />}
+      renderCardContent={(exp) => (
+        <>
+          {exp.categoria && (
+            <Badge className="mb-1 w-fit text-[10px] text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}>
+              {exp.categoria.nome}
+            </Badge>
+          )}
+          <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{exp.nome}</h3>
+          {exp.descricao_curta && (
+            <p className="mt-1 line-clamp-2 text-xs text-accent-500">{exp.descricao_curta}</p>
+          )}
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {exp.gratuito && <AttributePill>Gratuito</AttributePill>}
+            {exp.acessibilidade && <AttributePill>Acessível</AttributePill>}
+            {exp.pet_friendly && <AttributePill>Pet Friendly</AttributePill>}
+          </div>
+        </>
+      )}
+      selectedSlug={selectedSlug}
+      onSelectSlug={setSelectedSlug}
+      renderModalContent={(slug) => <ExperienceModalContent slug={slug} />}
+    />
   );
 }
 
@@ -96,27 +81,18 @@ function ExperienceModalContent({ slug }: { slug: string }) {
     <>
       <DialogHeader>
         {exp.categoria && (
-          <Badge className="w-fit text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}>
-            {exp.categoria.nome}
-          </Badge>
+          <Badge className="w-fit text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}>{exp.categoria.nome}</Badge>
         )}
         <DialogTitle className="text-xl font-bold text-primary-800">{exp.nome}</DialogTitle>
       </DialogHeader>
-
-      {exp.imagem_destaque && (
-        <img src={exp.imagem_destaque} alt={exp.nome} className="h-56 w-full rounded-xl object-cover" />
-      )}
-
+      {exp.imagem_destaque && <img src={exp.imagem_destaque} alt={exp.nome} className="h-56 w-full rounded-xl object-cover" />}
       <div className="flex flex-wrap gap-2">
         {exp.gratuito && <InfoBadge icon={<DollarSign size={14} />} label="Gratuito" />}
         {exp.acessibilidade && <InfoBadge icon={<Accessibility size={14} />} label="Acessível" />}
         {exp.pet_friendly && <InfoBadge icon={<Dog size={14} />} label="Pet Friendly" />}
       </div>
-
       {exp.descricao && <p className="whitespace-pre-line text-sm leading-relaxed text-primary-700">{exp.descricao}</p>}
-
       <Separator className="bg-primary-100" />
-
       {hasSchedule && (
         <InfoSection icon={<Clock size={14} />} title="Horários">
           <dl className="mt-2 space-y-1">
@@ -129,13 +105,11 @@ function ExperienceModalContent({ slug }: { slug: string }) {
           </dl>
         </InfoSection>
       )}
-
       {exp.endereco && (
         <InfoSection icon={<MapPin size={14} />} title="Endereço">
           <p className="mt-1 text-sm text-accent-500">{exp.endereco}{exp.bairro && ` - ${exp.bairro}`}</p>
         </InfoSection>
       )}
-
       {hasContact && (
         <InfoSection icon={<Phone size={14} />} title="Contato">
           <div className="mt-2 space-y-1">
@@ -146,7 +120,6 @@ function ExperienceModalContent({ slug }: { slug: string }) {
           </div>
         </InfoSection>
       )}
-
       <div className="flex flex-wrap gap-2">
         {exp.contato?.maps_link && (
           <a href={exp.contato.maps_link} target="_blank" rel="noopener noreferrer">
@@ -161,8 +134,6 @@ function ExperienceModalContent({ slug }: { slug: string }) {
   );
 }
 
-/* ─── Micro-components reutilizáveis no modal ─── */
-
 function InfoBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
@@ -174,9 +145,7 @@ function InfoBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
 function InfoSection({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">
-        {icon} {title}
-      </h3>
+      <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">{icon} {title}</h3>
       {children}
     </div>
   );
@@ -184,11 +153,7 @@ function InfoSection({ icon, title, children }: { icon: React.ReactNode; title: 
 
 function ContactLink({ href, icon, external, children }: { href: string; icon: React.ReactNode; external?: boolean; children: React.ReactNode }) {
   return (
-    <a
-      href={href}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"
-    >
+    <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600">
       {icon} {children}
     </a>
   );
