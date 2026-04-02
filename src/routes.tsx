@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { lazy, Suspense, type ReactNode } from "react";
 import { createBrowserRouter } from "react-router";
 import { Layout } from "./components/layout/Layout";
@@ -29,6 +30,8 @@ const TouristInfo = lazy(() => import("./pages/city/TouristInfo"));
 const HowToGetHere = lazy(() => import("./pages/city/HowToGetHere"));
 const Press = lazy(() => import("./pages/city/Press"));
 const AboutSetur = lazy(() => import("./pages/city/AboutSetur"));
+const ServiceList = lazy(() => import("./pages/services/ServiceList"));
+const PasseioList = lazy(() => import("./pages/services/PasseioList"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -39,6 +42,7 @@ const BannerAdmin = lazy(() => import("./pages/admin/BannerAdmin"));
 const DiningAdmin = lazy(() => import("./pages/admin/DiningAdmin"));
 const LodgingAdmin = lazy(() => import("./pages/admin/LodgingAdmin"));
 const EventAdmin = lazy(() => import("./pages/admin/EventAdmin"));
+const ServiceAdmin = lazy(() => import("./pages/admin/ServiceAdmin"));
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +56,8 @@ export const router = createBrowserRouter([
       { path: "agenda/:slug", element: <Lazy><EventDetail /></Lazy> },
       { path: "onde-comer", element: <Lazy><DiningList /></Lazy> },
       { path: "onde-ficar", element: <Lazy><LodgingList /></Lazy> },
+      { path: "servicos", element: <Lazy><ServiceList /></Lazy> },
+      { path: "passeios", element: <Lazy><PasseioList /></Lazy> },
       { path: "juiz-de-fora/historia", element: <Lazy><History /></Lazy> },
       { path: "juiz-de-fora/informacoes", element: <Lazy><TouristInfo /></Lazy> },
       { path: "juiz-de-fora/como-chegar", element: <Lazy><HowToGetHere /></Lazy> },
@@ -70,6 +76,7 @@ export const router = createBrowserRouter([
       { path: "hospedagens", element: <Lazy><LodgingAdmin /></Lazy> },
       { path: "eventos", element: <Lazy><EventAdmin /></Lazy> },
       { path: "banners", element: <Lazy><BannerAdmin /></Lazy> },
+      { path: "servicos", element: <Lazy><ServiceAdmin /></Lazy> },
     ],
   },
 ]);
