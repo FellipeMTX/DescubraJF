@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
-import { Phone, Mail, Globe, ExternalLink, MapPin, Share2, LayoutGrid } from "lucide-react";
+import { useEffect } from "react";
+import { Phone, Mail, Globe, ExternalLink, MapPin, LayoutGrid } from "lucide-react";
 import { getIconByName } from "@/components/ui/IconPicker";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { DetailModal } from "@/components/ui/ListPageLayout";
 
 type CategoryItem = {
   id: string;
@@ -70,7 +66,7 @@ function CategoryButton({
       }`}
     >
       {icon}
-      <span className="font-bold uppercase tracking-wider text-xl mt-2">{label}</span>
+      <span className="font-bold uppercase tracking-wider text-lg mt-2">{label}</span>
       {description && (
         <span className="leading-tight opacity-80 text-md">{description}</span>
       )}
@@ -89,8 +85,6 @@ export function CategoryGridPage({
   onSelect,
   emptyMessage,
 }: CategoryGridPageProps) {
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
-  const selectedItem = items?.find((i) => i.slug === selectedSlug);
   const selectedCategory = categories?.find((c) => c.slug === selected);
 
   useEffect(() => {
@@ -147,117 +141,72 @@ export function CategoryGridPage({
             <p className="py-12 text-center text-accent-500">{emptyMessage}</p>
           ) : (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setSelectedSlug(item.slug)}
-                  className="group rounded-xl border border-primary-200 bg-white p-5 text-left transition-all hover:border-primary-400 hover:shadow-md"
-                >
-                  {item.categoria && (
-                    <Badge className="mb-2 bg-primary-700 text-[10px] uppercase tracking-wider text-accent-50">
-                      {item.categoria.nome}
-                    </Badge>
-                  )}
-                  <h3 className="font-bold text-primary-800 group-hover:text-primary-600">
-                    {item.nome}
-                  </h3>
-                  {item.endereco && (
-                    <p className="mt-1 text-xs text-accent-500">
-                      <MapPin size={11} className="mr-1 inline shrink-0" />
-                      {item.endereco}{item.bairro && ` - ${item.bairro}`}
-                    </p>
-                  )}
-                  {item.descricao_curta && (
-                    <p className="mt-2 line-clamp-2 text-xs text-accent-500">{item.descricao_curta}</p>
-                  )}
-                  {item.contato?.site && (
-                    <p className="mt-2 text-xs font-medium text-primary-500">
-                      Site: {item.contato.site}
-                    </p>
-                  )}
-                </button>
-              ))}
+              {items.map((item) => {
+                const hasContact = item.contato && Object.values(item.contato).some(Boolean);
+                return (
+                  <div
+                    key={item.id}
+                    className="overflow-hidden rounded-xl border border-primary-200 bg-white transition-all hover:border-primary-400 hover:shadow-md"
+                  >
+                    <div className="flex h-20 flex-col justify-center bg-primary-500 px-5">
+                      <h3 className="font-bold text-white">{item.nome}</h3>
+                      {item.descricao_curta && (
+                        <p className="mt-1 truncate text-sm text-white/80">{item.descricao_curta.length > 50 ? `${item.descricao_curta.slice(0, 50)}...` : item.descricao_curta}</p>
+                      )}
+                    </div>
+                    <div className="p-5">
+                    {item.imagem_destaque && (
+                      <img src={item.imagem_destaque} alt={item.nome} className="mb-3 h-40 w-full rounded-lg object-cover" />
+                    )}
+                    {item.descricao && (
+                      <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-primary-700">{item.descricao}</p>
+                    )}
+                    {item.endereco && (
+                      <p className="mt-2 text-xs text-accent-500">
+                        <MapPin size={11} className="mr-1 inline shrink-0" />
+                        {item.endereco}{item.bairro && ` - ${item.bairro}`}
+                      </p>
+                    )}
+                    {hasContact && (
+                      <div className="mt-3 space-y-1">
+                        {item.contato?.telefone && (
+                          <a href={`tel:${item.contato.telefone}`} className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                            <Phone size={12} /> {item.contato.telefone}
+                          </a>
+                        )}
+                        {item.contato?.email && (
+                          <a href={`mailto:${item.contato.email}`} className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                            <Mail size={12} /> {item.contato.email}
+                          </a>
+                        )}
+                        {item.contato?.site && (
+                          <a href={item.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                            <Globe size={12} /> Site oficial
+                          </a>
+                        )}
+                        {item.contato?.instagram && (
+                          <a href={item.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                            <ExternalLink size={12} /> Instagram
+                          </a>
+                        )}
+                      </div>
+                    )}
+                    {item.link_externo && (
+                      <a href={item.link_externo} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block">
+                        <Button variant="outline" size="sm">
+                          <ExternalLink size={14} /> Acessar
+                        </Button>
+                      </a>
+                    )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
       </div>
 
-      <DetailModal open={!!selectedSlug} onClose={() => setSelectedSlug(null)}>
-        {selectedItem && <ServiceModalContent item={selectedItem} />}
-      </DetailModal>
     </div>
-  );
-}
-
-function ServiceModalContent({ item }: { item: ServiceItem }) {
-  const hasContact = item.contato && Object.values(item.contato).some(Boolean);
-
-  return (
-    <>
-      <DialogHeader>
-        {item.categoria && (
-          <Badge className="w-fit bg-primary-700 text-accent-50">{item.categoria.nome}</Badge>
-        )}
-        <DialogTitle className="text-xl font-bold text-primary-800">{item.nome}</DialogTitle>
-      </DialogHeader>
-      {item.imagem_destaque && (
-        <img src={item.imagem_destaque} alt={item.nome} className="h-56 w-full rounded-xl object-cover" />
-      )}
-      {item.descricao && (
-        <p className="whitespace-pre-line text-sm leading-relaxed text-primary-700">{item.descricao}</p>
-      )}
-      {(item.endereco || hasContact || item.link_externo) && <Separator className="bg-primary-100" />}
-      {item.endereco && (
-        <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">
-            <MapPin size={14} /> Endereço
-          </h3>
-          <p className="mt-1 text-sm text-accent-500">
-            {item.endereco}{item.bairro && ` - ${item.bairro}`}
-          </p>
-        </div>
-      )}
-      {hasContact && (
-        <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">
-            <Phone size={14} /> Contato
-          </h3>
-          <div className="mt-2 space-y-1">
-            {item.contato?.telefone && (
-              <a href={`tel:${item.contato.telefone}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600">
-                <Phone size={12} /> {item.contato.telefone}
-              </a>
-            )}
-            {item.contato?.email && (
-              <a href={`mailto:${item.contato.email}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600">
-                <Mail size={12} /> {item.contato.email}
-              </a>
-            )}
-            {item.contato?.site && (
-              <a href={item.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600">
-                <Globe size={12} /> Site oficial
-              </a>
-            )}
-            {item.contato?.instagram && (
-              <a href={item.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600">
-                <ExternalLink size={12} /> Instagram
-              </a>
-            )}
-          </div>
-        </div>
-      )}
-      <div className="flex flex-wrap gap-2">
-        {item.link_externo && (
-          <a href={item.link_externo} target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="sm">
-              <ExternalLink size={14} /> Acessar
-            </Button>
-          </a>
-        )}
-        <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(window.location.href)}>
-          <Share2 size={14} /> Compartilhar
-        </Button>
-      </div>
-    </>
   );
 }

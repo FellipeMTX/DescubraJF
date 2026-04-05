@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { useAllServiceCategories, useServices } from "@/hooks/useServices";
 import { supabase } from "@/lib/supabase";
-import { uploadImage } from "@/lib/storage";
+
 import { slugify } from "@/lib/utils";
 import type { CategoriaServico, Servico } from "@/types/database";
 
@@ -25,15 +25,20 @@ const EMPTY_CAT: CatFormData = { nome: "", descricao: "", icone: "", pagina: "se
 // ─── Item Form ───
 type ItemFormData = {
   nome: string; descricao_curta: string; descricao: string;
-  categoria_id: string; pagina: Tab; endereco: string; bairro: string;
+  categoria_id: string; pagina: Tab; endereco: string;
   telefone: string; email: string; site: string; instagram: string; link_externo: string;
 };
 const EMPTY_ITEM: ItemFormData = {
   nome: "", descricao_curta: "", descricao: "", categoria_id: "", pagina: "servicos",
-  endereco: "", bairro: "", telefone: "", email: "", site: "", instagram: "", link_externo: "",
+  endereco: "", telefone: "", email: "", site: "", instagram: "", link_externo: "",
 };
 
+function hasContent(form: ItemFormData) {
+  return !!(form.descricao || form.endereco || form.telefone || form.email || form.site || form.instagram || form.link_externo);
+}
+
 export default function ServiceAdmin({ tab = "servicos" }: { tab?: Tab }) {
+  const [selectedCatId, setSelectedCatId] = useState<string | null>(null);
   const title = tab === "servicos" ? "Serviços" : "Passeios";
   const subtitle = tab === "servicos"
     ? "Gerencie os serviços disponíveis"
@@ -45,8 +50,8 @@ export default function ServiceAdmin({ tab = "servicos" }: { tab?: Tab }) {
       <p className="text-sm text-gray-500">{subtitle}</p>
 
       <div className="mt-6 space-y-8">
-        <CategorySection tab={tab} />
-        <ItemSection tab={tab} />
+        <CategorySection tab={tab} selectedCatId={selectedCatId} onSelectCat={setSelectedCatId} />
+        {selectedCatId && <ItemSection tab={tab} categoryId={selectedCatId} />}
       </div>
     </div>
   );
@@ -55,7 +60,7 @@ export default function ServiceAdmin({ tab = "servicos" }: { tab?: Tab }) {
 // ═══════════════════════════════════
 // Categories
 // ═══════════════════════════════════
-function CategorySection({ tab }: { tab: Tab }) {
+function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; selectedCatId: string | null; onSelectCat: (id: string | null) => void }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<CategoriaServico | null>(null);
   const [form, setForm] = useState<CatFormData>(EMPTY_CAT);
@@ -140,14 +145,26 @@ function CategorySection({ tab }: { tab: Tab }) {
           <Skeleton className="h-8 w-48" />
         ) : categories?.length === 0 ? (
           <p className="text-sm text-gray-400">Nenhuma categoria cadastrada.</p>
-        ) : categories?.map((cat) => (
-          <div key={cat.id} className="flex items-center gap-1 rounded-lg border bg-white px-3 py-1.5 text-sm">
-            {(() => { const Icon = getIconByName(cat.icone); return Icon ? <Icon size={14} className="mr-1" /> : null; })()}
-            <span className="font-medium text-gray-700">{cat.nome}</span>
-            <button onClick={() => openEdit(cat)} className="ml-1 text-gray-400 hover:text-gray-600"><Pencil size={12} /></button>
-            <button onClick={() => handleDelete(cat.id)} className="text-gray-400 hover:text-red-500"><Trash2 size={12} /></button>
-          </div>
-        ))}
+        ) : categories?.map((cat) => {
+          const Icon = getIconByName(cat.icone);
+          const isActive = selectedCatId === cat.id;
+          return (
+            <div
+              key={cat.id}
+              onClick={() => onSelectCat(isActive ? null : cat.id)}
+              className={`flex cursor-pointer items-center gap-1 rounded-lg border px-3 py-1.5 text-sm transition-colors ${
+                isActive
+                  ? "border-primary-500 bg-primary-500 text-white"
+                  : "border-gray-200 bg-white text-gray-700 hover:border-primary-300 hover:bg-primary-50"
+              }`}
+            >
+              {Icon && <Icon size={14} className="mr-1" />}
+              <span className="font-medium">{cat.nome}</span>
+              <button onClick={(e) => { e.stopPropagation(); openEdit(cat); }} className={`ml-1 ${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-gray-600"}`}><Pencil size={12} /></button>
+              <button onClick={(e) => { e.stopPropagation(); handleDelete(cat.id); }} className={`${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-red-500"}`}><Trash2 size={12} /></button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -156,22 +173,22 @@ function CategorySection({ tab }: { tab: Tab }) {
 // ═══════════════════════════════════
 // Items
 // ═══════════════════════════════════
-function ItemSection({ tab }: { tab: Tab }) {
+function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Servico | null>(null);
   const [form, setForm] = useState<ItemFormData>(EMPTY_ITEM);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const [saving, setSaving] = useState(false);
 
   const qc = useQueryClient();
-  const { data: items, isLoading } = useServices(tab);
+  const { data: allItems, isLoading } = useServices(tab);
+  const items = allItems?.filter((i) => i.categoria_id === categoryId);
   const { data: allCategories } = useAllServiceCategories();
   const categories = allCategories?.filter((c) => c.pagina === tab);
 
   function openCreate() {
     setEditing(null);
-    setForm({ ...EMPTY_ITEM, pagina: tab });
-    setImageFile(null);
+    setForm({ ...EMPTY_ITEM, pagina: tab, categoria_id: categoryId });
     setDialogOpen(true);
   }
 
@@ -180,11 +197,10 @@ function ItemSection({ tab }: { tab: Tab }) {
     setForm({
       nome: item.nome, descricao_curta: item.descricao_curta ?? "", descricao: item.descricao ?? "",
       categoria_id: item.categoria_id ?? "", pagina: item.pagina, endereco: item.endereco ?? "",
-      bairro: item.bairro ?? "", telefone: item.contato?.telefone ?? "", email: item.contato?.email ?? "",
+      telefone: item.contato?.telefone ?? "", email: item.contato?.email ?? "",
       site: item.contato?.site ?? "", instagram: item.contato?.instagram ?? "",
       link_externo: item.link_externo ?? "",
     });
-    setImageFile(null);
     setDialogOpen(true);
   }
 
@@ -192,9 +208,6 @@ function ItemSection({ tab }: { tab: Tab }) {
     if (!form.nome.trim()) return;
     setSaving(true);
     try {
-      let imagem_destaque = editing?.imagem_destaque ?? null;
-      if (imageFile) imagem_destaque = await uploadImage(imageFile, "servicos");
-
       const contato = {
         telefone: form.telefone || undefined, email: form.email || undefined,
         site: form.site || undefined, instagram: form.instagram || undefined,
@@ -204,9 +217,9 @@ function ItemSection({ tab }: { tab: Tab }) {
       const payload = {
         nome: form.nome, slug: slugify(form.nome), descricao_curta: form.descricao_curta || null,
         descricao: form.descricao || null, categoria_id: form.categoria_id || null,
-        pagina: form.pagina, endereco: form.endereco || null, bairro: form.bairro || null,
+        pagina: form.pagina, endereco: form.endereco || null,
         contato: hasContato ? contato : null, link_externo: form.link_externo || null,
-        imagem_destaque, updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       };
 
       if (editing) {
@@ -252,7 +265,7 @@ function ItemSection({ tab }: { tab: Tab }) {
             </DialogHeader>
             <div className="space-y-4">
               <Field label="Nome *"><Input value={form.nome} onChange={(e) => update("nome", e.target.value)} /></Field>
-              <Field label="Descrição curta"><Input value={form.descricao_curta} onChange={(e) => update("descricao_curta", e.target.value)} /></Field>
+              <Field label="Descrição curta (máx. 50 caracteres)"><Input value={form.descricao_curta} onChange={(e) => update("descricao_curta", e.target.value.slice(0, 50))} maxLength={50} /></Field>
               <Field label="Descrição completa"><Textarea value={form.descricao} onChange={(e) => update("descricao", e.target.value)} rows={3} /></Field>
               <Field label="Categoria">
                 <select value={form.categoria_id} onChange={(e) => update("categoria_id", e.target.value)} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm">
@@ -260,12 +273,7 @@ function ItemSection({ tab }: { tab: Tab }) {
                   {categories?.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
                 </select>
               </Field>
-              <Field label="Foto"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Endereço"><Input value={form.endereco} onChange={(e) => update("endereco", e.target.value)} /></Field>
-                <Field label="Bairro"><Input value={form.bairro} onChange={(e) => update("bairro", e.target.value)} /></Field>
-              </div>
-              <Field label="Link externo"><Input value={form.link_externo} onChange={(e) => update("link_externo", e.target.value)} placeholder="https://..." /></Field>
+              <Field label="Endereço"><Input value={form.endereco} onChange={(e) => update("endereco", e.target.value)} placeholder="Endereço completo" /></Field>
               <h3 className="text-sm font-semibold text-gray-800">Contato</h3>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Telefone"><Input value={form.telefone} onChange={(e) => update("telefone", e.target.value)} /></Field>
@@ -275,7 +283,8 @@ function ItemSection({ tab }: { tab: Tab }) {
                 <Field label="Site"><Input value={form.site} onChange={(e) => update("site", e.target.value)} /></Field>
                 <Field label="Instagram"><Input value={form.instagram} onChange={(e) => update("instagram", e.target.value)} /></Field>
               </div>
-              <Button onClick={handleSave} disabled={saving || !form.nome.trim()} className="w-full">
+              <Field label="Link externo"><Input value={form.link_externo} onChange={(e) => update("link_externo", e.target.value)} placeholder="https://..." /></Field>
+              <Button onClick={handleSave} disabled={saving || !form.nome.trim() || !hasContent(form)} className="w-full">
                 {saving ? "Salvando..." : "Salvar"}
               </Button>
             </div>
