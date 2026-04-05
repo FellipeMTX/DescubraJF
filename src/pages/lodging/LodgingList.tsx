@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { MapPin, Star, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car, Share2 } from "lucide-react";
+import { MapPin, Star, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -36,19 +35,9 @@ export default function LodgingList() {
       placeholderIcon={<BedDouble size={28} className="text-primary-300" />}
       renderCardContent={(lodging) => (
         <>
-          <Badge className="mb-1 w-fit bg-primary-700 text-2xs text-accent-50 capitalize">{lodging.tipo}</Badge>
           <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{lodging.nome}</h3>
-          {lodging.estrelas && (
-            <div className="mt-1 flex gap-0.5">
-              {Array.from({ length: lodging.estrelas }).map((_, s) => (
-                <Star key={s} size={11} className="fill-primary-400 text-primary-400" />
-              ))}
-            </div>
-          )}
-          {lodging.endereco && (
-            <p className="mt-1 flex items-center gap-1 text-xs text-accent-500">
-              <MapPin size={11} className="shrink-0" /> {lodging.endereco}
-            </p>
+          {lodging.descricao_curta && (
+            <p className="mt-1 line-clamp-2 text-xs text-accent-500">{lodging.descricao_curta}</p>
           )}
         </>
       )}
@@ -120,11 +109,6 @@ function LodgingModalContent({ slug }: { slug: string }) {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-2">
-        <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(window.location.href)}>
-          <Share2 size={14} /> Compartilhar
-        </Button>
-      </div>
     </>
   );
 }
