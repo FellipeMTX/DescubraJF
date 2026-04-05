@@ -28,25 +28,25 @@
   --font-size-3xl: 1.875rem;
   --font-size-3xl--line-height: 2.25rem;
 
-  /* ── Cores primárias (paleta verde "Jade Pebble Morning") ── */
-  --color-primary-50: #f0f4f0;
-  --color-primary-100: #dce5dc;
-  --color-primary-200: #bac8b1;
-  --color-primary-300: #9ab490;
-  --color-primary-400: #7b9669;
-  --color-primary-500: #6a8a5a;
-  --color-primary-600: #576e49;
-  --color-primary-700: #404e3b;
-  --color-primary-800: #2d3829;
-  --color-primary-900: #1a211a;
+  /* ── Cores primárias (paleta "Blue Oxford" — #0E0929) ── */
+  --color-primary-50: #eef0ff;
+  --color-primary-100: #dce1ff;
+  --color-primary-200: #b9c3ff;
+  --color-primary-300: #92acff;
+  --color-primary-400: #6b85e0;
+  --color-primary-500: #4a5fb8;
+  --color-primary-600: #2f3d8a;
+  --color-primary-700: #1a2460;
+  --color-primary-800: #0E0929;
+  --color-primary-900: #08051a;
 
-  /* ── Cores de destaque (cinza/teal) ── */
-  --color-accent-50: #f5f5f5;
-  --color-accent-100: #e6e6e6;
-  --color-accent-200: #d4d4d4;
-  --color-accent-300: #b0b0b0;
-  --color-accent-400: #6c8480;
-  --color-accent-500: #5a7370;
+  /* ── Cores de destaque (paleta "Vista Blue" — #92ACFF) ── */
+  --color-accent-50: #f0f3ff;
+  --color-accent-100: #dce3ff;
+  --color-accent-200: #b9c8ff;
+  --color-accent-300: #92acff;
+  --color-accent-400: #708ee6;
+  --color-accent-500: #5570bf;
 }
 
 /* Hero banner swiper overrides */
@@ -71,7 +71,6 @@ body {
 
 @theme inline {
   --font-heading: var(--font-sans);
-  /* ── Fonte principal — altere aqui para mudar a fonte do site ── */
   --font-sans: 'Geist Variable', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

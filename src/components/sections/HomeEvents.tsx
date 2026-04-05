@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { CalendarDays } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -5,12 +6,15 @@ import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { EventCard } from "@/components/ui/EventCard";
+import { EventDetailDialog } from "@/components/ui/EventDetailDialog";
 import { useUpcomingEvents } from "@/hooks/useEvents";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import type { Evento } from "@/types/database";
 
 export function HomeEvents() {
   const { data: events, isLoading } = useUpcomingEvents(6);
   const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>(0.05);
+  const [selectedEvent, setSelectedEvent] = useState<Evento | null>(null);
 
   return (
     <section ref={sectionRef} className="bg-accent-100 py-16">
@@ -48,7 +52,7 @@ export function HomeEvents() {
                   transitionDelay: `${i * 120}ms`,
                 }}
               >
-                <EventCard event={event} />
+                <EventCard event={event} onClick={() => setSelectedEvent(event)} />
               </div>
             ))}
           </div>
@@ -75,6 +79,11 @@ export function HomeEvents() {
           </Link>
         </div>
       </div>
+      <EventDetailDialog
+        event={selectedEvent}
+        open={!!selectedEvent}
+        onOpenChange={(open) => !open && setSelectedEvent(null)}
+      />
     </section>
   );
 }
