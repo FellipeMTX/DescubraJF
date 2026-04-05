@@ -30,7 +30,7 @@ export default function AdminLayout() {
             <h1 className="mb-6 text-center text-2xl font-bold text-gray-900">
               Painel Administrativo
             </h1>
-            <SignIn routing="hash" />
+            <SignIn routing="hash" forceRedirectUrl="/admin" />
           </div>
         </div>
       </SignedOut>
