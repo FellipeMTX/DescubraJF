@@ -78,7 +78,8 @@ export const router = createBrowserRouter([
       { path: "roteiros", element: <Lazy><RouteAdmin /></Lazy> },
       { path: "eventos", element: <Lazy><EventAdmin /></Lazy> },
       { path: "banners", element: <Lazy><BannerAdmin /></Lazy> },
-      { path: "servicos", element: <Lazy><ServiceAdmin /></Lazy> },
+      { path: "servicos", element: <Lazy><ServiceAdmin tab="servicos" /></Lazy> },
+      { path: "passeios", element: <Lazy><ServiceAdmin tab="passeios" /></Lazy> },
     ],
   },
 ]);

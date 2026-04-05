@@ -33,27 +33,16 @@ const EMPTY_ITEM: ItemFormData = {
   endereco: "", bairro: "", telefone: "", email: "", site: "", instagram: "", link_externo: "",
 };
 
-export default function ServiceAdmin() {
-  const [tab, setTab] = useState<Tab>("servicos");
+export default function ServiceAdmin({ tab = "servicos" }: { tab?: Tab }) {
+  const title = tab === "servicos" ? "Serviços" : "Passeios";
+  const subtitle = tab === "servicos"
+    ? "Gerencie os serviços disponíveis"
+    : "Gerencie os passeios — \"A gente se vê por aí\"";
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900">Serviços & Passeios</h1>
-      <p className="text-sm text-gray-500">Gerencie serviços e "A gente se vê por aí"</p>
-
-      <div className="mt-4 flex gap-2">
-        {(["servicos", "passeios"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-              tab === t ? "bg-primary-500 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-            }`}
-          >
-            {t === "servicos" ? "Serviços" : "A Gente Se Vê Por Aí"}
-          </button>
-        ))}
-      </div>
+      <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+      <p className="text-sm text-gray-500">{subtitle}</p>
 
       <div className="mt-6 space-y-8">
         <CategorySection tab={tab} />

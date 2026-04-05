@@ -6,7 +6,7 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 import {
-  MapPin, CalendarDays, Image, UtensilsCrossed, BedDouble, Route, ChevronLeft, Briefcase
+  MapPin, CalendarDays, Image, UtensilsCrossed, BedDouble, Route, ChevronLeft, Briefcase, Compass
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SITE_NAME } from "@/lib/constants";
@@ -16,7 +16,8 @@ const NAV_LINKS = [
   { label: "Gastronomia", href: "/admin/gastronomia", icon: UtensilsCrossed },
   { label: "Hospedagens", href: "/admin/hospedagens", icon: BedDouble },
   { label: "Roteiros", href: "/admin/roteiros", icon: Route },
-  { label: "Serviços & Passeios", href: "/admin/servicos", icon: Briefcase },
+  { label: "Serviços", href: "/admin/servicos", icon: Briefcase },
+  { label: "Passeios", href: "/admin/passeios", icon: Compass },
   { label: "Banners", href: "/admin/banners", icon: Image },
   { label: "Eventos", href: "/admin/eventos", icon: CalendarDays },
 ];
