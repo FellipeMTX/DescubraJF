@@ -1,8 +1,53 @@
-# Descubra Juiz de Fora - Diretrizes para Agentes de IA
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Sobre o Projeto
 
 Portal turístico oficial de Juiz de Fora (MG). Frontend React + Vite + TypeScript com Supabase como backend. O documento de referência completo é `PLANO_IMPLEMENTACAO.md`.
+
+## Comandos
+
+```bash
+npm run dev       # Dev server (Vite)
+npm run build     # Type-check (tsc -b) + build
+npm run lint      # ESLint
+npm run preview   # Preview production build
+```
+
+Sem test runner configurado.
+
+## Arquitetura
+
+### Routing (`src/routes.tsx`)
+- `createBrowserRouter` do React Router v7, todas as páginas lazy-loaded
+- Duas árvores: `/` (público, envolto em `<Layout>`) e `/admin` (envolto em `<AdminLayout>`)
+- Admin auth é feita dentro de `AdminLayout` via Clerk `<SignedIn>`/`<SignedOut>` — sem guard no router
+
+### Data Layer
+- **Supabase client** em `src/lib/supabase.ts` — usa `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`
+- **Hooks** em `src/hooks/` — todos seguem o padrão: `useQuery` do React Query + `.select()` no Supabase, queryKey como `["tabela", filtro]`. Sem mutations — admin pages escrevem direto via Supabase client
+- **Types** em `src/types/database.ts` — 8 entidades principais: Experiencia, Evento, Roteiro, Hospedagem, EstabelecimentoGastronomia, Servico, Banner, PaginaConteudo
+
+### Auth (Clerk)
+- `ClerkProvider` envolve o app em `App.tsx` (`VITE_CLERK_PUBLISHABLE_KEY`)
+- Admin protegido por renderização condicional em `AdminLayout`, não por route guards
+
+### Theming (`src/index.css`)
+- TailwindCSS v4 — configuração via CSS `@theme` blocks (sem `tailwind.config.ts`)
+- Design tokens centralizados no `@theme` block: paleta `primary-*`, `accent-*`, escala `font-size-*`
+- Páginas públicas usam tokens de marca (`primary-*`, `accent-*`)
+- Páginas admin usam tokens semânticos shadcn (`foreground`, `muted-foreground`, `border`, etc.)
+- Para mudar cores/fontes/tamanhos do site inteiro: editar apenas `src/index.css`
+
+### Admin Pattern
+- `ServiceAdmin` é reutilizado para `/admin/servicos` e `/admin/passeios` via prop `tab`
+- Sidebar nav hardcoded em `AdminLayout.tsx`
+
+### Env vars necessárias (`.env.local`)
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+- `VITE_CLERK_PUBLISHABLE_KEY`
 
 ## Regras de Código
 
@@ -42,21 +87,6 @@ Portal turístico oficial de Juiz de Fora (MG). Frontend React + Vite + TypeScri
 3. **Atualizar o PLANO_IMPLEMENTACAO.md** marcando tasks como concluídas (`[x]`) quando aplicável.
 
 4. **Só faça commits quando o humano pedir.**
-
-## Estrutura de Pastas
-
-```
-src/
-├── components/
-│   ├── layout/     → Header, Footer, Layout, MobileMenu
-│   ├── ui/         → Componentes shadcn/ui (button, card, badge, etc.)
-│   └── sections/   → Seções específicas da Home
-├── pages/          → Páginas do site (uma pasta por seção)
-├── hooks/          → Custom hooks (queries ao Supabase)
-├── lib/            → supabase.ts, utils.ts, constants.ts
-├── types/          → database.ts (tipos das tabelas)
-└── i18n/           → Traduções (Fase 7)
-```
 
 ## Stack (não alterar sem autorização)
 
