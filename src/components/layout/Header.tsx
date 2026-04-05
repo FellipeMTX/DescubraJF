@@ -104,7 +104,7 @@ function NavDropdown({
             <Link
               key={child.href}
               to={child.href}
-              className="block rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-wider text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
+              className="block rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-wider text-primary-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
               onClick={() => setOpen(false)}
             >
               {child.label}

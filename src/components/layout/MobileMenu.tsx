@@ -30,7 +30,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           <button
             aria-label="Fechar menu"
             onClick={onClose}
-            className="rounded-md p-1 text-gray-500 hover:bg-gray-100"
+            className="rounded-md p-1 text-accent-400 hover:bg-primary-50"
           >
             <X size={24} />
           </button>
@@ -45,7 +45,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                 key={item.label}
                 to={item.href}
                 onClick={onClose}
-                className="px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700"
+                className="px-4 py-3 text-sm font-medium text-primary-700 hover:bg-primary-50 hover:text-primary-700"
               >
                 {item.label}
               </Link>
@@ -69,7 +69,7 @@ function MobileDropdown({
   return (
     <div>
       <button
-        className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary-50"
+        className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-primary-700 hover:bg-primary-50"
         onClick={() => setExpanded(!expanded)}
       >
         {item.label}
@@ -77,13 +77,13 @@ function MobileDropdown({
       </button>
 
       {expanded && (
-        <div className="bg-gray-50">
+        <div className="bg-primary-50">
           {item.children.map((child) => (
             <Link
               key={child.href}
               to={child.href}
               onClick={onClose}
-              className="block py-2.5 pl-8 pr-4 text-sm text-gray-600 hover:text-primary-700"
+              className="block py-2.5 pl-8 pr-4 text-sm text-accent-500 hover:text-primary-700"
             >
               {child.label}
             </Link>

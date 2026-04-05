@@ -42,7 +42,7 @@ export default function DiningList() {
         return (
         <>
           {displayCat && (
-            <Badge className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50">{displayCat.nome}</Badge>
+            <Badge className="mb-1 w-fit bg-primary-700 text-2xs text-accent-50">{displayCat.nome}</Badge>
           )}
           <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{est.nome}</h3>
           {est.endereco && (

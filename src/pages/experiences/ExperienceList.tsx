@@ -46,7 +46,7 @@ export default function ExperienceList() {
       renderCardContent={(exp) => (
         <>
           {exp.categoria && (
-            <Badge className="mb-1 w-fit text-[10px] text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}>
+            <Badge className="mb-1 w-fit text-2xs text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}>
               {exp.categoria.nome}
             </Badge>
           )}
@@ -81,7 +81,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
     <>
       <DialogHeader>
         {exp.categoria && (
-          <Badge className="w-fit text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}>{exp.categoria.nome}</Badge>
+          <Badge className="w-fit text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}>{exp.categoria.nome}</Badge>
         )}
         <DialogTitle className="text-xl font-bold text-primary-800">{exp.nome}</DialogTitle>
       </DialogHeader>

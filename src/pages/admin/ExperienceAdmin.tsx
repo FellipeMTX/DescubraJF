@@ -159,8 +159,8 @@ export default function ExperienceAdmin() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Atrativos</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-foreground">Atrativos</h1>
+          <p className="text-sm text-muted-foreground">
             Gerencie os atrativos turísticos
           </p>
         </div>
@@ -193,12 +193,12 @@ export default function ExperienceAdmin() {
       {/* Table */}
       <div className="mt-6 overflow-hidden rounded-lg border bg-white">
         <table className="w-full text-sm">
-          <thead className="border-b bg-gray-50">
+          <thead className="border-b bg-muted">
             <tr>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Nome</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Categoria</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Status</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-500">Ações</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Nome</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Categoria</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Status</th>
+              <th className="px-4 py-3 text-right font-medium text-muted-foreground">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -211,7 +211,7 @@ export default function ExperienceAdmin() {
                   </tr>
                 ))
               : experiences?.map((exp) => (
-                  <tr key={exp.id} className="hover:bg-gray-50">
+                  <tr key={exp.id} className="hover:bg-muted">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         {exp.imagem_destaque ? (
@@ -221,13 +221,13 @@ export default function ExperienceAdmin() {
                             className="h-10 w-10 rounded object-cover"
                           />
                         ) : (
-                          <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">
+                          <div className="flex h-10 w-10 items-center justify-center rounded bg-muted text-xs text-muted-foreground">
                             Sem foto
                           </div>
                         )}
                         <div>
-                          <p className="font-medium text-gray-900">{exp.nome}</p>
-                          <p className="text-xs text-gray-500">{exp.endereco}</p>
+                          <p className="font-medium text-foreground">{exp.nome}</p>
+                          <p className="text-xs text-muted-foreground">{exp.endereco}</p>
                         </div>
                       </div>
                     </td>
@@ -235,7 +235,7 @@ export default function ExperienceAdmin() {
                       {exp.categoria && (
                         <Badge
                           className="text-white"
-                          style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}
+                          style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}
                         >
                           {exp.categoria.nome}
                         </Badge>
@@ -286,7 +286,7 @@ function ExperienceForm({
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-sm font-medium text-gray-700">Nome *</label>
+        <label className="text-sm font-medium text-foreground">Nome *</label>
         <Input
           value={form.nome}
           onChange={(e) => onUpdate("nome", e.target.value)}
@@ -295,7 +295,7 @@ function ExperienceForm({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-700">Descrição curta</label>
+        <label className="text-sm font-medium text-foreground">Descrição curta</label>
         <Input
           value={form.descricao_curta}
           onChange={(e) => onUpdate("descricao_curta", e.target.value)}
@@ -304,7 +304,7 @@ function ExperienceForm({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-700">Descrição completa</label>
+        <label className="text-sm font-medium text-foreground">Descrição completa</label>
         <Textarea
           value={form.descricao}
           onChange={(e) => onUpdate("descricao", e.target.value)}
@@ -314,11 +314,11 @@ function ExperienceForm({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-700">Categoria</label>
+        <label className="text-sm font-medium text-foreground">Categoria</label>
         <select
           value={form.categoria_id}
           onChange={(e) => onUpdate("categoria_id", e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+          className="w-full rounded-md border border-input px-3 py-2 text-sm"
         >
           <option value="">Selecione...</option>
           {categories.map((cat) => (
@@ -330,19 +330,19 @@ function ExperienceForm({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-gray-700">Foto principal</label>
+        <label className="text-sm font-medium text-foreground">Foto principal</label>
         <Input
           type="file"
           accept="image/*"
           onChange={(e) => onImageChange(e.target.files?.[0] ?? null)}
         />
         {imageFile && (
-          <p className="mt-1 text-xs text-gray-500">{imageFile.name}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{imageFile.name}</p>
         )}
       </div>
 
       <div className="flex items-center gap-2">
-        <h3 className="text-sm font-semibold text-gray-800">Localização</h3>
+        <h3 className="text-sm font-semibold text-foreground">Localização</h3>
         <InfoTooltip text="Use a ferramenta de buscar endereço para facilitar a busca. Caso não seja encontrado, digite o endereço manualmente e busque sua geolocalização no Google Maps." />
       </div>
       <div className="flex gap-2">
@@ -359,27 +359,27 @@ function ExperienceForm({
 
       <div className="grid grid-cols-3 gap-4">
         <div className="col-span-2">
-          <label className="text-sm font-medium text-gray-700">Endereço</label>
+          <label className="text-sm font-medium text-foreground">Endereço</label>
           <Input value={form.endereco} onChange={(e) => onUpdate("endereco", e.target.value)} />
         </div>
         <div>
-          <label className="text-sm font-medium text-gray-700">Número</label>
+          <label className="text-sm font-medium text-foreground">Número</label>
           <Input value={form.numero} onChange={(e) => onUpdate("numero", e.target.value)} placeholder="123" />
         </div>
       </div>
       <div>
-        <label className="text-sm font-medium text-gray-700">Bairro</label>
+        <label className="text-sm font-medium text-foreground">Bairro</label>
         <Input value={form.bairro} onChange={(e) => onUpdate("bairro", e.target.value)} />
       </div>
 
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="text-sm font-medium text-gray-700">Latitude</label>
+          <label className="text-sm font-medium text-foreground">Latitude</label>
           <Input value={form.latitude} onChange={(e) => onUpdate("latitude", e.target.value)} placeholder="-21.7469" />
         </div>
         <div>
-          <label className="text-sm font-medium text-gray-700">Longitude</label>
+          <label className="text-sm font-medium text-foreground">Longitude</label>
           <Input value={form.longitude} onChange={(e) => onUpdate("longitude", e.target.value)} placeholder="-43.3560" />
         </div>
       </div>
@@ -392,7 +392,7 @@ function ExperienceForm({
                 type="checkbox"
                 checked={form[field]}
                 onChange={(e) => onUpdate(field, e.target.checked)}
-                className="rounded border-gray-300"
+                className="rounded border-input"
               />
               {field === "pet_friendly"
                 ? "Pet Friendly"

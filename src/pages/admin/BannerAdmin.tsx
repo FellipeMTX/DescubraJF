@@ -127,8 +127,8 @@ export default function BannerAdmin() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Banners</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-foreground">Banners</h1>
+          <p className="text-sm text-muted-foreground">
             Gerencie o banner rotativo da página inicial
           </p>
         </div>
@@ -147,7 +147,7 @@ export default function BannerAdmin() {
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-700">Título *</label>
+                <label className="text-sm font-medium text-foreground">Título *</label>
                 <Input
                   value={form.titulo}
                   onChange={(e) => setForm({ ...form, titulo: e.target.value })}
@@ -155,7 +155,7 @@ export default function BannerAdmin() {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700">Subtítulo</label>
+                <label className="text-sm font-medium text-foreground">Subtítulo</label>
                 <Input
                   value={form.subtitulo}
                   onChange={(e) => setForm({ ...form, subtitulo: e.target.value })}
@@ -163,7 +163,7 @@ export default function BannerAdmin() {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700">Link (destino do botão "Saiba mais")</label>
+                <label className="text-sm font-medium text-foreground">Link (destino do botão "Saiba mais")</label>
                 <Input
                   value={form.link}
                   onChange={(e) => setForm({ ...form, link: e.target.value })}
@@ -171,7 +171,7 @@ export default function BannerAdmin() {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-foreground">
                   Imagem {editing ? "(deixe vazio para manter)" : "*"}
                 </label>
                 <Input
@@ -181,7 +181,7 @@ export default function BannerAdmin() {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700">Ordem</label>
+                <label className="text-sm font-medium text-foreground">Ordem</label>
                 <Input
                   type="number"
                   value={form.ordem}
@@ -207,7 +207,7 @@ export default function BannerAdmin() {
                 key={banner.id}
                 className="flex items-center gap-4 rounded-lg border bg-white p-4"
               >
-                <GripVertical size={16} className="text-gray-300" />
+                <GripVertical size={16} className="text-muted-foreground" />
 
                 {banner.imagem_url && !banner.imagem_url.startsWith("/") ? (
                   <img
@@ -222,9 +222,9 @@ export default function BannerAdmin() {
                 )}
 
                 <div className="flex-1">
-                  <p className="font-medium text-gray-900">{banner.titulo}</p>
+                  <p className="font-medium text-foreground">{banner.titulo}</p>
                   {banner.subtitulo && (
-                    <p className="text-sm text-gray-500">{banner.subtitulo}</p>
+                    <p className="text-sm text-muted-foreground">{banner.subtitulo}</p>
                   )}
                   {banner.link && (
                     <p className="text-xs text-primary-500">{banner.link}</p>

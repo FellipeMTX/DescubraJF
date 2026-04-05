@@ -26,9 +26,9 @@ export default function AdminLayout() {
   return (
     <>
       <SignedOut>
-        <div className="flex min-h-screen items-center justify-center bg-gray-50">
+        <div className="flex min-h-screen items-center justify-center bg-muted">
           <div className="w-full max-w-md">
-            <h1 className="mb-6 text-center text-2xl font-bold text-gray-900">
+            <h1 className="mb-6 text-center text-2xl font-bold text-foreground">
               Painel Administrativo
             </h1>
             <SignIn routing="hash" forceRedirectUrl="/admin" />
@@ -39,7 +39,7 @@ export default function AdminLayout() {
       <SignedIn>
         <div className="flex h-screen overflow-hidden">
           <AdminSidebar />
-          <main className="flex-1 overflow-y-auto bg-gray-50 p-6">
+          <main className="flex-1 overflow-y-auto bg-muted p-6">
             <Outlet />
           </main>
         </div>
@@ -56,7 +56,7 @@ function AdminSidebar() {
       {/* Header */}
       <div className="border-b p-4">
         <img src="/descubraLogo.png" alt={SITE_NAME} className="h-8" />
-        <p className="mt-1 text-xs text-gray-500">Painel Admin</p>
+        <p className="mt-1 text-xs text-muted-foreground">Painel Admin</p>
       </div>
 
       {/* Nav */}
@@ -76,7 +76,7 @@ function AdminSidebar() {
                     "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     isActive
                       ? "bg-primary-50 text-primary-700"
-                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}
                 >
                   <Icon size={18} />
@@ -94,7 +94,7 @@ function AdminSidebar() {
           <UserButton />
           <Link
             to="/"
-            className="flex items-center gap-1 text-xs text-gray-500 hover:text-primary-600"
+            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary-600"
           >
             <ChevronLeft size={14} /> Ver site
           </Link>

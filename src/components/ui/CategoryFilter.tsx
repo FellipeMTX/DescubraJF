@@ -36,7 +36,7 @@ export function CategoryFilter({
           "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
           selected === "todos"
             ? "border-primary-500 bg-primary-50 text-primary-700"
-            : "border-gray-300 text-gray-600 hover:border-primary-300 hover:text-primary-600"
+            : "border-primary-200 text-primary-700 hover:border-primary-300 hover:text-primary-600"
         )}
       >
         Todos
@@ -54,7 +54,7 @@ export function CategoryFilter({
               "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
               isActive
                 ? "border-primary-500 bg-primary-50 text-primary-700"
-                : "border-gray-300 text-gray-600 hover:border-primary-300 hover:text-primary-600"
+                : "border-primary-200 text-primary-700 hover:border-primary-300 hover:text-primary-600"
             )}
           >
             {Icon && <Icon size={16} />}

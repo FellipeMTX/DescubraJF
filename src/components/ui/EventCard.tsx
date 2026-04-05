@@ -32,7 +32,7 @@ export function EventCard({ event }: { event: Evento }) {
             {formatDateShort(event.data_inicio)}
           </span>
           {event.data_fim && (
-            <span className="block text-[10px] text-accent-400">
+            <span className="block text-2xs text-accent-400">
               até {formatDateShort(event.data_fim)}
             </span>
           )}
