@@ -173,6 +173,42 @@ export type MaterialDownload = {
   created_at: string;
 };
 
+export type CategoriaServico = {
+  id: string;
+  nome: string;
+  slug: string;
+  descricao: string | null;
+  icone: string | null;
+  pagina: "servicos" | "passeios";
+  ordem: number;
+  ativo: boolean;
+};
+
+export type Servico = {
+  id: string;
+  nome: string;
+  slug: string;
+  descricao: string | null;
+  descricao_curta: string | null;
+  categoria_id: string | null;
+  pagina: "servicos" | "passeios";
+  imagem_destaque: string | null;
+  endereco: string | null;
+  bairro: string | null;
+  contato: {
+    telefone?: string;
+    email?: string;
+    site?: string;
+    instagram?: string;
+  } | null;
+  link_externo: string | null;
+  ativo: boolean;
+  ordem: number;
+  created_at: string;
+  updated_at: string;
+  categoria?: CategoriaServico;
+};
+
 export type Banner = {
   id: string;
   titulo: string;

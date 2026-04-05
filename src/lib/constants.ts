@@ -14,6 +14,8 @@ export const NAV_ITEMS = [
   },
   { label: "Onde Comer e Beber", href: "/onde-comer" },
   { label: "Onde Ficar", href: "/onde-ficar" },
+  { label: "Serviços", href: "/servicos" },
+  { label: "A Gente Se Vê Por Aí", href: "/passeios" },
   { label: "Contato", href: "/contato" },
 ] as const;
 
