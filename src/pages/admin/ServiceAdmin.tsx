@@ -283,7 +283,7 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
             </DialogHeader>
             <div className="space-y-4">
               <Field label="Nome *"><Input value={form.nome} onChange={(e) => update("nome", e.target.value)} /></Field>
-              <Field label="Descrição curta (máx. 50 caracteres)"><Input value={form.descricao_curta} onChange={(e) => update("descricao_curta", e.target.value.slice(0, 50))} maxLength={50} /></Field>
+              <Field label="Descrição curta"><Input value={form.descricao_curta} onChange={(e) => update("descricao_curta", e.target.value)} /></Field>
               <Field label="Descrição completa"><Textarea value={form.descricao} onChange={(e) => update("descricao", e.target.value)} rows={3} /></Field>
               <Field label="Categoria">
                 <select value={form.categoria_id} onChange={(e) => update("categoria_id", e.target.value)} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm">

@@ -59,17 +59,15 @@ function CategoryButton({
   return (
     <button
       onClick={onClick}
-      className={`flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 p-4 text-center transition-all ${
+      className={`flex h-36 cursor-pointer flex-col items-center rounded-xl border-2 px-4 pt-4 text-center transition-all ${
         active
           ? "border-primary-500 bg-primary-500 text-white shadow-md"
           : "border-primary-200 bg-white text-primary-700 hover:border-primary-400 hover:bg-primary-50"
       }`}
     >
-      {icon}
-      <span className="font-bold uppercase tracking-wider text-lg mt-2">{label}</span>
-      {description && (
-        <span className="leading-tight opacity-80 text-md">{description}</span>
-      )}
+      <div className="flex h-8 shrink-0 items-center">{icon}</div>
+      <span className="mt-2 text-lg font-bold uppercase tracking-wider">{label}</span>
+      <span className="mt-1 line-clamp-2 text-md leading-tight opacity-80">{description ? (description.length > 80 ? `${description.slice(0, 80)}...` : description) : "\u00A0"}</span>
     </button>
   );
 }
@@ -151,7 +149,7 @@ export function CategoryGridPage({
                     <div className="flex h-20 flex-col justify-center bg-primary-500 px-5">
                       <h3 className="font-bold text-white">{item.nome}</h3>
                       {item.descricao_curta && (
-                        <p className="mt-1 truncate text-sm text-white/80">{item.descricao_curta.length > 50 ? `${item.descricao_curta.slice(0, 50)}...` : item.descricao_curta}</p>
+                        <p className="mt-1 truncate text-sm text-white/80">{item.descricao_curta.length > 80 ? `${item.descricao_curta.slice(0, 80)}...` : item.descricao_curta}</p>
                       )}
                     </div>
                     <div className="p-5">
