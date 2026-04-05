@@ -2,8 +2,10 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "@/components/ui/EventCard";
+import { EventDetailDialog } from "@/components/ui/EventDetailDialog";
 import { cn } from "@/lib/utils";
 import { useEvents } from "@/hooks/useEvents";
+import type { Evento } from "@/types/database";
 
 function FilterPill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -103,6 +105,7 @@ function getShortMonthLabel(key: string): string {
 export default function EventList() {
   const [selectedCat, setSelectedCat] = useState("todos");
   const [selectedMonth, setSelectedMonth] = useState("todos");
+  const [selectedEvent, setSelectedEvent] = useState<Evento | null>(null);
   const { data: events, isLoading } = useEvents();
 
   // Filter by category
@@ -190,7 +193,7 @@ export default function EventList() {
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                   {group.events.map((event) => (
-                    <EventCard key={event.id} event={event} />
+                    <EventCard key={event.id} event={event} onClick={() => setSelectedEvent(event)} />
                   ))}
                 </div>
               </div>
@@ -202,6 +205,12 @@ export default function EventList() {
           </p>
         )}
       </div>
+
+      <EventDetailDialog
+        event={selectedEvent}
+        open={!!selectedEvent}
+        onOpenChange={(open) => !open && setSelectedEvent(null)}
+      />
     </div>
   );
 }

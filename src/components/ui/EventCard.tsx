@@ -4,9 +4,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { formatDateShort } from "@/lib/utils";
 import type { Evento } from "@/types/database";
 
-export function EventCard({ event }: { event: Evento }) {
+type EventCardProps = {
+  event: Evento;
+  onClick?: () => void;
+};
+
+export function EventCard({ event, onClick }: EventCardProps) {
   return (
-    <Card className="group h-full overflow-hidden rounded-xl border-0 bg-accent-50 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <Card
+      className="group h-full cursor-pointer overflow-hidden rounded-xl border-0 bg-accent-50 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      onClick={onClick}
+    >
       <div className="relative h-44 overflow-hidden bg-primary-100">
         {event.imagem_destaque ? (
           <img
@@ -31,7 +39,7 @@ export function EventCard({ event }: { event: Evento }) {
           <span className="text-xs font-bold text-primary-800">
             {formatDateShort(event.data_inicio)}
           </span>
-          {event.data_fim && (
+          {event.data_fim && event.data_fim !== event.data_inicio && (
             <span className="block text-2xs text-accent-400">
               até {formatDateShort(event.data_fim)}
             </span>
