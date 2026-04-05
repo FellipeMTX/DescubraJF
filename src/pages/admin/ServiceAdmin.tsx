@@ -47,8 +47,8 @@ export default function ServiceAdmin({ tab = "servicos" }: { tab?: Tab }) {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-      <p className="text-sm text-gray-500">{subtitle}</p>
+      <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+      <p className="text-sm text-muted-foreground">{subtitle}</p>
 
       <div className="mt-6 space-y-8">
         <CategorySection tab={tab} selectedCatId={selectedCatId} onSelectCat={setSelectedCatId} />
@@ -126,7 +126,7 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-800">Categorias</h2>
+        <h2 className="text-lg font-semibold text-foreground">Categorias</h2>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger onClick={openCreate} className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
             <Plus size={16} /> Nova Categoria
@@ -151,7 +151,7 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
         {isLoading ? (
           <Skeleton className="h-8 w-48" />
         ) : categories?.length === 0 ? (
-          <p className="text-sm text-gray-400">Nenhuma categoria cadastrada.</p>
+          <p className="text-sm text-muted-foreground">Nenhuma categoria cadastrada.</p>
         ) : categories?.map((cat) => {
           const Icon = getIconByName(cat.icone);
           const isActive = selectedCatId === cat.id;
@@ -162,13 +162,13 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
               className={`flex cursor-pointer items-center gap-1 rounded-lg border px-3 py-1.5 text-sm transition-colors ${
                 isActive
                   ? "border-primary-500 bg-primary-500 text-white"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-primary-300 hover:bg-primary-50"
+                  : "border-input bg-white text-foreground hover:border-primary-300 hover:bg-primary-50"
               }`}
             >
               {Icon && <Icon size={14} className="mr-1" />}
               <span className="font-medium">{cat.nome}</span>
-              <button onClick={(e) => { e.stopPropagation(); openEdit(cat); }} className={`ml-1 cursor-pointer ${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-gray-600"}`}><Pencil size={12} /></button>
-              <button onClick={(e) => { e.stopPropagation(); setDeleteId(cat.id); }} className={`cursor-pointer ${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-red-500"}`}><Trash2 size={12} /></button>
+              <button onClick={(e) => { e.stopPropagation(); openEdit(cat); }} className={`ml-1 cursor-pointer ${isActive ? "text-white/70 hover:text-white" : "text-muted-foreground hover:text-foreground"}`}><Pencil size={12} /></button>
+              <button onClick={(e) => { e.stopPropagation(); setDeleteId(cat.id); }} className={`cursor-pointer ${isActive ? "text-white/70 hover:text-white" : "text-muted-foreground hover:text-red-500"}`}><Trash2 size={12} /></button>
             </div>
           );
         })}
@@ -270,7 +270,7 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-800">
+        <h2 className="text-lg font-semibold text-foreground">
           {tab === "servicos" ? "Serviços" : "Passeios"}
         </h2>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -286,13 +286,13 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
               <Field label="Descrição curta"><Input value={form.descricao_curta} onChange={(e) => update("descricao_curta", e.target.value)} /></Field>
               <Field label="Descrição completa"><Textarea value={form.descricao} onChange={(e) => update("descricao", e.target.value)} rows={3} /></Field>
               <Field label="Categoria">
-                <select value={form.categoria_id} onChange={(e) => update("categoria_id", e.target.value)} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm">
+                <select value={form.categoria_id} onChange={(e) => update("categoria_id", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
                   <option value="">Selecione...</option>
                   {categories?.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
                 </select>
               </Field>
               <Field label="Endereço"><Input value={form.endereco} onChange={(e) => update("endereco", e.target.value)} placeholder="Endereço completo" /></Field>
-              <h3 className="text-sm font-semibold text-gray-800">Contato</h3>
+              <h3 className="text-sm font-semibold text-foreground">Contato</h3>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Telefone"><Input value={form.telefone} onChange={(e) => update("telefone", e.target.value)} /></Field>
                 <Field label="Email"><Input value={form.email} onChange={(e) => update("email", e.target.value)} /></Field>
@@ -312,26 +312,26 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
 
       <div className="mt-4 overflow-hidden rounded-lg border bg-white">
         <table className="w-full text-sm">
-          <thead className="border-b bg-gray-50">
+          <thead className="border-b bg-muted">
             <tr>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Nome</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Categoria</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-500">Ações</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Nome</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Categoria</th>
+              <th className="px-4 py-3 text-right font-medium text-muted-foreground">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {isLoading ? Array.from({ length: 5 }).map((_, i) => (
               <tr key={i}><td className="px-4 py-3" colSpan={3}><Skeleton className="h-6 w-full" /></td></tr>
             )) : items?.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr key={item.id} className="hover:bg-muted">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     {item.imagem_destaque
                       ? <img src={item.imagem_destaque} alt="" className="h-10 w-10 rounded object-cover" />
-                      : <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">Sem foto</div>}
+                      : <div className="flex h-10 w-10 items-center justify-center rounded bg-muted text-xs text-muted-foreground">Sem foto</div>}
                     <div>
-                      <p className="font-medium text-gray-900">{item.nome}</p>
-                      <p className="text-xs text-gray-500">{item.endereco}</p>
+                      <p className="font-medium text-foreground">{item.nome}</p>
+                      <p className="text-xs text-muted-foreground">{item.endereco}</p>
                     </div>
                   </div>
                 </td>
@@ -364,5 +364,5 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className="text-sm font-medium text-gray-700">{label}</label>{children}</div>;
+  return <div><label className="text-sm font-medium text-foreground">{label}</label>{children}</div>;
 }

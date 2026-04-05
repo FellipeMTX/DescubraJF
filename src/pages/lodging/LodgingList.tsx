@@ -36,7 +36,7 @@ export default function LodgingList() {
       placeholderIcon={<BedDouble size={28} className="text-primary-300" />}
       renderCardContent={(lodging) => (
         <>
-          <Badge className="mb-1 w-fit bg-primary-700 text-[10px] text-accent-50 capitalize">{lodging.tipo}</Badge>
+          <Badge className="mb-1 w-fit bg-primary-700 text-2xs text-accent-50 capitalize">{lodging.tipo}</Badge>
           <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{lodging.nome}</h3>
           {lodging.estrelas && (
             <div className="mt-1 flex gap-0.5">

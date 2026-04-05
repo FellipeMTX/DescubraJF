@@ -152,7 +152,7 @@ function ExperienceSlide({ exp }: { exp: { id: string; slug: string; nome: strin
         {exp.categoria && (
           <Badge
             className="absolute left-4 top-4 text-accent-50 shadow-sm"
-            style={{ backgroundColor: exp.categoria.cor ?? "#7b9669" }}
+            style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}
           >
             {exp.categoria.nome}
           </Badge>

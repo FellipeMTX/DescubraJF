@@ -30,7 +30,7 @@ export function ConfirmDialog({
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
-        <p className="text-sm text-gray-600">{description}</p>
+        <p className="text-sm text-muted-foreground">{description}</p>
         <div className="mt-4 flex justify-end gap-2">
           <Button variant="outline" size="sm" onClick={onClose}>
             {cancelLabel}

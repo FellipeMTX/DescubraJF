@@ -94,8 +94,8 @@ export default function RouteAdmin() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Roteiros</h1>
-          <p className="text-sm text-gray-500">Gerencie os caminhos temáticos</p>
+          <h1 className="text-2xl font-bold text-foreground">Roteiros</h1>
+          <p className="text-sm text-muted-foreground">Gerencie os caminhos temáticos</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger onClick={openCreate} className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
@@ -123,29 +123,29 @@ export default function RouteAdmin() {
 
       <div className="mt-6 overflow-hidden rounded-lg border bg-white">
         <table className="w-full text-sm">
-          <thead className="border-b bg-gray-50">
+          <thead className="border-b bg-muted">
             <tr>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Roteiro</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Mapa</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-500">Ações</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Roteiro</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Mapa</th>
+              <th className="px-4 py-3 text-right font-medium text-muted-foreground">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {isLoading ? Array.from({ length: 3 }).map((_, i) => (
               <tr key={i}><td className="px-4 py-3" colSpan={3}><Skeleton className="h-6 w-full" /></td></tr>
             )) : items?.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr key={item.id} className="hover:bg-muted">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    {item.imagem_destaque ? <img src={item.imagem_destaque} alt="" className="h-10 w-10 rounded object-cover" /> : <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">Sem foto</div>}
+                    {item.imagem_destaque ? <img src={item.imagem_destaque} alt="" className="h-10 w-10 rounded object-cover" /> : <div className="flex h-10 w-10 items-center justify-center rounded bg-muted text-xs text-muted-foreground">Sem foto</div>}
                     <div>
-                      <p className="font-medium text-gray-900">{item.nome}</p>
-                      <p className="text-xs text-gray-500">{item.descricao_curta}</p>
+                      <p className="font-medium text-foreground">{item.nome}</p>
+                      <p className="text-xs text-muted-foreground">{item.descricao_curta}</p>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-xs text-gray-500">
-                  {item.mapa_url ? <span className="text-green-600">Configurado</span> : <span className="text-gray-400">Sem mapa</span>}
+                <td className="px-4 py-3 text-xs text-muted-foreground">
+                  {item.mapa_url ? <span className="text-green-600">Configurado</span> : <span className="text-muted-foreground">Sem mapa</span>}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-1">
@@ -163,5 +163,5 @@ export default function RouteAdmin() {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className="text-sm font-medium text-gray-700">{label}</label>{children}</div>;
+  return <div><label className="text-sm font-medium text-foreground">{label}</label>{children}</div>;
 }

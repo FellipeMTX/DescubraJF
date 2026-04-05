@@ -110,8 +110,8 @@ export default function EventAdmin() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Eventos</h1>
-          <p className="text-sm text-gray-500">Gerencie a agenda de eventos da cidade</p>
+          <h1 className="text-2xl font-bold text-foreground">Eventos</h1>
+          <p className="text-sm text-muted-foreground">Gerencie a agenda de eventos da cidade</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger onClick={openCreate} className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
@@ -135,7 +135,7 @@ export default function EventAdmin() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Categoria">
-                  <select value={form.categoria} onChange={(e) => update("categoria", e.target.value)} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm capitalize">
+                  <select value={form.categoria} onChange={(e) => update("categoria", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm capitalize">
                     <option value="">Selecione...</option>
                     {CATEGORIAS.map((c) => <option key={c} value={c} className="capitalize">{c}</option>)}
                   </select>
@@ -145,11 +145,11 @@ export default function EventAdmin() {
               <Field label="Imagem de capa"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
               <div className="flex flex-wrap gap-4">
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" checked={form.gratuito} onChange={(e) => update("gratuito", e.target.checked)} className="rounded border-gray-300" />
+                  <input type="checkbox" checked={form.gratuito} onChange={(e) => update("gratuito", e.target.checked)} className="rounded border-input" />
                   Gratuito
                 </label>
                 <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" checked={form.destaque} onChange={(e) => update("destaque", e.target.checked)} className="rounded border-gray-300" />
+                  <input type="checkbox" checked={form.destaque} onChange={(e) => update("destaque", e.target.checked)} className="rounded border-input" />
                   Destaque na Home
                 </label>
               </div>
@@ -163,34 +163,34 @@ export default function EventAdmin() {
 
       <div className="mt-6 overflow-hidden rounded-lg border bg-white">
         <table className="w-full text-sm">
-          <thead className="border-b bg-gray-50">
+          <thead className="border-b bg-muted">
             <tr>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Evento</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Data</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Local</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Status</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-500">Ações</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Evento</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Data</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Local</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Status</th>
+              <th className="px-4 py-3 text-right font-medium text-muted-foreground">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {isLoading ? Array.from({ length: 5 }).map((_, i) => (
               <tr key={i}><td className="px-4 py-3" colSpan={5}><Skeleton className="h-6 w-full" /></td></tr>
             )) : items?.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr key={item.id} className="hover:bg-muted">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    {item.imagem_destaque ? <img src={item.imagem_destaque} alt="" className="h-10 w-10 rounded object-cover" /> : <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">Sem foto</div>}
+                    {item.imagem_destaque ? <img src={item.imagem_destaque} alt="" className="h-10 w-10 rounded object-cover" /> : <div className="flex h-10 w-10 items-center justify-center rounded bg-muted text-xs text-muted-foreground">Sem foto</div>}
                     <div>
-                      <p className="font-medium text-gray-900">{item.titulo}</p>
-                      {item.categoria && <p className="text-xs capitalize text-gray-500">{item.categoria}</p>}
+                      <p className="font-medium text-foreground">{item.titulo}</p>
+                      {item.categoria && <p className="text-xs capitalize text-muted-foreground">{item.categoria}</p>}
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-gray-500 text-xs">
+                <td className="px-4 py-3 text-muted-foreground text-xs">
                   {formatDate(item.data_inicio)}
-                  {item.data_fim && <span className="block text-gray-400">até {formatDate(item.data_fim)}</span>}
+                  {item.data_fim && <span className="block text-muted-foreground">até {formatDate(item.data_fim)}</span>}
                 </td>
-                <td className="px-4 py-3 text-xs text-gray-500">{item.local_nome}</td>
+                <td className="px-4 py-3 text-xs text-muted-foreground">{item.local_nome}</td>
                 <td className="px-4 py-3">
                   <div className="flex flex-wrap gap-1">
                     {item.gratuito && <Badge variant="secondary">Gratuito</Badge>}
@@ -213,5 +213,5 @@ export default function EventAdmin() {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className="text-sm font-medium text-gray-700">{label}</label>{children}</div>;
+  return <div><label className="text-sm font-medium text-foreground">{label}</label>{children}</div>;
 }

@@ -122,8 +122,8 @@ export default function DiningAdmin() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Gastronomia</h1>
-          <p className="text-sm text-gray-500">Gerencie restaurantes, bares e cafés</p>
+          <h1 className="text-2xl font-bold text-foreground">Gastronomia</h1>
+          <p className="text-sm text-muted-foreground">Gerencie restaurantes, bares e cafés</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger onClick={openCreate} className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
@@ -144,7 +144,7 @@ export default function DiningAdmin() {
                       "cursor-pointer rounded-full border px-3 py-1 text-sm transition-colors",
                       form.categoria_ids.includes(c.id)
                         ? "border-primary-400 bg-primary-400 text-white"
-                        : "border-gray-300 text-gray-600 hover:border-primary-300"
+                        : "border-input text-muted-foreground hover:border-primary-300"
                     )}>
                       <input
                         type="checkbox"
@@ -164,7 +164,7 @@ export default function DiningAdmin() {
               </Field>
               <Field label="Foto principal"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-semibold text-gray-800">Localização</h3>
+                <h3 className="text-sm font-semibold text-foreground">Localização</h3>
                 <InfoTooltip text="Use a ferramenta de buscar endereço para facilitar a busca. Caso não seja encontrado, digite o endereço manualmente e busque sua geolocalização no Google Maps." />
               </div>
               <div className="flex gap-2">
@@ -182,14 +182,14 @@ export default function DiningAdmin() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Faixa de preço">
-                  <select value={form.faixa_preco} onChange={(e) => update("faixa_preco", e.target.value)} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm">
+                  <select value={form.faixa_preco} onChange={(e) => update("faixa_preco", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
                     <option value="1">$ Econômico</option>
                     <option value="2">$$ Moderado</option>
                     <option value="3">$$$ Premium</option>
                   </select>
                 </Field>
                 <label className="flex items-center gap-2 pt-6 text-sm">
-                  <input type="checkbox" checked={form.estacionamento} onChange={(e) => update("estacionamento", e.target.checked)} className="rounded border-gray-300" />
+                  <input type="checkbox" checked={form.estacionamento} onChange={(e) => update("estacionamento", e.target.checked)} className="rounded border-input" />
                   Estacionamento
                 </label>
               </div>
@@ -203,27 +203,27 @@ export default function DiningAdmin() {
 
       <div className="mt-6 overflow-hidden rounded-lg border bg-white">
         <table className="w-full text-sm">
-          <thead className="border-b bg-gray-50">
+          <thead className="border-b bg-muted">
             <tr>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Nome</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Categoria</th>
-              <th className="px-4 py-3 text-left font-medium text-gray-500">Bairro</th>
-              <th className="px-4 py-3 text-right font-medium text-gray-500">Ações</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Nome</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Categoria</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Bairro</th>
+              <th className="px-4 py-3 text-right font-medium text-muted-foreground">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {isLoading ? Array.from({ length: 5 }).map((_, i) => (
               <tr key={i}><td className="px-4 py-3" colSpan={4}><Skeleton className="h-6 w-full" /></td></tr>
             )) : items?.map((item) => (
-              <tr key={item.id} className="hover:bg-gray-50">
+              <tr key={item.id} className="hover:bg-muted">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    {item.imagem_destaque ? <img src={item.imagem_destaque} alt="" className="h-10 w-10 rounded object-cover" /> : <div className="flex h-10 w-10 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">Sem foto</div>}
-                    <div><p className="font-medium text-gray-900">{item.nome}</p><p className="text-xs text-gray-500">{item.endereco}</p></div>
+                    {item.imagem_destaque ? <img src={item.imagem_destaque} alt="" className="h-10 w-10 rounded object-cover" /> : <div className="flex h-10 w-10 items-center justify-center rounded bg-muted text-xs text-muted-foreground">Sem foto</div>}
+                    <div><p className="font-medium text-foreground">{item.nome}</p><p className="text-xs text-muted-foreground">{item.endereco}</p></div>
                   </div>
                 </td>
                 <td className="px-4 py-3"><div className="flex flex-wrap gap-1">{item.categorias?.map((c) => <Badge key={c.id} variant="secondary">{c.nome}</Badge>)}</div></td>
-                <td className="px-4 py-3 text-gray-500">{item.bairro}</td>
+                <td className="px-4 py-3 text-muted-foreground">{item.bairro}</td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-1">
                     <Button variant="ghost" size="icon-sm" onClick={() => openEdit(item)}><Pencil size={14} /></Button>
@@ -240,5 +240,5 @@ export default function DiningAdmin() {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><label className="text-sm font-medium text-gray-700">{label}</label>{children}</div>;
+  return <div><label className="text-sm font-medium text-foreground">{label}</label>{children}</div>;
 }

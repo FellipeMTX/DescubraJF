@@ -91,14 +91,14 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
 
   return (
     <div>
-      <label className="text-sm font-medium text-gray-700">Ícone</label>
+      <label className="text-sm font-medium text-foreground">Ícone</label>
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Buscar ícone..."
         className="mt-1 h-8 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
       />
-      <div className="mt-2 grid max-h-48 grid-cols-6 gap-1.5 overflow-y-auto rounded-lg border bg-gray-50 p-2">
+      <div className="mt-2 grid max-h-48 grid-cols-6 gap-1.5 overflow-y-auto rounded-lg border bg-muted p-2">
         {filtered.map((item) => (
           <button
             key={item.name}
@@ -108,15 +108,15 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
             className={`flex flex-col items-center gap-0.5 rounded-lg p-2 transition-colors ${
               value === item.name
                 ? "bg-primary-500 text-white"
-                : "text-gray-600 hover:bg-gray-200"
+                : "text-muted-foreground hover:bg-muted"
             }`}
           >
             <item.icon size={20} />
-            <span className="text-[9px] leading-tight">{item.label}</span>
+            <span className="text-2xs leading-tight">{item.label}</span>
           </button>
         ))}
         {filtered.length === 0 && (
-          <p className="col-span-6 py-4 text-center text-xs text-gray-400">Nenhum ícone encontrado</p>
+          <p className="col-span-6 py-4 text-center text-xs text-muted-foreground">Nenhum ícone encontrado</p>
         )}
       </div>
     </div>
