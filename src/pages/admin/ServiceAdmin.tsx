@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { IconPicker, getIconByName } from "@/components/ui/IconPicker";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -65,6 +66,7 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
   const [editing, setEditing] = useState<CategoriaServico | null>(null);
   const [form, setForm] = useState<CatFormData>(EMPTY_CAT);
   const [saving, setSaving] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const qc = useQueryClient();
   const { data: allCategories, isLoading } = useAllServiceCategories();
@@ -105,10 +107,12 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
     } finally { setSaving(false); }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm("Excluir categoria?")) return;
-    const { error } = await supabase.from("categorias_servicos").delete().eq("id", id);
+  async function confirmDelete() {
+    if (!deleteId) return;
+    const { error } = await supabase.from("categorias_servicos").delete().eq("id", deleteId);
     if (error) { alert("Erro ao excluir."); return; }
+    if (selectedCatId === deleteId) onSelectCat(null);
+    setDeleteId(null);
     await qc.invalidateQueries({ queryKey: ["categorias_servicos"] });
   }
 
@@ -121,7 +125,7 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-800">Categorias</h2>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger onClick={openCreate} className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
+          <DialogTrigger onClick={openCreate} className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
             <Plus size={16} /> Nova Categoria
           </DialogTrigger>
           <DialogContent className="max-h-[90vh] max-w-md overflow-y-auto">
@@ -160,12 +164,22 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
             >
               {Icon && <Icon size={14} className="mr-1" />}
               <span className="font-medium">{cat.nome}</span>
-              <button onClick={(e) => { e.stopPropagation(); openEdit(cat); }} className={`ml-1 ${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-gray-600"}`}><Pencil size={12} /></button>
-              <button onClick={(e) => { e.stopPropagation(); handleDelete(cat.id); }} className={`${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-red-500"}`}><Trash2 size={12} /></button>
+              <button onClick={(e) => { e.stopPropagation(); openEdit(cat); }} className={`ml-1 cursor-pointer ${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-gray-600"}`}><Pencil size={12} /></button>
+              <button onClick={(e) => { e.stopPropagation(); setDeleteId(cat.id); }} className={`cursor-pointer ${isActive ? "text-white/70 hover:text-white" : "text-gray-400 hover:text-red-500"}`}><Trash2 size={12} /></button>
             </div>
           );
         })}
       </div>
+
+      <ConfirmDialog
+        open={!!deleteId}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Excluir categoria"
+        description="Tem certeza que deseja excluir essa categoria? Deletar essa categoria significa deletar todos os itens contidos nela."
+        confirmLabel="Excluir"
+        variant="danger"
+      />
     </div>
   );
 }
@@ -177,8 +191,8 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<Servico | null>(null);
   const [form, setForm] = useState<ItemFormData>(EMPTY_ITEM);
-
   const [saving, setSaving] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const qc = useQueryClient();
   const { data: allItems, isLoading } = useServices(tab);
@@ -238,10 +252,11 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
     } finally { setSaving(false); }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm("Excluir item?")) return;
-    const { error } = await supabase.from("servicos").delete().eq("id", id);
+  async function confirmDelete() {
+    if (!deleteId) return;
+    const { error } = await supabase.from("servicos").delete().eq("id", deleteId);
     if (error) { alert("Erro ao excluir."); return; }
+    setDeleteId(null);
     await qc.invalidateQueries({ queryKey: ["servicos"] });
   }
 
@@ -256,7 +271,7 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
           {tab === "servicos" ? "Serviços" : "Passeios"}
         </h2>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger onClick={openCreate} className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
+          <DialogTrigger onClick={openCreate} className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
             <Plus size={16} /> Novo Item
           </DialogTrigger>
           <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
@@ -323,7 +338,7 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-1">
                     <Button variant="ghost" size="icon-sm" onClick={() => openEdit(item)}><Pencil size={14} /></Button>
-                    <Button variant="ghost" size="icon-sm" onClick={() => handleDelete(item.id)}><Trash2 size={14} className="text-red-500" /></Button>
+                    <Button variant="ghost" size="icon-sm" onClick={() => setDeleteId(item.id)}><Trash2 size={14} className="text-red-500" /></Button>
                   </div>
                 </td>
               </tr>
@@ -331,6 +346,16 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
           </tbody>
         </table>
       </div>
+
+      <ConfirmDialog
+        open={!!deleteId}
+        onClose={() => setDeleteId(null)}
+        onConfirm={confirmDelete}
+        title="Excluir item"
+        description="Tem certeza que deseja excluir esse item? Essa ação não pode ser desfeita."
+        confirmLabel="Excluir"
+        variant="danger"
+      />
     </div>
   );
 }

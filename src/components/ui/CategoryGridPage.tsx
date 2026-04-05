@@ -170,29 +170,29 @@ export function CategoryGridPage({
                     {hasContact && (
                       <div className="mt-3 space-y-1">
                         {item.contato?.telefone && (
-                          <a href={`tel:${item.contato.telefone}`} className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                          <a href={`tel:${item.contato.telefone}`} className="flex cursor-pointer items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
                             <Phone size={12} /> {item.contato.telefone}
                           </a>
                         )}
                         {item.contato?.email && (
-                          <a href={`mailto:${item.contato.email}`} className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                          <a href={`mailto:${item.contato.email}`} className="flex cursor-pointer items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
                             <Mail size={12} /> {item.contato.email}
                           </a>
                         )}
                         {item.contato?.site && (
-                          <a href={item.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                          <a href={item.contato.site} target="_blank" rel="noopener noreferrer" className="flex cursor-pointer items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
                             <Globe size={12} /> Site oficial
                           </a>
                         )}
                         {item.contato?.instagram && (
-                          <a href={item.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
+                          <a href={item.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex cursor-pointer items-center gap-2 text-xs text-accent-500 hover:text-primary-600">
                             <ExternalLink size={12} /> Instagram
                           </a>
                         )}
                       </div>
                     )}
                     {item.link_externo && (
-                      <a href={item.link_externo} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block">
+                      <a href={item.link_externo} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block cursor-pointer">
                         <Button variant="outline" size="sm">
                           <ExternalLink size={14} /> Acessar
                         </Button>
