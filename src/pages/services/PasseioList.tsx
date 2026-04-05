@@ -3,7 +3,7 @@ import { CategoryGridPage } from "@/components/ui/CategoryGridPage";
 import { useServiceCategories, useServices } from "@/hooks/useServices";
 
 export default function PasseioList() {
-  const [selected, setSelected] = useState("todos");
+  const [selected, setSelected] = useState("");
 
   const { data: categories, isLoading: loadingCats } = useServiceCategories("passeios");
   const { data: items, isLoading: loadingItems } = useServices("passeios", selected);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Phone, Mail, Globe, ExternalLink, MapPin, Share2, LayoutGrid } from "lucide-react";
 import { getIconByName } from "@/components/ui/IconPicker";
 import { Badge } from "@/components/ui/badge";
@@ -47,6 +47,37 @@ type CategoryGridPageProps = {
   emptyMessage: string;
 };
 
+function CategoryButton({
+  active,
+  onClick,
+  icon,
+  label,
+  description,
+}: {
+  active: boolean;
+  onClick: () => void;
+  icon: React.ReactNode;
+  label: string;
+  description?: string | null;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 p-4 text-center transition-all ${
+        active
+          ? "border-primary-500 bg-primary-500 text-white shadow-md"
+          : "border-primary-200 bg-white text-primary-700 hover:border-primary-400 hover:bg-primary-50"
+      }`}
+    >
+      {icon}
+      <span className="font-bold uppercase tracking-wider text-xl mt-2">{label}</span>
+      {description && (
+        <span className="leading-tight opacity-80 text-md">{description}</span>
+      )}
+    </button>
+  );
+}
+
 export function CategoryGridPage({
   title,
   subtitle,
@@ -62,6 +93,12 @@ export function CategoryGridPage({
   const selectedItem = items?.find((i) => i.slug === selectedSlug);
   const selectedCategory = categories?.find((c) => c.slug === selected);
 
+  useEffect(() => {
+    if (!selected && categories?.length) {
+      onSelect(categories[0].slug);
+    }
+  }, [categories, selected, onSelect]);
+
   return (
     <div className="min-h-screen bg-primary-50 pt-20">
       <div className="mx-auto max-w-7xl px-4 py-8">
@@ -74,43 +111,23 @@ export function CategoryGridPage({
             ? Array.from({ length: 8 }).map((_, i) => (
                 <Skeleton key={i} className="h-28 rounded-xl" />
               ))
-            : (
-              <>
-                <button
-                  onClick={() => onSelect("todos")}
-                  className={`flex flex-col items-center justify-center gap-2 rounded-xl border-2 p-4 text-center transition-all ${
-                    selected === "todos"
-                      ? "border-primary-500 bg-primary-500 text-white shadow-md"
-                      : "border-primary-200 bg-white text-primary-700 hover:border-primary-400 hover:bg-primary-50"
-                  }`}
-                >
-                  <LayoutGrid size={28} />
-                  <span className="text-xs font-bold uppercase tracking-wider">Todos</span>
-                  <span className="text-[10px] leading-tight opacity-80">Mostrar todos os serviços disponíveis</span>
-                </button>
-                {categories?.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => onSelect(cat.slug)}
-                    className={`flex flex-col items-center justify-center gap-2 rounded-xl border-2 p-4 text-center transition-all ${
-                      selected === cat.slug
-                        ? "border-primary-500 bg-primary-500 text-white shadow-md"
-                        : "border-primary-200 bg-white text-primary-700 hover:border-primary-400 hover:bg-primary-50"
-                    }`}
-                  >
-                    {(() => { const Icon = getIconByName(cat.icone); return Icon ? <Icon size={28} /> : <LayoutGrid size={28} />; })()}
-                    <span className="text-xs font-bold uppercase tracking-wider">{cat.nome}</span>
-                    {cat.descricao && (
-                      <span className="text-[10px] leading-tight opacity-80">{cat.descricao}</span>
-                    )}
-                  </button>
-                ))}
-              </>
-            )}
+            : categories?.map((cat) => {
+                  const Icon = getIconByName(cat.icone);
+                  return (
+                    <CategoryButton
+                      key={cat.id}
+                      active={selected === cat.slug}
+                      onClick={() => onSelect(cat.slug)}
+                      icon={Icon ? <Icon size={28} /> : <LayoutGrid size={28} />}
+                      label={cat.nome}
+                      description={cat.descricao}
+                    />
+                  );
+                })}
         </div>
 
         {/* Selected category title */}
-        {selected !== "todos" && selectedCategory && (
+        {selectedCategory && (
           <div className="mt-8 rounded-xl bg-primary-500 px-6 py-3 text-center">
             <h2 className="text-lg font-bold uppercase tracking-wider text-white">
               {selectedCategory.nome}

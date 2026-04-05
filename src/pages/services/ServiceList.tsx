@@ -3,7 +3,7 @@ import { CategoryGridPage } from "@/components/ui/CategoryGridPage";
 import { useServiceCategories, useServices } from "@/hooks/useServices";
 
 export default function ServiceList() {
-  const [selected, setSelected] = useState("todos");
+  const [selected, setSelected] = useState("");
 
   const { data: categories, isLoading: loadingCats } = useServiceCategories("servicos");
   const { data: items, isLoading: loadingItems } = useServices("servicos", selected);

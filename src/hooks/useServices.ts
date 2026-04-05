@@ -21,6 +21,7 @@ export function useServiceCategories(pagina: "servicos" | "passeios") {
 export function useServices(pagina: "servicos" | "passeios", categorySlug?: string) {
   return useQuery({
     queryKey: ["servicos", pagina, categorySlug],
+    enabled: !!categorySlug,
     queryFn: async () => {
       let query = supabase
         .from("servicos")
@@ -29,14 +30,12 @@ export function useServices(pagina: "servicos" | "passeios", categorySlug?: stri
         .eq("ativo", true)
         .order("ordem");
 
-      if (categorySlug && categorySlug !== "todos") {
-        const { data: cat } = await supabase
-          .from("categorias_servicos")
-          .select("id")
-          .eq("slug", categorySlug)
-          .single();
-        if (cat) query = query.eq("categoria_id", cat.id);
-      }
+      const { data: cat } = await supabase
+        .from("categorias_servicos")
+        .select("id")
+        .eq("slug", categorySlug!)
+        .single();
+      if (cat) query = query.eq("categoria_id", cat.id);
 
       const { data, error } = await query;
       if (error) throw error;
