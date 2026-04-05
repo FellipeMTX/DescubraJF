@@ -109,11 +109,14 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
 
   async function confirmDelete() {
     if (!deleteId) return;
+    const { error: itemsError } = await supabase.from("servicos").delete().eq("categoria_id", deleteId);
+    if (itemsError) { alert("Erro ao excluir itens da categoria."); return; }
     const { error } = await supabase.from("categorias_servicos").delete().eq("id", deleteId);
-    if (error) { alert("Erro ao excluir."); return; }
+    if (error) { alert("Erro ao excluir categoria."); return; }
     if (selectedCatId === deleteId) onSelectCat(null);
     setDeleteId(null);
     await qc.invalidateQueries({ queryKey: ["categorias_servicos"] });
+    await qc.invalidateQueries({ queryKey: ["servicos"] });
   }
 
   function update(field: keyof CatFormData, value: string) {
