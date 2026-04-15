@@ -10,13 +10,22 @@ export const NAV_ITEMS = [
       { label: "Atrativos", href: "/atrativos" },
       { label: "Roteiros", href: "/roteiros" },
       { label: "Agenda", href: "/agenda" },
+      { label: "A Gente Se Vê Por Aí", href: "/passeios" },
     ],
   },
   { label: "Onde Comer e Beber", href: "/onde-comer" },
   { label: "Onde Ficar", href: "/onde-ficar" },
   { label: "Serviços", href: "/servicos" },
-  { label: "A Gente Se Vê Por Aí", href: "/passeios" },
-  { label: "Contato", href: "/contato" },
+  {
+    label: "Secretaria de Turismo",
+    children: [
+      { label: "Institucional", href: "/secretaria/institucional" },
+      { label: "Programas e Projetos", href: "/secretaria/programas-e-projetos" },
+      { label: "Notícias", href: "/secretaria/noticias" },
+      { label: "Natal", href: "/secretaria/natal" },
+      { label: "Contato", href: "/contato" },
+    ],
+  },
 ] as const;
 
 export const SOCIAL_LINKS = {
