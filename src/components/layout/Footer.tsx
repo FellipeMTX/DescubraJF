@@ -7,15 +7,17 @@ type NavItem =
 
 export function Footer() {
   return (
-    <footer className="bg-primary-900 text-primary-200">
+    <footer className="bg-primary-700 text-primary-200">
       {/* Top: logos */}
-      <div className="mx-auto max-w-7xl px-4 pt-16">
-        <div className="flex items-center justify-center border-b border-primary-700 pb-12">
-          <img
-            src="/LogoSeturColor.png"
-            alt="Secretaria de Turismo - Prefeitura de Juiz de Fora"
-            className="h-18 object-contain"
-          />
+      <div className="mx-auto max-w-7xl px-4 pt-12">
+        <div className="flex items-center justify-center border-b border-primary-500 pb-12">
+          <a href="https://www.pjf.mg.gov.br/" target="_blank" rel="noopener noreferrer">
+            <img
+              src="/logoTurBranco.png"
+              alt="Secretaria de Turismo - Prefeitura de Juiz de Fora"
+              className="h-22 object-contain"
+            />
+          </a>
         </div>
       </div>
 
@@ -54,7 +56,7 @@ export function Footer() {
       </div>
 
       {/* Bottom: social + copyright */}
-      <div className="border-t border-primary-700">
+      <div className="border-t border-primary-500">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 py-8 sm:flex-row">
           <div className="flex gap-3">
             <SocialIcon href={SOCIAL_LINKS.instagram} label="Instagram">
@@ -92,7 +94,7 @@ function SocialIcon({
     <a
       href={href}
       aria-label={label}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-700 text-primary-300 transition-all hover:bg-primary-400 hover:text-accent-50"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-500 text-primary-200 transition-all hover:bg-primary-400 hover:text-accent-50"
     >
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
         {children}

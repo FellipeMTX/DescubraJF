@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router";
-import { MapPin, UtensilsCrossed, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Car, Share2 } from "lucide-react";
+import { MapPin, UtensilsCrossed, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -11,7 +10,6 @@ import { useDiningEstablishments, useDiningCategories, useDiningBySlug } from "@
 import type { EstabelecimentoGastronomia } from "@/types/database";
 
 const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
-const PRICE_DOTS = ["", "$", "$$", "$$$"];
 
 export default function DiningList() {
   const [searchParams] = useSearchParams();
@@ -35,28 +33,14 @@ export default function DiningList() {
       emptyMessage="Nenhum estabelecimento encontrado nesta categoria."
       filters={{ options: filterOptions, selected, onSelect: setSelected, isLoading: loadingCats }}
       placeholderIcon={<UtensilsCrossed size={28} className="text-primary-300" />}
-      renderCardContent={(est) => {
-        const displayCat = selected !== "todos"
-          ? est.categorias?.find((c) => c.slug === selected)
-          : est.categorias?.[0];
-        return (
+      renderCardContent={(est) => (
         <>
-          {displayCat && (
-            <Badge className="mb-1 w-fit bg-primary-700 text-2xs text-accent-50">{displayCat.nome}</Badge>
-          )}
           <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{est.nome}</h3>
-          {est.endereco && (
-            <p className="mt-1 flex items-center gap-1 text-xs text-accent-500">
-              <MapPin size={11} className="shrink-0" /> {est.endereco}
-            </p>
-          )}
-          {est.faixa_preco && (
-            <p className="mt-1 text-xs font-medium text-primary-500">
-              <DollarSign size={11} className="inline" /> {PRICE_DOTS[est.faixa_preco]}
-            </p>
+          {est.descricao_curta && (
+            <p className="mt-1 line-clamp-2 text-xs text-accent-500">{est.descricao_curta}</p>
           )}
         </>
-      );}}
+      )}
       selectedSlug={selectedSlug}
       onSelectSlug={setSelectedSlug}
       renderModalContent={(slug) => <DiningModalContent slug={slug} />}
@@ -126,11 +110,6 @@ function DiningModalContent({ slug }: { slug: string }) {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-2">
-        <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(window.location.href)}>
-          <Share2 size={14} /> Compartilhar
-        </Button>
-      </div>
     </>
   );
 }

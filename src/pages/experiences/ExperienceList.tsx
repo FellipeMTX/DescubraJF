@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { MapPin, Accessibility, Dog, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Share2 } from "lucide-react";
+import { MapPin, Accessibility, Dog, DollarSign, Clock, Phone, Mail, Globe, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { CategoryFilter } from "@/components/ui/CategoryFilter";
-import { AttributePill } from "@/components/ui/ListPageLayout";
 import { ListPage } from "@/components/ui/ListPage";
 import {
   useExperiences,
@@ -45,20 +44,10 @@ export default function ExperienceList() {
       placeholderIcon={<MapPin size={28} className="text-primary-300" />}
       renderCardContent={(exp) => (
         <>
-          {exp.categoria && (
-            <Badge className="mb-1 w-fit text-2xs text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}>
-              {exp.categoria.nome}
-            </Badge>
-          )}
           <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{exp.nome}</h3>
           {exp.descricao_curta && (
             <p className="mt-1 line-clamp-2 text-xs text-accent-500">{exp.descricao_curta}</p>
           )}
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {exp.gratuito && <AttributePill>Gratuito</AttributePill>}
-            {exp.acessibilidade && <AttributePill>Acessível</AttributePill>}
-            {exp.pet_friendly && <AttributePill>Pet Friendly</AttributePill>}
-          </div>
         </>
       )}
       selectedSlug={selectedSlug}
@@ -120,16 +109,11 @@ function ExperienceModalContent({ slug }: { slug: string }) {
           </div>
         </InfoSection>
       )}
-      <div className="flex flex-wrap gap-2">
-        {exp.contato?.maps_link && (
-          <a href={exp.contato.maps_link} target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="sm"><MapPin size={14} /> Google Maps</Button>
-          </a>
-        )}
-        <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(window.location.href)}>
-          <Share2 size={14} /> Compartilhar
-        </Button>
-      </div>
+      {exp.contato?.maps_link && (
+        <a href={exp.contato.maps_link} target="_blank" rel="noopener noreferrer">
+          <Button variant="outline" size="sm"><MapPin size={14} /> Google Maps</Button>
+        </a>
+      )}
     </>
   );
 }
