@@ -6,7 +6,7 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 import {
-  MapPin, CalendarDays, Image, UtensilsCrossed, BedDouble, Route, ChevronLeft, Briefcase, Compass
+  MapPin, CalendarDays, Image, UtensilsCrossed, BedDouble, Route, ChevronLeft, Briefcase, Compass, Newspaper, FolderKanban, Landmark
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SITE_NAME } from "@/lib/constants";
@@ -20,6 +20,9 @@ const NAV_LINKS = [
   { label: "Passeios", href: "/admin/passeios", icon: Compass },
   { label: "Banners", href: "/admin/banners", icon: Image },
   { label: "Eventos", href: "/admin/eventos", icon: CalendarDays },
+  { label: "Notícias", href: "/admin/noticias", icon: Newspaper },
+  { label: "Programas e Projetos", href: "/admin/programas-e-projetos", icon: FolderKanban },
+  { label: "Institucional", href: "/admin/institucional", icon: Landmark },
 ];
 
 export default function AdminLayout() {
