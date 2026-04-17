@@ -84,6 +84,14 @@
 .post-content em { font-style: italic; }
 .post-content a { color: var(--color-primary-600); text-decoration: underline; }
 .post-content img { border-radius: 0.5rem; margin: 1rem 0; max-width: 100%; height: auto; }
+.post-content hr { border: 0; border-top: 1px solid var(--color-primary-200); margin: 2rem 0; }
+.post-content .gallery-grid img { margin: 0; height: 100%; width: 100%; border-radius: 0; object-fit: cover; }
+
+/* Lightbox da galeria: backdrop escuro sobre o overlay padrão */
+body:has(.gallery-lightbox) [data-slot="dialog-overlay"] {
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(4px);
+}
 
 /* Hero banner swiper overrides */
 .hero-swiper .swiper-pagination-bullet-active {

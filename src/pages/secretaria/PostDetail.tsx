@@ -3,6 +3,7 @@ import { ChevronLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePostBySlug } from "@/hooks/usePosts";
 import { formatDate } from "@/lib/utils";
+import { renderPostContent } from "@/lib/renderPostContent";
 import type { PostCategoria } from "@/types/database";
 
 const LABELS: Record<PostCategoria, { backLabel: string; basePath: string }> = {
@@ -73,10 +74,9 @@ export default function PostDetail({ categoria }: Props) {
         )}
 
         {post.conteudo_html && (
-          <div
-            className="post-content mt-8"
-            dangerouslySetInnerHTML={{ __html: post.conteudo_html }}
-          />
+          <div className="post-content mt-8">
+            {renderPostContent(post.conteudo_html)}
+          </div>
         )}
       </article>
     </div>
