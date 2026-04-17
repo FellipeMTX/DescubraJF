@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { SITE_NAME, NAV_ITEMS, SOCIAL_LINKS } from "@/lib/constants";
 
 type NavItem =
@@ -6,6 +7,7 @@ type NavItem =
   | { label: string; children: ReadonlyArray<{ label: string; href: string }>; href?: undefined };
 
 export function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-primary-700 text-primary-200">
       {/* Top: logos */}
@@ -14,7 +16,7 @@ export function Footer() {
           <a href="https://www.pjf.mg.gov.br/" target="_blank" rel="noopener noreferrer">
             <img
               src="/logoTurBranco.png"
-              alt="Secretaria de Turismo - Prefeitura de Juiz de Fora"
+              alt={t("footer.tourismLogoAlt")}
               className="h-22 object-contain"
             />
           </a>
@@ -27,7 +29,7 @@ export function Footer() {
           {(NAV_ITEMS as readonly NavItem[]).map((item) => (
             <div key={item.label}>
               <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-accent-100">
-                {item.label}
+                {t(item.label)}
               </h3>
               {item.children ? (
                 <ul className="space-y-2.5">
@@ -37,7 +39,7 @@ export function Footer() {
                         to={child.href}
                         className="text-sm text-primary-300 transition-colors hover:text-accent-100"
                       >
-                        {child.label}
+                        {t(child.label)}
                       </Link>
                     </li>
                   ))}
@@ -47,7 +49,7 @@ export function Footer() {
                   to={item.href}
                   className="text-sm text-primary-300 transition-colors hover:text-accent-100"
                 >
-                  Ir para {item.label}
+                  {t("footer.goTo", { name: t(item.label) })}
                 </Link>
               ) : null}
             </div>
@@ -73,7 +75,7 @@ export function Footer() {
           </div>
 
           <p className="text-xs text-primary-400">
-            &copy; {new Date().getFullYear()} {SITE_NAME} &mdash; Secretaria de Turismo de Juiz de Fora
+            &copy; {new Date().getFullYear()} {SITE_NAME} &mdash; {t("footer.copyright")}
           </p>
         </div>
       </div>

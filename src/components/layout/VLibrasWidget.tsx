@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 declare global {
   interface Window {
@@ -16,7 +17,12 @@ declare global {
 const SCRIPT_SRC = "https://vlibras.gov.br/app/vlibras-plugin.js";
 
 export function VLibrasWidget() {
+  const { i18n } = useTranslation();
+  const active = i18n.language === "pt";
+
   useEffect(() => {
+    if (!active) return;
+
     function init() {
       if (window.VLibras) new window.VLibras.Widget("https://vlibras.gov.br/app");
     }
@@ -32,7 +38,9 @@ export function VLibrasWidget() {
     script.async = true;
     script.onload = init;
     document.body.appendChild(script);
-  }, []);
+  }, [active]);
+
+  if (!active) return null;
 
   return (
     <div vw="true" className="enabled">

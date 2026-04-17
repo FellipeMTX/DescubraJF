@@ -3,27 +3,27 @@ export const SITE_DESCRIPTION =
   "Portal turístico oficial de Juiz de Fora. Descubra atrativos, roteiros, gastronomia e hospedagens.";
 
 export const NAV_ITEMS = [
-  { label: "História", href: "/juiz-de-fora/historia" },
+  { label: "nav.history", href: "/juiz-de-fora/historia" },
   {
-    label: "O que Fazer",
+    label: "nav.whatToDo",
     children: [
-      { label: "Atrativos", href: "/atrativos" },
-      { label: "Roteiros", href: "/roteiros" },
-      { label: "Agenda", href: "/agenda" },
-      { label: "A Gente Se Vê Por Aí", href: "/passeios" },
+      { label: "nav.attractions", href: "/atrativos" },
+      { label: "nav.routes", href: "/roteiros" },
+      { label: "nav.events", href: "/agenda" },
+      { label: "nav.tours", href: "/passeios" },
     ],
   },
-  { label: "Onde Comer e Beber", href: "/onde-comer" },
-  { label: "Onde Ficar", href: "/onde-ficar" },
-  { label: "Serviços", href: "/servicos" },
+  { label: "nav.whereToEat", href: "/onde-comer" },
+  { label: "nav.whereToStay", href: "/onde-ficar" },
+  { label: "nav.services", href: "/servicos" },
   {
-    label: "Secretaria de Turismo",
+    label: "nav.tourismDept",
     children: [
-      { label: "Institucional", href: "/secretaria/institucional" },
-      { label: "Programas e Projetos", href: "/secretaria/programas-e-projetos" },
-      { label: "Notícias", href: "/secretaria/noticias" },
-      { label: "Natal", href: "/secretaria/natal" },
-      { label: "Contato", href: "/contato" },
+      { label: "nav.institutional", href: "/secretaria/institucional" },
+      { label: "nav.programs", href: "/secretaria/programas-e-projetos" },
+      { label: "nav.news", href: "/secretaria/noticias" },
+      { label: "nav.christmas", href: "/secretaria/natal" },
+      { label: "nav.contact", href: "/contato" },
     ],
   },
 ] as const;

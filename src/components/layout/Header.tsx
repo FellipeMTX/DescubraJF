@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Menu, ChevronDown } from "lucide-react";
 import { NAV_ITEMS, SITE_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
+import { LanguageSelector } from "./LanguageSelector";
 
 type NavItem =
   | { label: string; href: string; children?: undefined }
   | { label: string; children: ReadonlyArray<{ label: string; href: string }>; href?: undefined };
 
 export function Header() {
+  const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -59,15 +62,16 @@ export function Header() {
                 to={item.href}
                 className="rounded-md px-3 py-2 text-sm font-medium uppercase tracking-wider text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
-                {item.label}
+                {t(item.label)}
               </Link>
             ) : null
           )}
+          <LanguageSelector variant="header" />
         </nav>
 
         {/* Mobile hamburger */}
         <button
-          aria-label="Menu"
+          aria-label={t("common.menu")}
           className="rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white lg:hidden"
           onClick={() => setMobileOpen(true)}
         >
@@ -85,6 +89,7 @@ function NavDropdown({
 }: {
   item: { label: string; children: ReadonlyArray<{ label: string; href: string }> };
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (
@@ -94,7 +99,7 @@ function NavDropdown({
       onMouseLeave={() => setOpen(false)}
     >
       <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium uppercase tracking-wider text-white/90 transition-colors hover:bg-white/10 hover:text-white">
-        {item.label}
+        {t(item.label)}
         <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
       </button>
 
@@ -107,7 +112,7 @@ function NavDropdown({
               className="block rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-wider text-primary-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
               onClick={() => setOpen(false)}
             >
-              {child.label}
+              {t(child.label)}
             </Link>
           ))}
         </div>

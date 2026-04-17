@@ -1,0 +1,34 @@
+{
+  "common": {
+    "menu": "Menü",
+    "closeMenu": "Menü schließen",
+    "selectLanguage": "Sprache auswählen",
+    "goBack": "Zurück zur Startseite"
+  },
+  "nav": {
+    "history": "Geschichte",
+    "whatToDo": "Aktivitäten",
+    "attractions": "Sehenswürdigkeiten",
+    "routes": "Routen",
+    "events": "Veranstaltungen",
+    "tours": "Bis bald",
+    "whereToEat": "Essen & Trinken",
+    "whereToStay": "Unterkünfte",
+    "services": "Services",
+    "tourismDept": "Tourismusamt",
+    "institutional": "Über uns",
+    "programs": "Programme & Projekte",
+    "news": "Neuigkeiten",
+    "christmas": "Weihnachten",
+    "contact": "Kontakt"
+  },
+  "footer": {
+    "goTo": "Zu {{name}}",
+    "copyright": "Tourismusamt Juiz de Fora",
+    "tourismLogoAlt": "Tourismusamt - Stadt Juiz de Fora"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "back": "Zurück zur Startseite"
+  }
+}

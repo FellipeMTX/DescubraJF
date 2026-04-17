@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { NAV_ITEMS, SITE_NAME } from "../../lib/constants";
+import { LanguageSelector } from "./LanguageSelector";
 
 type NavItem =
   | { label: string; href: string; children?: undefined }
@@ -13,6 +15,7 @@ type MobileMenuProps = {
 };
 
 export function MobileMenu({ open, onClose }: MobileMenuProps) {
+  const { t } = useTranslation();
   if (!open) return null;
 
   return (
@@ -28,12 +31,16 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         <div className="flex items-center justify-between border-b px-4 py-3">
           <span className="font-bold text-primary-700">{SITE_NAME}</span>
           <button
-            aria-label="Fechar menu"
+            aria-label={t("common.closeMenu")}
             onClick={onClose}
             className="rounded-md p-1 text-accent-400 hover:bg-primary-50"
           >
             <X size={24} />
           </button>
+        </div>
+
+        <div className="border-b">
+          <LanguageSelector variant="mobile" />
         </div>
 
         <nav className="flex flex-col py-2">
@@ -47,7 +54,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                 onClick={onClose}
                 className="px-4 py-3 text-sm font-medium text-primary-700 hover:bg-primary-50 hover:text-primary-700"
               >
-                {item.label}
+                {t(item.label)}
               </Link>
             ) : null
           )}
@@ -64,6 +71,7 @@ function MobileDropdown({
   item: { label: string; children: ReadonlyArray<{ label: string; href: string }> };
   onClose: () => void;
 }) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -72,7 +80,7 @@ function MobileDropdown({
         className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-primary-700 hover:bg-primary-50"
         onClick={() => setExpanded(!expanded)}
       >
-        {item.label}
+        {t(item.label)}
         {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
 
@@ -85,7 +93,7 @@ function MobileDropdown({
               onClick={onClose}
               className="block py-2.5 pl-8 pr-4 text-sm text-accent-500 hover:text-primary-700"
             >
-              {child.label}
+              {t(child.label)}
             </Link>
           ))}
         </div>

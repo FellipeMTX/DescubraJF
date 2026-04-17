@@ -1,0 +1,34 @@
+{
+  "common": {
+    "menu": "Menu",
+    "closeMenu": "Fermer le menu",
+    "selectLanguage": "Choisir la langue",
+    "goBack": "Retour à l'accueil"
+  },
+  "nav": {
+    "history": "Histoire",
+    "whatToDo": "Que Faire",
+    "attractions": "Attractions",
+    "routes": "Itinéraires",
+    "events": "Agenda",
+    "tours": "On Se Voit Par Ici",
+    "whereToEat": "Où Manger et Boire",
+    "whereToStay": "Où Dormir",
+    "services": "Services",
+    "tourismDept": "Secrétariat du Tourisme",
+    "institutional": "Institutionnel",
+    "programs": "Programmes et Projets",
+    "news": "Actualités",
+    "christmas": "Noël",
+    "contact": "Contact"
+  },
+  "footer": {
+    "goTo": "Aller à {{name}}",
+    "copyright": "Secrétariat du Tourisme de Juiz de Fora",
+    "tourismLogoAlt": "Secrétariat du Tourisme - Mairie de Juiz de Fora"
+  },
+  "notFound": {
+    "title": "Page non trouvée",
+    "back": "Retour à l'accueil"
+  }
+}

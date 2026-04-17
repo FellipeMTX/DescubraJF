@@ -1,0 +1,34 @@
+{
+  "common": {
+    "menu": "Menu",
+    "closeMenu": "Fechar menu",
+    "selectLanguage": "Selecionar idioma",
+    "goBack": "Voltar ao início"
+  },
+  "nav": {
+    "history": "História",
+    "whatToDo": "O que Fazer",
+    "attractions": "Atrativos",
+    "routes": "Roteiros",
+    "events": "Agenda",
+    "tours": "A Gente Se Vê Por Aí",
+    "whereToEat": "Onde Comer e Beber",
+    "whereToStay": "Onde Ficar",
+    "services": "Serviços",
+    "tourismDept": "Secretaria de Turismo",
+    "institutional": "Institucional",
+    "programs": "Programas e Projetos",
+    "news": "Notícias",
+    "christmas": "Natal",
+    "contact": "Contato"
+  },
+  "footer": {
+    "goTo": "Ir para {{name}}",
+    "copyright": "Secretaria de Turismo de Juiz de Fora",
+    "tourismLogoAlt": "Secretaria de Turismo - Prefeitura de Juiz de Fora"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "back": "Voltar ao início"
+  }
+}
