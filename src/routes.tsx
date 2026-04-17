@@ -33,6 +33,9 @@ const AboutSetur = lazy(() => import("./pages/city/AboutSetur"));
 const ServiceList = lazy(() => import("./pages/services/ServiceList"));
 const PasseioList = lazy(() => import("./pages/services/PasseioList"));
 const Contact = lazy(() => import("./pages/Contact"));
+const Institucional = lazy(() => import("./pages/secretaria/Institucional"));
+const PostsList = lazy(() => import("./pages/secretaria/PostsList"));
+const PostDetail = lazy(() => import("./pages/secretaria/PostDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Admin
@@ -44,6 +47,8 @@ const LodgingAdmin = lazy(() => import("./pages/admin/LodgingAdmin"));
 const EventAdmin = lazy(() => import("./pages/admin/EventAdmin"));
 const RouteAdmin = lazy(() => import("./pages/admin/RouteAdmin"));
 const ServiceAdmin = lazy(() => import("./pages/admin/ServiceAdmin"));
+const PostsAdmin = lazy(() => import("./pages/admin/PostsAdmin"));
+const InstitucionalAdmin = lazy(() => import("./pages/admin/InstitucionalAdmin"));
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +70,11 @@ export const router = createBrowserRouter([
       { path: "juiz-de-fora/imprensa", element: <Lazy><Press /></Lazy> },
       { path: "juiz-de-fora/setur", element: <Lazy><AboutSetur /></Lazy> },
       { path: "contato", element: <Lazy><Contact /></Lazy> },
+      { path: "secretaria/institucional", element: <Lazy><Institucional /></Lazy> },
+      { path: "secretaria/noticias", element: <Lazy><PostsList categoria="noticia" /></Lazy> },
+      { path: "secretaria/noticias/:slug", element: <Lazy><PostDetail categoria="noticia" /></Lazy> },
+      { path: "secretaria/programas-e-projetos", element: <Lazy><PostsList categoria="programa_projeto" /></Lazy> },
+      { path: "secretaria/programas-e-projetos/:slug", element: <Lazy><PostDetail categoria="programa_projeto" /></Lazy> },
       { path: "*", element: <Lazy><NotFound /></Lazy> },
     ],
   },
@@ -80,6 +90,9 @@ export const router = createBrowserRouter([
       { path: "banners", element: <Lazy><BannerAdmin /></Lazy> },
       { path: "servicos", element: <Lazy><ServiceAdmin tab="servicos" /></Lazy> },
       { path: "passeios", element: <Lazy><ServiceAdmin tab="passeios" /></Lazy> },
+      { path: "noticias", element: <Lazy><PostsAdmin categoria="noticia" /></Lazy> },
+      { path: "programas-e-projetos", element: <Lazy><PostsAdmin categoria="programa_projeto" /></Lazy> },
+      { path: "institucional", element: <Lazy><InstitucionalAdmin /></Lazy> },
     ],
   },
 ]);
