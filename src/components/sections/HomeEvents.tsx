@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { CalendarDays } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -12,6 +13,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import type { Evento } from "@/types/database";
 
 export function HomeEvents() {
+  const { t } = useTranslation();
   const { data: events, isLoading } = useUpcomingEvents(6);
   const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>(0.05);
   const [selectedEvent, setSelectedEvent] = useState<Evento | null>(null);
@@ -27,8 +29,8 @@ export function HomeEvents() {
         >
           <SectionHeader
             icon={<CalendarDays size={24} className="text-primary-600" />}
-            title="Acontece em JF"
-            subtitle="Fique por dentro de tudo o que está rolando na cidade"
+            title={t("pages.events.title")}
+            subtitle={t("pages.events.subtitle")}
           />
         </div>
 
@@ -58,7 +60,7 @@ export function HomeEvents() {
           </div>
         ) : (
           <p className="text-center text-accent-500">
-            Nenhum evento próximo no momento.
+            {t("pages.events.homeEmpty")}
           </p>
         )}
 
@@ -75,7 +77,7 @@ export function HomeEvents() {
               "rounded-full border-primary-400 px-8 text-primary-700 hover:bg-primary-400 hover:text-accent-50"
             )}
           >
-            Agenda completa
+            {t("pages.events.full")}
           </Link>
         </div>
       </div>

@@ -3,7 +3,14 @@
     "menu": "Menü",
     "closeMenu": "Menü schließen",
     "selectLanguage": "Sprache auswählen",
-    "goBack": "Zurück zur Startseite"
+    "goBack": "Zurück zur Startseite",
+    "all": "Alle",
+    "free": "Kostenlos",
+    "viewAll": "Alle ansehen",
+    "viewAllF": "Alle ansehen",
+    "until": "bis",
+    "loadingMap": "Karte wird geladen...",
+    "noMapLocations": "Keine Orte mit Koordinaten"
   },
   "nav": {
     "history": "Geschichte",
@@ -30,5 +37,96 @@
   "notFound": {
     "title": "Seite nicht gefunden",
     "back": "Zurück zur Startseite"
+  },
+  "pages": {
+    "experiences": {
+      "title": "Sehenswürdigkeiten",
+      "subtitle": "Entdecken Sie das Beste von Juiz de Fora",
+      "empty": "Keine Sehenswürdigkeiten in dieser Kategorie gefunden."
+    },
+    "events": {
+      "title": "Was in JF los ist",
+      "subtitle": "Bleiben Sie auf dem Laufenden über alles, was in der Stadt passiert",
+      "empty": "Keine Veranstaltungen gefunden.",
+      "allMonths": "Alle Monate",
+      "full": "Vollständiger Kalender",
+      "homeEmpty": "Derzeit keine bevorstehenden Veranstaltungen.",
+      "categories": {
+        "cultural": "Kulturell",
+        "esportivo": "Sport",
+        "festivo": "Festlich",
+        "show": "Konzerte",
+        "gastronomico": "Gastronomie"
+      }
+    },
+    "lodging": {
+      "title": "Unterkünfte",
+      "subtitle": "Orte für einen unvergesslichen Aufenthalt",
+      "empty": "Keine Unterkünfte in dieser Kategorie gefunden.",
+      "viewAll": "Alle ansehen",
+      "allLodgings": "Alle Unterkünfte",
+      "types": {
+        "hotel": "Hotels",
+        "pousada": "Gasthöfe",
+        "hostel": "Hostels",
+        "flat": "Apartments"
+      }
+    },
+    "dining": {
+      "title": "Essen & Trinken",
+      "subtitle": "Probieren Sie alles, was unsere Küche zu bieten hat",
+      "empty": "Keine Lokale in dieser Kategorie gefunden.",
+      "viewAll": "Alle Lokale ansehen",
+      "categories": {
+        "cozinha-mineira": "Minas-Gerais-Küche",
+        "bares-e-botecos": "Bars & Kneipen",
+        "cafes-e-confeitarias": "Cafés & Konditoreien",
+        "pizzarias-e-massas": "Pizzerien & Pasta",
+        "cervejarias-e-drinks": "Brauereien",
+        "bar-na-rua": "Straßenbar"
+      }
+    },
+    "routes": {
+      "title": "Routen",
+      "subtitle": "Thematische Routen durch Juiz de Fora",
+      "empty": "Noch keine Routen registriert."
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "Nützliche Services für Ihren Aufenthalt in Juiz de Fora",
+      "empty": "Keine Services in dieser Kategorie gefunden."
+    },
+    "tours": {
+      "title": "Bis bald",
+      "subtitle": "Entdecken Sie Erlebnisse und Touren durch die Stadt",
+      "empty": "Keine Touren in dieser Kategorie gefunden."
+    },
+    "posts": {
+      "news": {
+        "title": "Neuigkeiten",
+        "subtitle": "Folgen Sie den Neuigkeiten des Tourismusamts",
+        "empty": "Noch keine Neuigkeiten veröffentlicht."
+      },
+      "programs": {
+        "title": "Programme & Projekte",
+        "subtitle": "Entdecken Sie die Programme und Projekte des Tourismusamts",
+        "empty": "Noch keine Programme veröffentlicht."
+      },
+      "noImage": "Kein Bild"
+    }
+  },
+  "home": {
+    "highlights": {
+      "attractions": "Touristische Sehenswürdigkeiten",
+      "attractionsSub": "Entdecken Sie das Beste der Stadt",
+      "routes": "Routen von Juiz de Fora",
+      "routesSub": "Eine Route für jedes Erlebnis"
+    },
+    "experiences": {
+      "title": "Alles in Juiz de Fora!",
+      "subtitle": "Erleben Sie unvergessliche Momente",
+      "cta": "Und noch viel mehr!",
+      "ctaSub": "Alle Sehenswürdigkeiten ansehen"
+    }
   }
 }

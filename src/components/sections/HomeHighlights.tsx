@@ -1,9 +1,11 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Map, Footprints } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 export function HomeHighlights() {
+  const { t } = useTranslation();
   const { ref: leftRef, isVisible: leftVisible } = useScrollReveal<HTMLAnchorElement>(0.2);
   const { ref: rightRef, isVisible: rightVisible } = useScrollReveal<HTMLAnchorElement>(0.2);
 
@@ -25,8 +27,8 @@ export function HomeHighlights() {
               <Map size={32} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-accent-50">Atrativos Turísticos</h2>
-              <p className="mt-1 text-primary-200">Explore o melhor da cidade</p>
+              <h2 className="text-2xl font-bold text-accent-50">{t("home.highlights.attractions")}</h2>
+              <p className="mt-1 text-primary-200">{t("home.highlights.attractionsSub")}</p>
             </div>
           </div>
         </Link>
@@ -46,8 +48,8 @@ export function HomeHighlights() {
               <Footprints size={32} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-accent-50">Roteiros de Juiz de Fora</h2>
-              <p className="mt-1 text-primary-200">Um roteiro para cada experiência</p>
+              <h2 className="text-2xl font-bold text-accent-50">{t("home.highlights.routes")}</h2>
+              <p className="mt-1 text-primary-200">{t("home.highlights.routesSub")}</p>
             </div>
           </div>
         </Link>

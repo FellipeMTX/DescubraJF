@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { ArrowRight, ChevronLeft, ChevronRight, Compass } from "lucide-react";
@@ -12,6 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 export function HomeExperiences() {
+  const { t } = useTranslation();
   const { data: experiences, isLoading } = useFeaturedExperiences();
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollReveal<HTMLElement>(0.1);
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal<HTMLDivElement>(0.3);
@@ -31,8 +33,8 @@ export function HomeExperiences() {
         >
           <SectionHeader
             icon={<Compass size={24} className="text-primary-200" />}
-            title="Tem tudo em Juiz de Fora!"
-            subtitle="Viva experiências inesquecíveis"
+            title={t("home.experiences.title")}
+            subtitle={t("home.experiences.subtitle")}
             dark
           />
         </div>
@@ -105,9 +107,9 @@ export function HomeExperiences() {
                     className="flex h-80 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-primary-400/40 text-primary-200 transition-all hover:border-primary-400/70 hover:bg-primary-400/10"
                   >
                     <ArrowRight size={36} className="mb-3" />
-                    <span className="text-xl font-bold text-accent-50">Tudo e muito mais!</span>
+                    <span className="text-xl font-bold text-accent-50">{t("home.experiences.cta")}</span>
                     <span className="mt-1 text-sm text-primary-300">
-                      Ver todos os atrativos
+                      {t("home.experiences.ctaSub")}
                     </span>
                   </Link>
                 </div>

@@ -1,16 +1,18 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRoutes } from "@/hooks/useRoutes";
 
 export default function RouteList() {
+  const { t } = useTranslation();
   const { data: routes, isLoading } = useRoutes();
 
   return (
     <div className="min-h-screen bg-primary-50 pt-20">
       <div className="mx-auto max-w-7xl px-4 py-12">
-        <h1 className="text-3xl font-bold text-primary-800">Roteiros</h1>
-        <p className="mt-2 text-accent-500">Caminhos temáticos para explorar Juiz de Fora</p>
+        <h1 className="text-3xl font-bold text-primary-800">{t("pages.routes.title")}</h1>
+        <p className="mt-2 text-accent-500">{t("pages.routes.subtitle")}</p>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {isLoading
@@ -41,7 +43,7 @@ export default function RouteList() {
         </div>
 
         {!isLoading && !routes?.length && (
-          <p className="mt-12 text-center text-accent-500">Nenhum roteiro cadastrado ainda.</p>
+          <p className="mt-12 text-center text-accent-500">{t("pages.routes.empty")}</p>
         )}
       </div>
     </div>

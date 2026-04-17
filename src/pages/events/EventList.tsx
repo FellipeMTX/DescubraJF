@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronDown } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "@/components/ui/EventCard";
@@ -24,9 +25,10 @@ function FilterPill({ active, onClick, children }: { active: boolean; onClick: (
 }
 
 function MonthDropdown({ options, selected, onSelect }: { options: { label: string; value: string }[]; selected: string; onSelect: (v: string) => void }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const selectedLabel = options.find((o) => o.value === selected)?.label ?? "Todos os meses";
+  const selectedLabel = options.find((o) => o.value === selected)?.label ?? t("pages.events.allMonths");
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -73,36 +75,37 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
   );
 }
 
-const CATEGORIES = [
-  { label: "Todos", value: "todos" },
-  { label: "Cultural", value: "cultural" },
-  { label: "Esportivo", value: "esportivo" },
-  { label: "Festivo", value: "festivo" },
-  { label: "Show", value: "show" },
-  { label: "Gastronômico", value: "gastronomico" },
-];
-
-const MONTH_NAMES = [
-  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
-];
+const CATEGORY_VALUES = ["todos", "cultural", "esportivo", "festivo", "show", "gastronomico"] as const;
 
 function getMonthKey(dateStr: string): string {
   const d = new Date(dateStr);
   return `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
 }
 
-function getMonthLabel(dateStr: string): string {
+function getMonthLabel(dateStr: string, locale: string): string {
   const d = new Date(dateStr);
-  return `${MONTH_NAMES[d.getMonth()]} ${d.getFullYear()}`;
+  const month = d.toLocaleDateString(locale, { month: "long" });
+  return `${month.charAt(0).toUpperCase() + month.slice(1)} ${d.getFullYear()}`;
 }
 
-function getShortMonthLabel(key: string): string {
+function getShortMonthLabel(key: string, locale: string): string {
   const [year, month] = key.split("-");
-  return `${MONTH_NAMES[parseInt(month)].slice(0, 3)} ${year}`;
+  const d = new Date(parseInt(year), parseInt(month), 1);
+  const monthShort = d.toLocaleDateString(locale, { month: "short" });
+  return `${monthShort.charAt(0).toUpperCase() + monthShort.slice(1)} ${year}`;
 }
+
+const LOCALE_MAP: Record<string, string> = {
+  pt: "pt-BR",
+  es: "es-ES",
+  en: "en-US",
+  fr: "fr-FR",
+  de: "de-DE",
+};
 
 export default function EventList() {
+  const { t, i18n } = useTranslation();
+  const locale = LOCALE_MAP[i18n.language] ?? "pt-BR";
   const [selectedCat, setSelectedCat] = useState("todos");
   const [selectedMonth, setSelectedMonth] = useState("todos");
   const [selectedEvent, setSelectedEvent] = useState<Evento | null>(null);
@@ -122,8 +125,8 @@ export default function EventList() {
   }, [filteredByCat]);
 
   const monthOptions = [
-    { label: "Todos os meses", value: "todos" },
-    ...availableMonths.map((key) => ({ label: getShortMonthLabel(key), value: key })),
+    { label: t("pages.events.allMonths"), value: "todos" },
+    ...availableMonths.map((key) => ({ label: getShortMonthLabel(key, locale), value: key })),
   ];
 
   // Filter by month
@@ -140,7 +143,7 @@ export default function EventList() {
     for (const event of filtered) {
       const key = getMonthKey(event.data_inicio);
       if (!map.has(key)) {
-        map.set(key, { label: getMonthLabel(event.data_inicio), events: [] });
+        map.set(key, { label: getMonthLabel(event.data_inicio, locale), events: [] });
       }
       map.get(key)!.events.push(event);
     }
@@ -148,22 +151,20 @@ export default function EventList() {
     return Array.from(map.entries())
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([, value]) => value);
-  }, [filtered]);
+  }, [filtered, locale]);
 
   return (
     <div className="min-h-screen bg-primary-50 pt-20">
       <div className="mx-auto max-w-7xl px-4 py-8">
-        <h1 className="text-3xl font-bold text-primary-800">Acontece em JF</h1>
-        <p className="mt-2 text-accent-500">
-          Fique por dentro de tudo o que está rolando na cidade
-        </p>
+        <h1 className="text-3xl font-bold text-primary-800">{t("pages.events.title")}</h1>
+        <p className="mt-2 text-accent-500">{t("pages.events.subtitle")}</p>
 
         {/* Filters */}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((opt) => (
-              <FilterPill key={opt.value} active={selectedCat === opt.value} onClick={() => { setSelectedCat(opt.value); setSelectedMonth("todos"); }}>
-                {opt.label}
+            {CATEGORY_VALUES.map((value) => (
+              <FilterPill key={value} active={selectedCat === value} onClick={() => { setSelectedCat(value); setSelectedMonth("todos"); }}>
+                {value === "todos" ? t("common.all") : t(`pages.events.categories.${value}`)}
               </FilterPill>
             ))}
           </div>
@@ -201,7 +202,7 @@ export default function EventList() {
           </div>
         ) : (
           <p className="mt-12 text-center text-accent-500">
-            Nenhum evento encontrado.
+            {t("pages.events.empty")}
           </p>
         )}
       </div>

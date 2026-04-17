@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CalendarDays, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +11,7 @@ type EventCardProps = {
 };
 
 export function EventCard({ event, onClick }: EventCardProps) {
+  const { t } = useTranslation();
   return (
     <Card
       className="group h-full cursor-pointer overflow-hidden rounded-xl border-0 bg-accent-50 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
@@ -31,7 +33,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
 
         {event.gratuito && (
           <Badge className="absolute right-3 top-3 bg-primary-400 text-accent-50">
-            Gratuito
+            {t("common.free")}
           </Badge>
         )}
 
@@ -41,7 +43,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
           </span>
           {event.data_fim && event.data_fim !== event.data_inicio && (
             <span className="block text-2xs text-accent-400">
-              até {formatDateShort(event.data_fim)}
+              {t("common.until")} {formatDateShort(event.data_fim)}
             </span>
           )}
         </div>

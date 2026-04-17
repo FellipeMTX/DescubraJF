@@ -1,35 +1,33 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePosts } from "@/hooks/usePosts";
 import { formatDate } from "@/lib/utils";
 import type { PostCategoria } from "@/types/database";
 
-const LABELS: Record<PostCategoria, { title: string; subtitle: string; basePath: string; empty: string }> = {
-  noticia: {
-    title: "Notícias",
-    subtitle: "Acompanhe as novidades da Secretaria de Turismo",
-    basePath: "/secretaria/noticias",
-    empty: "Ainda não há notícias publicadas.",
-  },
-  programa_projeto: {
-    title: "Programas e Projetos",
-    subtitle: "Conheça os programas e projetos da Secretaria de Turismo",
-    basePath: "/secretaria/programas-e-projetos",
-    empty: "Ainda não há programas publicados.",
-  },
+const BASE_PATHS: Record<PostCategoria, string> = {
+  noticia: "/secretaria/noticias",
+  programa_projeto: "/secretaria/programas-e-projetos",
+};
+
+const KEY_BY_CATEGORIA: Record<PostCategoria, "news" | "programs"> = {
+  noticia: "news",
+  programa_projeto: "programs",
 };
 
 type Props = { categoria: PostCategoria };
 
 export default function PostsList({ categoria }: Props) {
+  const { t } = useTranslation();
   const { data: posts, isLoading } = usePosts(categoria);
-  const labels = LABELS[categoria];
+  const basePath = BASE_PATHS[categoria];
+  const key = KEY_BY_CATEGORIA[categoria];
 
   return (
     <div className="min-h-screen bg-primary-50 pt-20">
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <h1 className="text-3xl font-bold text-primary-800 md:text-4xl">{labels.title}</h1>
-        <p className="mt-2 text-accent-500">{labels.subtitle}</p>
+        <h1 className="text-3xl font-bold text-primary-800 md:text-4xl">{t(`pages.posts.${key}.title`)}</h1>
+        <p className="mt-2 text-accent-500">{t(`pages.posts.${key}.subtitle`)}</p>
 
         {isLoading ? (
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -42,7 +40,7 @@ export default function PostsList({ categoria }: Props) {
             {posts.map((post) => (
               <Link
                 key={post.id}
-                to={`${labels.basePath}/${post.slug}`}
+                to={`${basePath}/${post.slug}`}
                 className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-shadow hover:shadow-xl"
               >
                 <div className="aspect-video overflow-hidden bg-primary-100">
@@ -54,7 +52,7 @@ export default function PostsList({ categoria }: Props) {
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-sm text-primary-400">
-                      Sem imagem
+                      {t("pages.posts.noImage")}
                     </div>
                   )}
                 </div>
@@ -71,7 +69,7 @@ export default function PostsList({ categoria }: Props) {
             ))}
           </div>
         ) : (
-          <p className="mt-12 text-center text-accent-500">{labels.empty}</p>
+          <p className="mt-12 text-center text-accent-500">{t(`pages.posts.${key}.empty`)}</p>
         )}
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { MapPin, Star, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -10,28 +11,28 @@ import type { Hospedagem } from "@/types/database";
 
 const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
 
-const TYPES = [
-  { label: "Todos", value: "todos" },
-  { label: "Hotéis", value: "hotel" },
-  { label: "Pousadas", value: "pousada" },
-  { label: "Hostels", value: "hostel" },
-  { label: "Flats", value: "flat" },
-];
+const TYPE_VALUES = ["todos", "hotel", "pousada", "hostel", "flat"] as const;
 
 export default function LodgingList() {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState("todos");
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
   const { data: lodgings, isLoading } = useLodgingEstablishments(selected);
 
+  const typeOptions = TYPE_VALUES.map((value) => ({
+    value,
+    label: value === "todos" ? t("common.all") : t(`pages.lodging.types.${value}`),
+  }));
+
   return (
     <ListPage<Hospedagem>
-      title="Onde Ficar"
-      subtitle="Lugares para tornar sua estadia memorável"
+      title={t("pages.lodging.title")}
+      subtitle={t("pages.lodging.subtitle")}
       items={lodgings}
       isLoading={isLoading}
-      emptyMessage="Nenhuma hospedagem encontrada nesta categoria."
-      filters={{ options: TYPES, selected, onSelect: setSelected }}
+      emptyMessage={t("pages.lodging.empty")}
+      filters={{ options: typeOptions, selected, onSelect: setSelected }}
       placeholderIcon={<BedDouble size={28} className="text-primary-300" />}
       renderCardContent={(lodging) => (
         <>

@@ -2,6 +2,7 @@ import {
   Globe, Trees, Mountain, ShoppingBag, Landmark,
   Baby, Eye, Music, Church
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import type { CategoriaExperiencia } from "@/types/database";
 
@@ -28,6 +29,7 @@ export function CategoryFilter({
   selected,
   onSelect,
 }: CategoryFilterProps) {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-wrap gap-3">
       <button
@@ -39,7 +41,7 @@ export function CategoryFilter({
             : "border-primary-200 text-primary-700 hover:border-primary-300 hover:text-primary-600"
         )}
       >
-        Todos
+        {t("common.all")}
       </button>
 
       {categories.map((cat) => {

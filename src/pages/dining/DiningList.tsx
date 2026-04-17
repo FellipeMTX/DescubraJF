@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
 import { MapPin, UtensilsCrossed, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +13,7 @@ import type { EstabelecimentoGastronomia } from "@/types/database";
 const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
 
 export default function DiningList() {
+  const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
   const [selected, setSelected] = useState(searchParams.get("categoria") ?? "todos");
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
@@ -20,17 +22,24 @@ export default function DiningList() {
   const { data: establishments, isLoading: loadingList } = useDiningEstablishments(selected);
 
   const filterOptions = [
-    { label: "Todos", value: "todos" },
-    ...(categories?.map((c) => ({ label: c.nome, value: c.slug })) ?? []),
+    { label: t("common.all"), value: "todos" },
+    ...(categories?.map((c) => {
+      const translationKey = `pages.dining.categories.${c.slug}`;
+      const translated = t(translationKey);
+      return {
+        label: translated === translationKey || i18n.language === "pt" ? c.nome : translated,
+        value: c.slug,
+      };
+    }) ?? []),
   ];
 
   return (
     <ListPage<EstabelecimentoGastronomia>
-      title="Onde Comer e Beber"
-      subtitle="Experimente tudo que nossa gastronomia oferece"
+      title={t("pages.dining.title")}
+      subtitle={t("pages.dining.subtitle")}
       items={establishments}
       isLoading={loadingList}
-      emptyMessage="Nenhum estabelecimento encontrado nesta categoria."
+      emptyMessage={t("pages.dining.empty")}
       filters={{ options: filterOptions, selected, onSelect: setSelected, isLoading: loadingCats }}
       placeholderIcon={<UtensilsCrossed size={28} className="text-primary-300" />}
       renderCardContent={(est) => (

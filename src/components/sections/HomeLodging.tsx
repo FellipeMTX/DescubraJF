@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { ArrowRight, ChevronLeft, ChevronRight, BedDouble, Star } from "lucide-react";
@@ -12,6 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 export function HomeLodging() {
+  const { t } = useTranslation();
   const { data: lodgings, isLoading } = useLodgingEstablishments();
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollReveal<HTMLElement>(0.1);
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal<HTMLDivElement>(0.3);
@@ -28,8 +30,8 @@ export function HomeLodging() {
         >
           <SectionHeader
             icon={<BedDouble size={24} className="text-primary-600" />}
-            title="Onde Ficar"
-            subtitle="Lugares para tornar sua estadia memorável"
+            title={t("pages.lodging.title")}
+            subtitle={t("pages.lodging.subtitle")}
           />
         </div>
 
@@ -125,9 +127,9 @@ export function HomeLodging() {
                   className="flex h-80 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-primary-300 text-primary-600 transition-all hover:border-primary-400 hover:bg-primary-100"
                 >
                   <ArrowRight size={36} className="mb-3" />
-                  <span className="text-xl font-bold">Ver todas</span>
+                  <span className="text-xl font-bold">{t("pages.lodging.viewAll")}</span>
                   <span className="mt-1 text-sm text-primary-400">
-                    Todas as hospedagens
+                    {t("pages.lodging.allLodgings")}
                   </span>
                 </Link>
               </SwiperSlide>

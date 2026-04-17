@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { UtensilsCrossed } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -6,15 +7,16 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 const DINING_CATEGORIES = [
-  { name: "Cozinha Mineira", slug: "cozinha-mineira", emoji: "🍳" },
-  { name: "Bares e Botecos", slug: "bares-e-botecos", emoji: "🍺" },
-  { name: "Cafés e Confeitarias", slug: "cafes-e-confeitarias", emoji: "☕" },
-  { name: "Pizzarias e Massas", slug: "pizzarias-e-massas", emoji: "🍕" },
-  { name: "Cervejarias", slug: "cervejarias-e-drinks", emoji: "🍷" },
-  { name: "Bar na Rua", slug: "bar-na-rua", emoji: "🎉" },
-];
+  { slug: "cozinha-mineira", emoji: "🍳" },
+  { slug: "bares-e-botecos", emoji: "🍺" },
+  { slug: "cafes-e-confeitarias", emoji: "☕" },
+  { slug: "pizzarias-e-massas", emoji: "🍕" },
+  { slug: "cervejarias-e-drinks", emoji: "🍷" },
+  { slug: "bar-na-rua", emoji: "🎉" },
+] as const;
 
 export function HomeDining() {
+  const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal<HTMLElement>(0.05);
 
   return (
@@ -28,8 +30,8 @@ export function HomeDining() {
         >
           <SectionHeader
             icon={<UtensilsCrossed size={24} className="text-primary-200" />}
-            title="Onde Comer e Beber"
-            subtitle="Experimente tudo que nossa gastronomia oferece"
+            title={t("pages.dining.title")}
+            subtitle={t("pages.dining.subtitle")}
             dark
           />
         </div>
@@ -51,7 +53,7 @@ export function HomeDining() {
             >
               <span className="text-3xl">{cat.emoji}</span>
               <div>
-                <h3 className="font-bold text-accent-50">{cat.name}</h3>
+                <h3 className="font-bold text-accent-50">{t(`pages.dining.categories.${cat.slug}`)}</h3>
               </div>
             </Link>
           ))}
@@ -70,7 +72,7 @@ export function HomeDining() {
               "rounded-full border-primary-400 px-8 text-primary-200 hover:bg-primary-400 hover:text-accent-50"
             )}
           >
-            Ver todos os estabelecimentos
+            {t("pages.dining.viewAll")}
           </Link>
         </div>
       </div>

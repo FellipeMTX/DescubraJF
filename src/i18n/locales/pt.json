@@ -3,7 +3,14 @@
     "menu": "Menu",
     "closeMenu": "Fechar menu",
     "selectLanguage": "Selecionar idioma",
-    "goBack": "Voltar ao início"
+    "goBack": "Voltar ao início",
+    "all": "Todos",
+    "free": "Gratuito",
+    "viewAll": "Ver todos",
+    "viewAllF": "Ver todas",
+    "until": "até",
+    "loadingMap": "Carregando mapa...",
+    "noMapLocations": "Nenhum local com coordenadas"
   },
   "nav": {
     "history": "História",
@@ -30,5 +37,96 @@
   "notFound": {
     "title": "Página não encontrada",
     "back": "Voltar ao início"
+  },
+  "pages": {
+    "experiences": {
+      "title": "Atrativos",
+      "subtitle": "Explore o melhor de Juiz de Fora",
+      "empty": "Nenhum atrativo encontrado nesta categoria."
+    },
+    "events": {
+      "title": "Acontece em JF",
+      "subtitle": "Fique por dentro de tudo o que está rolando na cidade",
+      "empty": "Nenhum evento encontrado.",
+      "allMonths": "Todos os meses",
+      "full": "Agenda completa",
+      "homeEmpty": "Nenhum evento próximo no momento.",
+      "categories": {
+        "cultural": "Cultural",
+        "esportivo": "Esportivo",
+        "festivo": "Festivo",
+        "show": "Show",
+        "gastronomico": "Gastronômico"
+      }
+    },
+    "lodging": {
+      "title": "Onde Ficar",
+      "subtitle": "Lugares para tornar sua estadia memorável",
+      "empty": "Nenhuma hospedagem encontrada nesta categoria.",
+      "viewAll": "Ver todas",
+      "allLodgings": "Todas as hospedagens",
+      "types": {
+        "hotel": "Hotéis",
+        "pousada": "Pousadas",
+        "hostel": "Hostels",
+        "flat": "Flats"
+      }
+    },
+    "dining": {
+      "title": "Onde Comer e Beber",
+      "subtitle": "Experimente tudo que nossa gastronomia oferece",
+      "empty": "Nenhum estabelecimento encontrado nesta categoria.",
+      "viewAll": "Ver todos os estabelecimentos",
+      "categories": {
+        "cozinha-mineira": "Cozinha Mineira",
+        "bares-e-botecos": "Bares e Botecos",
+        "cafes-e-confeitarias": "Cafés e Confeitarias",
+        "pizzarias-e-massas": "Pizzarias e Massas",
+        "cervejarias-e-drinks": "Cervejarias",
+        "bar-na-rua": "Bar na Rua"
+      }
+    },
+    "routes": {
+      "title": "Roteiros",
+      "subtitle": "Caminhos temáticos para explorar Juiz de Fora",
+      "empty": "Nenhum roteiro cadastrado ainda."
+    },
+    "services": {
+      "title": "Serviços",
+      "subtitle": "Serviços úteis para sua estadia em Juiz de Fora",
+      "empty": "Nenhum serviço encontrado nesta categoria."
+    },
+    "tours": {
+      "title": "A Gente Se Vê Por Aí",
+      "subtitle": "Descubra experiências e passeios pela cidade",
+      "empty": "Nenhum passeio encontrado nesta categoria."
+    },
+    "posts": {
+      "news": {
+        "title": "Notícias",
+        "subtitle": "Acompanhe as novidades da Secretaria de Turismo",
+        "empty": "Ainda não há notícias publicadas."
+      },
+      "programs": {
+        "title": "Programas e Projetos",
+        "subtitle": "Conheça os programas e projetos da Secretaria de Turismo",
+        "empty": "Ainda não há programas publicados."
+      },
+      "noImage": "Sem imagem"
+    }
+  },
+  "home": {
+    "highlights": {
+      "attractions": "Atrativos Turísticos",
+      "attractionsSub": "Explore o melhor da cidade",
+      "routes": "Roteiros de Juiz de Fora",
+      "routesSub": "Um roteiro para cada experiência"
+    },
+    "experiences": {
+      "title": "Tem tudo em Juiz de Fora!",
+      "subtitle": "Viva experiências inesquecíveis",
+      "cta": "Tudo e muito mais!",
+      "ctaSub": "Ver todos os atrativos"
+    }
   }
 }

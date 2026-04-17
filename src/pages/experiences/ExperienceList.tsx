@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { MapPin, Accessibility, Dog, DollarSign, Clock, Phone, Mail, Globe, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import {
 import type { Experiencia } from "@/types/database";
 
 export default function ExperienceList() {
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("todos");
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
@@ -23,11 +25,11 @@ export default function ExperienceList() {
 
   return (
     <ListPage<Experiencia>
-      title="Atrativos"
-      subtitle="Explore o melhor de Juiz de Fora"
+      title={t("pages.experiences.title")}
+      subtitle={t("pages.experiences.subtitle")}
       items={experiences}
       isLoading={loadingExps}
-      emptyMessage="Nenhum atrativo encontrado nesta categoria."
+      emptyMessage={t("pages.experiences.empty")}
       filterSlot={
         <div className="mt-6">
           {loadingCats ? (

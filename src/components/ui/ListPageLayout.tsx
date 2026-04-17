@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 import { InteractiveMap, type MapItem } from "@/components/ui/InteractiveMap";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -62,6 +63,7 @@ export function MapSection({
   activeId: string | null;
   isLoading: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="relative z-0 mt-6">
       {items.length > 0 ? (
@@ -74,7 +76,7 @@ export function MapSection({
         />
       ) : (
         <div className="flex h-72 items-center justify-center rounded-xl bg-primary-100 text-primary-300 md:h-80">
-          {isLoading ? "Carregando mapa..." : "Nenhum local com coordenadas"}
+          {isLoading ? t("common.loadingMap") : t("common.noMapLocations")}
         </div>
       )}
     </div>
