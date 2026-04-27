@@ -32,12 +32,12 @@ export default function DiningList() {
       isLoading={loadingList}
       emptyMessage="Nenhum estabelecimento encontrado nesta categoria."
       filters={{ options: filterOptions, selected, onSelect: setSelected, isLoading: loadingCats }}
-      placeholderIcon={<UtensilsCrossed size={28} className="text-primary-300" />}
+      placeholderIcon={<UtensilsCrossed size={28} className="text-[var(--color-bl-muted)]" />}
       renderCardContent={(est) => (
         <>
-          <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{est.nome}</h3>
+          <h3 className="font-bold bl-display text-base">{est.nome}</h3>
           {est.descricao_curta && (
-            <p className="mt-1 line-clamp-2 text-xs text-accent-500">{est.descricao_curta}</p>
+            <p className="mt-1 line-clamp-2 text-xs text-[var(--color-bl-muted)]">{est.descricao_curta}</p>
           )}
         </>
       )}
@@ -52,7 +52,7 @@ function DiningModalContent({ slug }: { slug: string }) {
   const { data: est, isLoading } = useDiningBySlug(slug);
 
   if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (!est) return <p className="text-accent-500">Estabelecimento não encontrado.</p>;
+  if (!est) return <p className="text-[var(--color-bl-muted)]">Estabelecimento não encontrado.</p>;
 
   const hasContact = est.contato && Object.values(est.contato).some(Boolean);
   const hasSchedule = est.horario_funcionamento && Object.keys(est.horario_funcionamento).length > 0;
@@ -86,7 +86,7 @@ function DiningModalContent({ slug }: { slug: string }) {
           <dl className="mt-2 space-y-1">
             {Object.entries(est.horario_funcionamento!).map(([day, hours]) => (
               <div key={day} className="flex justify-between text-sm">
-                <dt className="capitalize text-accent-500">{day}</dt>
+                <dt className="capitalize text-[var(--color-bl-muted)]">{day}</dt>
                 <dd className="font-medium text-primary-800">{hours as string}</dd>
               </div>
             ))}
@@ -96,17 +96,17 @@ function DiningModalContent({ slug }: { slug: string }) {
       {est.endereco && (
         <div>
           <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> Endereço</h3>
-          <p className="mt-1 text-sm text-accent-500">{est.endereco}{est.bairro && ` - ${est.bairro}`}</p>
+          <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{est.endereco}{est.bairro && ` - ${est.bairro}`}</p>
         </div>
       )}
       {hasContact && (
         <div>
           <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> Contato</h3>
           <div className="mt-2 space-y-1">
-            {est.contato?.telefone && <a href={`tel:${est.contato.telefone}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Phone size={12} /> {est.contato.telefone}</a>}
-            {est.contato?.email && <a href={`mailto:${est.contato.email}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Mail size={12} /> {est.contato.email}</a>}
-            {est.contato?.site && <a href={est.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Globe size={12} /> Site oficial</a>}
-            {est.contato?.instagram && <a href={est.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><ExternalLink size={12} /> Instagram</a>}
+            {est.contato?.telefone && <a href={`tel:${est.contato.telefone}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Phone size={12} /> {est.contato.telefone}</a>}
+            {est.contato?.email && <a href={`mailto:${est.contato.email}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Mail size={12} /> {est.contato.email}</a>}
+            {est.contato?.site && <a href={est.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> Site oficial</a>}
+            {est.contato?.instagram && <a href={est.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><ExternalLink size={12} /> Instagram</a>}
           </div>
         </div>
       )}

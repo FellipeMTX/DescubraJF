@@ -1,88 +1,168 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { CalendarDays } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Calendar, MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { EventCard } from "@/components/ui/EventCard";
 import { EventDetailDialog } from "@/components/ui/EventDetailDialog";
 import { useUpcomingEvents } from "@/hooks/useEvents";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import type { Evento } from "@/types/database";
+
+function formatDate(iso: string) {
+  const d = new Date(iso);
+  const day = String(d.getDate()).padStart(2, "0");
+  const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  return `${day} ${months[d.getMonth()]}`;
+}
 
 export function HomeEvents() {
   const { data: events, isLoading } = useUpcomingEvents(6);
-  const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>(0.05);
-  const [selectedEvent, setSelectedEvent] = useState<Evento | null>(null);
+  const [selected, setSelected] = useState<Evento | null>(null);
 
   return (
-    <section ref={sectionRef} className="bg-accent-100 py-16">
-      <div className="mx-auto max-w-7xl px-4">
-        <div
-          className={cn(
-            "transition-all duration-700 ease-out",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          )}
-        >
-          <SectionHeader
-            icon={<CalendarDays size={24} className="text-primary-600" />}
-            title="Acontece em JF"
-            subtitle="Fique por dentro de tudo o que está rolando na cidade"
-          />
+    <section
+      className="relative overflow-hidden px-14 py-24"
+      style={{ background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }}
+    >
+      <div
+        className="bl-blob bl-float"
+        style={{
+          width: 360,
+          height: 360,
+          background: "var(--color-bl-accent)",
+          top: "-10%",
+          right: "-5%",
+          opacity: 0.35,
+        }}
+      />
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="mb-12 grid items-end gap-10 md:grid-cols-2">
+          <div>
+            <div
+              className="bl-kicker mb-5"
+              style={{
+                background: "rgba(255,255,255,0.1)",
+                color: "var(--color-bl-bg)",
+              }}
+            >
+              <span
+                className="italic"
+                style={{
+                  color: "var(--color-bl-accent2)",
+                  fontFamily: "var(--font-display)",
+                }}
+              >
+                04.
+              </span>{" "}
+              Acontece em JF
+            </div>
+            <h2
+              className="bl-display m-0"
+              style={{ fontSize: "clamp(40px, 4.4vw, 64px)" }}
+            >
+              O que está{" "}
+              <span style={{ color: "var(--color-bl-accent2)", fontStyle: "italic" }}>
+                rolando
+              </span>
+              <br />
+              na cidade.
+            </h2>
+          </div>
+          <div className="text-right">
+            <Link
+              to="/agenda"
+              className="bl-btn-ghost"
+              style={{
+                color: "var(--color-bl-bg)",
+                borderColor: "rgba(255,255,255,0.25)",
+              }}
+            >
+              Agenda completa <Calendar size={14} />
+            </Link>
+          </div>
         </div>
 
         {isLoading ? (
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-80 rounded-xl bg-primary-200/50" />
+              <Skeleton key={i} className="h-80 rounded-[28px] bg-white/10" />
             ))}
           </div>
         ) : events?.length ? (
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-            {events.map((event, i) => (
-              <div
+            {events.map((event) => (
+              <button
                 key={event.id}
-                className={cn(
-                  "transition-all ease-out",
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
-                )}
-                style={{
-                  transitionDuration: `${600 + i * 100}ms`,
-                  transitionDelay: `${i * 120}ms`,
-                }}
+                type="button"
+                onClick={() => setSelected(event)}
+                className="bl-card text-left"
+                style={{ background: "rgba(255,255,255,0.04)" }}
               >
-                <EventCard event={event} onClick={() => setSelectedEvent(event)} />
-              </div>
+                <div className="relative aspect-4/3 overflow-hidden">
+                  {event.imagem_destaque ? (
+                    <img
+                      src={event.imagem_destaque}
+                      alt={event.titulo}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div
+                      className="bl-ph h-full w-full"
+                      style={{ background: "rgba(255,255,255,0.08)" }}
+                    >
+                      <span style={{ color: "rgba(255,255,255,0.5)" }}>
+                        {event.titulo}
+                      </span>
+                    </div>
+                  )}
+                  <div
+                    className="absolute top-4 left-4 rounded-xl px-3.5 py-2"
+                    style={{
+                      background: "var(--color-bl-accent2)",
+                      color: "var(--color-bl-ink)",
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 500,
+                      fontSize: 15,
+                    }}
+                  >
+                    {formatDate(event.data_inicio)}
+                  </div>
+                </div>
+                <div className="p-5">
+                  {event.categoria && (
+                    <div
+                      className="mb-2 text-[11px] font-semibold uppercase tracking-widest"
+                      style={{ color: "var(--color-bl-accent2)" }}
+                    >
+                      {event.categoria}
+                    </div>
+                  )}
+                  <div className="bl-display mb-2 text-[22px]">
+                    {event.titulo}
+                  </div>
+                  {event.local_nome && (
+                    <div
+                      className="flex items-center gap-1.5 text-[13px]"
+                      style={{ color: "rgba(255,255,255,0.55)" }}
+                    >
+                      <MapPin size={12} /> {event.local_nome}
+                    </div>
+                  )}
+                </div>
+              </button>
             ))}
           </div>
         ) : (
-          <p className="text-center text-accent-500">
+          <p
+            className="text-center"
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
             Nenhum evento próximo no momento.
           </p>
         )}
-
-        <div
-          className={cn(
-            "mt-10 text-center transition-all duration-700 ease-out delay-500",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-          )}
-        >
-          <Link
-            to="/agenda"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "rounded-full border-primary-400 px-8 text-primary-700 hover:bg-primary-400 hover:text-accent-50"
-            )}
-          >
-            Agenda completa
-          </Link>
-        </div>
       </div>
       <EventDetailDialog
-        event={selectedEvent}
-        open={!!selectedEvent}
-        onOpenChange={(open) => !open && setSelectedEvent(null)}
+        event={selected}
+        open={!!selected}
+        onOpenChange={(open) => !open && setSelected(null)}
       />
     </section>
   );

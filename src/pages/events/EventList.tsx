@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "@/components/ui/EventCard";
 import { EventDetailDialog } from "@/components/ui/EventDetailDialog";
 import { cn } from "@/lib/utils";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { useEvents } from "@/hooks/useEvents";
 import type { Evento } from "@/types/database";
 
@@ -13,10 +14,13 @@ function FilterPill({ active, onClick, children }: { active: boolean; onClick: (
       onClick={onClick}
       className={cn(
         "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-        active
-          ? "border-primary-400 bg-primary-400 text-accent-50"
-          : "border-primary-200 text-primary-700 hover:border-primary-400"
+        active ? "border-transparent" : "border-black/15 hover:border-black/30"
       )}
+      style={
+        active
+          ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+          : { color: "var(--color-bl-ink)" }
+      }
     >
       {children}
     </button>
@@ -42,27 +46,33 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
         onClick={() => setOpen(!open)}
         className={cn(
           "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-          selected !== "todos"
-            ? "border-primary-400 bg-primary-400 text-accent-50"
-            : "border-primary-200 text-primary-700 hover:border-primary-400"
+          selected !== "todos" ? "border-transparent" : "border-black/15 hover:border-black/30"
         )}
+        style={
+          selected !== "todos"
+            ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+            : { color: "var(--color-bl-ink)" }
+        }
       >
         {selectedLabel}
         <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
       </button>
 
       {open && (
-        <div className="absolute right-0 z-20 mt-2 w-full overflow-hidden rounded-xl border border-primary-200 bg-accent-50 p-1 shadow-xl">
+        <div
+          className="absolute right-0 z-20 mt-2 w-full overflow-hidden rounded-2xl border border-black/10 p-1 shadow-xl"
+          style={{ background: "var(--color-bl-bg)" }}
+        >
           {options.map((opt) => (
             <button
               key={opt.value}
               onClick={() => { onSelect(opt.value); setOpen(false); }}
-              className={cn(
-                "block w-full rounded-lg px-4 py-2 text-left text-sm font-medium transition-colors",
+              className="block w-full rounded-xl px-4 py-2 text-left text-sm font-medium transition-colors hover:bg-[var(--color-bl-card)]"
+              style={
                 selected === opt.value
-                  ? "bg-primary-400 text-accent-50"
-                  : "text-primary-700 hover:bg-primary-100"
-              )}
+                  ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+                  : { color: "var(--color-bl-ink)" }
+              }
             >
               {opt.label}
             </button>
@@ -151,12 +161,14 @@ export default function EventList() {
   }, [filtered]);
 
   return (
-    <div className="min-h-screen bg-primary-50 pt-20">
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <h1 className="text-3xl font-bold text-primary-800">Acontece em JF</h1>
-        <p className="mt-2 text-accent-500">
-          Fique por dentro de tudo o que está rolando na cidade
-        </p>
+    <div className="bl-app min-h-screen">
+      <div className="mx-auto max-w-7xl px-14 py-12">
+        <PageHeader
+          kicker="Agenda da cidade"
+          title="Acontece em"
+          highlight="JF"
+          subtitle="Fique por dentro de tudo o que está rolando na cidade."
+        />
 
         {/* Filters */}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -187,9 +199,9 @@ export default function EventList() {
             {grouped.map((group) => (
               <div key={group.label}>
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="h-px flex-1 bg-primary-300" />
-                  <h2 className="shrink-0 text-lg font-bold text-primary-700">{group.label}</h2>
-                  <div className="h-px flex-1 bg-primary-300" />
+                  <div className="h-px flex-1 bg-black/15" />
+                  <h2 className="bl-display shrink-0 text-2xl">{group.label}</h2>
+                  <div className="h-px flex-1 bg-black/15" />
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                   {group.events.map((event) => (
@@ -200,7 +212,10 @@ export default function EventList() {
             ))}
           </div>
         ) : (
-          <p className="mt-12 text-center text-accent-500">
+          <p
+            className="mt-12 text-center"
+            style={{ color: "var(--color-bl-muted)" }}
+          >
             Nenhum evento encontrado.
           </p>
         )}

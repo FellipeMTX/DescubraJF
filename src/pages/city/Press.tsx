@@ -1,12 +1,16 @@
+import { PageHeader } from "@/components/ui/PageHeader";
+
 export default function Press() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-3xl font-bold text-primary-900">
-        Assessoria de Imprensa
-      </h1>
-      <p className="mt-4 text-accent-500">
-        Conteúdo será carregado do Supabase quando configurado.
-      </p>
+    <div className="bl-app min-h-screen">
+      <div className="mx-auto max-w-4xl px-14 py-12">
+        <PageHeader
+          kicker="Imprensa"
+          title="Assessoria de"
+          highlight="Imprensa"
+          subtitle="Conteúdo será carregado do Supabase quando configurado."
+        />
+      </div>
     </div>
   );
 }

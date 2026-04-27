@@ -19,12 +19,12 @@ const TIMELINE = [
 
 export default function History() {
   return (
-    <div className="min-h-screen bg-primary-50 pt-20">
+    <div className="min-h-screen bl-app pt-20">
       {/* Hero */}
-      <section className="bg-primary-700 py-20">
+      <section className="bg-[var(--color-bl-ink)] py-20">
         <div className="mx-auto max-w-4xl px-4 text-center">
-          <h1 className="text-4xl font-bold text-accent-50 md:text-5xl">História</h1>
-          <p className="mt-4 text-lg text-primary-200">
+          <h1 className="text-4xl font-bold text-[var(--color-bl-bg)] md:text-5xl">História</h1>
+          <p className="mt-4 text-lg text-[var(--color-bl-bg)]/70">
             A trajetória de uma cidade que nunca parou de se reinventar
           </p>
         </div>
@@ -33,22 +33,22 @@ export default function History() {
       {/* Intro */}
       <HistorySection>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-lg leading-relaxed text-primary-700">
+          <p className="text-lg leading-relaxed text-[var(--color-bl-ink)]">
             Se você acha que já viu de tudo em uma cidade, é porque ainda não conhece Juiz de Fora.
           </p>
-          <p className="mt-4 leading-relaxed text-primary-700">
+          <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
             No coração da Zona da Mata mineira, ela surpreende pelo espírito <strong>pioneiro</strong>, pela <strong>história vibrante</strong> e pela capacidade única de se <strong>reinventar</strong>.
           </p>
-          <p className="mt-4 leading-relaxed text-primary-700">
+          <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
             Foi aqui que a América Latina testemunhou a <strong>primeira transmissão de TV aberta</strong> e onde Bernardo Mascarenhas fez história com a <strong>primeira usina hidrelétrica</strong> destinada à <strong>iluminação pública</strong> no continente.
           </p>
-          <p className="mt-4 leading-relaxed text-primary-700">
+          <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
             No final do século XIX, Juiz de Fora ganhou o título de <strong>"Manchester Mineira"</strong>, graças às suas fábricas têxteis que projetaram a cidade entre as mais promissoras do Brasil.
           </p>
         </div>
         <div className="mx-auto mt-10 max-w-md overflow-hidden rounded-2xl shadow-lg">
           <img src="/PacoMunicipal-01.webp" alt="Antigo Paço Municipal" className="w-full object-cover" />
-          <p className="bg-primary-100 px-4 py-2 text-center text-xs text-primary-600">
+          <p className="bg-[var(--color-bl-card)] px-4 py-2 text-center text-xs text-[var(--color-bl-muted)]">
             Antigo Paço Municipal — Atual Secretaria Especial de Igualdade Racial
           </p>
         </div>
@@ -57,13 +57,13 @@ export default function History() {
       {/* Gastronomia + transição */}
       <HistorySection dark>
         <div className="mx-auto max-w-3xl">
-          <p className="leading-relaxed text-primary-100">
-            E se história não fosse suficiente, há também muito sabor: Juiz de Fora entrou para o livro dos recordes com a <strong className="text-accent-50">maior fritada de torresmo do mundo</strong> servido em um único evento, só uma amostra do que a nossa deliciosa gastronomia mineira tem a oferecer.
+          <p className="leading-relaxed text-[var(--color-bl-bg)]/80">
+            E se história não fosse suficiente, há também muito sabor: Juiz de Fora entrou para o livro dos recordes com a <strong className="text-[var(--color-bl-bg)]">maior fritada de torresmo do mundo</strong> servido em um único evento, só uma amostra do que a nossa deliciosa gastronomia mineira tem a oferecer.
           </p>
-          <p className="mt-4 leading-relaxed text-primary-100">
-            Do Museu Mariano Procópio ao Cine-Theatro Central, passando pelo Mirante do Morro do Imperador e pelo Parque Halfeld, cada canto da cidade revela <strong className="text-accent-50">experiências</strong> que unem tradição e inovação.
+          <p className="mt-4 leading-relaxed text-[var(--color-bl-bg)]/80">
+            Do Museu Mariano Procópio ao Cine-Theatro Central, passando pelo Mirante do Morro do Imperador e pelo Parque Halfeld, cada canto da cidade revela <strong className="text-[var(--color-bl-bg)]">experiências</strong> que unem tradição e inovação.
           </p>
-          <p className="mt-6 text-center text-xl font-bold text-accent-50">
+          <p className="mt-6 text-center text-xl font-bold text-[var(--color-bl-bg)]">
             Juiz de Fora é plural, criativa e diversa.
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function History() {
       {/* Timeline */}
       <section className="bg-accent-100 py-16">
         <div className="mx-auto max-w-4xl px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold text-primary-800">Linha do Tempo</h2>
+          <h2 className="mb-12 text-center text-3xl font-bold text-[var(--color-bl-ink)]">Linha do Tempo</h2>
           <div className="relative">
             {/* Vertical line */}
             <div className="absolute left-6 top-0 hidden h-full w-0.5 bg-primary-300 md:left-1/2 md:block" />
@@ -91,13 +91,13 @@ export default function History() {
         imageCaption="Fonte: Arquivo Alberto Surerus Moutinho, 1928"
         imagePosition="right"
       >
-        <p className="leading-relaxed text-primary-700">
+        <p className="leading-relaxed text-[var(--color-bl-ink)]">
           Juiz de Fora não nasceu por acaso. Sua história começa por volta de 1703, com a abertura do Caminho Novo, uma rota estratégica entre Minas Gerais e o Rio de Janeiro, criada para escoar o ouro e controlar o recolhimento de impostos pela Coroa Portuguesa.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-700">
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
           Ao longo dessa estrada surgiram diversos povoados, entre eles Santo Antônio do Paraibuna — que viria a se tornar uma das cidades pioneiras de Minas Gerais. Em 1853 foi elevado à categoria de cidade e, doze anos depois, recebeu seu nome definitivo: <strong>Juiz de Fora</strong>.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-700">
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
           E sim, havia mesmo um "juiz de fora"! No período colonial, eram nomeados magistrados de outras regiões para evitar favoritismos locais. A expressão pegou e acabou batizando a cidade.
         </p>
       </HistorySection>
@@ -110,11 +110,11 @@ export default function History() {
         imagePosition="left"
         dark
       >
-        <p className="leading-relaxed text-primary-100">
-          Com a cidade em pleno desenvolvimento, a <strong className="text-accent-50">construção da Estrada União e Indústria</strong>, idealizada por Mariano Procópio Ferreira Lage, impulsionaria ainda mais o seu crescimento. Considerada uma das primeiras rodovias modernas da América Latina, ligava Juiz de Fora a Petrópolis.
+        <p className="leading-relaxed text-[var(--color-bl-bg)]/80">
+          Com a cidade em pleno desenvolvimento, a <strong className="text-[var(--color-bl-bg)]">construção da Estrada União e Indústria</strong>, idealizada por Mariano Procópio Ferreira Lage, impulsionaria ainda mais o seu crescimento. Considerada uma das primeiras rodovias modernas da América Latina, ligava Juiz de Fora a Petrópolis.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-100">
-          Em 1857, chegaram <strong className="text-accent-50">1.162 imigrantes alemães</strong>, número equivalente a cerca de 20% da população local. Instalaram-se nos atuais bairros São Pedro, Borboleta e Fábrica. Com o tempo, migraram para a vida urbana como operários, marceneiros e carroceiros, integrando-se à cidade e à Companhia União e Indústria.
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-bg)]/80">
+          Em 1857, chegaram <strong className="text-[var(--color-bl-bg)]">1.162 imigrantes alemães</strong>, número equivalente a cerca de 20% da população local. Instalaram-se nos atuais bairros São Pedro, Borboleta e Fábrica. Com o tempo, migraram para a vida urbana como operários, marceneiros e carroceiros, integrando-se à cidade e à Companhia União e Indústria.
         </p>
       </HistorySection>
 
@@ -125,13 +125,13 @@ export default function History() {
         imageCaption="Fonte: Prefeitura de Juiz de Fora"
         imagePosition="right"
       >
-        <p className="leading-relaxed text-primary-700">
+        <p className="leading-relaxed text-[var(--color-bl-ink)]">
           Juiz de Fora conquistou o <strong>título de "Manchester Mineira"</strong> no final do século XIX, em referência à cidade inglesa símbolo da Revolução Industrial. O apelido refletia o importante papel no desenvolvimento industrial de Minas Gerais, impulsionado pelas indústrias têxteis.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-700">
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
           <strong>Bernardo Mascarenhas</strong>, empreendedor visionário, fundou em 1888 a Companhia Mineira de Eletricidade e construiu a <strong>Usina de Marmelos</strong> — a primeira da América Latina a fornecer energia elétrica para iluminação pública.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-700">
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
           O antigo prédio da Fábrica Têxtil foi revitalizado e hoje integra o <strong>Complexo Mascarenhas</strong>, onde tradição e inovação se encontram no Centro Cultural Bernardo Mascarenhas e no Mercado Municipal — reinaugurado em 2025 com novos espaços gastronômicos e galeria de arte.
         </p>
       </HistorySection>
@@ -144,29 +144,29 @@ export default function History() {
         imagePosition="left"
         dark
       >
-        <p className="leading-relaxed text-primary-100">
-          Caminhar pelas ruas de Juiz de Fora é como folhear um <strong className="text-accent-50">livro de memórias</strong>. O <strong className="text-accent-50">Palacete Santa Mafalda</strong>, construído na década de 1850 para presentear Dom Pedro II, foi transformado em escola e restaurado em 2023.
+        <p className="leading-relaxed text-[var(--color-bl-bg)]/80">
+          Caminhar pelas ruas de Juiz de Fora é como folhear um <strong className="text-[var(--color-bl-bg)]">livro de memórias</strong>. O <strong className="text-[var(--color-bl-bg)]">Palacete Santa Mafalda</strong>, construído na década de 1850 para presentear Dom Pedro II, foi transformado em escola e restaurado em 2023.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-100">
-          O <strong className="text-accent-50">"Castelinho"</strong>, erguido em 1890, impressiona com sua arquitetura medieval. Alfredo Ferreira Lage transformou a Villa da família no Museu Mariano Procópio. O paisagista francês Auguste Glaziou imprimiu o charme dos jardins ingleses ao parque.
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-bg)]/80">
+          O <strong className="text-[var(--color-bl-bg)]">"Castelinho"</strong>, erguido em 1890, impressiona com sua arquitetura medieval. Alfredo Ferreira Lage transformou a Villa da família no Museu Mariano Procópio. O paisagista francês Auguste Glaziou imprimiu o charme dos jardins ingleses ao parque.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-100">
-          Até <strong className="text-accent-50">Cândido Portinari</strong> deixou sua marca com dois painéis públicos na fachada do Edifício Clube Juiz de Fora. E o <strong className="text-accent-50">Cine-Theatro Central</strong>, inaugurado em 1929, segue sendo palco de grandes espetáculos.
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-bg)]/80">
+          Até <strong className="text-[var(--color-bl-bg)]">Cândido Portinari</strong> deixou sua marca com dois painéis públicos na fachada do Edifício Clube Juiz de Fora. E o <strong className="text-[var(--color-bl-bg)]">Cine-Theatro Central</strong>, inaugurado em 1929, segue sendo palco de grandes espetáculos.
         </p>
       </HistorySection>
 
       {/* Final */}
       <HistorySection title="Uma Cidade que Nunca Para de Surpreender">
-        <p className="leading-relaxed text-primary-700">
+        <p className="leading-relaxed text-[var(--color-bl-ink)]">
           No Carnaval, a cidade carrega memórias que misturam ritmos africanos e influências cariocas. Foi aqui que nasceu, em 1934, a <strong>Turunas do Riachuelo</strong> — a primeira escola de samba de Minas Gerais e a quarta do Brasil.
         </p>
-        <p className="mt-4 leading-relaxed text-primary-700">
+        <p className="mt-4 leading-relaxed text-[var(--color-bl-ink)]">
           Desde 1977, Juiz de Fora é palco do <strong>Miss Brasil Gay</strong>, marco para a cultura LGBTQIAPN+ no país. Com suas cores, performances e celebração da pluralidade, o evento tornou-se símbolo de respeito e inclusão.
         </p>
-        <p className="mt-6 text-center text-xl font-bold text-primary-800">
+        <p className="mt-6 text-center text-xl font-bold text-[var(--color-bl-ink)]">
           Prepare-se para se surpreender a cada visita.
         </p>
-        <p className="mt-2 text-center text-2xl font-bold text-primary-600">
+        <p className="mt-2 text-center text-2xl font-bold text-[var(--color-bl-muted)]">
           BEM-VINDO A JUIZ DE FORA!
         </p>
       </HistorySection>
@@ -194,7 +194,7 @@ function HistorySection({
   const { ref, isVisible } = useScrollReveal<HTMLElement>(0.1);
 
   return (
-    <section ref={ref} className={cn("py-16", dark ? "bg-primary-700" : "bg-primary-50")}>
+    <section ref={ref} className={cn("py-16", dark ? "bg-[var(--color-bl-ink)]" : "bl-app")}>
       <div className="mx-auto max-w-6xl px-4">
         <div
           className={cn(
@@ -203,7 +203,7 @@ function HistorySection({
           )}
         >
           {title && (
-            <h2 className={cn("mb-8 text-2xl font-bold md:text-3xl", dark ? "text-accent-50" : "text-primary-800")}>
+            <h2 className={cn("mb-8 text-2xl font-bold md:text-3xl", dark ? "text-[var(--color-bl-bg)]" : "text-[var(--color-bl-ink)]")}>
               {title}
             </h2>
           )}
@@ -214,7 +214,7 @@ function HistorySection({
               <div className="w-full shrink-0 md:w-80">
                 <img src={image} alt={title ?? ""} className="w-full rounded-2xl object-cover shadow-lg" />
                 {imageCaption && (
-                  <p className={cn("mt-2 text-center text-xs", dark ? "text-primary-300" : "text-accent-500")}>
+                  <p className={cn("mt-2 text-center text-xs", dark ? "text-primary-300" : "text-[var(--color-bl-bg)]0")}>
                     {imageCaption}
                   </p>
                 )}
@@ -244,12 +244,12 @@ function TimelineItem({ year, text, index }: { year: string; text: string; index
       style={{ transitionDelay: `${index * 50}ms` }}
     >
       <div className={cn("flex w-full items-start gap-4 md:w-5/12", isEven ? "md:flex-row-reverse md:text-right" : "md:ml-auto")}>
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-400 text-sm font-bold text-accent-50 shadow">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-400 text-sm font-bold text-[var(--color-bl-bg)] shadow">
           {year.slice(2)}
         </div>
         <div className="flex-1">
-          <span className="text-lg font-bold text-primary-800">{year}</span>
-          <p className="mt-1 text-sm leading-relaxed text-primary-700">{text}</p>
+          <span className="text-lg font-bold text-[var(--color-bl-ink)]">{year}</span>
+          <p className="mt-1 text-sm leading-relaxed text-[var(--color-bl-ink)]">{text}</p>
         </div>
       </div>
     </div>

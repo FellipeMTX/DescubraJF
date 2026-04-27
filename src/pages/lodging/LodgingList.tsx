@@ -32,12 +32,12 @@ export default function LodgingList() {
       isLoading={isLoading}
       emptyMessage="Nenhuma hospedagem encontrada nesta categoria."
       filters={{ options: TYPES, selected, onSelect: setSelected }}
-      placeholderIcon={<BedDouble size={28} className="text-primary-300" />}
+      placeholderIcon={<BedDouble size={28} className="text-[var(--color-bl-muted)]" />}
       renderCardContent={(lodging) => (
         <>
-          <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{lodging.nome}</h3>
+          <h3 className="font-bold bl-display text-base">{lodging.nome}</h3>
           {lodging.descricao_curta && (
-            <p className="mt-1 line-clamp-2 text-xs text-accent-500">{lodging.descricao_curta}</p>
+            <p className="mt-1 line-clamp-2 text-xs text-[var(--color-bl-muted)]">{lodging.descricao_curta}</p>
           )}
         </>
       )}
@@ -52,7 +52,7 @@ function LodgingModalContent({ slug }: { slug: string }) {
   const { data: lodging, isLoading } = useLodgingBySlug(slug);
 
   if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (!lodging) return <p className="text-accent-500">Hospedagem não encontrada.</p>;
+  if (!lodging) return <p className="text-[var(--color-bl-muted)]">Hospedagem não encontrada.</p>;
 
   const hasContact = lodging.contato && Object.values(lodging.contato).some(Boolean);
 
@@ -95,16 +95,16 @@ function LodgingModalContent({ slug }: { slug: string }) {
       {lodging.endereco && (
         <div>
           <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> Endereço</h3>
-          <p className="mt-1 text-sm text-accent-500">{lodging.endereco}{lodging.bairro && ` - ${lodging.bairro}`}</p>
+          <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{lodging.endereco}{lodging.bairro && ` - ${lodging.bairro}`}</p>
         </div>
       )}
       {hasContact && (
         <div>
           <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> Contato</h3>
           <div className="mt-2 space-y-1">
-            {lodging.contato?.telefone && <a href={`tel:${lodging.contato.telefone}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Phone size={12} /> {lodging.contato.telefone}</a>}
-            {lodging.contato?.email && <a href={`mailto:${lodging.contato.email}`} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Mail size={12} /> {lodging.contato.email}</a>}
-            {lodging.contato?.site && <a href={lodging.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600"><Globe size={12} /> Site oficial</a>}
+            {lodging.contato?.telefone && <a href={`tel:${lodging.contato.telefone}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Phone size={12} /> {lodging.contato.telefone}</a>}
+            {lodging.contato?.email && <a href={`mailto:${lodging.contato.email}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Mail size={12} /> {lodging.contato.email}</a>}
+            {lodging.contato?.site && <a href={lodging.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> Site oficial</a>}
             {lodging.contato?.booking_url && <a href={lodging.contato.booking_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-primary-500 hover:text-primary-600"><ExternalLink size={12} /> Reservar agora</a>}
           </div>
         </div>

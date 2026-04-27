@@ -1,12 +1,9 @@
 import { Link } from "react-router";
-import { UtensilsCrossed } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { useDiningCategories } from "@/hooks/useDining";
 
-const DINING_CATEGORIES = [
-  { name: "Cozinha Mineira", slug: "cozinha-mineira", emoji: "🍳" },
+const FALLBACK = [
+  { name: "Cozinha Mineira", slug: "cozinha-mineira", emoji: "🥘" },
   { name: "Bares e Botecos", slug: "bares-e-botecos", emoji: "🍺" },
   { name: "Cafés e Confeitarias", slug: "cafes-e-confeitarias", emoji: "☕" },
   { name: "Pizzarias e Massas", slug: "pizzarias-e-massas", emoji: "🍕" },
@@ -15,63 +12,60 @@ const DINING_CATEGORIES = [
 ];
 
 export function HomeDining() {
-  const { ref, isVisible } = useScrollReveal<HTMLElement>(0.05);
+  const { data: categories } = useDiningCategories();
+
+  const cats = categories?.length
+    ? categories.map((c) => ({
+        name: c.nome,
+        slug: c.slug,
+        emoji: c.icone || "🍽️",
+      }))
+    : FALLBACK;
 
   return (
-    <section ref={ref} className="bg-primary-800 py-16">
-      <div className="mx-auto max-w-7xl px-4">
-        <div
-          className={cn(
-            "transition-all duration-700 ease-out",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          )}
-        >
-          <SectionHeader
-            icon={<UtensilsCrossed size={24} className="text-primary-200" />}
-            title="Onde Comer e Beber"
-            subtitle="Experimente tudo que nossa gastronomia oferece"
-            dark
-          />
+    <section className="px-14 py-24">
+      <div className="mx-auto grid max-w-7xl gap-16 md:grid-cols-[1fr_1.6fr]">
+        <div className="self-start md:sticky md:top-28">
+          <div className="bl-kicker mb-5">
+            <span className="bl-num">03.</span> Onde comer e beber
+          </div>
+          <h2
+            className="bl-display m-0 mb-6"
+            style={{ fontSize: "clamp(40px, 4.4vw, 56px)" }}
+          >
+            Sabores das <span className="bl-em">Geraes</span>.
+          </h2>
+          <p
+            className="mb-7 text-base leading-[1.7]"
+            style={{ color: "var(--color-bl-muted)" }}
+          >
+            Da cozinha mineira tradicional aos botecos de esquina, experimente
+            tudo o que nossa gastronomia oferece.
+          </p>
+          <Link to="/onde-comer" className="bl-btn">
+            Ver estabelecimentos <ArrowRight size={14} />
+          </Link>
         </div>
-
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {DINING_CATEGORIES.map((cat, i) => (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {cats.map((c) => (
             <Link
-              key={cat.slug}
-              to={`/onde-comer?categoria=${cat.slug}`}
-              className={cn(
-                "group flex items-center gap-4 rounded-xl bg-primary-700 p-5 transition-all duration-300 hover:-translate-y-1 hover:bg-primary-600 hover:shadow-lg",
-                "ease-out",
-                isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-              )}
-              style={{
-                transitionDuration: `${500 + i * 80}ms`,
-                transitionDelay: `${200 + i * 80}ms`,
-              }}
+              key={c.slug}
+              to={`/onde-comer?categoria=${c.slug}`}
+              className="bl-food-tile"
             >
-              <span className="text-3xl">{cat.emoji}</span>
-              <div>
-                <h3 className="font-bold text-accent-50">{cat.name}</h3>
+              <span className="text-[28px] leading-none">{c.emoji}</span>
+              <div className="flex-1">
+                <div className="bl-display text-lg">{c.name}</div>
+                <div
+                  className="bl-food-tile-meta mt-0.5 text-[11px]"
+                  style={{ color: "var(--color-bl-muted)" }}
+                >
+                  Estabelecimentos
+                </div>
               </div>
+              <ArrowRight size={16} />
             </Link>
           ))}
-        </div>
-
-        <div
-          className={cn(
-            "mt-10 text-center transition-all duration-700 ease-out delay-700",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-          )}
-        >
-          <Link
-            to="/onde-comer"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "rounded-full border-primary-400 px-8 text-primary-200 hover:bg-primary-400 hover:text-accent-50"
-            )}
-          >
-            Ver todos os estabelecimentos
-          </Link>
         </div>
       </div>
     </section>

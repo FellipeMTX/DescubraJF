@@ -23,21 +23,22 @@ type CategoryFilterProps = {
   onSelect: (slug: string) => void;
 };
 
-export function CategoryFilter({
-  categories,
-  selected,
-  onSelect,
-}: CategoryFilterProps) {
+function pillStyle(active: boolean) {
+  return active
+    ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)", borderColor: "transparent" }
+    : { color: "var(--color-bl-ink)" };
+}
+
+export function CategoryFilter({ categories, selected, onSelect }: CategoryFilterProps) {
   return (
     <div className="flex flex-wrap gap-3">
       <button
         onClick={() => onSelect("todos")}
         className={cn(
-          "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-          selected === "todos"
-            ? "border-primary-500 bg-primary-50 text-primary-700"
-            : "border-primary-200 text-primary-700 hover:border-primary-300 hover:text-primary-600"
+          "flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30",
+          selected === "todos" && "border-transparent"
         )}
+        style={pillStyle(selected === "todos")}
       >
         Todos
       </button>
@@ -45,17 +46,15 @@ export function CategoryFilter({
       {categories.map((cat) => {
         const Icon = cat.icone ? ICON_MAP[cat.icone] : null;
         const isActive = selected === cat.slug;
-
         return (
           <button
             key={cat.id}
             onClick={() => onSelect(cat.slug)}
             className={cn(
-              "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-              isActive
-                ? "border-primary-500 bg-primary-50 text-primary-700"
-                : "border-primary-200 text-primary-700 hover:border-primary-300 hover:text-primary-600"
+              "flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30",
+              isActive && "border-transparent"
             )}
+            style={pillStyle(isActive)}
           >
             {Icon && <Icon size={16} />}
             {cat.nome}

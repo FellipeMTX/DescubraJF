@@ -6,8 +6,6 @@ import { cn } from "@/lib/utils";
 
 const JF_CENTER: [number, number] = [-21.7612, -43.3496];
 
-/* ─── Filter Bar ─── */
-
 type FilterOption = { label: string; value: string };
 
 export function FilterBar({
@@ -40,9 +38,14 @@ export function FilterBar({
           className={cn(
             "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
             selected === opt.value
-              ? "border-primary-400 bg-primary-400 text-accent-50"
-              : "border-primary-200 text-primary-700 hover:border-primary-400"
+              ? "border-transparent text-white"
+              : "border-black/15 hover:border-black/30"
           )}
+          style={
+            selected === opt.value
+              ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+              : { color: "var(--color-bl-ink)" }
+          }
         >
           {opt.label}
         </button>
@@ -50,8 +53,6 @@ export function FilterBar({
     </div>
   );
 }
-
-/* ─── Map Section ─── */
 
 export function MapSection({
   items,
@@ -63,25 +64,26 @@ export function MapSection({
   isLoading: boolean;
 }) {
   return (
-    <div className="relative z-0 mt-6">
+    <div className="relative z-0 mt-8">
       {items.length > 0 ? (
         <InteractiveMap
           items={items}
           activeId={activeId}
           center={JF_CENTER}
           zoom={13}
-          className="h-72 w-full rounded-xl shadow-lg md:h-80"
+          className="h-72 w-full rounded-[28px] shadow-lg md:h-80"
         />
       ) : (
-        <div className="flex h-72 items-center justify-center rounded-xl bg-primary-100 text-primary-300 md:h-80">
+        <div
+          className="flex h-72 items-center justify-center rounded-[28px] md:h-80"
+          style={{ background: "var(--color-bl-card)", color: "var(--color-bl-muted)" }}
+        >
           {isLoading ? "Carregando mapa..." : "Nenhum local com coordenadas"}
         </div>
       )}
     </div>
   );
 }
-
-/* ─── Item Card ─── */
 
 export function ItemCard({
   imageUrl,
@@ -101,23 +103,40 @@ export function ItemCard({
   children: ReactNode;
 }) {
   return (
-    <div onMouseEnter={onHover} onMouseLeave={onLeave} onClick={onClick} className="w-80 shrink-0 cursor-pointer">
+    <div
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onClick={onClick}
+      className="w-80 shrink-0 cursor-pointer"
+    >
       <div
         className={cn(
-          "group flex h-full overflow-hidden rounded-xl border-0 bg-accent-50 shadow-sm transition-all duration-200 hover:shadow-lg",
-          isHovered && "ring-2 ring-primary-400 shadow-lg"
+          "group flex h-full overflow-hidden rounded-[24px] shadow-sm transition-all duration-300",
+          isHovered && "shadow-xl -translate-y-0.5"
         )}
+        style={{
+          background: "var(--color-bl-bg)",
+          border: isHovered
+            ? "1px solid var(--color-bl-accent)"
+            : "1px solid rgba(0,0,0,0.06)",
+        }}
       >
-        <div className="relative w-32 shrink-0 overflow-hidden bg-primary-100 sm:w-36">
+        <div
+          className="relative w-32 shrink-0 overflow-hidden sm:w-36"
+          style={{ background: "var(--color-bl-card)" }}
+        >
           {imageUrl ? (
             <img
               src={imageUrl}
               alt=""
               loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary-100 to-primary-200">
+            <div
+              className="flex h-full items-center justify-center"
+              style={{ color: "var(--color-bl-muted)" }}
+            >
               {placeholder}
             </div>
           )}
@@ -127,8 +146,6 @@ export function ItemCard({
     </div>
   );
 }
-
-/* ─── Cards Grid ─── */
 
 export function CardsGrid({
   isLoading,
@@ -143,26 +160,31 @@ export function CardsGrid({
 }) {
   if (isLoading) {
     return (
-      <div className="mt-6 flex gap-4 overflow-x-auto pb-4">
+      <div className="mt-8 flex gap-4 overflow-x-auto pb-4">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-36 w-80 shrink-0 rounded-xl" />
+          <Skeleton key={i} className="h-36 w-80 shrink-0 rounded-[24px]" />
         ))}
       </div>
     );
   }
 
   if (isEmpty) {
-    return <p className="mt-12 text-center text-accent-500">{emptyMessage}</p>;
+    return (
+      <p
+        className="mt-12 text-center"
+        style={{ color: "var(--color-bl-muted)" }}
+      >
+        {emptyMessage}
+      </p>
+    );
   }
 
   return (
-    <div className="mt-6 grid max-h-[340px] auto-rows-[160px] grid-flow-col grid-rows-2 gap-4 overflow-x-auto pb-4">
+    <div className="mt-8 grid max-h-[340px] auto-rows-[160px] grid-flow-col grid-rows-2 gap-4 overflow-x-auto pb-4">
       {children}
     </div>
   );
 }
-
-/* ─── Detail Modal ─── */
 
 export function DetailModal({
   open,
@@ -175,20 +197,26 @@ export function DetailModal({
 }) {
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>
-      <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto bg-accent-50">
+      <DialogContent
+        className="max-h-[85vh] max-w-2xl overflow-y-auto"
+        style={{ background: "var(--color-bl-bg)", color: "var(--color-bl-ink)" }}
+      >
         {children}
       </DialogContent>
     </Dialog>
   );
 }
 
-/* ─── Attribute Pill ─── */
-
 export function AttributePill({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-full bg-primary-100 px-2 py-0.5 text-2xs font-medium text-primary-600">
+    <span
+      className="rounded-full px-2 py-0.5 text-2xs font-medium"
+      style={{
+        background: "var(--color-bl-card)",
+        color: "var(--color-bl-ink)",
+      }}
+    >
       {children}
     </span>
   );
 }
-

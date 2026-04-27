@@ -9,11 +9,11 @@ export default function RouteDetail() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-primary-50 pt-20">
-        <div className="mx-auto max-w-5xl px-4 py-8">
+      <div className="bl-app min-h-screen">
+        <div className="mx-auto max-w-5xl px-14 py-12">
           <Skeleton className="h-6 w-32" />
-          <Skeleton className="mt-4 h-10 w-64" />
-          <Skeleton className="mt-6 h-96 w-full rounded-xl" />
+          <Skeleton className="mt-6 h-12 w-80" />
+          <Skeleton className="mt-8 h-96 w-full rounded-[28px]" />
         </div>
       </div>
     );
@@ -21,10 +21,12 @@ export default function RouteDetail() {
 
   if (error || !route) {
     return (
-      <div className="min-h-screen bg-primary-50 pt-20">
-        <div className="mx-auto max-w-4xl px-4 py-12 text-center">
-          <h1 className="text-2xl font-bold text-primary-800">Roteiro não encontrado</h1>
-          <Link to="/roteiros" className="mt-4 inline-flex items-center gap-1 text-primary-500 hover:underline">
+      <div className="bl-app min-h-screen">
+        <div className="mx-auto max-w-4xl px-14 py-16 text-center">
+          <h1 className="bl-display text-4xl">
+            Roteiro <span className="bl-em">não encontrado</span>
+          </h1>
+          <Link to="/roteiros" className="bl-btn-ghost mt-6 inline-flex">
             <ChevronLeft size={16} /> Voltar para Roteiros
           </Link>
         </div>
@@ -33,19 +35,33 @@ export default function RouteDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-primary-50 pt-20">
-      <div className="mx-auto max-w-5xl px-4 py-8">
-        <Link to="/roteiros" className="inline-flex items-center gap-1 text-sm text-accent-500 hover:text-primary-600">
+    <div className="bl-app min-h-screen">
+      <div className="mx-auto max-w-5xl px-14 py-12">
+        <Link
+          to="/roteiros"
+          className="inline-flex items-center gap-1 text-sm hover:underline"
+          style={{ color: "var(--color-bl-muted)" }}
+        >
           <ChevronLeft size={16} /> Roteiros
         </Link>
 
-        <h1 className="mt-4 text-3xl font-bold text-primary-800">{route.nome}</h1>
+        <h1
+          className="bl-display mt-6 m-0"
+          style={{ fontSize: "clamp(40px, 5vw, 64px)" }}
+        >
+          {route.nome}
+        </h1>
         {route.descricao && (
-          <p className="mt-2 whitespace-pre-line text-accent-500">{route.descricao}</p>
+          <p
+            className="mt-4 max-w-3xl whitespace-pre-line text-base leading-[1.7]"
+            style={{ color: "var(--color-bl-muted)" }}
+          >
+            {route.descricao}
+          </p>
         )}
 
         {route.mapa_url ? (
-          <div className="mt-6 overflow-hidden rounded-xl shadow-lg">
+          <div className="mt-8 overflow-hidden rounded-[28px] shadow-lg">
             <iframe
               src={route.mapa_url}
               width="100%"
@@ -58,7 +74,13 @@ export default function RouteDetail() {
             />
           </div>
         ) : (
-          <div className="mt-6 flex h-96 items-center justify-center rounded-xl bg-primary-100 text-primary-400">
+          <div
+            className="mt-8 flex h-96 items-center justify-center rounded-[28px]"
+            style={{
+              background: "var(--color-bl-card)",
+              color: "var(--color-bl-muted)",
+            }}
+          >
             Mapa em breve
           </div>
         )}
