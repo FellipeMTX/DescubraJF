@@ -221,3 +221,51 @@ export type Banner = {
   created_at: string;
 };
 
+export type PostCategoria = "noticia" | "programa_projeto";
+
+export type Post = {
+  id: string;
+  categoria: PostCategoria;
+  titulo: string;
+  slug: string;
+  resumo: string | null;
+  conteudo_html: string | null;
+  imagem_capa: string | null;
+  autor: string | null;
+  publicado: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SeturPagina = {
+  id: string;
+  hero_imagem: string | null;
+  hero_titulo: string;
+  hero_subtitulo: string | null;
+  intro_texto_1: string | null;
+  intro_texto_2: string | null;
+  intro_titulo_secao: string | null;
+  intro_texto_3: string | null;
+  missao_texto: string | null;
+  visao_texto: string | null;
+  valores: string[];
+  endereco: string | null;
+  cep: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  horario: string | null;
+  telefone: string | null;
+  email: string | null;
+  updated_at: string;
+};
+
+export type SeturMembro = {
+  id: string;
+  cargo: string;
+  nome: string;
+  email: string | null;
+  ordem: number;
+  ativo: boolean;
+  created_at: string;
+  updated_at: string;
+};

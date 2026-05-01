@@ -83,17 +83,16 @@ function NavDropdown({
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-50 pt-3">
+        <div className="absolute left-0 top-full z-50 w-full pt-3">
           <div
-            className="min-w-52 overflow-hidden rounded-2xl border border-black/5 p-1.5 shadow-xl"
+            className="overflow-hidden rounded-2xl border border-black/5 p-1.5 shadow-xl"
             style={{ background: "var(--color-bl-bg)" }}
           >
             {item.children.map((child) => (
               <Link
                 key={child.href}
                 to={child.href}
-                className="block rounded-xl px-4 py-2.5 text-sm transition-colors hover:bg-[var(--color-bl-card)]"
-                style={{ color: "var(--color-bl-ink)" }}
+                className="bl-navlink block px-4 py-2.5 text-center text-sm"
                 onClick={() => setOpen(false)}
               >
                 {child.label}
