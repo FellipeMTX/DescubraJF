@@ -62,7 +62,7 @@ export function HomeExperiences() {
             {experiences?.slice(0, 6).map((exp, i) => (
               <Link
                 key={exp.id}
-                to="/atrativos"
+                to={`/atrativos?slug=${exp.slug}`}
                 className="bl-card bl-card-pop aspect-4/5 block"
               >
                 {exp.imagem_destaque ? (

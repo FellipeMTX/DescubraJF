@@ -21,9 +21,9 @@ export function Header() {
         {/* Logo */}
         <Link to="/" className="flex flex-1 items-center">
           <img
-            src="/descubraLogo.png"
+            src="/DescubraHorizontalPreto.png"
             alt={SITE_NAME}
-            className="h-9 w-auto"
+            className="h-16 w-auto"
           />
         </Link>
 

@@ -6,9 +6,12 @@ export function useUpcomingEvents(limit = 5) {
   return useQuery({
     queryKey: ["eventos", "proximos", limit],
     queryFn: async () => {
+      const today = new Date().toISOString().slice(0, 10);
       const { data, error } = await supabase
         .from("eventos")
         .select("*")
+        .eq("ativo", true)
+        .gte("data_inicio", today)
         .order("data_inicio")
         .limit(limit);
 

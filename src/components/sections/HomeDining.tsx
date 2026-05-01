@@ -4,27 +4,16 @@ import { useDiningCategories } from "@/hooks/useDining";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
-const FALLBACK = [
-  { name: "Cozinha Mineira", slug: "cozinha-mineira", emoji: "🥘" },
-  { name: "Bares e Botecos", slug: "bares-e-botecos", emoji: "🍺" },
-  { name: "Cafés e Confeitarias", slug: "cafes-e-confeitarias", emoji: "☕" },
-  { name: "Pizzarias e Massas", slug: "pizzarias-e-massas", emoji: "🍕" },
-  { name: "Cervejarias", slug: "cervejarias-e-drinks", emoji: "🍷" },
-  { name: "Bar na Rua", slug: "bar-na-rua", emoji: "🎉" },
-];
-
 export function HomeDining() {
   const { data: categories } = useDiningCategories();
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
 
-  const cats = categories?.length
-    ? categories.map((c) => ({
-        name: c.nome,
-        slug: c.slug,
-        emoji: c.icone || "🍽️",
-      }))
-    : FALLBACK;
+  const cats = categories?.map((c) => ({
+    name: c.nome,
+    slug: c.slug,
+    emoji: c.icone || "🍽️",
+  })) ?? [];
 
   return (
     <section className="px-14 py-16">
@@ -63,6 +52,14 @@ export function HomeDining() {
             gridVisible && "in"
           )}
         >
+          {cats.length === 0 && (
+            <p
+              className="col-span-full text-sm italic"
+              style={{ color: "var(--color-bl-muted)" }}
+            >
+              Nenhuma categoria cadastrada.
+            </p>
+          )}
           {cats.map((c) => (
             <Link
               key={c.slug}

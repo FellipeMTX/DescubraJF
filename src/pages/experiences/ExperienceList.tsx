@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 import { MapPin, Accessibility, Dog, DollarSign, Clock, Phone, Mail, Globe, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,15 @@ import type { Experiencia } from "@/types/database";
 
 export default function ExperienceList() {
   const [selectedCategory, setSelectedCategory] = useState("todos");
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedSlug = searchParams.get("slug");
+
+  function handleSelectSlug(slug: string | null) {
+    const next = new URLSearchParams(searchParams);
+    if (slug) next.set("slug", slug);
+    else next.delete("slug");
+    setSearchParams(next, { replace: true });
+  }
 
   const { data: categories, isLoading: loadingCats } = useExperienceCategories();
   const { data: experiences, isLoading: loadingExps } = useExperiences(selectedCategory);
@@ -36,7 +45,7 @@ export default function ExperienceList() {
             <CategoryFilter
               categories={categories}
               selected={selectedCategory}
-              onSelect={(slug) => { setSelectedCategory(slug); setSelectedSlug(null); }}
+              onSelect={(slug) => { setSelectedCategory(slug); handleSelectSlug(null); }}
             />
           ) : null}
         </div>
@@ -51,7 +60,7 @@ export default function ExperienceList() {
         </>
       )}
       selectedSlug={selectedSlug}
-      onSelectSlug={setSelectedSlug}
+      onSelectSlug={handleSelectSlug}
       renderModalContent={(slug) => <ExperienceModalContent slug={slug} />}
     />
   );

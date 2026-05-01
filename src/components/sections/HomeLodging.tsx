@@ -1,12 +1,12 @@
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useLodgingEstablishments } from "@/hooks/useLodging";
+import { useFeaturedLodgings } from "@/hooks/useLodging";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 export function HomeLodging() {
-  const { data: lodgings, isLoading } = useLodgingEstablishments();
+  const { data: lodgings, isLoading } = useFeaturedLodgings(4);
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
 
@@ -65,7 +65,7 @@ export function HomeLodging() {
               gridVisible && "in"
             )}
           >
-            {lodgings?.slice(0, 4).map((h, i) => (
+            {lodgings?.map((h, i) => (
               <Link
                 key={h.id}
                 to="/onde-ficar"

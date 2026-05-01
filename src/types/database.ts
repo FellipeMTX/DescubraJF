@@ -141,6 +141,7 @@ export type Hospedagem = {
   } | null;
   comodidades: string[] | null;
   faixa_preco: number | null;
+  destaque: boolean;
   ativo: boolean;
   ordem: number;
   created_at: string;
