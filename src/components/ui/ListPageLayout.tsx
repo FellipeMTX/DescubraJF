@@ -112,10 +112,10 @@ export function ItemCard({
       <div
         className={cn(
           "group flex h-full overflow-hidden rounded-[24px] shadow-sm transition-all duration-300",
-          isHovered && "shadow-xl -translate-y-0.5"
+          isHovered && "shadow-xl"
         )}
         style={{
-          background: "var(--color-bl-bg)",
+          background: "var(--color-bl-card)",
           border: isHovered
             ? "1px solid var(--color-bl-accent)"
             : "1px solid rgba(0,0,0,0.06)",
@@ -123,7 +123,7 @@ export function ItemCard({
       >
         <div
           className="relative w-32 shrink-0 overflow-hidden sm:w-36"
-          style={{ background: "var(--color-bl-card)" }}
+          style={{ background: "var(--color-bl-bg)" }}
         >
           {imageUrl ? (
             <img

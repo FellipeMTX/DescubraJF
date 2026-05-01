@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { useDiningCategories } from "@/hooks/useDining";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { cn } from "@/lib/utils";
 
 const FALLBACK = [
   { name: "Cozinha Mineira", slug: "cozinha-mineira", emoji: "🥘" },
@@ -13,6 +15,8 @@ const FALLBACK = [
 
 export function HomeDining() {
   const { data: categories } = useDiningCategories();
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
+  const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
 
   const cats = categories?.length
     ? categories.map((c) => ({
@@ -23,9 +27,15 @@ export function HomeDining() {
     : FALLBACK;
 
   return (
-    <section className="px-14 py-24">
+    <section className="px-14 py-16">
       <div className="mx-auto grid max-w-7xl gap-16 md:grid-cols-[1fr_1.6fr]">
-        <div className="self-start md:sticky md:top-28">
+        <div
+          ref={headerRef}
+          className={cn(
+            "reveal self-start md:sticky md:top-28",
+            headerVisible && "in"
+          )}
+        >
           <div className="bl-kicker mb-5">
             <span className="bl-num">03.</span> Onde comer e beber
           </div>
@@ -46,7 +56,13 @@ export function HomeDining() {
             Ver estabelecimentos <ArrowRight size={14} />
           </Link>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div
+          ref={gridRef}
+          className={cn(
+            "reveal-stagger grid gap-3 sm:grid-cols-2",
+            gridVisible && "in"
+          )}
+        >
           {cats.map((c) => (
             <Link
               key={c.slug}

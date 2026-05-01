@@ -1,36 +1,52 @@
 import { Link } from "react-router";
+import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useLodgingEstablishments } from "@/hooks/useLodging";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { cn } from "@/lib/utils";
 
 export function HomeLodging() {
   const { data: lodgings, isLoading } = useLodgingEstablishments();
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
+  const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
 
   return (
     <section
-      className="px-14 py-24"
+      className="px-14 py-16"
       style={{ background: "var(--color-bl-card)" }}
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12">
-          <div
-            className="bl-kicker mb-5"
-            style={{ background: "var(--color-bl-bg)" }}
-          >
-            <span className="bl-num">02.</span> Onde ficar
-          </div>
-          <div className="flex items-end justify-between gap-10">
+        <div
+          ref={headerRef}
+          className={cn(
+            "reveal mb-12 grid items-center gap-10 md:grid-cols-2",
+            headerVisible && "in"
+          )}
+        >
+          <div>
+            <div
+              className="bl-kicker mb-5"
+              style={{ background: "var(--color-bl-bg)" }}
+            >
+              <span className="bl-num">02.</span> Onde ficar
+            </div>
             <h2
-              className="bl-display m-0 max-w-[12ch]"
+              className="bl-display m-0"
               style={{ fontSize: "clamp(40px, 4.4vw, 64px)" }}
             >
               Estadias <span className="bl-em">memoráveis</span>.
             </h2>
-            <Link
-              to="/onde-ficar"
-              className="border-b border-current pb-0.5 text-sm font-medium"
-              style={{ color: "var(--color-bl-ink)" }}
+          </div>
+          <div>
+            <p
+              className="mb-4 text-base leading-[1.7]"
+              style={{ color: "var(--color-bl-muted)" }}
             >
-              Ver todos os hotéis →
+              De pousadas charmosas a hotéis premium, encontre o lugar
+              perfeito para descansar e aproveitar a cidade.
+            </p>
+            <Link to="/onde-ficar" className="bl-btn-ghost">
+              Ver todos os hotéis <ArrowRight size={14} />
             </Link>
           </div>
         </div>
@@ -42,7 +58,13 @@ export function HomeLodging() {
             ))}
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div
+            ref={gridRef}
+            className={cn(
+              "reveal-stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4",
+              gridVisible && "in"
+            )}
+          >
             {lodgings?.slice(0, 4).map((h, i) => (
               <Link
                 key={h.id}

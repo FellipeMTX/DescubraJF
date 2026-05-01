@@ -4,6 +4,8 @@ import { Calendar, MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventDetailDialog } from "@/components/ui/EventDetailDialog";
 import { useUpcomingEvents } from "@/hooks/useEvents";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { cn } from "@/lib/utils";
 import type { Evento } from "@/types/database";
 
 function formatDate(iso: string) {
@@ -16,10 +18,12 @@ function formatDate(iso: string) {
 export function HomeEvents() {
   const { data: events, isLoading } = useUpcomingEvents(6);
   const [selected, setSelected] = useState<Evento | null>(null);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
+  const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
 
   return (
     <section
-      className="relative overflow-hidden px-14 py-24"
+      className="relative overflow-hidden px-14 py-16"
       style={{ background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }}
     >
       <div
@@ -34,7 +38,13 @@ export function HomeEvents() {
         }}
       />
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="mb-12 grid items-end gap-10 md:grid-cols-2">
+        <div
+          ref={headerRef}
+          className={cn(
+            "reveal mb-12 grid items-center gap-10 md:grid-cols-2",
+            headerVisible && "in"
+          )}
+        >
           <div>
             <div
               className="bl-kicker mb-5"
@@ -87,7 +97,13 @@ export function HomeEvents() {
             ))}
           </div>
         ) : events?.length ? (
-          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <div
+            ref={gridRef}
+            className={cn(
+              "reveal-stagger grid gap-6 sm:grid-cols-2 md:grid-cols-3",
+              gridVisible && "in"
+            )}
+          >
             {events.map((event) => (
               <button
                 key={event.id}

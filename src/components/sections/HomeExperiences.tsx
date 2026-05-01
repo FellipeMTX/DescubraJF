@@ -2,14 +2,24 @@ import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFeaturedExperiences } from "@/hooks/useExperiences";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { cn } from "@/lib/utils";
 
 export function HomeExperiences() {
   const { data: experiences, isLoading } = useFeaturedExperiences();
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
+  const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
 
   return (
-    <section className="px-14 py-24">
+    <section className="px-14 py-16">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 grid items-end gap-10 md:grid-cols-2">
+        <div
+          ref={headerRef}
+          className={cn(
+            "reveal mb-12 grid items-center gap-10 md:grid-cols-2",
+            headerVisible && "in"
+          )}
+        >
           <div>
             <div className="bl-kicker mb-5">
               <span className="bl-num">01.</span> O que fazer
@@ -42,7 +52,13 @@ export function HomeExperiences() {
             ))}
           </div>
         ) : (
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+          <div
+            ref={gridRef}
+            className={cn(
+              "reveal-stagger grid gap-5 sm:grid-cols-2 md:grid-cols-3",
+              gridVisible && "in"
+            )}
+          >
             {experiences?.slice(0, 6).map((exp, i) => (
               <Link
                 key={exp.id}
