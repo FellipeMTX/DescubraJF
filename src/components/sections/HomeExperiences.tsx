@@ -39,7 +39,7 @@ export function HomeExperiences() {
               Dos parques históricos aos mirantes mais celebrados, viva
               experiências inesquecíveis em cada esquina.
             </p>
-            <Link to="/atrativos" className="bl-btn-ghost">
+            <Link to="/atrativos" className="bl-btn-soft">
               Ver todos os atrativos <ArrowRight size={14} />
             </Link>
           </div>

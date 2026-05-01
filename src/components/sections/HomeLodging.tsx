@@ -45,7 +45,7 @@ export function HomeLodging() {
               De pousadas charmosas a hotéis premium, encontre o lugar
               perfeito para descansar e aproveitar a cidade.
             </p>
-            <Link to="/onde-ficar" className="bl-btn-ghost">
+            <Link to="/onde-ficar" className="bl-btn-soft-light">
               Ver todos os hotéis <ArrowRight size={14} />
             </Link>
           </div>

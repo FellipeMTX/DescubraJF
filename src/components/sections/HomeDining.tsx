@@ -52,7 +52,7 @@ export function HomeDining() {
             Da cozinha mineira tradicional aos botecos de esquina, experimente
             tudo o que nossa gastronomia oferece.
           </p>
-          <Link to="/onde-comer" className="bl-btn">
+          <Link to="/onde-comer" className="bl-btn-soft">
             Ver estabelecimentos <ArrowRight size={14} />
           </Link>
         </div>
