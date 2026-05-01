@@ -13,17 +13,17 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-4 z-50 mx-4 mt-4 md:mx-6">
+    <header className="sticky top-0 z-50">
       <div
-        className="flex items-center gap-4 rounded-full border border-black/5 px-4 py-3 pl-5 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl"
+        className="flex items-center gap-4 border-b border-black/5 px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl md:px-10"
         style={{ background: "rgba(251,242,232,0.85)" }}
       >
         {/* Logo */}
-        <Link to="/" className="flex flex-1 items-center">
+        <Link to="/" className="relative flex h-16 flex-1 items-center">
           <img
             src="/DescubraHorizontalPreto.png"
             alt={SITE_NAME}
-            className="h-16 w-auto"
+            className="absolute left-0 h-24 w-auto"
           />
         </Link>
 
@@ -50,7 +50,7 @@ export function Header() {
           </Link>
           <button
             aria-label="Menu"
-            className="rounded-full p-2 lg:hidden"
+            className="p-2 lg:hidden"
             style={{ color: "var(--color-bl-ink)" }}
             onClick={() => setMobileOpen(true)}
           >
