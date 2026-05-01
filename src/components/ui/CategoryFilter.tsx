@@ -25,7 +25,7 @@ type CategoryFilterProps = {
 
 function pillStyle(active: boolean) {
   return active
-    ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)", borderColor: "transparent" }
+    ? { background: "var(--color-bl-card)", color: "var(--color-bl-ink)", borderColor: "transparent" }
     : { color: "var(--color-bl-ink)" };
 }
 
@@ -35,7 +35,7 @@ export function CategoryFilter({ categories, selected, onSelect }: CategoryFilte
       <button
         onClick={() => onSelect("todos")}
         className={cn(
-          "flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30",
+          "flex cursor-pointer items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30",
           selected === "todos" && "border-transparent"
         )}
         style={pillStyle(selected === "todos")}
@@ -51,7 +51,7 @@ export function CategoryFilter({ categories, selected, onSelect }: CategoryFilte
             key={cat.id}
             onClick={() => onSelect(cat.slug)}
             className={cn(
-              "flex items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30",
+              "flex cursor-pointer items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30",
               isActive && "border-transparent"
             )}
             style={pillStyle(isActive)}

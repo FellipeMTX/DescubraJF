@@ -1,4 +1,5 @@
-import { type ReactNode } from "react";
+import { Children, useEffect, useRef, useState, type ReactNode } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { InteractiveMap, type MapItem } from "@/components/ui/InteractiveMap";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -36,14 +37,14 @@ export function FilterBar({
           key={opt.value}
           onClick={() => onSelect(opt.value)}
           className={cn(
-            "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+            "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors",
             selected === opt.value
               ? "border-transparent text-white"
               : "border-black/15 hover:border-black/30"
           )}
           style={
             selected === opt.value
-              ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+              ? { background: "var(--color-bl-card)", color: "var(--color-bl-ink)" }
               : { color: "var(--color-bl-ink)" }
           }
         >
@@ -107,7 +108,7 @@ export function ItemCard({
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       onClick={onClick}
-      className="w-80 shrink-0 cursor-pointer"
+      className="h-40 w-80 shrink-0 cursor-pointer justify-self-start"
     >
       <div
         className={cn(
@@ -122,7 +123,7 @@ export function ItemCard({
         }}
       >
         <div
-          className="relative w-32 shrink-0 overflow-hidden sm:w-36"
+          className="relative w-1/2 shrink-0 overflow-hidden"
           style={{ background: "var(--color-bl-bg)" }}
         >
           {imageUrl ? (
@@ -141,7 +142,7 @@ export function ItemCard({
             </div>
           )}
         </div>
-        <div className="flex flex-col justify-center p-4">{children}</div>
+        <div className="flex w-1/2 flex-col justify-center p-4">{children}</div>
       </div>
     </div>
   );
@@ -160,9 +161,9 @@ export function CardsGrid({
 }) {
   if (isLoading) {
     return (
-      <div className="mt-8 flex gap-4 overflow-x-auto pb-4">
+      <div className="scrollbar-hide mt-8 grid auto-cols-[320px] grid-flow-col grid-rows-[160px_160px] gap-4 overflow-x-auto overflow-y-hidden pb-4">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-36 w-80 shrink-0 rounded-[24px]" />
+          <Skeleton key={i} className="h-full w-80 shrink-0 justify-self-start rounded-[24px]" />
         ))}
       </div>
     );
@@ -179,10 +180,90 @@ export function CardsGrid({
     );
   }
 
+  const count = Children.count(children);
+  if (count <= 6) {
+    return (
+      <div className="mt-8 flex flex-wrap gap-4">
+        {children}
+      </div>
+    );
+  }
+
+  return <CardsGridScroller>{children}</CardsGridScroller>;
+}
+
+function CardsGridScroller({ children }: { children: ReactNode }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  function updateButtons() {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateButtons();
+    el.addEventListener("scroll", updateButtons, { passive: true });
+    const observer = new ResizeObserver(updateButtons);
+    observer.observe(el);
+    return () => {
+      el.removeEventListener("scroll", updateButtons);
+      observer.disconnect();
+    };
+  }, [children]);
+
+  function scrollBy(direction: 1 | -1) {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * (320 + 16) * 2, behavior: "smooth" });
+  }
+
   return (
-    <div className="mt-8 grid max-h-[340px] auto-rows-[160px] grid-flow-col grid-rows-2 gap-4 overflow-x-auto pb-4">
-      {children}
+    <div className="relative mt-8">
+      <div
+        ref={scrollRef}
+        className="scrollbar-hide grid auto-cols-[320px] grid-flow-col grid-rows-[160px_160px] gap-4 overflow-x-auto overflow-y-hidden pb-1"
+      >
+        {children}
+      </div>
+      {canScrollLeft && (
+        <ScrollArrow direction="left" onClick={() => scrollBy(-1)} />
+      )}
+      {canScrollRight && (
+        <ScrollArrow direction="right" onClick={() => scrollBy(1)} />
+      )}
     </div>
+  );
+}
+
+function ScrollArrow({
+  direction,
+  onClick,
+}: {
+  direction: "left" | "right";
+  onClick: () => void;
+}) {
+  const Icon = direction === "left" ? ChevronLeft : ChevronRight;
+  return (
+    <button
+      aria-label={direction === "left" ? "Anterior" : "Próximo"}
+      onClick={onClick}
+      className={cn(
+        "absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 shadow-lg transition-transform hover:scale-105 active:scale-95",
+        direction === "left" ? "-left-2 md:-left-5" : "-right-2 md:-right-5"
+      )}
+      style={{
+        background: "var(--color-bl-bg)",
+        color: "var(--color-bl-ink)",
+      }}
+    >
+      <Icon size={22} />
+    </button>
   );
 }
 
@@ -198,7 +279,7 @@ export function DetailModal({
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>
       <DialogContent
-        className="max-h-[85vh] max-w-2xl overflow-y-auto"
+        className="max-h-[90vh] max-w-4xl overflow-y-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-5xl"
         style={{ background: "var(--color-bl-bg)", color: "var(--color-bl-ink)" }}
       >
         {children}
