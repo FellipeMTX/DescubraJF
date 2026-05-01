@@ -63,7 +63,7 @@ export function HomeExperiences() {
               <Link
                 key={exp.id}
                 to="/atrativos"
-                className="bl-card aspect-4/5 block"
+                className="bl-card bl-card-pop aspect-4/5 block"
               >
                 {exp.imagem_destaque ? (
                   <img

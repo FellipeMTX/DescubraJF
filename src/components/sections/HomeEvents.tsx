@@ -109,7 +109,7 @@ export function HomeEvents() {
                 key={event.id}
                 type="button"
                 onClick={() => setSelected(event)}
-                className="bl-card text-left"
+                className="bl-card bl-card-pop text-left"
                 style={{ background: "rgba(255,255,255,0.04)" }}
               >
                 <div className="relative aspect-4/3 overflow-hidden">

@@ -67,7 +67,7 @@ export function HomeDining() {
             <Link
               key={c.slug}
               to={`/onde-comer?categoria=${c.slug}`}
-              className="bl-food-tile"
+              className="bl-food-tile bl-card-pop"
             >
               <span className="text-[28px] leading-none">{c.emoji}</span>
               <div className="flex-1">

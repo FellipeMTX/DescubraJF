@@ -69,7 +69,7 @@ export function HomeLodging() {
               <Link
                 key={h.id}
                 to="/onde-ficar"
-                className="bl-card block"
+                className="bl-card bl-card-pop block"
                 style={{ background: "var(--color-bl-bg)" }}
               >
                 <div className="relative aspect-3/4 overflow-hidden">

@@ -54,29 +54,35 @@ export function HeroBanner() {
         )}
         style={{ borderRadius: 28 }}
       >
-        {hasImage ? (
-          <img
-            src={slide.imagem_url}
-            alt={slide.titulo}
-            loading="eager"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{ background: "#3a2820" }}
-          />
-        )}
+        <Link
+          to="/atrativos"
+          aria-label="Ver atrativos"
+          className="absolute inset-0 block"
+        >
+          {hasImage ? (
+            <img
+              src={slide.imagem_url}
+              alt={slide.titulo}
+              loading="eager"
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div
+              className="h-full w-full"
+              style={{ background: "#3a2820" }}
+            />
+          )}
+        </Link>
 
         <div
-          className="absolute inset-0"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
               "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%)",
           }}
         />
 
-        <div className="absolute inset-0 flex flex-col justify-end p-14 text-white">
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-end p-14 text-white">
           <div
             className="bl-kicker mb-5 self-start"
             style={{
@@ -111,7 +117,7 @@ export function HeroBanner() {
             </p>
           )}
 
-          <div className="mt-8 flex items-center gap-3">
+          <div className="pointer-events-auto mt-8 flex items-center gap-3">
             <Link to="/atrativos" className="bl-btn">
               Saiba mais <ArrowRight size={14} />
             </Link>
@@ -128,7 +134,7 @@ export function HeroBanner() {
           </div>
 
           {slides.length > 1 && (
-            <div className="mt-10 flex items-center gap-2">
+            <div className="pointer-events-auto mt-10 flex items-center gap-2">
               {slides.map((_, i) => (
                 <button
                   key={i}

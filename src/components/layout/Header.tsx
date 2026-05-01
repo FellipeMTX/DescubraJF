@@ -44,7 +44,7 @@ export function Header() {
         <div className="flex flex-1 items-center justify-end gap-2">
           <Link
             to="/roteiros"
-            className="bl-btn hidden md:inline-flex !px-[18px] !py-[10px] !text-[12px]"
+            className="bl-btn-soft hidden md:inline-flex !px-[18px] !py-[10px] !text-[12px]"
           >
             Planejar viagem <ArrowRight size={12} />
           </Link>
