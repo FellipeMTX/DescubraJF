@@ -5,6 +5,41 @@
 
 ---
 
+## [2026-04-15] Notícias e Programas/Projetos com editor rich-text
+
+### O que foi feito
+- Criada tabela `posts` no Supabase com coluna `categoria` (`'noticia' | 'programa_projeto'`), unique constraint composto `(categoria, slug)` e flag `publicado`. SQL em `supabase/posts.sql`
+- Adicionado tipo `Post` e `PostCategoria` em [src/types/database.ts](src/types/database.ts)
+- Hook [src/hooks/usePosts.ts](src/hooks/usePosts.ts) com `usePosts(categoria)` e `usePostBySlug(categoria, slug)`
+- Componente [src/components/admin/RichTextEditor.tsx](src/components/admin/RichTextEditor.tsx) baseado em **TipTap** com toolbar (negrito, itálico, h2, h3, listas, citação, link, upload de imagem, undo/redo)
+- Upload de imagens do editor reaproveita `uploadImage` (bucket `images`, pasta `posts/`)
+- Página [src/pages/admin/PostsAdmin.tsx](src/pages/admin/PostsAdmin.tsx) reutilizada para `/admin/noticias` e `/admin/programas-e-projetos` via prop `categoria` (mesmo padrão do `ServiceAdmin`)
+- Páginas públicas [src/pages/secretaria/PostsList.tsx](src/pages/secretaria/PostsList.tsx) e [src/pages/secretaria/PostDetail.tsx](src/pages/secretaria/PostDetail.tsx) parametrizadas por categoria
+- Rotas públicas: `/secretaria/noticias`, `/secretaria/noticias/:slug`, `/secretaria/programas-e-projetos`, `/secretaria/programas-e-projetos/:slug` (já estavam no nav)
+- Links adicionados na sidebar admin
+- Classe CSS `.post-content` em [src/index.css](src/index.css) para estilizar tanto o editor quanto o render público
+
+### Por que foi feito
+A Secretaria de Turismo precisa publicar notícias e apresentar programas/projetos. Em vez de criar duas infraestruturas separadas, uma única tabela `posts` com coluna `categoria` atende ambas com o mesmo admin, hooks e páginas públicas reaproveitadas — evitando duplicação.
+
+### Decisões técnicas
+
+| Decisão | Escolha | Motivo |
+|---|---|---|
+| Editor rich-text | TipTap | Headless, integra bem com shadcn/Tailwind, extensível por extensões tree-shakeable |
+| Tabela única `posts` | Ao invés de `noticias` + `programas_projetos` separadas | Schema e lógica idênticos — coluna `categoria` discrimina. Componentização em vez de duplicação |
+| Storage de imagens | Bucket `images` existente, pasta `posts/` | Reutiliza infra de upload já pronta; migração pra R2 fica pra depois |
+| Sanitização | Confiar no output do TipTap + `dangerouslySetInnerHTML` | Somente admin autenticado (Clerk) escreve; DOMPurify seria overhead sem ganho real |
+| Typography | CSS custom `.post-content` | Evita instalar `@tailwindcss/typography` só pra isso |
+| Slug | Unique composto `(categoria, slug)` | Permite mesmo slug em categorias diferentes sem colisão |
+
+### Próximos passos
+- Rodar `supabase/posts.sql` no SQL Editor do Supabase
+- Testar criação/edição/publicação de um post pelo admin
+- Considerar: paginação na listagem quando tiver muitos posts, SEO meta tags, RSS feed
+
+---
+
 ## [2026-03-25] Fase 1.5 - Painel Administrativo
 
 ### O que foi feito

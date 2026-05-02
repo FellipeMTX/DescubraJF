@@ -210,17 +210,6 @@ export type Servico = {
   categoria?: CategoriaServico;
 };
 
-export type Banner = {
-  id: string;
-  titulo: string;
-  subtitulo: string | null;
-  imagem_url: string;
-  link: string | null;
-  ativo: boolean;
-  ordem: number;
-  created_at: string;
-};
-
 export type PostCategoria = "noticia" | "programa_projeto";
 
 export type Post = {
@@ -235,6 +224,17 @@ export type Post = {
   publicado: boolean;
   created_at: string;
   updated_at: string;
+};
+
+export type Banner = {
+  id: string;
+  titulo: string;
+  subtitulo: string | null;
+  imagem_url: string;
+  link: string | null;
+  ativo: boolean;
+  ordem: number;
+  created_at: string;
 };
 
 export type SeturPagina = {
@@ -269,3 +269,4 @@ export type SeturMembro = {
   created_at: string;
   updated_at: string;
 };
+
