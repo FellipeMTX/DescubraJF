@@ -28,7 +28,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Nav (centered) */}
-        <nav className="hidden flex-none items-center justify-center gap-7 text-[13px] lg:flex">
+        <nav className="hidden flex-none items-center justify-center gap-7 text-[14px] lg:flex">
           {(NAV_ITEMS as readonly NavItem[]).map((item) =>
             item.children ? (
               <NavDropdown key={item.label} item={item} />
@@ -44,7 +44,7 @@ export function Header() {
         <div className="flex flex-1 items-center justify-end gap-2">
           <Link
             to="/roteiros"
-            className="bl-btn-soft hidden md:inline-flex !px-[18px] !py-[10px] !text-[12px]"
+            className="bl-btn-soft hidden md:inline-flex px-4.5! py-2.5! text-[13px]!"
           >
             Planejar viagem <ArrowRight size={12} />
           </Link>

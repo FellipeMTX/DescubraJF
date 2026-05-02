@@ -254,7 +254,7 @@ function ScrollArrow({
       aria-label={direction === "left" ? "Anterior" : "Próximo"}
       onClick={onClick}
       className={cn(
-        "absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 shadow-lg transition-transform hover:scale-105 active:scale-95",
+        "absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-black/10 shadow-lg transition-transform hover:scale-105 active:scale-95",
         direction === "left" ? "-left-2 md:-left-5" : "-right-2 md:-right-5"
       )}
       style={{

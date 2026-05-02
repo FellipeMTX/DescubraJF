@@ -322,6 +322,8 @@
   padding: 6px 2px;
   color: var(--color-bl-ink);
   text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 .bl-navlink::after {
   content: "";
