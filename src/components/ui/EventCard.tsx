@@ -4,17 +4,11 @@ import type { Evento } from "@/types/database";
 
 type EventCardProps = {
   event: Evento;
-  onClick?: () => void;
 };
 
-export function EventCard({ event, onClick }: EventCardProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="bl-card text-left"
-      style={{ background: "var(--color-bl-bg)" }}
-    >
+export function EventCard({ event }: EventCardProps) {
+  const inner = (
+    <>
       <div
         className="relative h-44 overflow-hidden"
         style={{ background: "var(--color-bl-card)" }}
@@ -82,6 +76,29 @@ export function EventCard({ event, onClick }: EventCardProps) {
           </p>
         )}
       </div>
-    </button>
+    </>
+  );
+
+  if (event.link_externo) {
+    return (
+      <a
+        href={event.link_externo}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bl-card block cursor-pointer text-left shadow-sm transition-shadow hover:shadow-xl"
+        style={{ background: "var(--color-bl-card)", border: "1px solid rgba(0,0,0,0.06)" }}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <div
+      className="bl-card block text-left shadow-sm"
+      style={{ background: "var(--color-bl-card)", border: "1px solid rgba(0,0,0,0.06)" }}
+    >
+      {inner}
+    </div>
   );
 }

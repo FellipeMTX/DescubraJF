@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Link } from "react-router";
 import { Calendar, MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { EventDetailDialog } from "@/components/ui/EventDetailDialog";
 import { useUpcomingEvents } from "@/hooks/useEvents";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
@@ -17,7 +15,6 @@ function formatDate(iso: string) {
 
 export function HomeEvents() {
   const { data: events, isLoading } = useUpcomingEvents(6);
-  const [selected, setSelected] = useState<Evento | null>(null);
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
 
@@ -105,65 +102,7 @@ export function HomeEvents() {
             )}
           >
             {events.map((event) => (
-              <button
-                key={event.id}
-                type="button"
-                onClick={() => setSelected(event)}
-                className="bl-card bl-card-pop text-left"
-                style={{ background: "rgba(255,255,255,0.04)" }}
-              >
-                <div className="relative aspect-4/3 overflow-hidden">
-                  {event.imagem_destaque ? (
-                    <img
-                      src={event.imagem_destaque}
-                      alt={event.titulo}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div
-                      className="bl-ph h-full w-full"
-                      style={{ background: "rgba(255,255,255,0.08)" }}
-                    >
-                      <span style={{ color: "rgba(255,255,255,0.5)" }}>
-                        {event.titulo}
-                      </span>
-                    </div>
-                  )}
-                  <div
-                    className="absolute top-4 left-4 rounded-xl px-3.5 py-2"
-                    style={{
-                      background: "var(--color-bl-accent2)",
-                      color: "var(--color-bl-ink)",
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 500,
-                      fontSize: 15,
-                    }}
-                  >
-                    {formatDate(event.data_inicio)}
-                  </div>
-                </div>
-                <div className="p-5">
-                  {event.categoria && (
-                    <div
-                      className="mb-2 text-[11px] font-semibold uppercase tracking-widest"
-                      style={{ color: "var(--color-bl-accent2)" }}
-                    >
-                      {event.categoria}
-                    </div>
-                  )}
-                  <div className="bl-display mb-2 text-[22px]">
-                    {event.titulo}
-                  </div>
-                  {event.local_nome && (
-                    <div
-                      className="flex items-center gap-1.5 text-[13px]"
-                      style={{ color: "rgba(255,255,255,0.55)" }}
-                    >
-                      <MapPin size={12} /> {event.local_nome}
-                    </div>
-                  )}
-                </div>
-              </button>
+              <EventHomeCard key={event.id} event={event} />
             ))}
           </div>
         ) : (
@@ -175,11 +114,87 @@ export function HomeEvents() {
           </p>
         )}
       </div>
-      <EventDetailDialog
-        event={selected}
-        open={!!selected}
-        onOpenChange={(open) => !open && setSelected(null)}
-      />
     </section>
+  );
+}
+
+function EventHomeCard({ event }: { event: Evento }) {
+  const inner = (
+    <>
+      <div className="relative aspect-4/3 overflow-hidden">
+        {event.imagem_destaque ? (
+          <img
+            src={event.imagem_destaque}
+            alt={event.titulo}
+            loading="lazy"
+          />
+        ) : (
+          <div
+            className="bl-ph h-full w-full"
+            style={{ background: "rgba(255,255,255,0.08)" }}
+          >
+            <span style={{ color: "rgba(255,255,255,0.5)" }}>
+              {event.titulo}
+            </span>
+          </div>
+        )}
+        <div
+          className="absolute top-4 left-4 rounded-xl px-3.5 py-2"
+          style={{
+            background: "var(--color-bl-accent2)",
+            color: "var(--color-bl-ink)",
+            fontFamily: "var(--font-display)",
+            fontWeight: 500,
+            fontSize: 15,
+          }}
+        >
+          {formatDate(event.data_inicio)}
+        </div>
+      </div>
+      <div className="p-5">
+        {event.categoria && (
+          <div
+            className="mb-2 text-[11px] font-semibold uppercase tracking-widest"
+            style={{ color: "var(--color-bl-accent2)" }}
+          >
+            {event.categoria}
+          </div>
+        )}
+        <div className="bl-display mb-2 text-[22px]">
+          {event.titulo}
+        </div>
+        {event.local_nome && (
+          <div
+            className="flex items-center gap-1.5 text-[13px]"
+            style={{ color: "rgba(255,255,255,0.55)" }}
+          >
+            <MapPin size={12} /> {event.local_nome}
+          </div>
+        )}
+      </div>
+    </>
+  );
+
+  if (event.link_externo) {
+    return (
+      <a
+        href={event.link_externo}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bl-card bl-card-pop block cursor-pointer text-left"
+        style={{ background: "rgba(255,255,255,0.04)" }}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <div
+      className="bl-card bl-card-pop block text-left"
+      style={{ background: "rgba(255,255,255,0.04)" }}
+    >
+      {inner}
+    </div>
   );
 }

@@ -2,23 +2,21 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "@/components/ui/EventCard";
-import { EventDetailDialog } from "@/components/ui/EventDetailDialog";
 import { cn } from "@/lib/utils";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useEvents } from "@/hooks/useEvents";
-import type { Evento } from "@/types/database";
 
 function FilterPill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+        "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors",
         active ? "border-transparent" : "border-black/15 hover:border-black/30"
       )}
       style={
         active
-          ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+          ? { background: "var(--color-bl-card)", color: "var(--color-bl-ink)", borderColor: "transparent" }
           : { color: "var(--color-bl-ink)" }
       }
     >
@@ -45,12 +43,12 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+          "flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
           selected !== "todos" ? "border-transparent" : "border-black/15 hover:border-black/30"
         )}
         style={
           selected !== "todos"
-            ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+            ? { background: "var(--color-bl-card)", color: "var(--color-bl-ink)", borderColor: "transparent" }
             : { color: "var(--color-bl-ink)" }
         }
       >
@@ -67,10 +65,10 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
             <button
               key={opt.value}
               onClick={() => { onSelect(opt.value); setOpen(false); }}
-              className="block w-full rounded-xl px-4 py-2 text-left text-sm font-medium transition-colors hover:bg-[var(--color-bl-card)]"
+              className="block w-full cursor-pointer rounded-xl px-4 py-2 text-left text-sm font-medium transition-colors hover:bg-bl-card"
               style={
                 selected === opt.value
-                  ? { background: "var(--color-bl-ink)", color: "var(--color-bl-bg)" }
+                  ? { background: "var(--color-bl-card)", color: "var(--color-bl-ink)" }
                   : { color: "var(--color-bl-ink)" }
               }
             >
@@ -115,7 +113,6 @@ function getShortMonthLabel(key: string): string {
 export default function EventList() {
   const [selectedCat, setSelectedCat] = useState("todos");
   const [selectedMonth, setSelectedMonth] = useState("todos");
-  const [selectedEvent, setSelectedEvent] = useState<Evento | null>(null);
   const { data: events, isLoading } = useEvents();
 
   // Filter by category
@@ -156,7 +153,7 @@ export default function EventList() {
     }
 
     return Array.from(map.entries())
-      .sort(([a], [b]) => a.localeCompare(b))
+      .sort(([a], [b]) => b.localeCompare(a))
       .map(([, value]) => value);
   }, [filtered]);
 
@@ -179,7 +176,7 @@ export default function EventList() {
               </FilterPill>
             ))}
           </div>
-          {availableMonths.length > 1 && (
+          {availableMonths.length > 0 && (
             <MonthDropdown
               options={monthOptions}
               selected={selectedMonth}
@@ -205,7 +202,7 @@ export default function EventList() {
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                   {group.events.map((event) => (
-                    <EventCard key={event.id} event={event} onClick={() => setSelectedEvent(event)} />
+                    <EventCard key={event.id} event={event} />
                   ))}
                 </div>
               </div>
@@ -220,12 +217,6 @@ export default function EventList() {
           </p>
         )}
       </div>
-
-      <EventDetailDialog
-        event={selectedEvent}
-        open={!!selectedEvent}
-        onOpenChange={(open) => !open && setSelectedEvent(null)}
-      />
     </div>
   );
 }
