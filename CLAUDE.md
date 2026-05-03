@@ -59,6 +59,14 @@ npm run preview    # Preview production build
 - Lê versão do Node de `.nvmrc` via `node-version-file`
 - Deploy de produção é separado (Vercel detecta `main` automaticamente)
 
+### Hooks de Git (Husky + lint-staged)
+
+- **`.husky/pre-commit`** → `npx lint-staged` (eslint só nos arquivos staged, ~1-2s)
+- **`.husky/pre-push`** → `npm run build` (tsc + vite build no projeto inteiro, ~10s)
+- Config do `lint-staged` em `package.json`: `*.{ts,tsx}` → `eslint`
+- Typecheck não roda separado no pre-push — `npm run build` já inclui `tsc -b`
+- Pular hooks (uso pontual): `git commit --no-verify`, `git push --no-verify`
+
 ### Quirks de Lint (justificativas dos `eslint-disable` no código)
 
 Há disables legítimos em poucos lugares — antes de remover, entenda o motivo:
