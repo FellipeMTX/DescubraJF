@@ -9,13 +9,16 @@ Portal turístico oficial de Juiz de Fora (MG). Frontend React + Vite + TypeScri
 ## Comandos
 
 ```bash
-npm run dev       # Dev server (Vite)
-npm run build     # Type-check (tsc -b) + build
-npm run lint      # ESLint
-npm run preview   # Preview production build
+npm run dev        # Dev server (Vite)
+npm run build      # Type-check (tsc -b) + build
+npm run typecheck  # Type-check only (tsc -b --noEmit) — CI usa este
+npm run lint       # ESLint
+npm run preview    # Preview production build
 ```
 
-Sem test runner configurado.
+- Versão do Node fixada em `.nvmrc` (24). Use `nvm use` ao entrar no projeto.
+- **npm 11+ obrigatório** — npm 10.x gera `package-lock.json` malformado para optional deps de plataforma do Rolldown (Vite 8). Atualize com `npm install -g npm@latest` se necessário.
+- Sem test runner configurado.
 
 ## Arquitetura
 
@@ -48,6 +51,21 @@ Sem test runner configurado.
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
 - `VITE_CLERK_PUBLISHABLE_KEY`
+
+### CI (`.github/workflows/ci.yml`)
+
+- Roda em PR e push pra `main`: install + lint + typecheck + build, em sequência (fail-fast)
+- Job único `Lint, Typecheck & Build` — branch protection deve exigir esse check
+- Lê versão do Node de `.nvmrc` via `node-version-file`
+- Deploy de produção é separado (Vercel detecta `main` automaticamente)
+
+### Quirks de Lint (justificativas dos `eslint-disable` no código)
+
+Há disables legítimos em poucos lugares — antes de remover, entenda o motivo:
+
+- `src/components/ui/**` — `react-refresh/only-export-components` desabilitado em todo o folder via `eslint.config.js`. Componentes shadcn exportam variants junto; separar quebra `npx shadcn add`.
+- `VLibrasWidget.tsx` — `namespace React` global é a única forma de augmentar tipos do JSX para atributos `vw-*` do plugin VLibras. Substituir por `declare module "react"` quebra interface merging.
+- `set-state-in-effect` — duas ocorrências (`CategoryManagerDialog`, `InstitucionalAdmin`) onde a regra (estrita demais) flagra padrões legítimos: load on dialog open e reset form on prop change. Refactor pra React Query é o fix correto, mas pré-existente.
 
 ## Regras de Código
 
@@ -101,6 +119,7 @@ Sem test runner configurado.
 ## Documentos de Referência
 
 - `PLANO_IMPLEMENTACAO.md` → Plano técnico completo (para agentes de IA)
+- `PLANO_UPTIME.md` → Plano futuro para configurar UptimeRobot (keep-alive do Supabase + monitor de frontend)
 - `DOCUMENTACAO.md` → Documentação do projeto (para humanos)
 - `CHANGELOG.md` → Histórico de desenvolvimento
 - `Descubra Juiz de Fora - Mapa do Site.pdf` → Documento original de design
