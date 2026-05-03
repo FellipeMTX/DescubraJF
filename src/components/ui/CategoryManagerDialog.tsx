@@ -59,6 +59,7 @@ export function CategoryManagerDialog({
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (open) load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, table]);
