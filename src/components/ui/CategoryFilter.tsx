@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Globe, Trees, Mountain, ShoppingBag, Landmark,
   Baby, Eye, Music, Church
@@ -30,6 +31,7 @@ function pillStyle(active: boolean) {
 }
 
 export function CategoryFilter({ categories, selected, onSelect }: CategoryFilterProps) {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-wrap gap-3">
       <button
@@ -40,7 +42,7 @@ export function CategoryFilter({ categories, selected, onSelect }: CategoryFilte
         )}
         style={pillStyle(selected === "todos")}
       >
-        Todos
+        {t("common.all")}
       </button>
 
       {categories.map((cat) => {

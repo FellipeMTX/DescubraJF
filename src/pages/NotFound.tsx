@@ -1,6 +1,9 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export default function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <div className="bl-app flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
       <div
@@ -16,10 +19,10 @@ export default function NotFound() {
         className="mt-2 text-xl"
         style={{ color: "var(--color-bl-muted)" }}
       >
-        Página não encontrada
+        {t("notFound.title")}
       </p>
       <Link to="/" className="bl-btn mt-8">
-        Voltar ao início
+        {t("notFound.back")}
       </Link>
     </div>
   );

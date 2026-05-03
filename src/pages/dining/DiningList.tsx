@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import { MapPin, UtensilsCrossed, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -9,9 +10,10 @@ import { ListPage } from "@/components/ui/ListPage";
 import { useDiningEstablishments, useDiningCategories, useDiningBySlug } from "@/hooks/useDining";
 import type { EstabelecimentoGastronomia } from "@/types/database";
 
-const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
+const PRICE_KEYS = ["", "dining.pricing.budget", "dining.pricing.moderate", "dining.pricing.premium"];
 
 export default function DiningList() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const [selected, setSelected] = useState(searchParams.get("categoria") ?? "todos");
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
@@ -20,17 +22,17 @@ export default function DiningList() {
   const { data: establishments, isLoading: loadingList } = useDiningEstablishments(selected);
 
   const filterOptions = [
-    { label: "Todos", value: "todos" },
+    { label: t("dining.filters.all"), value: "todos" },
     ...(categories?.map((c) => ({ label: c.nome, value: c.slug })) ?? []),
   ];
 
   return (
     <ListPage<EstabelecimentoGastronomia>
-      title="Onde Comer e Beber"
-      subtitle="Experimente tudo que nossa gastronomia oferece"
+      title={t("dining.title")}
+      subtitle={t("dining.subtitle")}
       items={establishments}
       isLoading={loadingList}
-      emptyMessage="Nenhum estabelecimento encontrado nesta categoria."
+      emptyMessage={t("dining.empty")}
       filters={{ options: filterOptions, selected, onSelect: setSelected, isLoading: loadingCats }}
       placeholderIcon={<UtensilsCrossed size={28} className="text-[var(--color-bl-muted)]" />}
       renderCardContent={(est) => (
@@ -49,10 +51,11 @@ export default function DiningList() {
 }
 
 function DiningModalContent({ slug }: { slug: string }) {
+  const { t } = useTranslation();
   const { data: est, isLoading } = useDiningBySlug(slug);
 
   if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (!est) return <p className="text-[var(--color-bl-muted)]">Estabelecimento não encontrado.</p>;
+  if (!est) return <p className="text-[var(--color-bl-muted)]">{t("dining.notFound")}</p>;
 
   const hasContact = est.contato && Object.values(est.contato).some(Boolean);
   const hasSchedule = est.horario_funcionamento && Object.keys(est.horario_funcionamento).length > 0;
@@ -67,14 +70,14 @@ function DiningModalContent({ slug }: { slug: string }) {
       </DialogHeader>
       {est.imagem_destaque && <img src={est.imagem_destaque} alt={est.nome} className="h-56 w-full rounded-xl object-cover" />}
       <div className="flex flex-wrap gap-2">
-        {est.faixa_preco && (
+        {est.faixa_preco && PRICE_KEYS[est.faixa_preco] && (
           <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-            <DollarSign size={14} /> {PRICE_LABELS[est.faixa_preco]}
+            <DollarSign size={14} /> {t(PRICE_KEYS[est.faixa_preco])}
           </div>
         )}
         {est.estacionamento && (
           <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-            <Car size={14} /> Estacionamento
+            <Car size={14} /> {t("dining.amenities.parking")}
           </div>
         )}
       </div>
@@ -82,7 +85,7 @@ function DiningModalContent({ slug }: { slug: string }) {
       <Separator className="bg-primary-100" />
       {hasSchedule && (
         <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Clock size={14} /> Horários</h3>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Clock size={14} /> {t("dining.sections.schedule")}</h3>
           <dl className="mt-2 space-y-1">
             {Object.entries(est.horario_funcionamento!).map(([day, hours]) => (
               <div key={day} className="flex justify-between text-sm">
@@ -95,18 +98,18 @@ function DiningModalContent({ slug }: { slug: string }) {
       )}
       {est.endereco && (
         <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> Endereço</h3>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> {t("dining.sections.address")}</h3>
           <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{est.endereco}{est.bairro && ` - ${est.bairro}`}</p>
         </div>
       )}
       {hasContact && (
         <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> Contato</h3>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> {t("dining.sections.contact")}</h3>
           <div className="mt-2 space-y-1">
             {est.contato?.telefone && <a href={`tel:${est.contato.telefone}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Phone size={12} /> {est.contato.telefone}</a>}
             {est.contato?.email && <a href={`mailto:${est.contato.email}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Mail size={12} /> {est.contato.email}</a>}
-            {est.contato?.site && <a href={est.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> Site oficial</a>}
-            {est.contato?.instagram && <a href={est.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><ExternalLink size={12} /> Instagram</a>}
+            {est.contato?.site && <a href={est.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> {t("dining.links.website")}</a>}
+            {est.contato?.instagram && <a href={est.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><ExternalLink size={12} /> {t("dining.links.instagram")}</a>}
           </div>
         </div>
       )}

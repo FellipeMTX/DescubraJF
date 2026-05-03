@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Clock, Eye, Heart, Mail, MapPin, Phone, Target } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useSeturEquipe, useSeturPagina } from "@/hooks/useSetur";
@@ -7,6 +8,7 @@ import { cn } from "@/lib/utils";
 import type { SeturMembro, SeturPagina } from "@/types/database";
 
 export default function Institucional() {
+  const { t } = useTranslation();
   const { data: pagina, isLoading: loadingPage } = useSeturPagina();
   const { data: equipe, isLoading: loadingTeam } = useSeturEquipe();
 
@@ -27,7 +29,7 @@ export default function Institucional() {
         className="bl-app flex min-h-screen items-center justify-center"
         style={{ color: "var(--color-bl-muted)" }}
       >
-        Conteúdo indisponível.
+        {t("institutional.contentUnavailable")}
       </div>
     );
   }
@@ -44,6 +46,7 @@ export default function Institucional() {
 }
 
 function Hero({ pagina }: { pagina: SeturPagina }) {
+  const { t } = useTranslation();
   return (
     <section
       className="relative overflow-hidden py-24 md:py-32"
@@ -69,7 +72,7 @@ function Hero({ pagina }: { pagina: SeturPagina }) {
           className="bl-kicker mb-6"
           style={{ background: "rgba(247,238,226,0.12)", color: "var(--color-bl-bg)" }}
         >
-          <span className="dot" /> Secretaria de Turismo
+          <span className="dot" /> {t("institutional.kicker")}
         </div>
         <h1
           className="bl-display m-0"
@@ -122,6 +125,7 @@ function Intro({ pagina }: { pagina: SeturPagina }) {
 }
 
 function Mvv({ pagina }: { pagina: SeturPagina }) {
+  const { t } = useTranslation();
   const hasAny = pagina.missao_texto || pagina.visao_texto || pagina.valores.length > 0;
   if (!hasAny) return null;
 
@@ -130,17 +134,17 @@ function Mvv({ pagina }: { pagina: SeturPagina }) {
       <div className="mx-auto max-w-6xl px-4 md:px-14">
         <div className="grid gap-6 md:grid-cols-3">
           {pagina.missao_texto && (
-            <MvvCard icon={<Target className="h-7 w-7" />} title="Nossa Missão">
+            <MvvCard icon={<Target className="h-7 w-7" />} title={t("institutional.mvv.mission")}>
               <p className="leading-[1.7]">{pagina.missao_texto}</p>
             </MvvCard>
           )}
           {pagina.visao_texto && (
-            <MvvCard icon={<Eye className="h-7 w-7" />} title="Nossa Visão">
+            <MvvCard icon={<Eye className="h-7 w-7" />} title={t("institutional.mvv.vision")}>
               <p className="leading-[1.7]">{pagina.visao_texto}</p>
             </MvvCard>
           )}
           {pagina.valores.length > 0 && (
-            <MvvCard icon={<Heart className="h-7 w-7" />} title="Nossos Valores">
+            <MvvCard icon={<Heart className="h-7 w-7" />} title={t("institutional.mvv.values")}>
               <ul className="space-y-2">
                 {pagina.valores.map((v) => (
                   <li key={v} className="flex gap-2 leading-[1.7]">
@@ -161,6 +165,7 @@ function Mvv({ pagina }: { pagina: SeturPagina }) {
 }
 
 function Location({ pagina }: { pagina: SeturPagina }) {
+  const { t } = useTranslation();
   const hasCoords = pagina.latitude !== null && pagina.longitude !== null;
 
   return (
@@ -170,7 +175,7 @@ function Location({ pagina }: { pagina: SeturPagina }) {
           className="bl-display mb-10"
           style={{ fontSize: "clamp(28px, 3.5vw, 40px)" }}
         >
-          Onde <span className="bl-em">estamos</span>?
+          {t("institutional.location.title")} <span className="bl-em">{t("institutional.location.titleHighlight")}</span>{t("institutional.location.titleSuffix")}
         </h2>
         <div className="grid gap-10 md:grid-cols-2">
           <ul className="space-y-5">
@@ -186,7 +191,7 @@ function Location({ pagina }: { pagina: SeturPagina }) {
                     <>
                       <br />
                       <span style={{ color: "var(--color-bl-muted)" }}>
-                        CEP: {pagina.cep}
+                        {t("institutional.location.cep")} {pagina.cep}
                       </span>
                     </>
                   )}
@@ -259,6 +264,7 @@ function Location({ pagina }: { pagina: SeturPagina }) {
 }
 
 function Team({ loading, equipe }: { loading: boolean; equipe: SeturMembro[] }) {
+  const { t } = useTranslation();
   return (
     <RevealSection className="py-20" style={{ background: "var(--color-bl-card)" }}>
       <div className="mx-auto max-w-6xl px-4 md:px-14">
@@ -266,7 +272,7 @@ function Team({ loading, equipe }: { loading: boolean; equipe: SeturMembro[] }) 
           className="bl-display mb-12 text-center"
           style={{ fontSize: "clamp(28px, 3.5vw, 40px)" }}
         >
-          Quem é <span className="bl-em">quem</span>?
+          {t("institutional.team.title")} <span className="bl-em">{t("institutional.team.titleHighlight")}</span>{t("institutional.team.titleSuffix")}
         </h2>
         {loading ? (
           <div className="grid gap-6 md:grid-cols-2">

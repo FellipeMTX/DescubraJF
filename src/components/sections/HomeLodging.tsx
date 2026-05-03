@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFeaturedLodgings } from "@/hooks/useLodging";
@@ -6,6 +7,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 export function HomeLodging() {
+  const { t } = useTranslation();
   const { data: lodgings, isLoading } = useFeaturedLodgings(4);
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
@@ -28,13 +30,13 @@ export function HomeLodging() {
               className="bl-kicker mb-5"
               style={{ background: "var(--color-bl-bg)" }}
             >
-              <span className="bl-num">02.</span> Onde ficar
+              <span className="bl-num">02.</span> {t("home.lodging.kicker")}
             </div>
             <h2
               className="bl-display m-0"
               style={{ fontSize: "clamp(40px, 4.4vw, 64px)" }}
             >
-              Estadias <span className="bl-em">memoráveis</span>.
+              {t("home.lodging.title")} <span className="bl-em">{t("home.lodging.titleHighlight")}</span>{t("home.lodging.titleSuffix")}
             </h2>
           </div>
           <div>
@@ -42,11 +44,10 @@ export function HomeLodging() {
               className="mb-4 text-base leading-[1.7]"
               style={{ color: "var(--color-bl-muted)" }}
             >
-              De pousadas charmosas a hotéis premium, encontre o lugar
-              perfeito para descansar e aproveitar a cidade.
+              {t("home.lodging.description")}
             </p>
             <Link to="/onde-ficar" className="bl-btn-soft-light">
-              Ver todos os hotéis <ArrowRight size={14} />
+              {t("home.lodging.cta")} <ArrowRight size={14} />
             </Link>
           </div>
         </div>
@@ -91,7 +92,7 @@ export function HomeLodging() {
                       backdropFilter: "blur(8px)",
                     }}
                   >
-                    {h.tipo || "Hotel"}
+                    {h.tipo || t("home.lodging.typeDefault")}
                   </div>
                 </div>
                 <div className="p-[18px]">
@@ -112,7 +113,7 @@ export function HomeLodging() {
                       fontFamily: "var(--font-display)",
                     }}
                   >
-                    {h.descricao_curta || `Hospedagem ${i + 1}`}
+                    {h.descricao_curta || t("home.lodging.fallbackDescription", { n: i + 1 })}
                   </div>
                 </div>
               </Link>

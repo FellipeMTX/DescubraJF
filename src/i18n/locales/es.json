@@ -1,0 +1,495 @@
+{
+  "common": {
+    "siteName": "Descubra Juiz de Fora",
+    "siteDescription": "Portal turístico oficial de Juiz de Fora. Descubre atractivos, rutas, gastronomía y alojamientos.",
+    "menu": "Menú",
+    "closeMenu": "Cerrar menú",
+    "selectLanguage": "Seleccionar idioma",
+    "all": "Todos",
+    "free": "Gratis",
+    "viewAll": "Ver todos",
+    "viewAllF": "Ver todas",
+    "until": "hasta",
+    "loadingMap": "Cargando mapa...",
+    "noMapLocations": "Ningún local con coordenadas",
+    "noImage": "Sin imagen",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "tourismLogoAlt": "Secretaría de Turismo - Ayuntamiento de Juiz de Fora",
+    "planTrip": "Planificar viaje",
+    "exploreAttractions": "Explorar atractivos",
+    "backHome": "Volver al inicio"
+  },
+  "nav": {
+    "history": "Historia",
+    "whatToDo": "Qué Hacer",
+    "attractions": "Atractivos",
+    "routes": "Rutas",
+    "events": "Agenda",
+    "tours": "Paseos",
+    "whereToEat": "Dónde Comer y Beber",
+    "whereToStay": "Dónde Alojarse",
+    "services": "Servicios",
+    "tourismDept": "Secretaría de Turismo",
+    "institutional": "Institucional",
+    "programs": "Programas y Proyectos",
+    "news": "Noticias",
+    "contact": "Contacto"
+  },
+  "footer": {
+    "columns": {
+      "history": "Historia",
+      "whatToDo": "Qué Hacer",
+      "whereToEat": "Dónde Comer",
+      "whereToStay": "Dónde Alojarse",
+      "services": "Servicios"
+    },
+    "links": {
+      "history": "Ir a Historia",
+      "attractions": "Atractivos",
+      "routes": "Rutas",
+      "events": "Agenda",
+      "establishments": "Establecimientos",
+      "lodging": "Alojamientos",
+      "institutional": "Institucional",
+      "tours": "Nos Vemos por Ahí",
+      "contact": "Contacto"
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "back": "Volver al inicio"
+  },
+  "home": {
+    "hero": {
+      "fallbackTitle": "Descubra Juiz de Fora",
+      "fallbackSubtitle": "Más que un destino, una experiencia inolvidable",
+      "viewAttractions": "Ver atractivos",
+      "kickerHighlight": "Destacado",
+      "kickerDiscover": "Descubra",
+      "learnMore": "Saber más",
+      "routes": "Rutas",
+      "slideAria": "Diapositiva {{n}}"
+    },
+    "experiences": {
+      "kicker": "Qué hacer",
+      "title": "Hay de todo en",
+      "titleHighlight": "Juiz de Fora",
+      "description": "De los parques históricos a los miradores más célebres, vive experiencias inolvidables en cada esquina.",
+      "cta": "Ver todos los atractivos"
+    },
+    "lodging": {
+      "kicker": "Dónde alojarse",
+      "title": "Estancias",
+      "titleHighlight": "memorables",
+      "titleSuffix": ".",
+      "description": "De posadas con encanto a hoteles premium, encuentra el lugar perfecto para descansar y disfrutar de la ciudad.",
+      "cta": "Ver todos los hoteles",
+      "typeDefault": "Hotel",
+      "fallbackDescription": "Alojamiento {{n}}"
+    },
+    "dining": {
+      "kicker": "Dónde comer y beber",
+      "title": "Sabores de las",
+      "titleHighlight": "Geraes",
+      "titleSuffix": ".",
+      "description": "De la cocina mineira tradicional a los bares de esquina, prueba todo lo que nuestra gastronomía ofrece.",
+      "cta": "Ver establecimientos",
+      "empty": "Ninguna categoría registrada.",
+      "metaLabel": "Establecimientos"
+    },
+    "events": {
+      "kicker": "Pasa en JF",
+      "title": "Lo que está",
+      "titleHighlight": "ocurriendo",
+      "titleSuffix": "en la ciudad.",
+      "cta": "Agenda completa",
+      "empty": "Ningún evento próximo por el momento."
+    }
+  },
+  "experiences": {
+    "title": "Atractivos",
+    "subtitle": "Explore lo mejor de Juiz de Fora",
+    "empty": "No se encontraron atractivos en esta categoría.",
+    "notFound": "Atractivo no encontrado.",
+    "badges": {
+      "free": "Gratis",
+      "accessible": "Accesible",
+      "petFriendly": "Pet Friendly"
+    },
+    "sections": {
+      "schedule": "Horarios",
+      "address": "Dirección",
+      "contact": "Contacto"
+    },
+    "links": {
+      "website": "Sitio oficial",
+      "instagram": "Instagram",
+      "googleMaps": "Google Maps"
+    }
+  },
+  "events": {
+    "list": {
+      "kicker": "Agenda de la ciudad",
+      "title": "Pasa en",
+      "titleHighlight": "JF",
+      "subtitle": "Mantente al día con todo lo que pasa en la ciudad.",
+      "empty": "No se encontraron eventos.",
+      "allMonths": "Todos los meses"
+    },
+    "filters": {
+      "all": "Todos",
+      "cultural": "Cultural",
+      "sportive": "Deportivo",
+      "festive": "Festivo",
+      "show": "Espectáculo",
+      "gastronomic": "Gastronómico"
+    },
+    "months": {
+      "1": "Enero",
+      "2": "Febrero",
+      "3": "Marzo",
+      "4": "Abril",
+      "5": "Mayo",
+      "6": "Junio",
+      "7": "Julio",
+      "8": "Agosto",
+      "9": "Septiembre",
+      "10": "Octubre",
+      "11": "Noviembre",
+      "12": "Diciembre"
+    },
+    "card": {
+      "free": "Gratis",
+      "until": "hasta"
+    },
+    "detail": {
+      "back": "Agenda",
+      "title": "Detalles del",
+      "titleHighlight": "Evento",
+      "subtitle": "El contenido se cargará desde Supabase cuando esté configurado."
+    }
+  },
+  "lodging": {
+    "title": "Dónde Alojarse",
+    "subtitle": "Lugares para hacer tu estancia memorable",
+    "empty": "No se encontraron alojamientos en esta categoría.",
+    "notFound": "Alojamiento no encontrado.",
+    "types": {
+      "all": "Todos",
+      "hotel": "Hoteles",
+      "pousada": "Posadas",
+      "hostel": "Hostales",
+      "flat": "Apartamentos"
+    },
+    "pricing": {
+      "budget": "Económico",
+      "moderate": "Moderado",
+      "premium": "Premium"
+    },
+    "sections": {
+      "address": "Dirección",
+      "contact": "Contacto"
+    },
+    "links": {
+      "website": "Sitio oficial",
+      "booking": "Reservar ahora"
+    }
+  },
+  "dining": {
+    "title": "Dónde Comer y Beber",
+    "subtitle": "Prueba todo lo que nuestra gastronomía ofrece",
+    "empty": "No se encontró ningún establecimiento en esta categoría.",
+    "notFound": "Establecimiento no encontrado.",
+    "filters": {
+      "all": "Todos"
+    },
+    "pricing": {
+      "budget": "Económico",
+      "moderate": "Moderado",
+      "premium": "Premium"
+    },
+    "amenities": {
+      "parking": "Aparcamiento"
+    },
+    "sections": {
+      "schedule": "Horarios",
+      "address": "Dirección",
+      "contact": "Contacto"
+    },
+    "links": {
+      "website": "Sitio oficial",
+      "instagram": "Instagram"
+    },
+    "categories": {
+      "cozinha-mineira": "Cocina Mineira",
+      "bares-e-botecos": "Bares y Tabernas",
+      "cafes-e-confeitarias": "Cafés y Pastelerías",
+      "pizzarias-e-massas": "Pizzerías y Pastas",
+      "cervejarias-e-drinks": "Cervecerías",
+      "bar-na-rua": "Bar en la Calle"
+    }
+  },
+  "routes": {
+    "list": {
+      "kicker": "Caminos por la ciudad",
+      "title": "Rutas",
+      "titleHighlight": "temáticas",
+      "subtitle": "Caminos para explorar Juiz de Fora a tu ritmo.",
+      "empty": "Ninguna ruta registrada todavía."
+    },
+    "detail": {
+      "notFoundTitle": "Ruta",
+      "notFoundHighlight": "no encontrada",
+      "back": "Volver a Rutas",
+      "breadcrumb": "Rutas",
+      "mapPlaceholder": "Mapa próximamente"
+    }
+  },
+  "services": {
+    "title": "Servicios",
+    "subtitle": "Servicios útiles para tu estancia en Juiz de Fora",
+    "empty": "No se encontró ningún servicio en esta categoría."
+  },
+  "tours": {
+    "title": "Nos Vemos por Ahí",
+    "subtitle": "Descubre experiencias y paseos por la ciudad",
+    "empty": "No se encontró ningún paseo en esta categoría."
+  },
+  "city": {
+    "howToGetHere": {
+      "kicker": "Acceso a la ciudad",
+      "title": "Cómo",
+      "titleHighlight": "Llegar",
+      "subtitle": "El contenido se cargará desde Supabase cuando esté configurado."
+    },
+    "setur": {
+      "title": "Setur",
+      "titleHighlight": "JF",
+      "subtitle": "El contenido se cargará desde Supabase cuando esté configurado."
+    },
+    "touristInfo": {
+      "title": "Información",
+      "titleHighlight": "Turística",
+      "subtitle": "El contenido se cargará desde Supabase cuando esté configurado."
+    },
+    "press": {
+      "kicker": "Prensa",
+      "title": "Oficina de",
+      "titleHighlight": "Prensa",
+      "subtitle": "El contenido se cargará desde Supabase cuando esté configurado."
+    }
+  },
+  "contact": {
+    "kicker": "Habla con nosotros",
+    "title": "Contacto",
+    "titleHighlight": "JF",
+    "subtitle": "Próximamente: formulario de contacto e información de la Setur."
+  },
+  "history": {
+    "chapter": "Descubra · Capítulo I",
+    "hero": {
+      "title": "Historia",
+      "subtitle": "La trayectoria de una ciudad que nunca dejó de reinventarse."
+    },
+    "intro": {
+      "kicker": "Pionera por esencia",
+      "mainBefore": "Si crees que ya lo has visto todo en una ciudad, es porque aún",
+      "mainHighlight": "no conoces Juiz de Fora.",
+      "p1": "En el corazón de la Zona da Mata mineira, sorprende por su espíritu pionero, su historia vibrante y su capacidad única de reinventarse.",
+      "p2": "Fue aquí donde América Latina presenció la primera transmisión de TV abierta y donde Bernardo Mascarenhas hizo historia con la primera central hidroeléctrica destinada al alumbrado público en el continente.",
+      "p3": "A finales del siglo XIX, Juiz de Fora ganó el título de \"Manchester Mineira\", gracias a las fábricas textiles que proyectaron la ciudad entre las más prometedoras de Brasil.",
+      "palaceAlt": "Antiguo Palacio Municipal",
+      "palaceCaption": "Antiguo Palacio Municipal — actual Secretaría Especial de Igualdad Racial"
+    },
+    "quote": {
+      "kicker": "Sabor, cultura, sorpresa",
+      "mainBefore": "Juiz de Fora entró en el libro de los récords con la",
+      "mainHighlight": "mayor fritada de torreznos del mundo",
+      "mainAfter": "servida en un solo evento — solo una muestra de lo que nuestra gastronomía mineira tiene para ofrecer.",
+      "places": "Del Museo Mariano Procópio al Cine-Theatro Central, pasando por el Mirador del Morro do Imperador y el Parque Halfeld, cada rincón de la ciudad revela experiencias que unen tradición e innovación.",
+      "conclusion": "Juiz de Fora es plural, creativa y diversa."
+    },
+    "timeline": {
+      "kicker": "1703 → hoy",
+      "title": "Línea del",
+      "titleHighlight": "tiempo",
+      "description": "Más de tres siglos de hitos que transformaron un pueblo de arrieros en una de las ciudades más influyentes de las Geraes.",
+      "events": {
+        "1703": {
+          "text": "Inicio del Caminho Novo, conectando Minas con Río e impulsando el surgimiento de pueblos como Santo Antônio do Paraibuna.",
+          "imageLabel": "caminho novo"
+        },
+        "1853": {
+          "text": "Elevación de Santo Antônio do Paraibuna a la categoría de ciudad; contratación de técnicos europeos para la Carretera União e Indústria.",
+          "imageLabel": "elevación a ciudad"
+        },
+        "1856": {
+          "text": "Llegada de 20 artesanos europeos para colaborar en la construcción de la carretera.",
+          "imageLabel": "artesanos europeos"
+        },
+        "1857": {
+          "text": "Llegada de 1.162 inmigrantes alemanes, formando un núcleo colonial en la región.",
+          "imageLabel": "inmigrantes alemanes"
+        },
+        "1861": {
+          "text": "Visita de Don Pedro II a la ciudad; construcción del palacete por Manoel do Vale Amado.",
+          "imageLabel": "Don Pedro II · palacete"
+        },
+        "1865": {
+          "text": "Santo Antônio do Paraibuna recibe el nombre de Juiz de Fora.",
+          "imageLabel": "nuevo nombre — Juiz de Fora"
+        },
+        "1890": {
+          "text": "Construcción del \"Castelinho\", sede de la Compañía Mineira de Electricidad.",
+          "imageLabel": "Castelinho · electricidad"
+        },
+        "1907": {
+          "text": "El Palacete Santa Mafalda se convierte en el Primer Grupo Escolar.",
+          "imageLabel": "primer grupo escolar"
+        },
+        "1915": {
+          "text": "El Museo Mariano Procópio es fundado por Alfredo Ferreira Lage.",
+          "imageLabel": "Museo Mariano Procópio"
+        },
+        "1929": {
+          "text": "Inauguración del Cine-Theatro Central con estilo arquitectónico ecléctico.",
+          "imageLabel": "Cine-Theatro Central"
+        },
+        "1934": {
+          "text": "Fundación de la escuela de samba Turunas do Riachuelo.",
+          "imageLabel": "Turunas do Riachuelo"
+        },
+        "1977": {
+          "text": "Creación del Concurso Miss Gay Brasil, hito en la cultura LGBTQIAPN+.",
+          "imageLabel": "Miss Brasil Gay"
+        },
+        "2023": {
+          "text": "Reapertura del palacete restaurado; celebración de la historia arquitectónica y cultural de la ciudad.",
+          "imageLabel": "palacete restaurado"
+        }
+      }
+    },
+    "origins": {
+      "kicker": "Origen",
+      "titleBefore": "De pueblo a",
+      "titleHighlight": "ciudad",
+      "titleAfter": ": el nombre Juiz de Fora",
+      "imageCaption": "Fuente: Archivo Alberto Surerus Moutinho, 1928",
+      "p1": "Juiz de Fora no nació por casualidad. Su historia comienza alrededor de 1703, con la apertura del Caminho Novo, una ruta estratégica entre Minas Gerais y Río de Janeiro, creada para transportar el oro y controlar la recaudación de impuestos por la Corona Portuguesa.",
+      "p2": "A lo largo de esa carretera surgieron diversos pueblos, entre ellos Santo Antônio do Paraibuna — que se convertiría en una de las ciudades pioneras de Minas Gerais. En 1853 fue elevado a la categoría de ciudad y, doce años después, recibió su nombre definitivo: Juiz de Fora.",
+      "p3": "Y sí, había realmente un \"juez de fuera\" (juiz de fora). En el período colonial, se nombraban magistrados de otras regiones para evitar favoritismos locales. La expresión cuajó y acabó bautizando la ciudad."
+    },
+    "immigration": {
+      "kicker": "Inmigración",
+      "titleBefore": "La llegada de los",
+      "titleHighlight": "inmigrantes",
+      "imageCaption": "Fuente: Archivo Central de la UFJF",
+      "p1": "Con la ciudad en pleno desarrollo, la construcción de la Carretera União e Indústria, ideada por Mariano Procópio Ferreira Lage, impulsaría aún más su crecimiento. Considerada una de las primeras carreteras modernas de América Latina, conectaba Juiz de Fora con Petrópolis.",
+      "p2": "En 1857, llegaron 1.162 inmigrantes alemanes — una cifra equivalente a cerca del 20% de la población local. Se instalaron en los actuales barrios São Pedro, Borboleta y Fábrica. Con el tiempo, migraron a la vida urbana como obreros, carpinteros y carreteros, integrándose a la ciudad y a la Compañía União e Indústria."
+    },
+    "manchester": {
+      "kicker": "Industria y energía",
+      "titleBefore": "La",
+      "titleHighlight": "Manchester Mineira",
+      "titleAfter": "y la revolución energética",
+      "imageAlt": "Central de Marmelos",
+      "imageCaption": "Fuente: Ayuntamiento de Juiz de Fora",
+      "p1": "Juiz de Fora conquistó el título de \"Manchester Mineira\" a finales del siglo XIX, en referencia a la ciudad inglesa símbolo de la Revolución Industrial. El apodo reflejaba su importante papel en el desarrollo industrial de Minas Gerais, impulsado por las industrias textiles.",
+      "p2": "Bernardo Mascarenhas, emprendedor visionario, fundó en 1888 la Compañía Mineira de Electricidad y construyó la Central de Marmelos — la primera de América Latina en suministrar energía eléctrica para el alumbrado público.",
+      "p3": "El antiguo edificio de la Fábrica Textil fue revitalizado y hoy integra el Complejo Mascarenhas, donde tradición e innovación se encuentran en el Centro Cultural Bernardo Mascarenhas y en el Mercado Municipal — reinaugurado en 2025.",
+      "stats": {
+        "1888": {
+          "value": "1888",
+          "label": "Cía. Mineira de Electricidad"
+        },
+        "first": {
+          "value": "1ª",
+          "label": "central hidroeléctrica de AL"
+        },
+        "2025": {
+          "value": "2025",
+          "label": "Mercado reinaugurado"
+        }
+      }
+    },
+    "architecture": {
+      "kicker": "Memoria",
+      "titleBefore": "Arquitectura y",
+      "titleHighlight": "personajes",
+      "titleAfter": "que moldearon la ciudad",
+      "imageCaption": "Fuente: Cristina Bitarello, 2024",
+      "p1": "Caminar por las calles de Juiz de Fora es como hojear un libro de memorias. El Palacete Santa Mafalda, construido en la década de 1850 para regalar a Don Pedro II, se transformó en escuela y se restauró en 2023.",
+      "p2": "El \"Castelinho\", erigido en 1890, impresiona con su arquitectura medieval. Alfredo Ferreira Lage transformó la villa de la familia en el Museo Mariano Procópio. El paisajista francés Auguste Glaziou imprimió el encanto de los jardines ingleses al parque.",
+      "p3": "Hasta Cândido Portinari dejó su huella con dos paneles públicos en la fachada del Edificio Club Juiz de Fora. Y el Cine-Theatro Central, inaugurado en 1929, sigue siendo escenario de grandes espectáculos."
+    },
+    "surprise": {
+      "kicker": "Diversidad y cultura",
+      "titleBefore": "Una ciudad que",
+      "titleHighlight": "nunca para",
+      "titleAfter": "de sorprender.",
+      "p1": "En Carnaval, la ciudad guarda memorias que mezclan ritmos africanos e influencias cariocas. Fue aquí donde nació, en 1934, la Turunas do Riachuelo — la primera escuela de samba de Minas Gerais y la cuarta de Brasil.",
+      "p2": "Desde 1977, Juiz de Fora es escenario del Miss Brasil Gay, hito para la cultura LGBTQIAPN+ en el país. Con sus colores, performances y celebración de la pluralidad, el evento se convirtió en símbolo de respeto e inclusión.",
+      "tagline": "Prepárate para sorprenderte en cada visita.",
+      "welcomeBefore": "Bienvenido a",
+      "welcomeHighlight": "Juiz de Fora",
+      "welcomeAfter": "!"
+    }
+  },
+  "institutional": {
+    "kicker": "Secretaría de Turismo",
+    "contentUnavailable": "Contenido no disponible.",
+    "mvv": {
+      "mission": "Nuestra Misión",
+      "vision": "Nuestra Visión",
+      "values": "Nuestros Valores"
+    },
+    "location": {
+      "title": "Dónde",
+      "titleHighlight": "estamos",
+      "titleSuffix": "?",
+      "cep": "CP:"
+    },
+    "team": {
+      "title": "Quién es",
+      "titleHighlight": "quién",
+      "titleSuffix": "?"
+    }
+  },
+  "posts": {
+    "news": {
+      "kicker": "Secretaría de Turismo",
+      "list": {
+        "title": "Últimas",
+        "titleHighlight": "Noticias",
+        "subtitle": "Sigue las últimas noticias de la Secretaría de Turismo de Juiz de Fora.",
+        "empty": "Ninguna noticia publicada en este momento."
+      },
+      "detail": {
+        "back": "Noticias",
+        "backLink": "Volver a Noticias"
+      }
+    },
+    "programs": {
+      "kicker": "Secretaría de Turismo",
+      "list": {
+        "title": "Programas y",
+        "titleHighlight": "Proyectos",
+        "subtitle": "Conoce los programas y proyectos de la Secretaría de Turismo de Juiz de Fora.",
+        "empty": "Ningún programa o proyecto publicado en este momento."
+      },
+      "detail": {
+        "back": "Programas y Proyectos",
+        "backLink": "Volver a Programas y Proyectos"
+      }
+    },
+    "notFound": "Publicación no encontrada."
+  },
+  "categoryGrid": {
+    "siteOfficial": "Sitio oficial",
+    "instagram": "Instagram",
+    "access": "Acceder"
+  }
+}

@@ -1,20 +1,22 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useRoutes } from "@/hooks/useRoutes";
 
 export default function RouteList() {
+  const { t } = useTranslation();
   const { data: routes, isLoading } = useRoutes();
 
   return (
     <div className="bl-app min-h-screen">
       <div className="mx-auto max-w-7xl px-14 py-12">
         <PageHeader
-          kicker="Caminhos pela cidade"
-          title="Roteiros"
-          highlight="temáticos"
-          subtitle="Caminhos para explorar Juiz de Fora no seu ritmo."
+          kicker={t("routes.list.kicker")}
+          title={t("routes.list.title")}
+          highlight={t("routes.list.titleHighlight")}
+          subtitle={t("routes.list.subtitle")}
         />
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
@@ -65,7 +67,7 @@ export default function RouteList() {
             className="mt-12 text-center"
             style={{ color: "var(--color-bl-muted)" }}
           >
-            Nenhum roteiro cadastrado ainda.
+            {t("routes.list.empty")}
           </p>
         )}
       </div>

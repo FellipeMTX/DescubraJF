@@ -1,28 +1,27 @@
-export const SITE_NAME = "Descubra Juiz de Fora";
-export const SITE_DESCRIPTION =
-  "Portal turístico oficial de Juiz de Fora. Descubra atrativos, roteiros, gastronomia e hospedagens.";
+export const SITE_NAME_KEY = "common.siteName";
+export const SITE_DESCRIPTION_KEY = "common.siteDescription";
 
 export const NAV_ITEMS = [
-  { label: "História", href: "/juiz-de-fora/historia" },
+  { labelKey: "nav.history", href: "/juiz-de-fora/historia" },
   {
-    label: "O que Fazer",
+    labelKey: "nav.whatToDo",
     children: [
-      { label: "Atrativos", href: "/atrativos" },
-      { label: "Roteiros", href: "/roteiros" },
-      { label: "Agenda", href: "/agenda" },
-      { label: "Passeios", href: "/passeios" },
+      { labelKey: "nav.attractions", href: "/atrativos" },
+      { labelKey: "nav.routes", href: "/roteiros" },
+      { labelKey: "nav.events", href: "/agenda" },
+      { labelKey: "nav.tours", href: "/passeios" },
     ],
   },
-  { label: "Onde Comer e Beber", href: "/onde-comer" },
-  { label: "Onde Ficar", href: "/onde-ficar" },
-  { label: "Serviços", href: "/servicos" },
+  { labelKey: "nav.whereToEat", href: "/onde-comer" },
+  { labelKey: "nav.whereToStay", href: "/onde-ficar" },
+  { labelKey: "nav.services", href: "/servicos" },
   {
-    label: "Secretaria de Turismo",
+    labelKey: "nav.tourismDept",
     children: [
-      { label: "Institucional", href: "/secretaria/institucional" },
-      { label: "Programas e Projetos", href: "/secretaria/programas-e-projetos" },
-      { label: "Notícias", href: "/secretaria/noticias" },
-      { label: "Contato", href: "/contato" },
+      { labelKey: "nav.institutional", href: "/secretaria/institucional" },
+      { labelKey: "nav.programs", href: "/secretaria/programas-e-projetos" },
+      { labelKey: "nav.news", href: "/secretaria/noticias" },
+      { labelKey: "nav.contact", href: "/contato" },
     ],
   },
 ] as const;

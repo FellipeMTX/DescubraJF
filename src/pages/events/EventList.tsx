@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronDown } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "@/components/ui/EventCard";
@@ -26,9 +27,10 @@ function FilterPill({ active, onClick, children }: { active: boolean; onClick: (
 }
 
 function MonthDropdown({ options, selected, onSelect }: { options: { label: string; value: string }[]; selected: string; onSelect: (v: string) => void }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const selectedLabel = options.find((o) => o.value === selected)?.label ?? "Todos os meses";
+  const selectedLabel = options.find((o) => o.value === selected)?.label ?? t("events.list.allMonths");
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -81,39 +83,37 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
   );
 }
 
-const CATEGORIES = [
-  { label: "Todos", value: "todos" },
-  { label: "Cultural", value: "cultural" },
-  { label: "Esportivo", value: "esportivo" },
-  { label: "Festivo", value: "festivo" },
-  { label: "Show", value: "show" },
-  { label: "Gastronômico", value: "gastronomico" },
-];
-
-const MONTH_NAMES = [
-  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
-];
+const CATEGORY_VALUES = ["todos", "cultural", "esportivo", "festivo", "show", "gastronomico"] as const;
+const CATEGORY_KEY_MAP: Record<(typeof CATEGORY_VALUES)[number], string> = {
+  todos: "events.filters.all",
+  cultural: "events.filters.cultural",
+  esportivo: "events.filters.sportive",
+  festivo: "events.filters.festive",
+  show: "events.filters.show",
+  gastronomico: "events.filters.gastronomic",
+};
 
 function getMonthKey(dateStr: string): string {
   const d = new Date(dateStr);
   return `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
 }
 
-function getMonthLabel(dateStr: string): string {
-  const d = new Date(dateStr);
-  return `${MONTH_NAMES[d.getMonth()]} ${d.getFullYear()}`;
-}
-
-function getShortMonthLabel(key: string): string {
-  const [year, month] = key.split("-");
-  return `${MONTH_NAMES[parseInt(month)].slice(0, 3)} ${year}`;
-}
-
 export default function EventList() {
+  const { t } = useTranslation();
   const [selectedCat, setSelectedCat] = useState("todos");
   const [selectedMonth, setSelectedMonth] = useState("todos");
   const { data: events, isLoading } = useEvents();
+
+  function getMonthLabel(dateStr: string): string {
+    const d = new Date(dateStr);
+    return `${t(`events.months.${d.getMonth() + 1}`)} ${d.getFullYear()}`;
+  }
+
+  function getShortMonthLabel(key: string): string {
+    const [year, month] = key.split("-");
+    const monthIdx = parseInt(month);
+    return `${t(`events.months.${monthIdx + 1}`).slice(0, 3)} ${year}`;
+  }
 
   // Filter by category
   const filteredByCat = selectedCat === "todos"
@@ -129,7 +129,7 @@ export default function EventList() {
   }, [filteredByCat]);
 
   const monthOptions = [
-    { label: "Todos os meses", value: "todos" },
+    { label: t("events.list.allMonths"), value: "todos" },
     ...availableMonths.map((key) => ({ label: getShortMonthLabel(key), value: key })),
   ];
 
@@ -155,24 +155,25 @@ export default function EventList() {
     return Array.from(map.entries())
       .sort(([a], [b]) => b.localeCompare(a))
       .map(([, value]) => value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered]);
 
   return (
     <div className="bl-app min-h-screen">
       <div className="mx-auto max-w-7xl px-14 py-12">
         <PageHeader
-          kicker="Agenda da cidade"
-          title="Acontece em"
-          highlight="JF"
-          subtitle="Fique por dentro de tudo o que está rolando na cidade."
+          kicker={t("events.list.kicker")}
+          title={t("events.list.title")}
+          highlight={t("events.list.titleHighlight")}
+          subtitle={t("events.list.subtitle")}
         />
 
         {/* Filters */}
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((opt) => (
-              <FilterPill key={opt.value} active={selectedCat === opt.value} onClick={() => { setSelectedCat(opt.value); setSelectedMonth("todos"); }}>
-                {opt.label}
+            {CATEGORY_VALUES.map((value) => (
+              <FilterPill key={value} active={selectedCat === value} onClick={() => { setSelectedCat(value); setSelectedMonth("todos"); }}>
+                {t(CATEGORY_KEY_MAP[value])}
               </FilterPill>
             ))}
           </div>
@@ -213,7 +214,7 @@ export default function EventList() {
             className="mt-12 text-center"
             style={{ color: "var(--color-bl-muted)" }}
           >
-            Nenhum evento encontrado.
+            {t("events.list.empty")}
           </p>
         )}
       </div>

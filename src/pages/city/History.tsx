@@ -1,31 +1,25 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Compass } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
-const TIMELINE: ReadonlyArray<{
-  year: string;
-  text: string;
-  image?: string;
-  imageLabel: string;
-}> = [
-  { year: "1703", text: "Início do Caminho Novo, ligando Minas ao Rio e impulsionando o surgimento de povoados como Santo Antônio do Paraibuna.", imageLabel: "caminho novo" },
-  { year: "1853", text: "Elevação de Santo Antônio do Paraibuna à categoria de cidade; contratação de técnicos europeus para a Estrada União e Indústria.", imageLabel: "elevação à cidade" },
-  { year: "1856", text: "Chegada de 20 artífices europeus para colaborar na construção da estrada.", imageLabel: "artífices europeus" },
-  { year: "1857", text: "Chegada de 1.162 imigrantes alemães, formando um núcleo colonial na região.", image: "/Chegada-imigrantes-03.webp", imageLabel: "imigrantes alemães" },
-  { year: "1861", text: "Visita de Dom Pedro II à cidade; construção do palacete por Manoel do Vale Amado.", image: "/PacoMunicipal-01.webp", imageLabel: "Dom Pedro II · palacete" },
-  { year: "1865", text: "Santo Antônio do Paraibuna recebe o nome de Juiz de Fora.", imageLabel: "novo nome — Juiz de Fora" },
-  { year: "1890", text: 'Construção do "Castelinho", sede da Companhia Mineira de Eletricidade.', image: "/ManchesterMineira-05.webp", imageLabel: "Castelinho · eletricidade" },
-  { year: "1907", text: "Palacete da Santa Mafalda se transforma no Primeiro Grupo Escolar.", image: "/HotelAvenida-02.webp", imageLabel: "primeiro grupo escolar" },
-  { year: "1915", text: "O Museu Mariano Procópio é fundado por Alfredo Ferreira Lage.", imageLabel: "Museu Mariano Procópio" },
-  { year: "1929", text: "Inauguração do Cine-Theatro Central com estilo arquitetônico eclético.", image: "/arq-07.webp", imageLabel: "Cine-Theatro Central" },
-  { year: "1934", text: "Fundação da escola de samba Turunas do Riachuelo.", imageLabel: "Turunas do Riachuelo" },
-  { year: "1977", text: "Criação do Concurso Miss Gay Brasil, marco na cultura LGBTQIAPN+.", imageLabel: "Miss Brasil Gay" },
-  { year: "2023", text: "Reabertura do palacete restaurado; celebração da história arquitetônica e cultural da cidade.", imageLabel: "palacete restaurado" },
-];
+const TIMELINE_YEARS = [
+  "1703", "1853", "1856", "1857", "1861", "1865", "1890",
+  "1907", "1915", "1929", "1934", "1977", "2023",
+] as const;
+
+const TIMELINE_IMAGES: Record<string, string | undefined> = {
+  "1857": "/Chegada-imigrantes-03.webp",
+  "1861": "/PacoMunicipal-01.webp",
+  "1890": "/ManchesterMineira-05.webp",
+  "1907": "/HotelAvenida-02.webp",
+  "1929": "/arq-07.webp",
+};
 
 export default function History() {
+  const { t } = useTranslation();
   return (
     <div className="bl-app">
       <HistHero />
@@ -34,54 +28,52 @@ export default function History() {
       <HistTimeline />
       <HistStorySection
         kicker="01."
-        eyebrow="Origem"
-        title={<>De povoado a <span className="bl-em">cidade</span>: o nome Juiz de Fora</>}
+        eyebrow={t("history.origins.kicker")}
+        title={
+          <>
+            {t("history.origins.titleBefore")} <span className="bl-em">{t("history.origins.titleHighlight")}</span>
+            {t("history.origins.titleAfter")}
+          </>
+        }
         image="/HotelAvenida-02.webp"
-        imageCaption="Fonte: Arquivo Alberto Surerus Moutinho, 1928"
+        imageCaption={t("history.origins.imageCaption")}
       >
-        <p>
-          Juiz de Fora não nasceu por acaso. Sua história começa por volta de <strong>1703</strong>, com a abertura do <strong>Caminho Novo</strong>, uma rota estratégica entre Minas Gerais e o Rio de Janeiro, criada para escoar o ouro e controlar o recolhimento de impostos pela Coroa Portuguesa.
-        </p>
-        <p>
-          Ao longo dessa estrada surgiram diversos povoados, entre eles <strong>Santo Antônio do Paraibuna</strong> — que viria a se tornar uma das cidades pioneiras de Minas Gerais. Em <strong>1853</strong> foi elevado à categoria de cidade e, doze anos depois, recebeu seu nome definitivo: <strong>Juiz de Fora</strong>.
-        </p>
-        <p>
-          E sim, havia mesmo um <span className="bl-em">"juiz de fora"!</span> No período colonial, eram nomeados magistrados de outras regiões para evitar favoritismos locais. A expressão pegou e acabou batizando a cidade.
-        </p>
+        <p>{t("history.origins.p1")}</p>
+        <p>{t("history.origins.p2")}</p>
+        <p>{t("history.origins.p3")}</p>
       </HistStorySection>
       <HistStorySection
         reverse
         kicker="02."
-        eyebrow="Imigração"
-        title={<>A chegada dos <span className="bl-em">imigrantes</span></>}
+        eyebrow={t("history.immigration.kicker")}
+        title={
+          <>
+            {t("history.immigration.titleBefore")} <span className="bl-em">{t("history.immigration.titleHighlight")}</span>
+          </>
+        }
         image="/Chegada-imigrantes-03.webp"
-        imageCaption="Fonte: Arquivo Central da UFJF"
+        imageCaption={t("history.immigration.imageCaption")}
       >
-        <p>
-          Com a cidade em pleno desenvolvimento, a <strong>construção da Estrada União e Indústria</strong>, idealizada por <strong>Mariano Procópio Ferreira Lage</strong>, impulsionaria ainda mais o seu crescimento. Considerada uma das <strong>primeiras rodovias modernas da América Latina</strong>, ligava Juiz de Fora a Petrópolis.
-        </p>
-        <p>
-          Em 1857, chegaram <strong>1.162 imigrantes alemães</strong> — número equivalente a cerca de 20% da população local. Instalaram-se nos atuais bairros São Pedro, Borboleta e Fábrica. Com o tempo, migraram para a vida urbana como operários, marceneiros e carroceiros, integrando-se à cidade e à Companhia União e Indústria.
-        </p>
+        <p>{t("history.immigration.p1")}</p>
+        <p>{t("history.immigration.p2")}</p>
       </HistStorySection>
       <HistManchester />
       <HistStorySection
         reverse
         kicker="04."
-        eyebrow="Memória"
-        title={<>Arquitetura e <span className="bl-em">personagens</span> que moldaram a cidade</>}
+        eyebrow={t("history.architecture.kicker")}
+        title={
+          <>
+            {t("history.architecture.titleBefore")} <span className="bl-em">{t("history.architecture.titleHighlight")}</span>{" "}
+            {t("history.architecture.titleAfter")}
+          </>
+        }
         image="/arq-07.webp"
-        imageCaption="Fonte: Cristina Bitarello, 2024"
+        imageCaption={t("history.architecture.imageCaption")}
       >
-        <p>
-          Caminhar pelas ruas de Juiz de Fora é como folhear um <span className="bl-em">livro de memórias</span>. O <strong>Palacete Santa Mafalda</strong>, construído na década de 1850 para presentear Dom Pedro II, foi transformado em escola e restaurado em 2023.
-        </p>
-        <p>
-          O <strong>"Castelinho"</strong>, erguido em 1890, impressiona com sua arquitetura medieval. <strong>Alfredo Ferreira Lage</strong> transformou a Villa da família no Museu Mariano Procópio. O paisagista francês <strong>Auguste Glaziou</strong> imprimiu o charme dos jardins ingleses ao parque.
-        </p>
-        <p>
-          Até <strong>Cândido Portinari</strong> deixou sua marca com dois painéis públicos na fachada do Edifício Clube Juiz de Fora. E o <strong>Cine-Theatro Central</strong>, inaugurado em 1929, segue sendo palco de grandes espetáculos.
-        </p>
+        <p>{t("history.architecture.p1")}</p>
+        <p>{t("history.architecture.p2")}</p>
+        <p>{t("history.architecture.p3")}</p>
       </HistStorySection>
       <HistSurprise />
     </div>
@@ -89,6 +81,7 @@ export default function History() {
 }
 
 function HistHero() {
+  const { t } = useTranslation();
   return (
     <section className="px-6 pt-10 pb-16">
       <div
@@ -113,7 +106,7 @@ function HistHero() {
             }}
           >
             <span className="dot" style={{ background: "var(--color-bl-accent2)" }} />
-            Descubra · Capítulo I
+            {t("history.chapter")}
           </div>
           <h1
             className="bl-display m-0 mb-4"
@@ -123,9 +116,7 @@ function HistHero() {
               lineHeight: 0.95,
             }}
           >
-            Hist
-            <span style={{ color: "var(--color-bl-accent2)", fontStyle: "italic" }}>ó</span>
-            ria
+            {t("history.hero.title")}
           </h1>
           <p
             className="m-0 italic"
@@ -137,7 +128,7 @@ function HistHero() {
               fontFamily: "var(--font-display)",
             }}
           >
-            A trajetória de uma cidade que nunca parou de se reinventar.
+            {t("history.hero.subtitle")}
           </p>
         </div>
       </div>
@@ -146,6 +137,7 @@ function HistHero() {
 }
 
 function HistIntro() {
+  const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>(0.12);
   return (
     <section className="relative overflow-hidden px-14 pt-6 pb-24">
@@ -168,7 +160,7 @@ function HistIntro() {
       >
         <div>
           <div className="bl-kicker mb-7">
-            <span className="bl-num">— </span> Pioneira por essência
+            <span className="bl-num">— </span> {t("history.intro.kicker")}
           </div>
           <p
             className="m-0 mb-7"
@@ -179,29 +171,16 @@ function HistIntro() {
               letterSpacing: "-0.01em",
             }}
           >
-            Se você acha que já viu de tudo em uma cidade, é porque ainda{" "}
-            <span className="bl-em">não conhece Juiz de Fora.</span>
+            {t("history.intro.mainBefore")} <span className="bl-em">{t("history.intro.mainHighlight")}</span>
           </p>
           <p className="mb-4 text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
-            No coração da Zona da Mata mineira, ela surpreende pelo espírito{" "}
-            <strong style={{ color: "var(--color-bl-ink)" }}>pioneiro</strong>, pela{" "}
-            <strong style={{ color: "var(--color-bl-ink)" }}>história vibrante</strong> e pela
-            capacidade única de se{" "}
-            <strong style={{ color: "var(--color-bl-ink)" }}>reinventar</strong>.
+            {t("history.intro.p1")}
           </p>
           <p className="mb-4 text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
-            Foi aqui que a América Latina testemunhou a{" "}
-            <strong style={{ color: "var(--color-bl-ink)" }}>primeira transmissão de TV aberta</strong>{" "}
-            e onde Bernardo Mascarenhas fez história com a{" "}
-            <strong style={{ color: "var(--color-bl-ink)" }}>primeira usina hidrelétrica</strong>{" "}
-            destinada à{" "}
-            <strong style={{ color: "var(--color-bl-ink)" }}>iluminação pública</strong> no
-            continente.
+            {t("history.intro.p2")}
           </p>
           <p className="text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
-            No final do século XIX, Juiz de Fora ganhou o título de{" "}
-            <span className="bl-em">"Manchester Mineira"</span>, graças às fábricas têxteis que
-            projetaram a cidade entre as mais promissoras do Brasil.
+            {t("history.intro.p3")}
           </p>
         </div>
         <figure className="m-0">
@@ -211,7 +190,7 @@ function HistIntro() {
           >
             <img
               src="/PacoMunicipal-01.webp"
-              alt="Antigo Paço Municipal"
+              alt={t("history.intro.palaceAlt")}
               loading="lazy"
               className="h-full w-full object-cover"
             />
@@ -223,7 +202,7 @@ function HistIntro() {
               fontFamily: "var(--font-display)",
             }}
           >
-            Antigo Paço Municipal — atual Secretaria Especial de Igualdade Racial
+            {t("history.intro.palaceCaption")}
           </figcaption>
         </figure>
       </div>
@@ -232,6 +211,7 @@ function HistIntro() {
 }
 
 function HistPullQuote() {
+  const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>(0.12);
   return (
     <section className="px-14 py-6">
@@ -240,25 +220,19 @@ function HistPullQuote() {
         className={cn("reveal mx-auto max-w-[980px] text-center", isVisible && "in")}
       >
         <div className="bl-kicker mb-7">
-          <span className="dot" /> Sabor, cultura, surpresa
+          <span className="dot" /> {t("history.quote.kicker")}
         </div>
         <p
           className="bl-display m-0 mb-7"
           style={{ fontSize: "clamp(28px, 3.2vw, 44px)", lineHeight: 1.22 }}
         >
-          Juiz de Fora entrou para o livro dos recordes com a{" "}
-          <span className="bl-em">maior fritada de torresmo do mundo</span> servida em um único
-          evento — só uma amostra do que a nossa gastronomia mineira tem a oferecer.
+          {t("history.quote.mainBefore")} <span className="bl-em">{t("history.quote.mainHighlight")}</span> {t("history.quote.mainAfter")}
         </p>
         <p
           className="mx-auto mb-4 max-w-[720px] text-base leading-[1.7]"
           style={{ color: "var(--color-bl-muted)" }}
         >
-          Do <strong style={{ color: "var(--color-bl-ink)" }}>Museu Mariano Procópio</strong> ao{" "}
-          <strong style={{ color: "var(--color-bl-ink)" }}>Cine-Theatro Central</strong>, passando
-          pelo <strong style={{ color: "var(--color-bl-ink)" }}>Mirante do Morro do Imperador</strong>{" "}
-          e pelo <strong style={{ color: "var(--color-bl-ink)" }}>Parque Halfeld</strong>, cada canto
-          da cidade revela experiências que unem tradição e inovação.
+          {t("history.quote.places")}
         </p>
         <p
           className="m-0 italic"
@@ -268,7 +242,7 @@ function HistPullQuote() {
             color: "var(--color-bl-accent)",
           }}
         >
-          Juiz de Fora é plural, criativa e diversa.
+          {t("history.quote.conclusion")}
         </p>
       </div>
     </section>
@@ -276,6 +250,7 @@ function HistPullQuote() {
 }
 
 function HistTimeline() {
+  const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>(0.08);
   return (
     <section
@@ -303,33 +278,32 @@ function HistTimeline() {
               className="bl-kicker mb-5"
               style={{ background: "var(--color-bl-bg)" }}
             >
-              <span className="bl-num">— </span> 1703 → hoje
+              <span className="bl-num">— </span> {t("history.timeline.kicker")}
             </div>
             <h2
               className="bl-display m-0"
               style={{ fontSize: "clamp(40px, 4.4vw, 64px)" }}
             >
-              Linha do <span className="bl-em">tempo</span>
+              {t("history.timeline.title")} <span className="bl-em">{t("history.timeline.titleHighlight")}</span>
             </h2>
           </div>
           <p
             className="m-0 text-base leading-[1.7]"
             style={{ color: "var(--color-bl-muted)" }}
           >
-            Mais de três séculos de marcos que transformaram um povoado de tropeiros em uma das
-            cidades mais influentes das Geraes.
+            {t("history.timeline.description")}
           </p>
         </div>
 
         <div className="hist-tl">
           <div className="hist-tl-line" />
-          {TIMELINE.map((it, i) => (
+          {TIMELINE_YEARS.map((year, i) => (
             <TimelineItem
-              key={it.year}
-              year={it.year}
-              text={it.text}
-              image={it.image}
-              imageLabel={it.imageLabel}
+              key={year}
+              year={year}
+              text={t(`history.timeline.events.${year}.text`)}
+              image={TIMELINE_IMAGES[year]}
+              imageLabel={t(`history.timeline.events.${year}.imageLabel`)}
               side={i % 2 === 0 ? "left" : "right"}
             />
           ))}
@@ -453,7 +427,15 @@ function HistStorySection({
 }
 
 function HistManchester() {
+  const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>(0.1);
+
+  const stats = [
+    { key: "1888", value: t("history.manchester.stats.1888.value"), label: t("history.manchester.stats.1888.label") },
+    { key: "first", value: t("history.manchester.stats.first.value"), label: t("history.manchester.stats.first.label") },
+    { key: "2025", value: t("history.manchester.stats.2025.value"), label: t("history.manchester.stats.2025.label") },
+  ];
+
   return (
     <section
       className="relative overflow-hidden px-14 py-24"
@@ -488,7 +470,7 @@ function HistManchester() {
           >
             <img
               src="/ManchesterMineira-05.webp"
-              alt="Usina de Marmelos"
+              alt={t("history.manchester.imageAlt")}
               loading="lazy"
               className="h-full w-full object-cover"
             />
@@ -500,7 +482,7 @@ function HistManchester() {
               fontFamily: "var(--font-display)",
             }}
           >
-            Fonte: Prefeitura de Juiz de Fora
+            {t("history.manchester.imageCaption")}
           </figcaption>
         </figure>
         <div>
@@ -508,52 +490,28 @@ function HistManchester() {
             className="bl-kicker mb-6"
             style={{ background: "var(--color-bl-bg)" }}
           >
-            <span className="bl-num">03.</span> Indústria & energia
+            <span className="bl-num">03.</span> {t("history.manchester.kicker")}
           </div>
           <h2
             className="bl-display m-0 mb-8"
             style={{ fontSize: "clamp(36px, 4vw, 56px)", lineHeight: 1.08 }}
           >
-            A <span className="bl-em">Manchester Mineira</span> e a revolução energética
+            {t("history.manchester.titleBefore")} <span className="bl-em">{t("history.manchester.titleHighlight")}</span>{" "}
+            {t("history.manchester.titleAfter")}
           </h2>
           <div
             className="flex flex-col gap-4 text-base leading-[1.75]"
             style={{ color: "var(--color-bl-muted)" }}
           >
-            <p className="m-0">
-              Juiz de Fora conquistou o{" "}
-              <strong style={{ color: "var(--color-bl-ink)" }}>
-                título de "Manchester Mineira"
-              </strong>{" "}
-              no final do século XIX, em referência à cidade inglesa símbolo da Revolução
-              Industrial. O apelido refletia o importante papel no desenvolvimento industrial de
-              Minas Gerais, impulsionado pelas indústrias têxteis.
-            </p>
-            <p className="m-0">
-              <strong style={{ color: "var(--color-bl-ink)" }}>Bernardo Mascarenhas</strong>,
-              empreendedor visionário, fundou em 1888 a{" "}
-              <strong style={{ color: "var(--color-bl-ink)" }}>
-                Companhia Mineira de Eletricidade
-              </strong>{" "}
-              e construiu a <span className="bl-em">Usina de Marmelos</span> — a primeira da
-              América Latina a fornecer energia elétrica para iluminação pública.
-            </p>
-            <p className="m-0">
-              O antigo prédio da Fábrica Têxtil foi revitalizado e hoje integra o{" "}
-              <strong style={{ color: "var(--color-bl-ink)" }}>Complexo Mascarenhas</strong>, onde
-              tradição e inovação se encontram no Centro Cultural Bernardo Mascarenhas e no Mercado
-              Municipal — reinaugurado em 2025.
-            </p>
+            <p className="m-0">{t("history.manchester.p1")}</p>
+            <p className="m-0">{t("history.manchester.p2")}</p>
+            <p className="m-0">{t("history.manchester.p3")}</p>
           </div>
 
           <div className="mt-9 grid grid-cols-3 gap-4">
-            {[
-              { n: "1888", l: "Cia. Mineira de Eletricidade" },
-              { n: "1ª", l: "usina hidrelétrica da AL" },
-              { n: "2025", l: "Mercado reinaugurado" },
-            ].map((s) => (
+            {stats.map((s) => (
               <div
-                key={s.n}
+                key={s.key}
                 className="rounded-[14px] px-4 py-[18px]"
                 style={{ background: "var(--color-bl-bg)" }}
               >
@@ -561,13 +519,13 @@ function HistManchester() {
                   className="bl-display italic"
                   style={{ fontSize: 28, color: "var(--color-bl-accent)" }}
                 >
-                  {s.n}
+                  {s.value}
                 </div>
                 <div
                   className="mt-1 text-xs"
                   style={{ color: "var(--color-bl-muted)" }}
                 >
-                  {s.l}
+                  {s.label}
                 </div>
               </div>
             ))}
@@ -579,6 +537,7 @@ function HistManchester() {
 }
 
 function HistSurprise() {
+  const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>(0.08);
   return (
     <section
@@ -628,7 +587,7 @@ function HistSurprise() {
               >
                 05.
               </span>{" "}
-              Diversidade & cultura
+              {t("history.surprise.kicker")}
             </div>
             <h2
               className="bl-display m-0 mb-8"
@@ -638,36 +597,24 @@ function HistSurprise() {
                 color: "var(--color-bl-bg)",
               }}
             >
-              Uma cidade que{" "}
+              {t("history.surprise.titleBefore")}{" "}
               <span style={{ color: "var(--color-bl-accent2)", fontStyle: "italic" }}>
-                nunca para
+                {t("history.surprise.titleHighlight")}
               </span>
               <br />
-              de surpreender.
+              {t("history.surprise.titleAfter")}
             </h2>
             <p
               className="m-0 mb-4 text-[17px] leading-[1.75]"
               style={{ color: "rgba(255,255,255,0.78)" }}
             >
-              No Carnaval, a cidade carrega memórias que misturam ritmos africanos e influências
-              cariocas. Foi aqui que nasceu, em{" "}
-              <strong style={{ color: "var(--color-bl-bg)" }}>1934</strong>, a{" "}
-              <span style={{ color: "var(--color-bl-accent2)", fontStyle: "italic" }}>
-                Turunas do Riachuelo
-              </span>{" "}
-              — a primeira escola de samba de Minas Gerais e a quarta do Brasil.
+              {t("history.surprise.p1")}
             </p>
             <p
               className="m-0 text-[17px] leading-[1.75]"
               style={{ color: "rgba(255,255,255,0.78)" }}
             >
-              Desde <strong style={{ color: "var(--color-bl-bg)" }}>1977</strong>, Juiz de Fora é
-              palco do{" "}
-              <span style={{ color: "var(--color-bl-accent2)", fontStyle: "italic" }}>
-                Miss Brasil Gay
-              </span>
-              , marco para a cultura LGBTQIAPN+ no país. Com suas cores, performances e celebração
-              da pluralidade, o evento tornou-se símbolo de respeito e inclusão.
+              {t("history.surprise.p2")}
             </p>
           </div>
         </div>
@@ -684,7 +631,7 @@ function HistSurprise() {
               color: "rgba(255,255,255,0.7)",
             }}
           >
-            Prepare-se para se surpreender a cada visita.
+            {t("history.surprise.tagline")}
           </p>
           <h3
             className="bl-display m-0 mb-8"
@@ -695,22 +642,22 @@ function HistSurprise() {
               color: "var(--color-bl-bg)",
             }}
           >
-            Bem-vindo a{" "}
+            {t("history.surprise.welcomeBefore")}{" "}
             <span style={{ color: "var(--color-bl-accent2)", fontStyle: "italic" }}>
-              Juiz de Fora
+              {t("history.surprise.welcomeHighlight")}
             </span>
-            !
+            {t("history.surprise.welcomeAfter")}
           </h3>
           <div className="inline-flex flex-wrap justify-center gap-3">
             <Link to="/roteiros" className="bl-btn">
-              Planejar viagem <ArrowRight size={14} />
+              {t("common.planTrip")} <ArrowRight size={14} />
             </Link>
             <Link
               to="/atrativos"
               className="bl-btn-ghost"
               style={{ color: "var(--color-bl-bg)", borderColor: "rgba(255,255,255,0.25)" }}
             >
-              Explorar atrativos <Compass size={14} />
+              {t("common.exploreAttractions")} <Compass size={14} />
             </Link>
           </div>
         </div>

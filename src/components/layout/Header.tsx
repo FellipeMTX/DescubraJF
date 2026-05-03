@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { Menu, ChevronDown, ArrowRight } from "lucide-react";
-import { NAV_ITEMS, SITE_NAME } from "@/lib/constants";
+import { useTranslation } from "react-i18next";
+import { Menu, ChevronDown } from "lucide-react";
+import { NAV_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
+import { LanguageSelector } from "./LanguageSelector";
 
 type NavItem =
-  | { label: string; href: string; children?: undefined }
-  | { label: string; children: ReadonlyArray<{ label: string; href: string }>; href?: undefined };
+  | { labelKey: string; href: string; children?: undefined }
+  | { labelKey: string; children: ReadonlyArray<{ labelKey: string; href: string }>; href?: undefined };
 
 export function Header() {
+  const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -22,7 +25,7 @@ export function Header() {
         <Link to="/" className="relative flex h-16 flex-1 items-center">
           <img
             src="/DescubraHorizontalPreto.png"
-            alt={SITE_NAME}
+            alt={t("common.siteName")}
             className="absolute left-0 h-24 w-auto"
           />
         </Link>
@@ -31,25 +34,20 @@ export function Header() {
         <nav className="hidden flex-none items-center justify-center gap-7 text-[14px] lg:flex">
           {(NAV_ITEMS as readonly NavItem[]).map((item) =>
             item.children ? (
-              <NavDropdown key={item.label} item={item} />
+              <NavDropdown key={item.labelKey} item={item} />
             ) : item.href ? (
-              <Link key={item.label} to={item.href} className="bl-navlink">
-                {item.label}
+              <Link key={item.labelKey} to={item.href} className="bl-navlink">
+                {t(item.labelKey)}
               </Link>
             ) : null
           )}
         </nav>
 
-        {/* Right CTA + mobile menu */}
+        {/* Right: language + mobile menu */}
         <div className="flex flex-1 items-center justify-end gap-2">
-          <Link
-            to="/roteiros"
-            className="bl-btn-soft hidden md:inline-flex px-4.5! py-2.5! text-[13px]!"
-          >
-            Planejar viagem <ArrowRight size={12} />
-          </Link>
+          <LanguageSelector variant="header" />
           <button
-            aria-label="Menu"
+            aria-label={t("common.menu")}
             className="p-2 lg:hidden"
             style={{ color: "var(--color-bl-ink)" }}
             onClick={() => setMobileOpen(true)}
@@ -67,8 +65,9 @@ export function Header() {
 function NavDropdown({
   item,
 }: {
-  item: { label: string; children: ReadonlyArray<{ label: string; href: string }> };
+  item: { labelKey: string; children: ReadonlyArray<{ labelKey: string; href: string }> };
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   return (
@@ -78,7 +77,7 @@ function NavDropdown({
       onMouseLeave={() => setOpen(false)}
     >
       <button className="bl-navlink flex cursor-pointer items-center gap-1">
-        {item.label}
+        {t(item.labelKey)}
         <ChevronDown size={12} className={cn("transition-transform", open && "rotate-180")} />
       </button>
 
@@ -95,7 +94,7 @@ function NavDropdown({
                 className="bl-navlink block px-4 py-2.5 text-center text-sm"
                 onClick={() => setOpen(false)}
               >
-                {child.label}
+                {t(child.labelKey)}
               </Link>
             ))}
           </div>

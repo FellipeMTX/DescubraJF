@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Calendar, MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUpcomingEvents } from "@/hooks/useEvents";
@@ -6,14 +7,13 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import type { Evento } from "@/types/database";
 
-function formatDate(iso: string) {
+function formatDate(iso: string, locale: string) {
   const d = new Date(iso);
-  const day = String(d.getDate()).padStart(2, "0");
-  const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
-  return `${day} ${months[d.getMonth()]}`;
+  return d.toLocaleDateString(locale, { day: "2-digit", month: "short" }).replace(".", "");
 }
 
 export function HomeEvents() {
+  const { t } = useTranslation();
   const { data: events, isLoading } = useUpcomingEvents(6);
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
@@ -59,18 +59,18 @@ export function HomeEvents() {
               >
                 04.
               </span>{" "}
-              Acontece em JF
+              {t("home.events.kicker")}
             </div>
             <h2
               className="bl-display m-0"
               style={{ fontSize: "clamp(40px, 4.4vw, 64px)" }}
             >
-              O que está{" "}
+              {t("home.events.title")}{" "}
               <span style={{ color: "var(--color-bl-accent2)", fontStyle: "italic" }}>
-                rolando
+                {t("home.events.titleHighlight")}
               </span>
               <br />
-              na cidade.
+              {t("home.events.titleSuffix")}
             </h2>
           </div>
           <div className="text-right">
@@ -82,7 +82,7 @@ export function HomeEvents() {
                 borderColor: "rgba(255,255,255,0.25)",
               }}
             >
-              Agenda completa <Calendar size={14} />
+              {t("home.events.cta")} <Calendar size={14} />
             </Link>
           </div>
         </div>
@@ -110,7 +110,7 @@ export function HomeEvents() {
             className="text-center"
             style={{ color: "rgba(255,255,255,0.6)" }}
           >
-            Nenhum evento próximo no momento.
+            {t("home.events.empty")}
           </p>
         )}
       </div>
@@ -119,6 +119,7 @@ export function HomeEvents() {
 }
 
 function EventHomeCard({ event }: { event: Evento }) {
+  const { i18n } = useTranslation();
   const inner = (
     <>
       <div className="relative aspect-4/3 overflow-hidden">
@@ -148,7 +149,7 @@ function EventHomeCard({ event }: { event: Evento }) {
             fontSize: 15,
           }}
         >
-          {formatDate(event.data_inicio)}
+          {formatDate(event.data_inicio, i18n.language)}
         </div>
       </div>
       <div className="p-5">

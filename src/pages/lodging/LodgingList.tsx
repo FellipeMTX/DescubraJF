@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { MapPin, Star, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -8,29 +9,33 @@ import { ListPage } from "@/components/ui/ListPage";
 import { useLodgingEstablishments, useLodgingBySlug } from "@/hooks/useLodging";
 import type { Hospedagem } from "@/types/database";
 
-const PRICE_LABELS = ["", "Econômico", "Moderado", "Premium"];
+const PRICE_KEYS = ["", "lodging.pricing.budget", "lodging.pricing.moderate", "lodging.pricing.premium"];
 
-const TYPES = [
-  { label: "Todos", value: "todos" },
-  { label: "Hotéis", value: "hotel" },
-  { label: "Pousadas", value: "pousada" },
-  { label: "Hostels", value: "hostel" },
-  { label: "Flats", value: "flat" },
-];
+const TYPE_VALUES = ["todos", "hotel", "pousada", "hostel", "flat"] as const;
+const TYPE_KEY_MAP: Record<(typeof TYPE_VALUES)[number], string> = {
+  todos: "lodging.types.all",
+  hotel: "lodging.types.hotel",
+  pousada: "lodging.types.pousada",
+  hostel: "lodging.types.hostel",
+  flat: "lodging.types.flat",
+};
 
 export default function LodgingList() {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState("todos");
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
 
   const { data: lodgings, isLoading } = useLodgingEstablishments(selected);
 
+  const TYPES = TYPE_VALUES.map((value) => ({ label: t(TYPE_KEY_MAP[value]), value }));
+
   return (
     <ListPage<Hospedagem>
-      title="Onde Ficar"
-      subtitle="Lugares para tornar sua estadia memorável"
+      title={t("lodging.title")}
+      subtitle={t("lodging.subtitle")}
       items={lodgings}
       isLoading={isLoading}
-      emptyMessage="Nenhuma hospedagem encontrada nesta categoria."
+      emptyMessage={t("lodging.empty")}
       filters={{ options: TYPES, selected, onSelect: setSelected }}
       placeholderIcon={<BedDouble size={28} className="text-[var(--color-bl-muted)]" />}
       renderCardContent={(lodging) => (
@@ -49,10 +54,11 @@ export default function LodgingList() {
 }
 
 function LodgingModalContent({ slug }: { slug: string }) {
+  const { t } = useTranslation();
   const { data: lodging, isLoading } = useLodgingBySlug(slug);
 
   if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (!lodging) return <p className="text-[var(--color-bl-muted)]">Hospedagem não encontrada.</p>;
+  if (!lodging) return <p className="text-[var(--color-bl-muted)]">{t("lodging.notFound")}</p>;
 
   const hasContact = lodging.contato && Object.values(lodging.contato).some(Boolean);
 
@@ -78,9 +84,9 @@ function LodgingModalContent({ slug }: { slug: string }) {
         </div>
       )}
       <div className="flex flex-wrap gap-2">
-        {lodging.faixa_preco && (
+        {lodging.faixa_preco && PRICE_KEYS[lodging.faixa_preco] && (
           <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-            {PRICE_LABELS[lodging.faixa_preco]}
+            {t(PRICE_KEYS[lodging.faixa_preco])}
           </div>
         )}
         {lodging.comodidades?.map((c) => (
@@ -94,18 +100,18 @@ function LodgingModalContent({ slug }: { slug: string }) {
       <Separator className="bg-primary-100" />
       {lodging.endereco && (
         <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> Endereço</h3>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> {t("lodging.sections.address")}</h3>
           <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{lodging.endereco}{lodging.bairro && ` - ${lodging.bairro}`}</p>
         </div>
       )}
       {hasContact && (
         <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> Contato</h3>
+          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> {t("lodging.sections.contact")}</h3>
           <div className="mt-2 space-y-1">
             {lodging.contato?.telefone && <a href={`tel:${lodging.contato.telefone}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Phone size={12} /> {lodging.contato.telefone}</a>}
             {lodging.contato?.email && <a href={`mailto:${lodging.contato.email}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Mail size={12} /> {lodging.contato.email}</a>}
-            {lodging.contato?.site && <a href={lodging.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> Site oficial</a>}
-            {lodging.contato?.booking_url && <a href={lodging.contato.booking_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-primary-500 hover:text-primary-600"><ExternalLink size={12} /> Reservar agora</a>}
+            {lodging.contato?.site && <a href={lodging.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> {t("lodging.links.website")}</a>}
+            {lodging.contato?.booking_url && <a href={lodging.contato.booking_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-primary-500 hover:text-primary-600"><ExternalLink size={12} /> {t("lodging.links.booking")}</a>}
           </div>
         </div>
       )}

@@ -1,10 +1,12 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { useDiningCategories } from "@/hooks/useDining";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 export function HomeDining() {
+  const { t } = useTranslation();
   const { data: categories } = useDiningCategories();
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
@@ -26,23 +28,22 @@ export function HomeDining() {
           )}
         >
           <div className="bl-kicker mb-5">
-            <span className="bl-num">03.</span> Onde comer e beber
+            <span className="bl-num">03.</span> {t("home.dining.kicker")}
           </div>
           <h2
             className="bl-display m-0 mb-6"
             style={{ fontSize: "clamp(40px, 4.4vw, 56px)" }}
           >
-            Sabores das <span className="bl-em">Geraes</span>.
+            {t("home.dining.title")} <span className="bl-em">{t("home.dining.titleHighlight")}</span>{t("home.dining.titleSuffix")}
           </h2>
           <p
             className="mb-7 text-base leading-[1.7]"
             style={{ color: "var(--color-bl-muted)" }}
           >
-            Da cozinha mineira tradicional aos botecos de esquina, experimente
-            tudo o que nossa gastronomia oferece.
+            {t("home.dining.description")}
           </p>
           <Link to="/onde-comer" className="bl-btn-soft">
-            Ver estabelecimentos <ArrowRight size={14} />
+            {t("home.dining.cta")} <ArrowRight size={14} />
           </Link>
         </div>
         <div
@@ -57,7 +58,7 @@ export function HomeDining() {
               className="col-span-full text-sm italic"
               style={{ color: "var(--color-bl-muted)" }}
             >
-              Nenhuma categoria cadastrada.
+              {t("home.dining.empty")}
             </p>
           )}
           {cats.map((c) => (
@@ -73,7 +74,7 @@ export function HomeDining() {
                   className="bl-food-tile-meta mt-0.5 text-[11px]"
                   style={{ color: "var(--color-bl-muted)" }}
                 >
-                  Estabelecimentos
+                  {t("home.dining.metaLabel")}
                 </div>
               </div>
               <ArrowRight size={16} />

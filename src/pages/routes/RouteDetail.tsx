@@ -1,9 +1,11 @@
 import { useParams, Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRouteBySlug } from "@/hooks/useRoutes";
 
 export default function RouteDetail() {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const { data: route, isLoading, error } = useRouteBySlug(slug ?? "");
 
@@ -24,10 +26,10 @@ export default function RouteDetail() {
       <div className="bl-app min-h-screen">
         <div className="mx-auto max-w-4xl px-14 py-16 text-center">
           <h1 className="bl-display text-4xl">
-            Roteiro <span className="bl-em">não encontrado</span>
+            {t("routes.detail.notFoundTitle")} <span className="bl-em">{t("routes.detail.notFoundHighlight")}</span>
           </h1>
           <Link to="/roteiros" className="bl-btn-ghost mt-6 inline-flex">
-            <ChevronLeft size={16} /> Voltar para Roteiros
+            <ChevronLeft size={16} /> {t("routes.detail.back")}
           </Link>
         </div>
       </div>
@@ -42,7 +44,7 @@ export default function RouteDetail() {
           className="inline-flex items-center gap-1 text-sm hover:underline"
           style={{ color: "var(--color-bl-muted)" }}
         >
-          <ChevronLeft size={16} /> Roteiros
+          <ChevronLeft size={16} /> {t("routes.detail.breadcrumb")}
         </Link>
 
         <h1
@@ -81,7 +83,7 @@ export default function RouteDetail() {
               color: "var(--color-bl-muted)",
             }}
           >
-            Mapa em breve
+            {t("routes.detail.mapPlaceholder")}
           </div>
         )}
       </div>
