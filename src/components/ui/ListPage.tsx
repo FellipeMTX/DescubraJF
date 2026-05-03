@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { FilterBar, MapSection, ItemCard, CardsGrid, DetailModal } from "@/components/ui/ListPageLayout";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { toMapItems } from "@/lib/utils";
 import type { MapItem } from "@/components/ui/InteractiveMap";
 
@@ -18,16 +19,10 @@ type ListPageProps<T extends ListPageItem> = {
   items: T[] | undefined;
   isLoading: boolean;
   emptyMessage: string;
-
-  // Filters
   filters?: { options: { label: string; value: string }[]; selected: string; onSelect: (v: string) => void; isLoading?: boolean };
   filterSlot?: ReactNode;
-
-  // Card
   placeholderIcon: ReactNode;
   renderCardContent: (item: T) => ReactNode;
-
-  // Modal
   selectedSlug: string | null;
   onSelectSlug: (slug: string | null) => void;
   renderModalContent: (slug: string) => ReactNode;
@@ -48,14 +43,12 @@ export function ListPage<T extends ListPageItem>({
   renderModalContent,
 }: ListPageProps<T>) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-
   const mapItems: MapItem[] = toMapItems(items ?? []);
 
   return (
-    <div className="min-h-screen bg-primary-50 pt-20">
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <h1 className="text-3xl font-bold text-primary-800">{title}</h1>
-        <p className="mt-2 text-accent-500">{subtitle}</p>
+    <div className="bl-app min-h-screen">
+      <div className="mx-auto max-w-7xl px-14 py-12">
+        <PageHeader title={title} subtitle={subtitle} />
 
         {filterSlot ?? (filters && (
           <FilterBar

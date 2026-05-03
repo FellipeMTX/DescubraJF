@@ -1,10 +1,15 @@
+import { PageHeader } from "@/components/ui/PageHeader";
+
 export default function AboutSetur() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-3xl font-bold text-primary-900">Setur - JF</h1>
-      <p className="mt-4 text-accent-500">
-        Conteúdo será carregado do Supabase quando configurado.
-      </p>
+    <div className="bl-app min-h-screen">
+      <div className="mx-auto max-w-4xl px-14 py-12">
+        <PageHeader
+          title="Setur"
+          highlight="JF"
+          subtitle="Conteúdo será carregado do Supabase quando configurado."
+        />
+      </div>
     </div>
   );
 }

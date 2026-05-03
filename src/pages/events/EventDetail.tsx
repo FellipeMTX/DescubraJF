@@ -1,16 +1,31 @@
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
+import { ChevronLeft } from "lucide-react";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 export default function EventDetail() {
   const { slug } = useParams();
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <p className="text-sm text-accent-400">Agenda / {slug}</p>
-      <h1 className="mt-2 text-3xl font-bold text-primary-900">Detalhes do Evento</h1>
-      <div className="mt-6 h-80 rounded-lg bg-primary-100" />
-      <p className="mt-6 text-accent-500">
-        Conteúdo será carregado do Supabase quando configurado.
-      </p>
+    <div className="bl-app min-h-screen">
+      <div className="mx-auto max-w-4xl px-14 py-12">
+        <Link
+          to="/agenda"
+          className="mb-4 inline-flex items-center gap-1 text-sm hover:underline"
+          style={{ color: "var(--color-bl-muted)" }}
+        >
+          <ChevronLeft size={16} /> Agenda
+        </Link>
+        <PageHeader
+          kicker={`Evento · ${slug}`}
+          title="Detalhes do"
+          highlight="Evento"
+          subtitle="Conteúdo será carregado do Supabase quando configurado."
+        />
+        <div
+          className="mt-6 h-80 rounded-[28px]"
+          style={{ background: "var(--color-bl-card)" }}
+        />
+      </div>
     </div>
   );
 }

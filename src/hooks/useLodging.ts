@@ -23,6 +23,24 @@ export function useLodgingEstablishments(type?: string) {
   });
 }
 
+export function useFeaturedLodgings(limit = 4) {
+  return useQuery({
+    queryKey: ["hospedagens", "destaque", limit],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("hospedagens")
+        .select("*")
+        .eq("ativo", true)
+        .eq("destaque", true)
+        .order("ordem")
+        .limit(limit);
+
+      if (error) throw error;
+      return data as Hospedagem[];
+    },
+  });
+}
+
 export function useLodgingBySlug(slug: string) {
   return useQuery({
     queryKey: ["hospedagem", "detalhe", slug],

@@ -12,8 +12,8 @@ export default function Institucional() {
 
   if (loadingPage) {
     return (
-      <div className="min-h-screen bg-primary-50 pt-20">
-        <div className="mx-auto max-w-4xl px-4 py-24">
+      <div className="bl-app min-h-screen">
+        <div className="mx-auto max-w-4xl px-4 py-24 md:px-14">
           <Skeleton className="h-12 w-full" />
           <Skeleton className="mt-4 h-6 w-2/3" />
         </div>
@@ -23,14 +23,17 @@ export default function Institucional() {
 
   if (!pagina) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-primary-50 pt-20 text-primary-700">
+      <div
+        className="bl-app flex min-h-screen items-center justify-center"
+        style={{ color: "var(--color-bl-muted)" }}
+      >
         Conteúdo indisponível.
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-primary-50 pt-20">
+    <div className="bl-app min-h-screen">
       <Hero pagina={pagina} />
       <Intro pagina={pagina} />
       <Mvv pagina={pagina} />
@@ -42,20 +45,48 @@ export default function Institucional() {
 
 function Hero({ pagina }: { pagina: SeturPagina }) {
   return (
-    <section className="relative overflow-hidden bg-primary-700 py-24">
+    <section
+      className="relative overflow-hidden py-24 md:py-32"
+      style={{ background: "var(--color-bl-ink)" }}
+    >
       {pagina.hero_imagem && (
         <img
           src={pagina.hero_imagem}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover opacity-35"
         />
       )}
-      <div className="absolute inset-0 bg-primary-900/70" />
-      <div className="relative mx-auto max-w-4xl px-4 text-center">
-        <h1 className="text-3xl font-bold text-accent-50 md:text-5xl">{pagina.hero_titulo}</h1>
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(36,21,16,0.7) 0%, rgba(36,21,16,0.92) 100%)",
+        }}
+      />
+      <div className="relative mx-auto max-w-4xl px-4 text-center md:px-14">
+        <div
+          className="bl-kicker mb-6"
+          style={{ background: "rgba(247,238,226,0.12)", color: "var(--color-bl-bg)" }}
+        >
+          <span className="dot" /> Secretaria de Turismo
+        </div>
+        <h1
+          className="bl-display m-0"
+          style={{
+            color: "var(--color-bl-bg)",
+            fontSize: "clamp(40px, 5vw, 64px)",
+          }}
+        >
+          {pagina.hero_titulo}
+        </h1>
         {pagina.hero_subtitulo && (
-          <p className="mt-4 text-lg text-primary-100">{pagina.hero_subtitulo}</p>
+          <p
+            className="mt-4 text-lg leading-[1.6]"
+            style={{ color: "rgba(247,238,226,0.78)" }}
+          >
+            {pagina.hero_subtitulo}
+          </p>
         )}
       </div>
     </section>
@@ -66,19 +97,24 @@ function Intro({ pagina }: { pagina: SeturPagina }) {
   if (!pagina.intro_texto_1 && !pagina.intro_texto_2 && !pagina.intro_texto_3) return null;
 
   return (
-    <RevealSection className="bg-primary-50 py-16">
-      <div className="mx-auto max-w-3xl px-4">
-        {pagina.intro_texto_1 && <p className="leading-relaxed text-primary-700">{pagina.intro_texto_1}</p>}
+    <RevealSection className="py-20" style={{ background: "var(--color-bl-bg)" }}>
+      <div className="mx-auto max-w-3xl px-4 md:px-14">
+        {pagina.intro_texto_1 && (
+          <p className="text-lg leading-[1.75]">{pagina.intro_texto_1}</p>
+        )}
         {pagina.intro_texto_2 && (
-          <p className="mt-4 leading-relaxed text-primary-700">{pagina.intro_texto_2}</p>
+          <p className="mt-5 text-lg leading-[1.75]">{pagina.intro_texto_2}</p>
         )}
         {pagina.intro_titulo_secao && (
-          <h2 className="mt-10 text-2xl font-bold text-primary-800 md:text-3xl">
+          <h2
+            className="bl-display mt-12"
+            style={{ fontSize: "clamp(28px, 3.5vw, 40px)" }}
+          >
             {pagina.intro_titulo_secao}
           </h2>
         )}
         {pagina.intro_texto_3 && (
-          <p className="mt-4 leading-relaxed text-primary-700">{pagina.intro_texto_3}</p>
+          <p className="mt-5 text-lg leading-[1.75]">{pagina.intro_texto_3}</p>
         )}
       </div>
     </RevealSection>
@@ -90,25 +126,28 @@ function Mvv({ pagina }: { pagina: SeturPagina }) {
   if (!hasAny) return null;
 
   return (
-    <RevealSection className="bg-primary-700 py-16">
-      <div className="mx-auto max-w-6xl px-4">
+    <RevealSection className="py-20" style={{ background: "var(--color-bl-card)" }}>
+      <div className="mx-auto max-w-6xl px-4 md:px-14">
         <div className="grid gap-6 md:grid-cols-3">
           {pagina.missao_texto && (
-            <MvvCard icon={<Target className="h-8 w-8" />} title="Nossa Missão">
-              <p className="leading-relaxed text-primary-100">{pagina.missao_texto}</p>
+            <MvvCard icon={<Target className="h-7 w-7" />} title="Nossa Missão">
+              <p className="leading-[1.7]">{pagina.missao_texto}</p>
             </MvvCard>
           )}
           {pagina.visao_texto && (
-            <MvvCard icon={<Eye className="h-8 w-8" />} title="Nossa Visão">
-              <p className="leading-relaxed text-primary-100">{pagina.visao_texto}</p>
+            <MvvCard icon={<Eye className="h-7 w-7" />} title="Nossa Visão">
+              <p className="leading-[1.7]">{pagina.visao_texto}</p>
             </MvvCard>
           )}
           {pagina.valores.length > 0 && (
-            <MvvCard icon={<Heart className="h-8 w-8" />} title="Nossos Valores">
-              <ul className="space-y-2 text-primary-100">
+            <MvvCard icon={<Heart className="h-7 w-7" />} title="Nossos Valores">
+              <ul className="space-y-2">
                 {pagina.valores.map((v) => (
-                  <li key={v} className="flex gap-2 leading-relaxed">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-50" />
+                  <li key={v} className="flex gap-2 leading-[1.7]">
+                    <span
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ background: "var(--color-bl-accent)" }}
+                    />
                     <span>{v}</span>
                   </li>
                 ))}
@@ -125,50 +164,78 @@ function Location({ pagina }: { pagina: SeturPagina }) {
   const hasCoords = pagina.latitude !== null && pagina.longitude !== null;
 
   return (
-    <RevealSection className="bg-primary-50 py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        <h2 className="mb-8 text-2xl font-bold text-primary-800 md:text-3xl">Onde estamos?</h2>
-        <div className="grid gap-8 md:grid-cols-2">
-          <ul className="space-y-4 text-primary-700">
+    <RevealSection className="py-20" style={{ background: "var(--color-bl-bg)" }}>
+      <div className="mx-auto max-w-6xl px-4 md:px-14">
+        <h2
+          className="bl-display mb-10"
+          style={{ fontSize: "clamp(28px, 3.5vw, 40px)" }}
+        >
+          Onde <span className="bl-em">estamos</span>?
+        </h2>
+        <div className="grid gap-10 md:grid-cols-2">
+          <ul className="space-y-5">
             {pagina.endereco && (
-              <li className="flex gap-3">
-                <MapPin className="mt-1 h-5 w-5 shrink-0 text-primary-600" />
-                <div>
+              <li className="flex gap-4">
+                <MapPin
+                  className="mt-1 h-5 w-5 shrink-0"
+                  style={{ color: "var(--color-bl-accent)" }}
+                />
+                <div className="leading-[1.6]">
                   {pagina.endereco}
                   {pagina.cep && (
                     <>
                       <br />
-                      CEP: {pagina.cep}
+                      <span style={{ color: "var(--color-bl-muted)" }}>
+                        CEP: {pagina.cep}
+                      </span>
                     </>
                   )}
                 </div>
               </li>
             )}
             {pagina.horario && (
-              <li className="flex gap-3">
-                <Clock className="mt-1 h-5 w-5 shrink-0 text-primary-600" />
-                <span>{pagina.horario}</span>
+              <li className="flex gap-4">
+                <Clock
+                  className="mt-1 h-5 w-5 shrink-0"
+                  style={{ color: "var(--color-bl-accent)" }}
+                />
+                <span className="leading-[1.6]">{pagina.horario}</span>
               </li>
             )}
             {pagina.telefone && (
-              <li className="flex gap-3">
-                <Phone className="mt-1 h-5 w-5 shrink-0 text-primary-600" />
-                <a href={`tel:${pagina.telefone.replace(/\D/g, "")}`} className="hover:text-primary-900">
+              <li className="flex gap-4">
+                <Phone
+                  className="mt-1 h-5 w-5 shrink-0"
+                  style={{ color: "var(--color-bl-accent)" }}
+                />
+                <a
+                  href={`tel:${pagina.telefone.replace(/\D/g, "")}`}
+                  className="leading-[1.6] underline-offset-4 hover:underline"
+                >
                   {pagina.telefone}
                 </a>
               </li>
             )}
             {pagina.email && (
-              <li className="flex gap-3">
-                <Mail className="mt-1 h-5 w-5 shrink-0 text-primary-600" />
-                <a href={`mailto:${pagina.email}`} className="hover:text-primary-900">
+              <li className="flex gap-4">
+                <Mail
+                  className="mt-1 h-5 w-5 shrink-0"
+                  style={{ color: "var(--color-bl-accent)" }}
+                />
+                <a
+                  href={`mailto:${pagina.email}`}
+                  className="leading-[1.6] underline-offset-4 hover:underline"
+                >
                   {pagina.email}
                 </a>
               </li>
             )}
           </ul>
           {hasCoords && (
-            <div className="overflow-hidden rounded-2xl shadow-lg">
+            <div
+              className="overflow-hidden rounded-[24px]"
+              style={{ boxShadow: "0 12px 32px rgba(0,0,0,0.08)" }}
+            >
               <InteractiveMap
                 items={[
                   {
@@ -193,27 +260,43 @@ function Location({ pagina }: { pagina: SeturPagina }) {
 
 function Team({ loading, equipe }: { loading: boolean; equipe: SeturMembro[] }) {
   return (
-    <RevealSection className="bg-primary-700 py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        <h2 className="mb-10 text-center text-2xl font-bold text-accent-50 md:text-3xl">Quem é quem?</h2>
+    <RevealSection className="py-20" style={{ background: "var(--color-bl-card)" }}>
+      <div className="mx-auto max-w-6xl px-4 md:px-14">
+        <h2
+          className="bl-display mb-12 text-center"
+          style={{ fontSize: "clamp(28px, 3.5vw, 40px)" }}
+        >
+          Quem é <span className="bl-em">quem</span>?
+        </h2>
         {loading ? (
           <div className="grid gap-6 md:grid-cols-2">
             {Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-28 w-full bg-primary-800" />
+              <Skeleton key={i} className="h-28 w-full rounded-[20px]" />
             ))}
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {equipe.map((member) => (
-              <div key={member.id} className="rounded-2xl bg-primary-800 p-6 shadow-lg">
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary-300">
+              <div
+                key={member.id}
+                className="rounded-[20px] p-6"
+                style={{
+                  background: "var(--color-bl-bg)",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                }}
+              >
+                <p
+                  className="text-2xs font-semibold uppercase tracking-[0.18em]"
+                  style={{ color: "var(--color-bl-muted)" }}
+                >
                   {member.cargo}
                 </p>
-                <p className="mt-2 text-lg font-bold text-accent-50">{member.nome}</p>
+                <p className="bl-display mt-2 text-lg leading-tight">{member.nome}</p>
                 {member.email && (
                   <a
                     href={`mailto:${member.email}`}
-                    className="mt-1 inline-block text-sm text-primary-200 hover:text-accent-50"
+                    className="mt-2 inline-block text-sm underline-offset-4 hover:underline"
+                    style={{ color: "var(--color-bl-muted)" }}
                   >
                     {member.email}
                   </a>
@@ -227,10 +310,18 @@ function Team({ loading, equipe }: { loading: boolean; equipe: SeturMembro[] }) 
   );
 }
 
-function RevealSection({ className, children }: { className?: string; children: React.ReactNode }) {
+function RevealSection({
+  className,
+  style,
+  children,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
   const { ref, isVisible } = useScrollReveal<HTMLElement>(0.1);
   return (
-    <section ref={ref} className={className}>
+    <section ref={ref} className={className} style={style}>
       <div
         className={cn(
           "transition-all duration-700 ease-out",
@@ -243,13 +334,33 @@ function RevealSection({ className, children }: { className?: string; children: 
   );
 }
 
-function MvvCard({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+function MvvCard({
+  icon,
+  title,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="rounded-2xl bg-primary-800 p-6 shadow-lg md:p-8">
-      <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary-700 text-accent-50">
+    <div
+      className="rounded-[20px] p-7 md:p-8"
+      style={{
+        background: "var(--color-bl-bg)",
+        border: "1px solid rgba(0,0,0,0.06)",
+      }}
+    >
+      <div
+        className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full"
+        style={{
+          background: "var(--color-bl-card)",
+          color: "var(--color-bl-accent)",
+        }}
+      >
         {icon}
       </div>
-      <h3 className="mb-3 text-xl font-bold text-accent-50">{title}</h3>
+      <h3 className="bl-display mb-3 text-xl leading-tight">{title}</h3>
       {children}
     </div>
   );

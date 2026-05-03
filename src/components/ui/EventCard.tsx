@@ -1,68 +1,104 @@
 import { CalendarDays, MapPin } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { formatDateShort } from "@/lib/utils";
 import type { Evento } from "@/types/database";
 
 type EventCardProps = {
   event: Evento;
-  onClick?: () => void;
 };
 
-export function EventCard({ event, onClick }: EventCardProps) {
-  return (
-    <Card
-      className="group h-full cursor-pointer overflow-hidden rounded-xl border-0 bg-accent-50 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-      onClick={onClick}
-    >
-      <div className="relative h-44 overflow-hidden bg-primary-100">
+export function EventCard({ event }: EventCardProps) {
+  const inner = (
+    <>
+      <div
+        className="relative h-44 overflow-hidden"
+        style={{ background: "var(--color-bl-card)" }}
+      >
         {event.imagem_destaque ? (
           <img
             src={event.imagem_destaque}
             alt={event.titulo}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary-100 to-primary-200">
-            <CalendarDays size={44} className="text-primary-400" />
+          <div className="bl-ph h-full w-full">
+            <CalendarDays size={44} style={{ color: "var(--color-bl-muted)" }} />
           </div>
         )}
 
         {event.gratuito && (
-          <Badge className="absolute right-3 top-3 bg-primary-400 text-accent-50">
+          <span
+            className="absolute right-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-widest"
+            style={{
+              background: "var(--color-bl-accent2)",
+              color: "var(--color-bl-ink)",
+            }}
+          >
             Gratuito
-          </Badge>
+          </span>
         )}
 
-        <div className="absolute left-3 top-3 rounded-lg bg-accent-50 px-3 py-1.5 text-center shadow-md">
-          <span className="text-xs font-bold text-primary-800">
+        <div
+          className="absolute left-3 top-3 rounded-xl px-3 py-1.5 text-center"
+          style={{
+            background: "var(--color-bl-accent2)",
+            color: "var(--color-bl-ink)",
+            fontFamily: "var(--font-display)",
+          }}
+        >
+          <span className="text-xs font-medium">
             {formatDateShort(event.data_inicio)}
           </span>
           {event.data_fim && event.data_fim !== event.data_inicio && (
-            <span className="block text-2xs text-accent-400">
+            <span className="block text-[10px] italic opacity-80">
               até {formatDateShort(event.data_fim)}
             </span>
           )}
         </div>
       </div>
 
-      <CardContent className="p-5">
+      <div className="p-5">
         {event.categoria && (
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary-500">
+          <span
+            className="text-[11px] font-semibold uppercase tracking-widest"
+            style={{ color: "var(--color-bl-accent)" }}
+          >
             {event.categoria}
           </span>
         )}
-        <h3 className="mt-1 text-lg font-bold text-primary-800 group-hover:text-primary-600">
-          {event.titulo}
-        </h3>
+        <h3 className="bl-display mt-1 text-xl">{event.titulo}</h3>
         {event.local_nome && (
-          <p className="mt-2 flex items-center gap-1.5 text-sm text-accent-500">
+          <p
+            className="mt-2 flex items-center gap-1.5 text-sm"
+            style={{ color: "var(--color-bl-muted)" }}
+          >
             <MapPin size={14} className="shrink-0" />
             {event.local_nome}
           </p>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </>
+  );
+
+  if (event.link_externo) {
+    return (
+      <a
+        href={event.link_externo}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bl-card block cursor-pointer text-left shadow-sm transition-shadow hover:shadow-xl"
+        style={{ background: "var(--color-bl-card)", border: "1px solid rgba(0,0,0,0.06)" }}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <div
+      className="bl-card block text-left shadow-sm"
+      style={{ background: "var(--color-bl-card)", border: "1px solid rgba(0,0,0,0.06)" }}
+    >
+      {inner}
+    </div>
   );
 }

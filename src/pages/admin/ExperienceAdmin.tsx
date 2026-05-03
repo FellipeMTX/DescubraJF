@@ -16,6 +16,7 @@ import {
 import { AddressSearch } from "@/components/ui/AddressSearch";
 import { MapPreview } from "@/components/ui/MapPreview";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
+import { CategoryManagerDialog } from "@/components/ui/CategoryManagerDialog";
 import { useExperiences, useExperienceCategories } from "@/hooks/useExperiences";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
@@ -60,6 +61,7 @@ export default function ExperienceAdmin() {
   const [form, setForm] = useState<FormData>(EMPTY_FORM);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
+  const [managerOpen, setManagerOpen] = useState(false);
 
   const queryClient = useQueryClient();
   const { data: experiences, isLoading } = useExperiences();
@@ -164,7 +166,16 @@ export default function ExperienceAdmin() {
             Gerencie os atrativos turísticos
           </p>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setManagerOpen(true)}
+          >
+            Gerenciar categorias
+          </Button>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger
             onClick={openCreate}
             className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80"
@@ -188,7 +199,18 @@ export default function ExperienceAdmin() {
             />
           </DialogContent>
         </Dialog>
+        </div>
       </div>
+
+      <CategoryManagerDialog
+        open={managerOpen}
+        onClose={() => setManagerOpen(false)}
+        table="categorias_experiencia"
+        queryKey="categorias_experiencia"
+        title="Gerenciar categorias de atrativos"
+        hasCor
+        hasAtivo
+      />
 
       {/* Table */}
       <div className="mt-6 overflow-hidden rounded-lg border bg-white">

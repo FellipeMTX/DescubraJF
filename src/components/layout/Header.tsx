@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
-import { Menu, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router";
+import { Menu, ChevronDown, ArrowRight } from "lucide-react";
 import { NAV_ITEMS, SITE_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
@@ -11,68 +11,52 @@ type NavItem =
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
-
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 50);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const transparent = isHome && !scrolled;
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
-        transparent
-          ? "bg-transparent"
-          : "bg-primary-700/95 shadow-lg backdrop-blur-sm"
-      )}
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+    <header className="sticky top-0 z-50">
+      <div
+        className="flex items-center gap-4 border-b border-black/5 px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-blur-xl md:px-10"
+        style={{ background: "rgba(251,242,232,0.85)" }}
+      >
         {/* Logo */}
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="relative flex h-16 flex-1 items-center">
           <img
-            src="/descubraLogo.png"
+            src="/DescubraHorizontalPreto.png"
             alt={SITE_NAME}
-            className={cn(
-              "transition-all duration-300",
-              transparent ? "h-16" : "h-15"
-            )}
+            className="absolute left-0 h-24 w-auto"
           />
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden items-center gap-0.5 lg:flex">
+        {/* Desktop Nav (centered) */}
+        <nav className="hidden flex-none items-center justify-center gap-7 text-[14px] lg:flex">
           {(NAV_ITEMS as readonly NavItem[]).map((item) =>
             item.children ? (
               <NavDropdown key={item.label} item={item} />
             ) : item.href ? (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="rounded-md px-3 py-2 text-sm font-medium uppercase tracking-wider text-white/90 transition-colors hover:bg-white/10 hover:text-white"
-              >
+              <Link key={item.label} to={item.href} className="bl-navlink">
                 {item.label}
               </Link>
             ) : null
           )}
         </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          aria-label="Menu"
-          className="rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white lg:hidden"
-          onClick={() => setMobileOpen(true)}
-        >
-          <Menu size={24} />
-        </button>
+        {/* Right CTA + mobile menu */}
+        <div className="flex flex-1 items-center justify-end gap-2">
+          <Link
+            to="/roteiros"
+            className="bl-btn-soft hidden md:inline-flex px-4.5! py-2.5! text-[13px]!"
+          >
+            Planejar viagem <ArrowRight size={12} />
+          </Link>
+          <button
+            aria-label="Menu"
+            className="p-2 lg:hidden"
+            style={{ color: "var(--color-bl-ink)" }}
+            onClick={() => setMobileOpen(true)}
+          >
+            <Menu size={22} />
+          </button>
+        </div>
       </div>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
@@ -93,23 +77,28 @@ function NavDropdown({
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium uppercase tracking-wider text-white/90 transition-colors hover:bg-white/10 hover:text-white">
+      <button className="bl-navlink flex cursor-pointer items-center gap-1">
         {item.label}
-        <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
+        <ChevronDown size={12} className={cn("transition-transform", open && "rotate-180")} />
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-50 min-w-52 overflow-hidden rounded-xl border border-white/10 bg-white p-1 shadow-xl">
-          {item.children.map((child) => (
-            <Link
-              key={child.href}
-              to={child.href}
-              className="block rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-wider text-primary-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
-              onClick={() => setOpen(false)}
-            >
-              {child.label}
-            </Link>
-          ))}
+        <div className="absolute left-0 top-full z-50 w-full pt-3">
+          <div
+            className="overflow-hidden rounded-2xl border border-black/5 p-1.5 shadow-xl"
+            style={{ background: "var(--color-bl-bg)" }}
+          >
+            {item.children.map((child) => (
+              <Link
+                key={child.href}
+                to={child.href}
+                className="bl-navlink block px-4 py-2.5 text-center text-sm"
+                onClick={() => setOpen(false)}
+              >
+                {child.label}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>

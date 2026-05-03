@@ -19,18 +19,27 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 z-50 bg-black/40"
+        className="fixed inset-0 z-50 bg-black/30"
         onClick={onClose}
       />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 right-0 z-50 w-72 bg-white shadow-xl">
-        <div className="flex items-center justify-between border-b px-4 py-3">
-          <span className="font-bold text-primary-700">{SITE_NAME}</span>
+      <div
+        className="fixed inset-y-0 right-0 z-50 w-72 shadow-xl"
+        style={{ background: "var(--color-bl-bg)" }}
+      >
+        <div className="flex items-center justify-between border-b border-black/5 px-4 py-3">
+          <span
+            className="bl-display text-base"
+            style={{ color: "var(--color-bl-ink)" }}
+          >
+            {SITE_NAME}
+          </span>
           <button
             aria-label="Fechar menu"
             onClick={onClose}
-            className="rounded-md p-1 text-accent-400 hover:bg-primary-50"
+            className="rounded-md p-1 transition-colors hover:text-bl-ink"
+            style={{ color: "var(--color-bl-muted)" }}
           >
             <X size={24} />
           </button>
@@ -45,7 +54,8 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                 key={item.label}
                 to={item.href}
                 onClick={onClose}
-                className="px-4 py-3 text-sm font-medium text-primary-700 hover:bg-primary-50 hover:text-primary-700"
+                className="px-4 py-3 text-sm font-medium transition-colors hover:bg-bl-card"
+                style={{ color: "var(--color-bl-ink)" }}
               >
                 {item.label}
               </Link>
@@ -69,21 +79,25 @@ function MobileDropdown({
   return (
     <div>
       <button
-        className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-primary-700 hover:bg-primary-50"
+        className="flex w-full cursor-pointer items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-bl-card"
+        style={{ color: "var(--color-bl-ink)" }}
         onClick={() => setExpanded(!expanded)}
       >
         {item.label}
-        {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        <span style={{ color: "var(--color-bl-muted)" }}>
+          {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        </span>
       </button>
 
       {expanded && (
-        <div className="bg-primary-50">
+        <div style={{ background: "var(--color-bl-bg)" }}>
           {item.children.map((child) => (
             <Link
               key={child.href}
               to={child.href}
               onClick={onClose}
-              className="block py-2.5 pl-8 pr-4 text-sm text-accent-500 hover:text-primary-700"
+              className="block py-2.5 pl-8 pr-4 text-sm transition-colors hover:text-bl-ink"
+              style={{ color: "var(--color-bl-muted)" }}
             >
               {child.label}
             </Link>

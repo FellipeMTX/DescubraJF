@@ -31,11 +31,13 @@ type FormData = {
   longitude: string;
   faixa_preco: string;
   comodidades: string;
+  destaque: boolean;
 };
 
 const EMPTY: FormData = {
   nome: "", descricao_curta: "", descricao: "", tipo: "hotel", estrelas: "3",
   endereco: "", numero: "", bairro: "", latitude: "", longitude: "", faixa_preco: "2", comodidades: "",
+  destaque: false,
 };
 
 export default function LodgingAdmin() {
@@ -58,6 +60,7 @@ export default function LodgingAdmin() {
       numero: "", bairro: item.bairro ?? "", latitude: item.latitude?.toString() ?? "",
       longitude: item.longitude?.toString() ?? "", faixa_preco: item.faixa_preco?.toString() ?? "2",
       comodidades: item.comodidades?.join(", ") ?? "",
+      destaque: item.destaque ?? false,
     });
     setImageFile(null); setDialogOpen(true);
   }
@@ -80,6 +83,7 @@ export default function LodgingAdmin() {
         longitude: form.longitude ? parseFloat(form.longitude) : null,
         faixa_preco: parseInt(form.faixa_preco) || 2,
         comodidades: comodidades.length > 0 ? comodidades : null,
+        destaque: form.destaque,
         imagem_destaque, updated_at: new Date().toISOString(),
       };
 
@@ -174,6 +178,15 @@ export default function LodgingAdmin() {
               <Field label="Comodidades (separadas por vírgula)">
                 <Input value={form.comodidades} onChange={(e) => update("comodidades", e.target.value)} placeholder="wifi, estacionamento, piscina, café da manhã" />
               </Field>
+              <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+                <input
+                  type="checkbox"
+                  checked={form.destaque}
+                  onChange={(e) => setForm((p) => ({ ...p, destaque: e.target.checked }))}
+                  className="h-4 w-4 rounded border-input"
+                />
+                Destacar na home
+              </label>
               <Button onClick={handleSave} disabled={saving || !form.nome.trim()} className="w-full">
                 {saving ? "Salvando..." : "Salvar"}
               </Button>

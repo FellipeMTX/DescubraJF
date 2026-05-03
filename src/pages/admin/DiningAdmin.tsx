@@ -12,6 +12,7 @@ import {
 import { AddressSearch } from "@/components/ui/AddressSearch";
 import { MapPreview } from "@/components/ui/MapPreview";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
+import { CategoryManagerDialog } from "@/components/ui/CategoryManagerDialog";
 import { cn } from "@/lib/utils";
 import { useDiningEstablishments, useDiningCategories } from "@/hooks/useDining";
 import { supabase } from "@/lib/supabase";
@@ -44,6 +45,7 @@ export default function DiningAdmin() {
   const [form, setForm] = useState<FormData>(EMPTY);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
+  const [managerOpen, setManagerOpen] = useState(false);
 
   const qc = useQueryClient();
   const { data: items, isLoading } = useDiningEstablishments();
@@ -125,6 +127,15 @@ export default function DiningAdmin() {
           <h1 className="text-2xl font-bold text-foreground">Gastronomia</h1>
           <p className="text-sm text-muted-foreground">Gerencie restaurantes, bares e cafés</p>
         </div>
+        <div className="flex items-center gap-2">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => setManagerOpen(true)}
+        >
+          Gerenciar categorias
+        </Button>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger onClick={openCreate} className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/80">
             <Plus size={16} /> Novo Estabelecimento
@@ -199,7 +210,16 @@ export default function DiningAdmin() {
             </div>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
+
+      <CategoryManagerDialog
+        open={managerOpen}
+        onClose={() => setManagerOpen(false)}
+        table="categorias_gastronomia"
+        queryKey="categorias_gastronomia"
+        title="Gerenciar categorias de gastronomia"
+      />
 
       <div className="mt-6 overflow-hidden rounded-lg border bg-white">
         <table className="w-full text-sm">

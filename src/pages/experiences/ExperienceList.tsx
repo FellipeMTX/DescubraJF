@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 import { MapPin, Accessibility, Dog, DollarSign, Clock, Phone, Mail, Globe, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,15 @@ import type { Experiencia } from "@/types/database";
 
 export default function ExperienceList() {
   const [selectedCategory, setSelectedCategory] = useState("todos");
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedSlug = searchParams.get("slug");
+
+  function handleSelectSlug(slug: string | null) {
+    const next = new URLSearchParams(searchParams);
+    if (slug) next.set("slug", slug);
+    else next.delete("slug");
+    setSearchParams(next, { replace: true });
+  }
 
   const { data: categories, isLoading: loadingCats } = useExperienceCategories();
   const { data: experiences, isLoading: loadingExps } = useExperiences(selectedCategory);
@@ -36,22 +45,22 @@ export default function ExperienceList() {
             <CategoryFilter
               categories={categories}
               selected={selectedCategory}
-              onSelect={(slug) => { setSelectedCategory(slug); setSelectedSlug(null); }}
+              onSelect={(slug) => { setSelectedCategory(slug); handleSelectSlug(null); }}
             />
           ) : null}
         </div>
       }
-      placeholderIcon={<MapPin size={28} className="text-primary-300" />}
+      placeholderIcon={<MapPin size={28} className="text-[var(--color-bl-muted)]" />}
       renderCardContent={(exp) => (
         <>
-          <h3 className="font-bold text-primary-800 group-hover:text-primary-600">{exp.nome}</h3>
+          <h3 className="font-bold bl-display text-base">{exp.nome}</h3>
           {exp.descricao_curta && (
-            <p className="mt-1 line-clamp-2 text-xs text-accent-500">{exp.descricao_curta}</p>
+            <p className="mt-1 line-clamp-2 text-xs text-[var(--color-bl-muted)]">{exp.descricao_curta}</p>
           )}
         </>
       )}
       selectedSlug={selectedSlug}
-      onSelectSlug={setSelectedSlug}
+      onSelectSlug={handleSelectSlug}
       renderModalContent={(slug) => <ExperienceModalContent slug={slug} />}
     />
   );
@@ -61,7 +70,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
   const { data: exp, isLoading } = useExperienceBySlug(slug);
 
   if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (!exp) return <p className="text-accent-500">Atrativo não encontrado.</p>;
+  if (!exp) return <p className="text-[var(--color-bl-muted)]">Atrativo não encontrado.</p>;
 
   const hasContact = exp.contato && Object.values(exp.contato).some(Boolean);
   const hasSchedule = exp.horario_funcionamento && Object.keys(exp.horario_funcionamento).length > 0;
@@ -87,7 +96,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
           <dl className="mt-2 space-y-1">
             {Object.entries(exp.horario_funcionamento!).map(([day, hours]) => (
               <div key={day} className="flex justify-between text-sm">
-                <dt className="capitalize text-accent-500">{day}</dt>
+                <dt className="capitalize text-[var(--color-bl-muted)]">{day}</dt>
                 <dd className="font-medium text-primary-800">{hours as string}</dd>
               </div>
             ))}
@@ -96,7 +105,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
       )}
       {exp.endereco && (
         <InfoSection icon={<MapPin size={14} />} title="Endereço">
-          <p className="mt-1 text-sm text-accent-500">{exp.endereco}{exp.bairro && ` - ${exp.bairro}`}</p>
+          <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{exp.endereco}{exp.bairro && ` - ${exp.bairro}`}</p>
         </InfoSection>
       )}
       {hasContact && (
@@ -137,7 +146,7 @@ function InfoSection({ icon, title, children }: { icon: React.ReactNode; title: 
 
 function ContactLink({ href, icon, external, children }: { href: string; icon: React.ReactNode; external?: boolean; children: React.ReactNode }) {
   return (
-    <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="flex items-center gap-2 text-sm text-accent-500 hover:text-primary-600">
+    <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600">
       {icon} {children}
     </a>
   );
