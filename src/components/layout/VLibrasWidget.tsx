@@ -4,7 +4,9 @@ declare global {
   interface Window {
     VLibras?: { Widget: new (url: string) => unknown };
   }
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace React {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface HTMLAttributes<T> {
       vw?: string;
       "vw-access-button"?: string;

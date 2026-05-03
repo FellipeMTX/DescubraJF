@@ -60,6 +60,7 @@ export function CategoryManagerDialog({
 
   useEffect(() => {
     if (open) load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, table]);
 
   function startEdit(cat: CategoryRow) {
