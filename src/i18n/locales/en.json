@@ -1,0 +1,495 @@
+{
+  "common": {
+    "siteName": "Descubra Juiz de Fora",
+    "siteDescription": "Official tourism portal of Juiz de Fora. Discover attractions, routes, dining, and lodging.",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "selectLanguage": "Select language",
+    "all": "All",
+    "free": "Free",
+    "viewAll": "View all",
+    "viewAllF": "View all",
+    "until": "until",
+    "loadingMap": "Loading map...",
+    "noMapLocations": "No locations with coordinates",
+    "noImage": "No image",
+    "previous": "Previous",
+    "next": "Next",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "tourismLogoAlt": "Tourism Department - Juiz de Fora City Hall",
+    "planTrip": "Plan your trip",
+    "exploreAttractions": "Explore attractions",
+    "backHome": "Back to home"
+  },
+  "nav": {
+    "history": "History",
+    "whatToDo": "What to Do",
+    "attractions": "Attractions",
+    "routes": "Routes",
+    "events": "Events",
+    "tours": "Tours",
+    "whereToEat": "Where to Eat & Drink",
+    "whereToStay": "Where to Stay",
+    "services": "Services",
+    "tourismDept": "Tourism Department",
+    "institutional": "About Us",
+    "programs": "Programs & Projects",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "footer": {
+    "columns": {
+      "history": "History",
+      "whatToDo": "What to Do",
+      "whereToEat": "Where to Eat",
+      "whereToStay": "Where to Stay",
+      "services": "Services"
+    },
+    "links": {
+      "history": "Go to History",
+      "attractions": "Attractions",
+      "routes": "Routes",
+      "events": "Events",
+      "establishments": "Establishments",
+      "lodging": "Lodging",
+      "institutional": "About Us",
+      "tours": "See You Around",
+      "contact": "Contact"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "back": "Back to home"
+  },
+  "home": {
+    "hero": {
+      "fallbackTitle": "Discover Juiz de Fora",
+      "fallbackSubtitle": "More than a destination, an unforgettable experience",
+      "viewAttractions": "View attractions",
+      "kickerHighlight": "Featured",
+      "kickerDiscover": "Discover",
+      "learnMore": "Learn more",
+      "routes": "Routes",
+      "slideAria": "Slide {{n}}"
+    },
+    "experiences": {
+      "kicker": "What to do",
+      "title": "There's everything in",
+      "titleHighlight": "Juiz de Fora",
+      "description": "From historic parks to the most celebrated viewpoints, live unforgettable experiences on every corner.",
+      "cta": "View all attractions"
+    },
+    "lodging": {
+      "kicker": "Where to stay",
+      "title": "Memorable",
+      "titleHighlight": "stays",
+      "titleSuffix": ".",
+      "description": "From charming inns to premium hotels, find the perfect place to rest and enjoy the city.",
+      "cta": "View all hotels",
+      "typeDefault": "Hotel",
+      "fallbackDescription": "Lodging {{n}}"
+    },
+    "dining": {
+      "kicker": "Where to eat & drink",
+      "title": "Flavors of",
+      "titleHighlight": "Geraes",
+      "titleSuffix": ".",
+      "description": "From traditional Mineira cuisine to corner pubs, taste everything our gastronomy has to offer.",
+      "cta": "View establishments",
+      "empty": "No categories available.",
+      "metaLabel": "Establishments"
+    },
+    "events": {
+      "kicker": "What's on in JF",
+      "title": "What's",
+      "titleHighlight": "happening",
+      "titleSuffix": "in the city.",
+      "cta": "Full calendar",
+      "empty": "No upcoming events at the moment."
+    }
+  },
+  "experiences": {
+    "title": "Attractions",
+    "subtitle": "Explore the best of Juiz de Fora",
+    "empty": "No attractions found in this category.",
+    "notFound": "Attraction not found.",
+    "badges": {
+      "free": "Free",
+      "accessible": "Accessible",
+      "petFriendly": "Pet Friendly"
+    },
+    "sections": {
+      "schedule": "Hours",
+      "address": "Address",
+      "contact": "Contact"
+    },
+    "links": {
+      "website": "Official website",
+      "instagram": "Instagram",
+      "googleMaps": "Google Maps"
+    }
+  },
+  "events": {
+    "list": {
+      "kicker": "City calendar",
+      "title": "What's on in",
+      "titleHighlight": "JF",
+      "subtitle": "Stay up to date with everything happening in the city.",
+      "empty": "No events found.",
+      "allMonths": "All months"
+    },
+    "filters": {
+      "all": "All",
+      "cultural": "Cultural",
+      "sportive": "Sports",
+      "festive": "Festive",
+      "show": "Shows",
+      "gastronomic": "Gastronomic"
+    },
+    "months": {
+      "1": "January",
+      "2": "February",
+      "3": "March",
+      "4": "April",
+      "5": "May",
+      "6": "June",
+      "7": "July",
+      "8": "August",
+      "9": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    },
+    "card": {
+      "free": "Free",
+      "until": "until"
+    },
+    "detail": {
+      "back": "Calendar",
+      "title": "Event",
+      "titleHighlight": "Details",
+      "subtitle": "Content will be loaded from Supabase when configured."
+    }
+  },
+  "lodging": {
+    "title": "Where to Stay",
+    "subtitle": "Places to make your stay memorable",
+    "empty": "No lodging found in this category.",
+    "notFound": "Lodging not found.",
+    "types": {
+      "all": "All",
+      "hotel": "Hotels",
+      "pousada": "Inns",
+      "hostel": "Hostels",
+      "flat": "Flats"
+    },
+    "pricing": {
+      "budget": "Budget",
+      "moderate": "Moderate",
+      "premium": "Premium"
+    },
+    "sections": {
+      "address": "Address",
+      "contact": "Contact"
+    },
+    "links": {
+      "website": "Official website",
+      "booking": "Book now"
+    }
+  },
+  "dining": {
+    "title": "Where to Eat & Drink",
+    "subtitle": "Taste everything our gastronomy has to offer",
+    "empty": "No establishment found in this category.",
+    "notFound": "Establishment not found.",
+    "filters": {
+      "all": "All"
+    },
+    "pricing": {
+      "budget": "Budget",
+      "moderate": "Moderate",
+      "premium": "Premium"
+    },
+    "amenities": {
+      "parking": "Parking"
+    },
+    "sections": {
+      "schedule": "Hours",
+      "address": "Address",
+      "contact": "Contact"
+    },
+    "links": {
+      "website": "Official website",
+      "instagram": "Instagram"
+    },
+    "categories": {
+      "cozinha-mineira": "Mineira Cuisine",
+      "bares-e-botecos": "Bars & Pubs",
+      "cafes-e-confeitarias": "Cafés & Bakeries",
+      "pizzarias-e-massas": "Pizza & Pasta",
+      "cervejarias-e-drinks": "Breweries",
+      "bar-na-rua": "Street Bars"
+    }
+  },
+  "routes": {
+    "list": {
+      "kicker": "Paths through the city",
+      "title": "Themed",
+      "titleHighlight": "routes",
+      "subtitle": "Paths to explore Juiz de Fora at your own pace.",
+      "empty": "No routes registered yet."
+    },
+    "detail": {
+      "notFoundTitle": "Route",
+      "notFoundHighlight": "not found",
+      "back": "Back to Routes",
+      "breadcrumb": "Routes",
+      "mapPlaceholder": "Map coming soon"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Useful services for your stay in Juiz de Fora",
+    "empty": "No service found in this category."
+  },
+  "tours": {
+    "title": "See You Around",
+    "subtitle": "Discover experiences and tours through the city",
+    "empty": "No tour found in this category."
+  },
+  "city": {
+    "howToGetHere": {
+      "kicker": "Getting to the city",
+      "title": "How to",
+      "titleHighlight": "Get Here",
+      "subtitle": "Content will be loaded from Supabase when configured."
+    },
+    "setur": {
+      "title": "Tourism",
+      "titleHighlight": "JF",
+      "subtitle": "Content will be loaded from Supabase when configured."
+    },
+    "touristInfo": {
+      "title": "Tourist",
+      "titleHighlight": "Information",
+      "subtitle": "Content will be loaded from Supabase when configured."
+    },
+    "press": {
+      "kicker": "Press",
+      "title": "Press",
+      "titleHighlight": "Office",
+      "subtitle": "Content will be loaded from Supabase when configured."
+    }
+  },
+  "contact": {
+    "kicker": "Get in touch",
+    "title": "Contact",
+    "titleHighlight": "JF",
+    "subtitle": "Coming soon: contact form and Tourism Department information."
+  },
+  "history": {
+    "chapter": "Discover · Chapter I",
+    "hero": {
+      "title": "History",
+      "subtitle": "The journey of a city that never stopped reinventing itself."
+    },
+    "intro": {
+      "kicker": "Pioneering by nature",
+      "mainBefore": "If you think you've seen it all in a city, it's because you still",
+      "mainHighlight": "haven't met Juiz de Fora.",
+      "p1": "In the heart of Minas Gerais' Zona da Mata, the city stands out for its pioneering spirit, vibrant history, and unique ability to reinvent itself.",
+      "p2": "It was here that Latin America witnessed the first open TV broadcast and where Bernardo Mascarenhas made history with the first hydroelectric power plant dedicated to public lighting on the continent.",
+      "p3": "At the end of the 19th century, Juiz de Fora earned the title of \"Mineira Manchester\" thanks to the textile factories that placed the city among the most promising in Brazil.",
+      "palaceAlt": "Old City Hall",
+      "palaceCaption": "Old City Hall — now the Special Office for Racial Equality"
+    },
+    "quote": {
+      "kicker": "Flavor, culture, surprise",
+      "mainBefore": "Juiz de Fora made it into the record books with the",
+      "mainHighlight": "world's largest pork crackling fry-up",
+      "mainAfter": "served at a single event — just a taste of what our Mineira cuisine has to offer.",
+      "places": "From the Mariano Procópio Museum to the Cine-Theatro Central, passing by the Morro do Imperador viewpoint and Halfeld Park, every corner of the city reveals experiences that blend tradition and innovation.",
+      "conclusion": "Juiz de Fora is plural, creative, and diverse."
+    },
+    "timeline": {
+      "kicker": "1703 → today",
+      "title": "Time",
+      "titleHighlight": "line",
+      "description": "More than three centuries of milestones that turned a settlers' village into one of the most influential cities in the Geraes.",
+      "events": {
+        "1703": {
+          "text": "Start of the Caminho Novo, linking Minas to Rio and driving the rise of villages such as Santo Antônio do Paraibuna.",
+          "imageLabel": "caminho novo"
+        },
+        "1853": {
+          "text": "Santo Antônio do Paraibuna is elevated to city status; European technicians are hired for the União e Indústria Road.",
+          "imageLabel": "city elevation"
+        },
+        "1856": {
+          "text": "Twenty European craftsmen arrive to help build the road.",
+          "imageLabel": "european craftsmen"
+        },
+        "1857": {
+          "text": "1,162 German immigrants arrive, forming a colonial nucleus in the region.",
+          "imageLabel": "german immigrants"
+        },
+        "1861": {
+          "text": "Visit by Emperor Dom Pedro II; the palace is built by Manoel do Vale Amado.",
+          "imageLabel": "Dom Pedro II · palace"
+        },
+        "1865": {
+          "text": "Santo Antônio do Paraibuna is officially renamed Juiz de Fora.",
+          "imageLabel": "new name — Juiz de Fora"
+        },
+        "1890": {
+          "text": "Construction of the \"Castelinho\", headquarters of the Mineira Electricity Company.",
+          "imageLabel": "Castelinho · electricity"
+        },
+        "1907": {
+          "text": "The Santa Mafalda Palace becomes the First Public School.",
+          "imageLabel": "first public school"
+        },
+        "1915": {
+          "text": "The Mariano Procópio Museum is founded by Alfredo Ferreira Lage.",
+          "imageLabel": "Mariano Procópio Museum"
+        },
+        "1929": {
+          "text": "Inauguration of the Cine-Theatro Central in eclectic architectural style.",
+          "imageLabel": "Cine-Theatro Central"
+        },
+        "1934": {
+          "text": "Founding of the Turunas do Riachuelo samba school.",
+          "imageLabel": "Turunas do Riachuelo"
+        },
+        "1977": {
+          "text": "Creation of the Miss Gay Brasil contest, a milestone in LGBTQIAPN+ culture.",
+          "imageLabel": "Miss Brasil Gay"
+        },
+        "2023": {
+          "text": "Reopening of the restored palace; celebration of the city's architectural and cultural history.",
+          "imageLabel": "restored palace"
+        }
+      }
+    },
+    "origins": {
+      "kicker": "Origins",
+      "titleBefore": "From village to",
+      "titleHighlight": "city",
+      "titleAfter": ": the name Juiz de Fora",
+      "imageCaption": "Source: Alberto Surerus Moutinho Archive, 1928",
+      "p1": "Juiz de Fora wasn't born by chance. Its history began around 1703, with the opening of the Caminho Novo, a strategic route between Minas Gerais and Rio de Janeiro, created to transport gold and oversee tax collection by the Portuguese Crown.",
+      "p2": "Several settlements emerged along this road, among them Santo Antônio do Paraibuna — which would become one of the pioneer cities of Minas Gerais. In 1853 it was elevated to city status and, twelve years later, received its definitive name: Juiz de Fora.",
+      "p3": "And yes, there really was a \"juiz de fora\" (outside judge)! In colonial times, magistrates from other regions were appointed to avoid local favoritism. The expression stuck and ended up naming the city."
+    },
+    "immigration": {
+      "kicker": "Immigration",
+      "titleBefore": "The arrival of the",
+      "titleHighlight": "immigrants",
+      "imageCaption": "Source: UFJF Central Archive",
+      "p1": "With the city in full development, the construction of the União e Indústria Road, conceived by Mariano Procópio Ferreira Lage, would further drive its growth. Considered one of the first modern highways in Latin America, it connected Juiz de Fora to Petrópolis.",
+      "p2": "In 1857, 1,162 German immigrants arrived — a number equivalent to about 20% of the local population. They settled in the present-day neighborhoods of São Pedro, Borboleta, and Fábrica. Over time, they moved into urban life as workers, carpenters, and cart drivers, integrating with the city and the União e Indústria Company."
+    },
+    "manchester": {
+      "kicker": "Industry & energy",
+      "titleBefore": "The",
+      "titleHighlight": "Mineira Manchester",
+      "titleAfter": "and the energy revolution",
+      "imageAlt": "Marmelos Power Plant",
+      "imageCaption": "Source: Juiz de Fora City Hall",
+      "p1": "Juiz de Fora earned the title of \"Mineira Manchester\" at the end of the 19th century, in reference to the English city symbol of the Industrial Revolution. The nickname reflected its important role in the industrial development of Minas Gerais, driven by the textile industries.",
+      "p2": "Bernardo Mascarenhas, a visionary entrepreneur, founded the Mineira Electricity Company in 1888 and built the Marmelos Power Plant — the first in Latin America to provide electric power for public lighting.",
+      "p3": "The old Textile Factory building was revitalized and today is part of the Mascarenhas Complex, where tradition and innovation meet at the Bernardo Mascarenhas Cultural Center and the Municipal Market — reopened in 2025.",
+      "stats": {
+        "1888": {
+          "value": "1888",
+          "label": "Mineira Electricity Co."
+        },
+        "first": {
+          "value": "1st",
+          "label": "hydroelectric plant in LA"
+        },
+        "2025": {
+          "value": "2025",
+          "label": "Market reopened"
+        }
+      }
+    },
+    "architecture": {
+      "kicker": "Memory",
+      "titleBefore": "Architecture and",
+      "titleHighlight": "characters",
+      "titleAfter": "that shaped the city",
+      "imageCaption": "Source: Cristina Bitarello, 2024",
+      "p1": "Walking through the streets of Juiz de Fora is like flipping through a memoir. The Santa Mafalda Palace, built in the 1850s as a gift to Emperor Dom Pedro II, was turned into a school and restored in 2023.",
+      "p2": "The \"Castelinho\", erected in 1890, impresses with its medieval architecture. Alfredo Ferreira Lage transformed his family's villa into the Mariano Procópio Museum. French landscaper Auguste Glaziou brought the charm of English gardens to the park.",
+      "p3": "Even Cândido Portinari left his mark with two public panels on the façade of the Edifício Clube Juiz de Fora. And the Cine-Theatro Central, inaugurated in 1929, continues to host great performances."
+    },
+    "surprise": {
+      "kicker": "Diversity & culture",
+      "titleBefore": "A city that",
+      "titleHighlight": "never stops",
+      "titleAfter": "surprising.",
+      "p1": "At Carnival, the city carries memories that mix African rhythms and Carioca influences. It was here that, in 1934, the Turunas do Riachuelo was born — the first samba school in Minas Gerais and the fourth in Brazil.",
+      "p2": "Since 1977, Juiz de Fora has hosted Miss Brasil Gay, a milestone for LGBTQIAPN+ culture in the country. With its colors, performances, and celebration of plurality, the event has become a symbol of respect and inclusion.",
+      "tagline": "Get ready to be surprised on every visit.",
+      "welcomeBefore": "Welcome to",
+      "welcomeHighlight": "Juiz de Fora",
+      "welcomeAfter": "!"
+    }
+  },
+  "institutional": {
+    "kicker": "Tourism Department",
+    "contentUnavailable": "Content unavailable.",
+    "mvv": {
+      "mission": "Our Mission",
+      "vision": "Our Vision",
+      "values": "Our Values"
+    },
+    "location": {
+      "title": "Where",
+      "titleHighlight": "we are",
+      "titleSuffix": "?",
+      "cep": "ZIP:"
+    },
+    "team": {
+      "title": "Who's",
+      "titleHighlight": "who",
+      "titleSuffix": "?"
+    }
+  },
+  "posts": {
+    "news": {
+      "kicker": "Tourism Department",
+      "list": {
+        "title": "Latest",
+        "titleHighlight": "News",
+        "subtitle": "Follow the latest news from the Juiz de Fora Tourism Department.",
+        "empty": "No news published at the moment."
+      },
+      "detail": {
+        "back": "News",
+        "backLink": "Back to News"
+      }
+    },
+    "programs": {
+      "kicker": "Tourism Department",
+      "list": {
+        "title": "Programs &",
+        "titleHighlight": "Projects",
+        "subtitle": "Learn about the programs and projects of the Juiz de Fora Tourism Department.",
+        "empty": "No program or project published at the moment."
+      },
+      "detail": {
+        "back": "Programs & Projects",
+        "backLink": "Back to Programs & Projects"
+      }
+    },
+    "notFound": "Post not found."
+  },
+  "categoryGrid": {
+    "siteOfficial": "Official website",
+    "instagram": "Instagram",
+    "access": "Visit"
+  }
+}

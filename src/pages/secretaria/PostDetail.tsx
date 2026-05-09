@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePostBySlug } from "@/hooks/usePosts";
@@ -6,17 +7,23 @@ import { formatDate } from "@/lib/utils";
 import { renderPostContent } from "@/lib/renderPostContent";
 import type { PostCategoria } from "@/types/database";
 
-const LABELS: Record<PostCategoria, { backLabel: string; basePath: string }> = {
-  noticia: { backLabel: "Notícias", basePath: "/secretaria/noticias" },
-  programa_projeto: { backLabel: "Programas e Projetos", basePath: "/secretaria/programas-e-projetos" },
+const PATHS: Record<PostCategoria, { backKey: string; basePath: string }> = {
+  noticia: { backKey: "posts.news.detail.back", basePath: "/secretaria/noticias" },
+  programa_projeto: { backKey: "posts.programs.detail.back", basePath: "/secretaria/programas-e-projetos" },
+};
+
+const RETURN_KEYS: Record<PostCategoria, string> = {
+  noticia: "posts.news.detail.backLink",
+  programa_projeto: "posts.programs.detail.backLink",
 };
 
 type Props = { categoria: PostCategoria };
 
 export default function PostDetail({ categoria }: Props) {
+  const { t } = useTranslation();
   const { slug = "" } = useParams();
   const { data: post, isLoading, error } = usePostBySlug(categoria, slug);
-  const labels = LABELS[categoria];
+  const meta = PATHS[categoria];
 
   if (isLoading) {
     return (
@@ -36,9 +43,9 @@ export default function PostDetail({ categoria }: Props) {
     return (
       <div className="bl-app min-h-screen">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center md:px-14">
-          <p style={{ color: "var(--color-bl-muted)" }}>Post não encontrado.</p>
-          <Link to={labels.basePath} className="bl-btn-ghost mt-6 inline-flex">
-            <ChevronLeft size={14} /> Voltar para {labels.backLabel}
+          <p style={{ color: "var(--color-bl-muted)" }}>{t("posts.notFound")}</p>
+          <Link to={meta.basePath} className="bl-btn-ghost mt-6 inline-flex">
+            <ChevronLeft size={14} /> {t(RETURN_KEYS[categoria])}
           </Link>
         </div>
       </div>
@@ -48,8 +55,8 @@ export default function PostDetail({ categoria }: Props) {
   return (
     <div className="bl-app min-h-screen">
       <article className="mx-auto max-w-3xl px-4 py-12 md:px-14">
-        <Link to={labels.basePath} className="bl-btn-ghost inline-flex">
-          <ChevronLeft size={14} /> {labels.backLabel}
+        <Link to={meta.basePath} className="bl-btn-ghost inline-flex">
+          <ChevronLeft size={14} /> {t(meta.backKey)}
         </Link>
 
         <h1

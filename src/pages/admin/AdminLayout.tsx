@@ -10,7 +10,8 @@ import {
   Newspaper, FolderKanban, Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SITE_NAME } from "@/lib/constants";
+
+const SITE_NAME = "Descubra Juiz de Fora";
 
 const NAV_LINKS = [
   { label: "Atrativos", href: "/admin", icon: MapPin },

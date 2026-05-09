@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CategoryGridPage } from "@/components/ui/CategoryGridPage";
 import { useServiceCategories, useServices } from "@/hooks/useServices";
 
 export default function PasseioList() {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState("");
 
   const { data: categories, isLoading: loadingCats } = useServiceCategories("passeios");
@@ -10,15 +12,15 @@ export default function PasseioList() {
 
   return (
     <CategoryGridPage
-      title="A Gente Se Vê Por Aí"
-      subtitle="Descubra experiências e passeios pela cidade"
+      title={t("tours.title")}
+      subtitle={t("tours.subtitle")}
       categories={categories}
       items={items}
       isLoadingCategories={loadingCats}
       isLoadingItems={loadingItems}
       selected={selected}
       onSelect={setSelected}
-      emptyMessage="Nenhum passeio encontrado nesta categoria."
+      emptyMessage={t("tours.empty")}
     />
   );
 }

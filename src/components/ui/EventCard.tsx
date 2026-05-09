@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CalendarDays, MapPin } from "lucide-react";
 import { formatDateShort } from "@/lib/utils";
 import type { Evento } from "@/types/database";
@@ -7,6 +8,7 @@ type EventCardProps = {
 };
 
 export function EventCard({ event }: EventCardProps) {
+  const { t } = useTranslation();
   const inner = (
     <>
       <div
@@ -33,7 +35,7 @@ export function EventCard({ event }: EventCardProps) {
               color: "var(--color-bl-ink)",
             }}
           >
-            Gratuito
+            {t("events.card.free")}
           </span>
         )}
 
@@ -50,7 +52,7 @@ export function EventCard({ event }: EventCardProps) {
           </span>
           {event.data_fim && event.data_fim !== event.data_inicio && (
             <span className="block text-[10px] italic opacity-80">
-              até {formatDateShort(event.data_fim)}
+              {t("events.card.until")} {formatDateShort(event.data_fim)}
             </span>
           )}
         </div>

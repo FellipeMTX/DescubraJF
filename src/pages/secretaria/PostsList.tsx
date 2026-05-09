@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { usePosts } from "@/hooks/usePosts";
@@ -10,41 +11,42 @@ const BASE_PATHS: Record<PostCategoria, string> = {
   programa_projeto: "/secretaria/programas-e-projetos",
 };
 
-const COPY: Record<
+const I18N_KEYS: Record<
   PostCategoria,
   { kicker: string; title: string; highlight: string; subtitle: string; empty: string }
 > = {
   noticia: {
-    kicker: "Secretaria de Turismo",
-    title: "Últimas",
-    highlight: "Notícias",
-    subtitle: "Acompanhe as últimas notícias da Secretaria de Turismo de Juiz de Fora.",
-    empty: "Nenhuma notícia publicada no momento.",
+    kicker: "posts.news.kicker",
+    title: "posts.news.list.title",
+    highlight: "posts.news.list.titleHighlight",
+    subtitle: "posts.news.list.subtitle",
+    empty: "posts.news.list.empty",
   },
   programa_projeto: {
-    kicker: "Secretaria de Turismo",
-    title: "Programas e",
-    highlight: "Projetos",
-    subtitle: "Conheça os programas e projetos da Secretaria de Turismo de Juiz de Fora.",
-    empty: "Nenhum programa ou projeto publicado no momento.",
+    kicker: "posts.programs.kicker",
+    title: "posts.programs.list.title",
+    highlight: "posts.programs.list.titleHighlight",
+    subtitle: "posts.programs.list.subtitle",
+    empty: "posts.programs.list.empty",
   },
 };
 
 type Props = { categoria: PostCategoria };
 
 export default function PostsList({ categoria }: Props) {
+  const { t } = useTranslation();
   const { data: posts, isLoading } = usePosts(categoria);
   const basePath = BASE_PATHS[categoria];
-  const copy = COPY[categoria];
+  const keys = I18N_KEYS[categoria];
 
   return (
     <div className="bl-app min-h-screen">
       <div className="mx-auto max-w-7xl px-14 py-12">
         <PageHeader
-          kicker={copy.kicker}
-          title={copy.title}
-          highlight={copy.highlight}
-          subtitle={copy.subtitle}
+          kicker={t(keys.kicker)}
+          title={t(keys.title)}
+          highlight={t(keys.highlight)}
+          subtitle={t(keys.subtitle)}
         />
 
         {isLoading ? (
@@ -77,7 +79,7 @@ export default function PostsList({ categoria }: Props) {
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
-                    <div className="bl-ph h-full w-full">Sem imagem</div>
+                    <div className="bl-ph h-full w-full">{t("common.noImage")}</div>
                   )}
                 </div>
                 <div className="flex flex-1 flex-col p-6">
@@ -102,7 +104,7 @@ export default function PostsList({ categoria }: Props) {
             className="mt-12 text-center"
             style={{ color: "var(--color-bl-muted)" }}
           >
-            {copy.empty}
+            {t(keys.empty)}
           </p>
         )}
       </div>

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CategoryGridPage } from "@/components/ui/CategoryGridPage";
 import { useServiceCategories, useServices } from "@/hooks/useServices";
 
 export default function ServiceList() {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState("");
 
   const { data: categories, isLoading: loadingCats } = useServiceCategories("servicos");
@@ -10,15 +12,15 @@ export default function ServiceList() {
 
   return (
     <CategoryGridPage
-      title="Serviços"
-      subtitle="Serviços úteis para sua estadia em Juiz de Fora"
+      title={t("services.title")}
+      subtitle={t("services.subtitle")}
       categories={categories}
       items={items}
       isLoadingCategories={loadingCats}
       isLoadingItems={loadingItems}
       selected={selected}
       onSelect={setSelected}
-      emptyMessage="Nenhum serviço encontrado nesta categoria."
+      emptyMessage={t("services.empty")}
     />
   );
 }

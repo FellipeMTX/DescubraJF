@@ -1,40 +1,43 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const FOOTER_COLUMNS: ReadonlyArray<{
-  title: string;
-  links: ReadonlyArray<{ label: string; href: string }>;
+  titleKey: string;
+  links: ReadonlyArray<{ labelKey: string; href: string }>;
 }> = [
   {
-    title: "História",
-    links: [{ label: "Ir para História", href: "/juiz-de-fora/historia" }],
+    titleKey: "footer.columns.history",
+    links: [{ labelKey: "footer.links.history", href: "/juiz-de-fora/historia" }],
   },
   {
-    title: "O que Fazer",
+    titleKey: "footer.columns.whatToDo",
     links: [
-      { label: "Atrativos", href: "/atrativos" },
-      { label: "Roteiros", href: "/roteiros" },
-      { label: "Agenda", href: "/agenda" },
+      { labelKey: "footer.links.attractions", href: "/atrativos" },
+      { labelKey: "footer.links.routes", href: "/roteiros" },
+      { labelKey: "footer.links.events", href: "/agenda" },
     ],
   },
   {
-    title: "Onde Comer",
-    links: [{ label: "Estabelecimentos", href: "/onde-comer" }],
+    titleKey: "footer.columns.whereToEat",
+    links: [{ labelKey: "footer.links.establishments", href: "/onde-comer" }],
   },
   {
-    title: "Onde Ficar",
-    links: [{ label: "Hospedagens", href: "/onde-ficar" }],
+    titleKey: "footer.columns.whereToStay",
+    links: [{ labelKey: "footer.links.lodging", href: "/onde-ficar" }],
   },
   {
-    title: "Serviços",
+    titleKey: "footer.columns.services",
     links: [
-      { label: "Institucional", href: "/servicos" },
-      { label: "A Gente Se Vê Por Aí", href: "/passeios" },
-      { label: "Contato", href: "/contato" },
+      { labelKey: "footer.links.institutional", href: "/servicos" },
+      { labelKey: "footer.links.tours", href: "/passeios" },
+      { labelKey: "footer.links.contact", href: "/contato" },
     ],
   },
 ];
 
 export function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer
       className="px-14 pt-20 pb-10"
@@ -43,9 +46,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 border-b border-black/10 pb-14 md:grid-cols-5">
           {FOOTER_COLUMNS.map((col) => (
-            <div key={col.title}>
+            <div key={col.titleKey}>
               <div className="mb-4 text-[11px] font-semibold uppercase tracking-widest">
-                {col.title}
+                {t(col.titleKey)}
               </div>
               {col.links.map((link) => (
                 <Link
@@ -54,7 +57,7 @@ export function Footer() {
                   className="mb-2 block text-[13px] transition-colors hover:text-[var(--color-bl-ink)]"
                   style={{ color: "var(--color-bl-muted)" }}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               ))}
             </div>
@@ -68,7 +71,7 @@ export function Footer() {
           >
             <img
               src="/LogoSeturColor.png"
-              alt="Secretaria de Turismo - Prefeitura de Juiz de Fora"
+              alt={t("common.tourismLogoAlt")}
               className="h-20 object-contain"
             />
           </a>

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Phone, Mail, Globe, ExternalLink, MapPin, LayoutGrid } from "lucide-react";
 import { getIconByName } from "@/components/ui/IconPicker";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -106,6 +107,7 @@ export function CategoryGridPage({
   onSelect,
   emptyMessage,
 }: CategoryGridPageProps) {
+  const { t } = useTranslation();
   const selectedCategory = categories?.find((c) => c.slug === selected);
 
   useEffect(() => {
@@ -249,7 +251,7 @@ export function CategoryGridPage({
                               className="flex items-center gap-2 text-xs hover:underline"
                               style={{ color: "var(--color-bl-muted)" }}
                             >
-                              <Globe size={12} /> Site oficial
+                              <Globe size={12} /> {t("categoryGrid.siteOfficial")}
                             </a>
                           )}
                           {item.contato?.instagram && (
@@ -260,7 +262,7 @@ export function CategoryGridPage({
                               className="flex items-center gap-2 text-xs hover:underline"
                               style={{ color: "var(--color-bl-muted)" }}
                             >
-                              <ExternalLink size={12} /> Instagram
+                              <ExternalLink size={12} /> {t("categoryGrid.instagram")}
                             </a>
                           )}
                         </div>
@@ -272,7 +274,7 @@ export function CategoryGridPage({
                           rel="noopener noreferrer"
                           className="bl-btn-ghost mt-4 inline-flex"
                         >
-                          <ExternalLink size={14} /> Acessar
+                          <ExternalLink size={14} /> {t("categoryGrid.access")}
                         </a>
                       )}
                     </div>

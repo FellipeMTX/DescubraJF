@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Compass } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBanners } from "@/hooks/useBanners";
@@ -7,6 +8,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 export function HeroBanner() {
+  const { t } = useTranslation();
   const { data: banners, isLoading } = useBanners();
   const [idx, setIdx] = useState(0);
   const { ref: cardRef, isVisible: cardVisible } = useScrollReveal<HTMLDivElement>(0.05);
@@ -16,8 +18,8 @@ export function HeroBanner() {
     : [
         {
           id: "fallback",
-          titulo: "Descubra Juiz de Fora",
-          subtitulo: "Mais que um destino, uma experiência inesquecível",
+          titulo: t("home.hero.fallbackTitle"),
+          subtitulo: t("home.hero.fallbackSubtitle"),
           imagem_url: "",
           link: null,
         },
@@ -56,7 +58,7 @@ export function HeroBanner() {
       >
         <Link
           to="/atrativos"
-          aria-label="Ver atrativos"
+          aria-label={t("home.hero.viewAttractions")}
           className="absolute inset-0 block"
         >
           {hasImage ? (
@@ -95,7 +97,7 @@ export function HeroBanner() {
               className="dot"
               style={{ background: "var(--color-bl-accent2)" }}
             />
-            {slide.subtitulo ? "Em destaque" : "Descubra"}
+            {slide.subtitulo ? t("home.hero.kickerHighlight") : t("home.hero.kickerDiscover")}
           </div>
 
           <h1
@@ -119,7 +121,7 @@ export function HeroBanner() {
 
           <div className="pointer-events-auto mt-8 flex items-center gap-3">
             <Link to="/atrativos" className="bl-btn">
-              Saiba mais <ArrowRight size={14} />
+              {t("home.hero.learnMore")} <ArrowRight size={14} />
             </Link>
             <Link
               to="/roteiros"
@@ -129,7 +131,7 @@ export function HeroBanner() {
                 borderColor: "rgba(255,255,255,0.3)",
               }}
             >
-              Roteiros <Compass size={14} />
+              {t("home.hero.routes")} <Compass size={14} />
             </Link>
           </div>
 
@@ -139,7 +141,7 @@ export function HeroBanner() {
                 <button
                   key={i}
                   onClick={() => setIdx(i)}
-                  aria-label={`Slide ${i + 1}`}
+                  aria-label={t("home.hero.slideAria", { n: i + 1 })}
                   className="cursor-pointer border-0 transition-all duration-300"
                   style={{
                     width: i === idx ? 28 : 8,

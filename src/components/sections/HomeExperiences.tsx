@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFeaturedExperiences } from "@/hooks/useExperiences";
@@ -6,6 +7,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 export function HomeExperiences() {
+  const { t } = useTranslation();
   const { data: experiences, isLoading } = useFeaturedExperiences();
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal<HTMLDivElement>(0.12);
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal<HTMLDivElement>(0.1);
@@ -22,13 +24,13 @@ export function HomeExperiences() {
         >
           <div>
             <div className="bl-kicker mb-5">
-              <span className="bl-num">01.</span> O que fazer
+              <span className="bl-num">01.</span> {t("home.experiences.kicker")}
             </div>
             <h2
               className="bl-display m-0"
               style={{ fontSize: "clamp(40px, 4.4vw, 64px)" }}
             >
-              Tem tudo em <span className="bl-em">Juiz de Fora</span>
+              {t("home.experiences.title")} <span className="bl-em">{t("home.experiences.titleHighlight")}</span>
             </h2>
           </div>
           <div>
@@ -36,11 +38,10 @@ export function HomeExperiences() {
               className="mb-4 text-base leading-[1.7]"
               style={{ color: "var(--color-bl-muted)" }}
             >
-              Dos parques históricos aos mirantes mais celebrados, viva
-              experiências inesquecíveis em cada esquina.
+              {t("home.experiences.description")}
             </p>
             <Link to="/atrativos" className="bl-btn-soft">
-              Ver todos os atrativos <ArrowRight size={14} />
+              {t("home.experiences.cta")} <ArrowRight size={14} />
             </Link>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { Children, useEffect, useRef, useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { InteractiveMap, type MapItem } from "@/components/ui/InteractiveMap";
@@ -64,6 +65,7 @@ export function MapSection({
   activeId: string | null;
   isLoading: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="relative z-0 mt-8">
       {items.length > 0 ? (
@@ -79,7 +81,7 @@ export function MapSection({
           className="flex h-72 items-center justify-center rounded-[28px] md:h-80"
           style={{ background: "var(--color-bl-card)", color: "var(--color-bl-muted)" }}
         >
-          {isLoading ? "Carregando mapa..." : "Nenhum local com coordenadas"}
+          {isLoading ? t("common.loadingMap") : t("common.noMapLocations")}
         </div>
       )}
     </div>
@@ -248,10 +250,11 @@ function ScrollArrow({
   direction: "left" | "right";
   onClick: () => void;
 }) {
+  const { t } = useTranslation();
   const Icon = direction === "left" ? ChevronLeft : ChevronRight;
   return (
     <button
-      aria-label={direction === "left" ? "Anterior" : "Próximo"}
+      aria-label={direction === "left" ? t("common.previous") : t("common.next")}
       onClick={onClick}
       className={cn(
         "absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-black/10 shadow-lg transition-transform hover:scale-105 active:scale-95",
