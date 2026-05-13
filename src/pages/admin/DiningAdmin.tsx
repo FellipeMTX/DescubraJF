@@ -13,11 +13,13 @@ import { AddressSearch } from "@/components/ui/AddressSearch";
 import { MapPreview } from "@/components/ui/MapPreview";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { CategoryManagerDialog } from "@/components/ui/CategoryManagerDialog";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { cn } from "@/lib/utils";
 import { useDiningEstablishments, useDiningCategories } from "@/hooks/useDining";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
 import { slugify } from "@/lib/utils";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { EstabelecimentoGastronomia } from "@/types/database";
 
 type FormData = {
@@ -173,7 +175,14 @@ export default function DiningAdmin() {
                   ))}
                 </div>
               </Field>
-              <Field label="Foto principal"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
+              <Field label="Foto principal">
+                <ImageUploadField
+                  value={imageFile}
+                  onChange={setImageFile}
+                  aspect={IMAGE_RATIOS_NUM.cardLandscape}
+                  currentUrl={editing?.imagem_destaque}
+                />
+              </Field>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-semibold text-foreground">Localização</h3>
                 <InfoTooltip text="Use a ferramenta de buscar endereço para facilitar a busca. Caso não seja encontrado, digite o endereço manualmente e busque sua geolocalização no Google Maps." />

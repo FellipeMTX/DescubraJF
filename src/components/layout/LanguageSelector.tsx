@@ -15,8 +15,9 @@ type Props = {
 
 export function LanguageSelector({ variant = "header" }: Props) {
   const { i18n, t } = useTranslation();
+  const activeCode = i18n.resolvedLanguage ?? i18n.language;
   const current =
-    SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) ??
+    SUPPORTED_LANGUAGES.find((l) => l.code === activeCode) ??
     SUPPORTED_LANGUAGES[0];
 
   const triggerClass =

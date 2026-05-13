@@ -110,7 +110,7 @@ export function ItemCard({
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       onClick={onClick}
-      className="h-40 w-80 shrink-0 cursor-pointer justify-self-start"
+      className="h-40 w-full cursor-pointer"
     >
       <div
         className={cn(
@@ -185,7 +185,7 @@ export function CardsGrid({
   const count = Children.count(children);
   if (count <= 6) {
     return (
-      <div className="mt-8 flex flex-wrap gap-4">
+      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {children}
       </div>
     );
@@ -282,10 +282,10 @@ export function DetailModal({
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>
       <DialogContent
-        className="max-h-[90vh] max-w-4xl overflow-y-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-5xl"
+        className="max-h-[88vh] w-full max-w-[calc(100%-2rem)] overflow-y-auto rounded-2xl p-0 sm:max-w-md md:max-w-lg"
         style={{ background: "var(--color-bl-bg)", color: "var(--color-bl-ink)" }}
       >
-        {children}
+        <div className="flex flex-col gap-3 p-5">{children}</div>
       </DialogContent>
     </Dialog>
   );
@@ -302,5 +302,59 @@ export function AttributePill({ children }: { children: ReactNode }) {
     >
       {children}
     </span>
+  );
+}
+
+export function ModalPill({ icon, children }: { icon?: ReactNode; children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full bg-primary-100 px-2.5 py-1 text-xs font-medium text-primary-700">
+      {icon}
+      {children}
+    </span>
+  );
+}
+
+export function ModalInfoRow({ icon, children }: { icon: ReactNode; children: ReactNode }) {
+  return (
+    <div className="flex items-start gap-2.5 text-sm text-[var(--color-bl-muted)]">
+      <span className="mt-0.5 shrink-0 text-primary-600">{icon}</span>
+      <div className="min-w-0 flex-1">{children}</div>
+    </div>
+  );
+}
+
+export function ModalContactLink({
+  href,
+  icon,
+  external,
+  children,
+}: {
+  href: string;
+  icon: ReactNode;
+  external?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] transition-colors hover:text-primary-600"
+    >
+      <span className="shrink-0">{icon}</span>
+      <span className="truncate">{children}</span>
+    </a>
+  );
+}
+
+export function ModalScheduleList({ schedule }: { schedule: Record<string, unknown> }) {
+  return (
+    <dl className="space-y-0.5">
+      {Object.entries(schedule).map(([day, hours]) => (
+        <div key={day} className="flex justify-between gap-4 text-sm">
+          <dt className="capitalize text-[var(--color-bl-muted)]">{day}</dt>
+          <dd className="font-medium text-primary-800">{hours as string}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }

@@ -4,11 +4,18 @@ import { useTranslation } from "react-i18next";
 import { MapPin, Accessibility, Dog, DollarSign, Clock, Phone, Mail, Globe, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { CategoryFilter } from "@/components/ui/CategoryFilter";
 import { ListPage } from "@/components/ui/ListPage";
+import { AspectImage } from "@/components/ui/AspectImage";
+import {
+  ModalPill,
+  ModalInfoRow,
+  ModalContactLink,
+  ModalScheduleList,
+} from "@/components/ui/ListPageLayout";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import {
   useExperiences,
   useExperienceCategories,
@@ -80,77 +87,55 @@ function ExperienceModalContent({ slug }: { slug: string }) {
 
   return (
     <>
-      <DialogHeader>
+      {exp.imagem_destaque && (
+        <AspectImage
+          src={exp.imagem_destaque}
+          alt={exp.nome}
+          ratio={IMAGE_RATIOS.postCover}
+          className="-mx-5 -mt-5 rounded-t-2xl"
+        />
+      )}
+      <DialogHeader className="gap-1.5">
         {exp.categoria && (
           <Badge className="w-fit text-accent-50" style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}>{exp.categoria.nome}</Badge>
         )}
-        <DialogTitle className="text-xl font-bold text-primary-800">{exp.nome}</DialogTitle>
+        <DialogTitle className="text-lg font-bold text-primary-800">{exp.nome}</DialogTitle>
       </DialogHeader>
-      {exp.imagem_destaque && <img src={exp.imagem_destaque} alt={exp.nome} className="h-56 w-full rounded-xl object-cover" />}
-      <div className="flex flex-wrap gap-2">
-        {exp.gratuito && <InfoBadge icon={<DollarSign size={14} />} label={t("experiences.badges.free")} />}
-        {exp.acessibilidade && <InfoBadge icon={<Accessibility size={14} />} label={t("experiences.badges.accessible")} />}
-        {exp.pet_friendly && <InfoBadge icon={<Dog size={14} />} label={t("experiences.badges.petFriendly")} />}
-      </div>
-      {exp.descricao && <p className="whitespace-pre-line text-sm leading-relaxed text-primary-700">{exp.descricao}</p>}
-      <Separator className="bg-primary-100" />
-      {hasSchedule && (
-        <InfoSection icon={<Clock size={14} />} title={t("experiences.sections.schedule")}>
-          <dl className="mt-2 space-y-1">
-            {Object.entries(exp.horario_funcionamento!).map(([day, hours]) => (
-              <div key={day} className="flex justify-between text-sm">
-                <dt className="capitalize text-[var(--color-bl-muted)]">{day}</dt>
-                <dd className="font-medium text-primary-800">{hours as string}</dd>
-              </div>
-            ))}
-          </dl>
-        </InfoSection>
+      {(exp.gratuito || exp.acessibilidade || exp.pet_friendly) && (
+        <div className="flex flex-wrap gap-1.5">
+          {exp.gratuito && <ModalPill icon={<DollarSign size={12} />}>{t("experiences.badges.free")}</ModalPill>}
+          {exp.acessibilidade && <ModalPill icon={<Accessibility size={12} />}>{t("experiences.badges.accessible")}</ModalPill>}
+          {exp.pet_friendly && <ModalPill icon={<Dog size={12} />}>{t("experiences.badges.petFriendly")}</ModalPill>}
+        </div>
       )}
-      {exp.endereco && (
-        <InfoSection icon={<MapPin size={14} />} title={t("experiences.sections.address")}>
-          <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{exp.endereco}{exp.bairro && ` - ${exp.bairro}`}</p>
-        </InfoSection>
+      {exp.descricao && (
+        <p className="text-sm leading-relaxed text-primary-700">{exp.descricao}</p>
       )}
-      {hasContact && (
-        <InfoSection icon={<Phone size={14} />} title={t("experiences.sections.contact")}>
-          <div className="mt-2 space-y-1">
-            {exp.contato?.telefone && <ContactLink href={`tel:${exp.contato.telefone}`} icon={<Phone size={12} />}>{exp.contato.telefone}</ContactLink>}
-            {exp.contato?.email && <ContactLink href={`mailto:${exp.contato.email}`} icon={<Mail size={12} />}>{exp.contato.email}</ContactLink>}
-            {exp.contato?.site && <ContactLink href={exp.contato.site} icon={<Globe size={12} />} external>{t("experiences.links.website")}</ContactLink>}
-            {exp.contato?.instagram && <ContactLink href={exp.contato.instagram} icon={<ExternalLink size={12} />} external>{t("experiences.links.instagram")}</ContactLink>}
+      <div className="space-y-2.5 border-t border-primary-100 pt-3">
+        {hasSchedule && (
+          <ModalInfoRow icon={<Clock size={14} />}>
+            <ModalScheduleList schedule={exp.horario_funcionamento!} />
+          </ModalInfoRow>
+        )}
+        {exp.endereco && (
+          <ModalInfoRow icon={<MapPin size={14} />}>
+            {exp.endereco}{exp.bairro && ` - ${exp.bairro}`}
+          </ModalInfoRow>
+        )}
+        {hasContact && (
+          <div className="space-y-1">
+            {exp.contato?.telefone && <ModalContactLink href={`tel:${exp.contato.telefone}`} icon={<Phone size={14} />}>{exp.contato.telefone}</ModalContactLink>}
+            {exp.contato?.email && <ModalContactLink href={`mailto:${exp.contato.email}`} icon={<Mail size={14} />}>{exp.contato.email}</ModalContactLink>}
+            {exp.contato?.site && <ModalContactLink href={exp.contato.site} icon={<Globe size={14} />} external>{t("experiences.links.website")}</ModalContactLink>}
+            {exp.contato?.instagram && <ModalContactLink href={exp.contato.instagram} icon={<ExternalLink size={14} />} external>{t("experiences.links.instagram")}</ModalContactLink>}
           </div>
-        </InfoSection>
-      )}
+        )}
+      </div>
       {exp.contato?.maps_link && (
-        <a href={exp.contato.maps_link} target="_blank" rel="noopener noreferrer">
-          <Button variant="outline" size="sm"><MapPin size={14} /> {t("experiences.links.googleMaps")}</Button>
+        <a href={exp.contato.maps_link} target="_blank" rel="noopener noreferrer" className="w-full">
+          <Button variant="outline" size="sm" className="w-full"><MapPin size={14} /> {t("experiences.links.googleMaps")}</Button>
         </a>
       )}
     </>
-  );
-}
-
-function InfoBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-      {icon} {label}
-    </div>
-  );
-}
-
-function InfoSection({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800">{icon} {title}</h3>
-      {children}
-    </div>
-  );
-}
-
-function ContactLink({ href, icon, external, children }: { href: string; icon: React.ReactNode; external?: boolean; children: React.ReactNode }) {
-  return (
-    <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600">
-      {icon} {children}
-    </a>
   );
 }

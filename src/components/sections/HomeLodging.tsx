@@ -2,8 +2,11 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AspectImage } from "@/components/ui/AspectImage";
+import { StarRating } from "@/components/ui/StarRating";
 import { useFeaturedLodgings } from "@/hooks/useLodging";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function HomeLodging() {
@@ -73,18 +76,12 @@ export function HomeLodging() {
                 className="bl-card bl-card-pop block"
                 style={{ background: "var(--color-bl-bg)" }}
               >
-                <div className="relative aspect-3/4 overflow-hidden">
-                  {h.imagem_destaque ? (
-                    <img
-                      src={h.imagem_destaque}
-                      alt={h.nome}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="bl-ph h-full w-full">
-                      <span>{h.nome}</span>
-                    </div>
-                  )}
+                <AspectImage
+                  src={h.imagem_destaque}
+                  alt={h.nome}
+                  ratio={IMAGE_RATIOS.cardTall}
+                  placeholder={<span>{h.nome}</span>}
+                >
                   <div
                     className="bl-kicker absolute top-3 left-3 text-[10px]"
                     style={{
@@ -94,16 +91,15 @@ export function HomeLodging() {
                   >
                     {h.tipo || t("home.lodging.typeDefault")}
                   </div>
-                </div>
+                </AspectImage>
                 <div className="p-[18px]">
                   {h.estrelas ? (
-                    <div className="mb-1.5 flex gap-px">
-                      {Array.from({ length: h.estrelas }).map((_, j) => (
-                        <span key={j} style={{ color: "var(--color-bl-accent2)" }}>
-                          ★
-                        </span>
-                      ))}
-                    </div>
+                    <StarRating
+                      value={h.estrelas}
+                      size={13}
+                      className="mb-1.5"
+                      color="var(--color-bl-accent2)"
+                    />
                   ) : null}
                   <div className="bl-display text-xl">{h.nome}</div>
                   <div

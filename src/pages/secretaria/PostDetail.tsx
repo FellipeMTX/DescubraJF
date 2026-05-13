@@ -2,9 +2,11 @@ import { Link, useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AspectImage } from "@/components/ui/AspectImage";
 import { usePostBySlug } from "@/hooks/usePosts";
 import { formatDate } from "@/lib/utils";
 import { renderPostContent } from "@/lib/renderPostContent";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import type { PostCategoria } from "@/types/database";
 
 const PATHS: Record<PostCategoria, { backKey: string; basePath: string }> = {
@@ -80,11 +82,12 @@ export default function PostDetail({ categoria }: Props) {
         </div>
 
         {post.imagem_capa && (
-          <img
+          <AspectImage
             src={post.imagem_capa}
             alt={post.titulo}
-            className="mt-10 aspect-video w-full rounded-2xl object-cover"
-            style={{ boxShadow: "0 12px 32px rgba(0,0,0,0.08)" }}
+            ratio={IMAGE_RATIOS.postCover}
+            className="mt-10 w-full rounded-2xl"
+            imgClassName="rounded-2xl"
           />
         )}
 

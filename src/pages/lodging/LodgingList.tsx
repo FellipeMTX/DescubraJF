@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MapPin, Star, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car } from "lucide-react";
+import { MapPin, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { StarRating } from "@/components/ui/StarRating";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ListPage } from "@/components/ui/ListPage";
+import { AspectImage } from "@/components/ui/AspectImage";
+import {
+  ModalPill,
+  ModalInfoRow,
+  ModalContactLink,
+} from "@/components/ui/ListPageLayout";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import { useLodgingEstablishments, useLodgingBySlug } from "@/hooks/useLodging";
 import type { Hospedagem } from "@/types/database";
 
@@ -64,57 +71,65 @@ function LodgingModalContent({ slug }: { slug: string }) {
 
   return (
     <>
-      <DialogHeader>
+      {lodging.imagem_destaque && (
+        <AspectImage
+          src={lodging.imagem_destaque}
+          alt={lodging.nome}
+          ratio={IMAGE_RATIOS.postCover}
+          className="-mx-5 -mt-5 rounded-t-2xl"
+        />
+      )}
+      <DialogHeader className="gap-1.5">
         <Badge className="w-fit bg-primary-700 text-accent-50 capitalize">{lodging.tipo}</Badge>
-        <DialogTitle className="text-xl font-bold text-primary-800">{lodging.nome}</DialogTitle>
+        <DialogTitle className="text-lg font-bold text-primary-800">{lodging.nome}</DialogTitle>
         {lodging.estrelas && (
-          <div className="flex gap-0.5">
-            {Array.from({ length: lodging.estrelas }).map((_, s) => (
-              <Star key={s} size={16} className="fill-primary-400 text-primary-400" />
-            ))}
-          </div>
+          <StarRating value={lodging.estrelas} size={14} className="text-primary-400" />
         )}
       </DialogHeader>
-      {lodging.imagem_destaque && <img src={lodging.imagem_destaque} alt={lodging.nome} className="h-56 w-full rounded-xl object-cover" />}
       {lodging.imagens && lodging.imagens.length > 0 && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-1.5">
           {lodging.imagens.slice(0, 4).map((img, i) => (
-            <img key={i} src={img} alt={`${lodging.nome} - ${i + 1}`} className="h-20 w-full rounded-lg object-cover" />
+            <img key={i} src={img} alt={`${lodging.nome} - ${i + 1}`} className="aspect-square w-full rounded-md object-cover" />
           ))}
         </div>
       )}
-      <div className="flex flex-wrap gap-2">
-        {lodging.faixa_preco && PRICE_KEYS[lodging.faixa_preco] && (
-          <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-            {t(PRICE_KEYS[lodging.faixa_preco])}
+      {((lodging.faixa_preco && PRICE_KEYS[lodging.faixa_preco]) || (lodging.comodidades && lodging.comodidades.length > 0)) && (
+        <div className="flex flex-wrap gap-1.5">
+          {lodging.faixa_preco && PRICE_KEYS[lodging.faixa_preco] && (
+            <ModalPill>{t(PRICE_KEYS[lodging.faixa_preco])}</ModalPill>
+          )}
+          {lodging.comodidades?.map((c) => (
+            <ModalPill
+              key={c}
+              icon={c === "wifi" ? <Wifi size={12} /> : c === "estacionamento" ? <Car size={12} /> : undefined}
+            >
+              <span className="capitalize">{c}</span>
+            </ModalPill>
+          ))}
+        </div>
+      )}
+      {lodging.descricao && (
+        <p className="text-sm leading-relaxed text-primary-700">{lodging.descricao}</p>
+      )}
+      <div className="space-y-2.5 border-t border-primary-100 pt-3">
+        {lodging.endereco && (
+          <ModalInfoRow icon={<MapPin size={14} />}>
+            {lodging.endereco}{lodging.bairro && ` - ${lodging.bairro}`}
+          </ModalInfoRow>
+        )}
+        {hasContact && (
+          <div className="space-y-1">
+            {lodging.contato?.telefone && <ModalContactLink href={`tel:${lodging.contato.telefone}`} icon={<Phone size={14} />}>{lodging.contato.telefone}</ModalContactLink>}
+            {lodging.contato?.email && <ModalContactLink href={`mailto:${lodging.contato.email}`} icon={<Mail size={14} />}>{lodging.contato.email}</ModalContactLink>}
+            {lodging.contato?.site && <ModalContactLink href={lodging.contato.site} icon={<Globe size={14} />} external>{t("lodging.links.website")}</ModalContactLink>}
+            {lodging.contato?.booking_url && (
+              <a href={lodging.contato.booking_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-primary-500 transition-colors hover:text-primary-600">
+                <ExternalLink size={14} /> {t("lodging.links.booking")}
+              </a>
+            )}
           </div>
         )}
-        {lodging.comodidades?.map((c) => (
-          <div key={c} className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700 capitalize">
-            {c === "wifi" ? <Wifi size={14} /> : c === "estacionamento" ? <Car size={14} /> : null}
-            {c}
-          </div>
-        ))}
       </div>
-      {lodging.descricao && <p className="whitespace-pre-line text-sm leading-relaxed text-primary-700">{lodging.descricao}</p>}
-      <Separator className="bg-primary-100" />
-      {lodging.endereco && (
-        <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> {t("lodging.sections.address")}</h3>
-          <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{lodging.endereco}{lodging.bairro && ` - ${lodging.bairro}`}</p>
-        </div>
-      )}
-      {hasContact && (
-        <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> {t("lodging.sections.contact")}</h3>
-          <div className="mt-2 space-y-1">
-            {lodging.contato?.telefone && <a href={`tel:${lodging.contato.telefone}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Phone size={12} /> {lodging.contato.telefone}</a>}
-            {lodging.contato?.email && <a href={`mailto:${lodging.contato.email}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Mail size={12} /> {lodging.contato.email}</a>}
-            {lodging.contato?.site && <a href={lodging.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> {t("lodging.links.website")}</a>}
-            {lodging.contato?.booking_url && <a href={lodging.contato.booking_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-primary-500 hover:text-primary-600"><ExternalLink size={12} /> {t("lodging.links.booking")}</a>}
-          </div>
-        </div>
-      )}
     </>
   );
 }

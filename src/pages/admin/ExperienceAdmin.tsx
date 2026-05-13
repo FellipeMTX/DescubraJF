@@ -17,10 +17,12 @@ import { AddressSearch } from "@/components/ui/AddressSearch";
 import { MapPreview } from "@/components/ui/MapPreview";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { CategoryManagerDialog } from "@/components/ui/CategoryManagerDialog";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useExperiences, useExperienceCategories } from "@/hooks/useExperiences";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
 import { slugify } from "@/lib/utils";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Experiencia } from "@/types/database";
 
 type FormData = {
@@ -192,6 +194,7 @@ export default function ExperienceAdmin() {
               form={form}
               categories={categories ?? []}
               imageFile={imageFile}
+              currentImageUrl={editing?.imagem_destaque ?? null}
               saving={saving}
               onUpdate={updateForm}
               onImageChange={setImageFile}
@@ -292,6 +295,7 @@ function ExperienceForm({
   form,
   categories,
   imageFile,
+  currentImageUrl,
   saving,
   onUpdate,
   onImageChange,
@@ -300,6 +304,7 @@ function ExperienceForm({
   form: FormData;
   categories: { id: string; nome: string }[];
   imageFile: File | null;
+  currentImageUrl: string | null;
   saving: boolean;
   onUpdate: (field: keyof FormData, value: string | boolean) => void;
   onImageChange: (file: File | null) => void;
@@ -351,17 +356,13 @@ function ExperienceForm({
         </select>
       </div>
 
-      <div>
-        <label className="text-sm font-medium text-foreground">Foto principal</label>
-        <Input
-          type="file"
-          accept="image/*"
-          onChange={(e) => onImageChange(e.target.files?.[0] ?? null)}
-        />
-        {imageFile && (
-          <p className="mt-1 text-xs text-muted-foreground">{imageFile.name}</p>
-        )}
-      </div>
+      <ImageUploadField
+        label="Foto principal"
+        value={imageFile}
+        onChange={onImageChange}
+        aspect={IMAGE_RATIOS_NUM.cardPortrait}
+        currentUrl={currentImageUrl}
+      />
 
       <div className="flex items-center gap-2">
         <h3 className="text-sm font-semibold text-foreground">Localização</h3>

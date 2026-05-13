@@ -82,7 +82,7 @@ function NavDropdown({
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-50 w-full pt-3">
+        <div className="absolute top-full z-50 pt-3 -translate-x-1/2 left-1/2" style={{ minWidth: "200px" }}>
           <div
             className="overflow-hidden rounded-2xl border border-black/5 p-1.5 shadow-xl"
             style={{ background: "var(--color-bl-bg)" }}

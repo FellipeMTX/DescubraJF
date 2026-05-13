@@ -3,10 +3,17 @@ import { useSearchParams } from "react-router";
 import { useTranslation } from "react-i18next";
 import { MapPin, UtensilsCrossed, DollarSign, Clock, Phone, Mail, Globe, ExternalLink, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ListPage } from "@/components/ui/ListPage";
+import { AspectImage } from "@/components/ui/AspectImage";
+import {
+  ModalPill,
+  ModalInfoRow,
+  ModalContactLink,
+  ModalScheduleList,
+} from "@/components/ui/ListPageLayout";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import { useDiningEstablishments, useDiningCategories, useDiningBySlug } from "@/hooks/useDining";
 import type { EstabelecimentoGastronomia } from "@/types/database";
 
@@ -62,57 +69,57 @@ function DiningModalContent({ slug }: { slug: string }) {
 
   return (
     <>
-      <DialogHeader>
-        {est.categorias?.map((cat) => (
-          <Badge key={cat.id} className="w-fit bg-primary-700 text-accent-50">{cat.nome}</Badge>
-        ))}
-        <DialogTitle className="text-xl font-bold text-primary-800">{est.nome}</DialogTitle>
-      </DialogHeader>
-      {est.imagem_destaque && <img src={est.imagem_destaque} alt={est.nome} className="h-56 w-full rounded-xl object-cover" />}
-      <div className="flex flex-wrap gap-2">
-        {est.faixa_preco && PRICE_KEYS[est.faixa_preco] && (
-          <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-            <DollarSign size={14} /> {t(PRICE_KEYS[est.faixa_preco])}
+      {est.imagem_destaque && (
+        <AspectImage
+          src={est.imagem_destaque}
+          alt={est.nome}
+          ratio={IMAGE_RATIOS.postCover}
+          className="-mx-5 -mt-5 rounded-t-2xl"
+        />
+      )}
+      <DialogHeader className="gap-1.5">
+        {est.categorias && est.categorias.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {est.categorias.map((cat) => (
+              <Badge key={cat.id} className="bg-primary-700 text-accent-50">{cat.nome}</Badge>
+            ))}
           </div>
         )}
-        {est.estacionamento && (
-          <div className="flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-            <Car size={14} /> {t("dining.amenities.parking")}
+        <DialogTitle className="text-lg font-bold text-primary-800">{est.nome}</DialogTitle>
+      </DialogHeader>
+      {((est.faixa_preco && PRICE_KEYS[est.faixa_preco]) || est.estacionamento) && (
+        <div className="flex flex-wrap gap-1.5">
+          {est.faixa_preco && PRICE_KEYS[est.faixa_preco] && (
+            <ModalPill icon={<DollarSign size={12} />}>{t(PRICE_KEYS[est.faixa_preco])}</ModalPill>
+          )}
+          {est.estacionamento && (
+            <ModalPill icon={<Car size={12} />}>{t("dining.amenities.parking")}</ModalPill>
+          )}
+        </div>
+      )}
+      {est.descricao && (
+        <p className="text-sm leading-relaxed text-primary-700">{est.descricao}</p>
+      )}
+      <div className="space-y-2.5 border-t border-primary-100 pt-3">
+        {hasSchedule && (
+          <ModalInfoRow icon={<Clock size={14} />}>
+            <ModalScheduleList schedule={est.horario_funcionamento!} />
+          </ModalInfoRow>
+        )}
+        {est.endereco && (
+          <ModalInfoRow icon={<MapPin size={14} />}>
+            {est.endereco}{est.bairro && ` - ${est.bairro}`}
+          </ModalInfoRow>
+        )}
+        {hasContact && (
+          <div className="space-y-1">
+            {est.contato?.telefone && <ModalContactLink href={`tel:${est.contato.telefone}`} icon={<Phone size={14} />}>{est.contato.telefone}</ModalContactLink>}
+            {est.contato?.email && <ModalContactLink href={`mailto:${est.contato.email}`} icon={<Mail size={14} />}>{est.contato.email}</ModalContactLink>}
+            {est.contato?.site && <ModalContactLink href={est.contato.site} icon={<Globe size={14} />} external>{t("dining.links.website")}</ModalContactLink>}
+            {est.contato?.instagram && <ModalContactLink href={est.contato.instagram} icon={<ExternalLink size={14} />} external>{t("dining.links.instagram")}</ModalContactLink>}
           </div>
         )}
       </div>
-      {est.descricao && <p className="whitespace-pre-line text-sm leading-relaxed text-primary-700">{est.descricao}</p>}
-      <Separator className="bg-primary-100" />
-      {hasSchedule && (
-        <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Clock size={14} /> {t("dining.sections.schedule")}</h3>
-          <dl className="mt-2 space-y-1">
-            {Object.entries(est.horario_funcionamento!).map(([day, hours]) => (
-              <div key={day} className="flex justify-between text-sm">
-                <dt className="capitalize text-[var(--color-bl-muted)]">{day}</dt>
-                <dd className="font-medium text-primary-800">{hours as string}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      )}
-      {est.endereco && (
-        <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><MapPin size={14} /> {t("dining.sections.address")}</h3>
-          <p className="mt-1 text-sm text-[var(--color-bl-muted)]">{est.endereco}{est.bairro && ` - ${est.bairro}`}</p>
-        </div>
-      )}
-      {hasContact && (
-        <div>
-          <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary-800"><Phone size={14} /> {t("dining.sections.contact")}</h3>
-          <div className="mt-2 space-y-1">
-            {est.contato?.telefone && <a href={`tel:${est.contato.telefone}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Phone size={12} /> {est.contato.telefone}</a>}
-            {est.contato?.email && <a href={`mailto:${est.contato.email}`} className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Mail size={12} /> {est.contato.email}</a>}
-            {est.contato?.site && <a href={est.contato.site} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><Globe size={12} /> {t("dining.links.website")}</a>}
-            {est.contato?.instagram && <a href={est.contato.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[var(--color-bl-muted)] hover:text-primary-600"><ExternalLink size={12} /> {t("dining.links.instagram")}</a>}
-          </div>
-        </div>
-      )}
     </>
   );
 }

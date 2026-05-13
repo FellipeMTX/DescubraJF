@@ -8,10 +8,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useRoutes } from "@/hooks/useRoutes";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
 import { slugify } from "@/lib/utils";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Roteiro } from "@/types/database";
 
 type FormData = {
@@ -112,7 +114,14 @@ export default function RouteAdmin() {
               <Field label="Link do mapa (embed URL do Google Maps)">
                 <Input value={form.mapa_url} onChange={(e) => update("mapa_url", e.target.value)} placeholder="https://www.google.com/maps/d/embed?mid=..." />
               </Field>
-              <Field label="Imagem de capa"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
+              <Field label="Imagem de capa">
+                <ImageUploadField
+                  value={imageFile}
+                  onChange={setImageFile}
+                  aspect={IMAGE_RATIOS_NUM.cardLandscape}
+                  currentUrl={editing?.imagem_destaque}
+                />
+              </Field>
               <Button onClick={handleSave} disabled={saving || !form.nome.trim()} className="w-full">
                 {saving ? "Salvando..." : "Salvar"}
               </Button>

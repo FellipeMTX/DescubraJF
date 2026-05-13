@@ -11,11 +11,19 @@ const TIMELINE_YEARS = [
 ] as const;
 
 const TIMELINE_IMAGES: Record<string, string | undefined> = {
-  "1857": "/Chegada-imigrantes-03.webp",
-  "1861": "/PacoMunicipal-01.webp",
-  "1890": "/ManchesterMineira-05.webp",
-  "1907": "/HotelAvenida-02.webp",
-  "1929": "/arq-07.webp",
+  "1703": "/Linha%20do%20tempo_%201703.jpg",
+  "1853": "/Linha%20do%20tempo%20-1853.jpg",
+  "1856": "/Linha%20do%20tempo_%201856.jpg",
+  "1857": "/Linha%20do%20tempo_%201857.jpg",
+  "1861": "/Linha%20do%20tempo_%201861.jpg",
+  "1865": "/Linha%20do%20tempo_%201865.jpg",
+  "1890": "/Linha%20do%20tempo_%201890.jpg",
+  "1907": "/Linha%20do%20tempo_%201907.jpg",
+  "1915": "/Linha%20do%20tempo_%201915.jpg",
+  "1929": "/Linha%20do%20tempo_%201929.jpg",
+  "1934": "/Linha%20do%20tempo_%201934.jpg",
+  "1977": "/Linha%20do%20tempo_%201977.jpg",
+  "2023": "/Linha%20do%20tempo_%202023.jpg",
 };
 
 export default function History() {
@@ -44,6 +52,7 @@ export default function History() {
       </HistStorySection>
       <HistStorySection
         reverse
+        background="var(--color-bl-card)"
         kicker="02."
         eyebrow={t("history.immigration.kicker")}
         title={
@@ -60,6 +69,7 @@ export default function History() {
       <HistManchester />
       <HistStorySection
         reverse
+        background="var(--color-bl-card)"
         kicker="04."
         eyebrow={t("history.architecture.kicker")}
         title={
@@ -88,7 +98,7 @@ function HistHero() {
         className="bl-card relative h-[78vh] min-h-[560px] overflow-hidden"
         style={{ borderRadius: 28, cursor: "default" }}
       >
-        <div className="absolute inset-0" style={{ background: "#3a2820" }} />
+        <img src="/Foto%202.jpg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
         <div
           className="absolute inset-0"
           style={{
@@ -357,6 +367,7 @@ function HistStorySection({
   image,
   imageCaption,
   reverse,
+  background,
   children,
 }: {
   kicker: string;
@@ -365,11 +376,13 @@ function HistStorySection({
   image: string;
   imageCaption?: string;
   reverse?: boolean;
+  background?: string;
   children: ReactNode;
 }) {
   const { ref, isVisible } = useScrollReveal<HTMLDivElement>(0.1);
+  const kickerBg = background ? { background: "var(--color-bl-bg)" } : undefined;
   return (
-    <section className="relative overflow-hidden px-14 py-24">
+    <section className="relative overflow-hidden px-14 py-18" style={background ? { background } : undefined}>
       <div
         ref={ref}
         className={cn(
@@ -378,7 +391,7 @@ function HistStorySection({
         )}
       >
         <div className={cn(reverse && "md:order-2")}>
-          <div className="bl-kicker mb-6">
+          <div className="bl-kicker mb-6" style={kickerBg}>
             <span className="bl-num">{kicker}</span> {eyebrow}
           </div>
           <h2
@@ -437,10 +450,7 @@ function HistManchester() {
   ];
 
   return (
-    <section
-      className="relative overflow-hidden px-14 py-24"
-      style={{ background: "var(--color-bl-card)" }}
-    >
+    <section className="relative overflow-hidden px-14 py-18">
       <div
         className="bl-blob bl-float"
         style={{
@@ -459,7 +469,7 @@ function HistManchester() {
           isVisible && "in"
         )}
       >
-        <figure className="m-0">
+        <figure className="m-0 md:order-2">
           <div
             className="bl-card relative aspect-4/5 overflow-hidden"
             style={{
@@ -469,7 +479,7 @@ function HistManchester() {
             }}
           >
             <img
-              src="/ManchesterMineira-05.webp"
+              src="/Foto%204.jpg"
               alt={t("history.manchester.imageAlt")}
               loading="lazy"
               className="h-full w-full object-cover"
@@ -485,11 +495,8 @@ function HistManchester() {
             {t("history.manchester.imageCaption")}
           </figcaption>
         </figure>
-        <div>
-          <div
-            className="bl-kicker mb-6"
-            style={{ background: "var(--color-bl-bg)" }}
-          >
+        <div className="md:order-1">
+          <div className="bl-kicker mb-6">
             <span className="bl-num">03.</span> {t("history.manchester.kicker")}
           </div>
           <h2
@@ -617,6 +624,16 @@ function HistSurprise() {
               {t("history.surprise.p2")}
             </p>
           </div>
+          <figure className="m-0 hidden md:block">
+            <div className="bl-card relative aspect-4/5 overflow-hidden" style={{ maxHeight: 560, cursor: "default" }}>
+              <img
+                src="/Foto%207.jpg"
+                alt={t("history.surprise.kicker")}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </figure>
         </div>
 
         <div

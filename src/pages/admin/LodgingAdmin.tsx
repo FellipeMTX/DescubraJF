@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Plus, Pencil, Trash2, Star } from "lucide-react";
+import { Plus, Pencil, Trash2 } from "lucide-react";
+import { StarRating } from "@/components/ui/StarRating";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -12,10 +13,12 @@ import {
 import { AddressSearch } from "@/components/ui/AddressSearch";
 import { MapPreview } from "@/components/ui/MapPreview";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useLodgingEstablishments } from "@/hooks/useLodging";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
 import { slugify } from "@/lib/utils";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Hospedagem } from "@/types/database";
 
 type FormData = {
@@ -77,7 +80,7 @@ export default function LodgingAdmin() {
 
       const payload = {
         nome: form.nome, slug: slugify(form.nome), descricao_curta: form.descricao_curta || null,
-        descricao: form.descricao || null, tipo: form.tipo, estrelas: parseInt(form.estrelas) || null,
+        descricao: form.descricao || null, tipo: form.tipo, estrelas: parseFloat(form.estrelas) || null,
         endereco: [form.endereco, form.numero].filter(Boolean).join(", ") || null, bairro: form.bairro || null,
         latitude: form.latitude ? parseFloat(form.latitude) : null,
         longitude: form.longitude ? parseFloat(form.longitude) : null,
@@ -144,11 +147,20 @@ export default function LodgingAdmin() {
                 </Field>
                 <Field label="Estrelas">
                   <select value={form.estrelas} onChange={(e) => update("estrelas", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
-                    {[1,2,3,4,5].map((n) => <option key={n} value={n}>{n} estrela{n > 1 ? "s" : ""}</option>)}
+                    {[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map((n) => (
+                      <option key={n} value={n}>{n} estrela{n !== 1 ? "s" : ""}</option>
+                    ))}
                   </select>
                 </Field>
               </div>
-              <Field label="Foto principal"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
+              <Field label="Foto principal">
+                <ImageUploadField
+                  value={imageFile}
+                  onChange={setImageFile}
+                  aspect={IMAGE_RATIOS_NUM.cardTall}
+                  currentUrl={editing?.imagem_destaque}
+                />
+              </Field>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-semibold text-foreground">Localização</h3>
                 <InfoTooltip text="Use a ferramenta de buscar endereço para facilitar a busca. Caso não seja encontrado, digite o endereço manualmente e busque sua geolocalização no Google Maps." />
@@ -219,11 +231,7 @@ export default function LodgingAdmin() {
                 <td className="px-4 py-3"><Badge variant="secondary" className="capitalize">{item.tipo}</Badge></td>
                 <td className="px-4 py-3">
                   {item.estrelas && (
-                    <div className="flex gap-0.5">
-                      {Array.from({ length: item.estrelas }).map((_, s) => (
-                        <Star key={s} size={12} className="fill-primary-400 text-primary-400" />
-                      ))}
-                    </div>
+                    <StarRating value={item.estrelas} size={12} className="text-primary-400" />
                   )}
                 </td>
                 <td className="px-4 py-3 text-right">

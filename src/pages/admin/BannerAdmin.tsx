@@ -11,8 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Banner } from "@/types/database";
 
 type BannerForm = {
@@ -170,16 +172,13 @@ export default function BannerAdmin() {
                   placeholder="/atrativos"
                 />
               </div>
-              <div>
-                <label className="text-sm font-medium text-foreground">
-                  Imagem {editing ? "(deixe vazio para manter)" : "*"}
-                </label>
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
-                />
-              </div>
+              <ImageUploadField
+                label={`Imagem ${editing ? "(deixe vazio para manter)" : "*"}`}
+                value={imageFile}
+                onChange={setImageFile}
+                aspect={IMAGE_RATIOS_NUM.hero}
+                currentUrl={editing?.imagem_url}
+              />
               <div>
                 <label className="text-sm font-medium text-foreground">Ordem</label>
                 <Input

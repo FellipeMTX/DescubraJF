@@ -2,8 +2,10 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { AspectImage } from "@/components/ui/AspectImage";
 import { usePosts } from "@/hooks/usePosts";
 import { formatDate } from "@/lib/utils";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import type { PostCategoria } from "@/types/database";
 
 const BASE_PATHS: Record<PostCategoria, string> = {
@@ -68,20 +70,13 @@ export default function PostsList({ categoria }: Props) {
                   boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
                 }}
               >
-                <div
-                  className="aspect-video overflow-hidden"
-                  style={{ background: "var(--color-bl-bg)" }}
-                >
-                  {post.imagem_capa ? (
-                    <img
-                      src={post.imagem_capa}
-                      alt={post.titulo}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="bl-ph h-full w-full">{t("common.noImage")}</div>
-                  )}
-                </div>
+                <AspectImage
+                  src={post.imagem_capa}
+                  alt={post.titulo}
+                  ratio={IMAGE_RATIOS.postCover}
+                  imgClassName="transition-transform duration-500 group-hover:scale-105"
+                  placeholder={t("common.noImage")}
+                />
                 <div className="flex flex-1 flex-col p-6">
                   <p className="bl-num">{formatDate(post.created_at)}</p>
                   <h2 className="bl-display mt-2 text-xl leading-tight">
