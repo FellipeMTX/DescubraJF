@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { MapPin, Star, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car } from "lucide-react";
+import { MapPin, BedDouble, Phone, Mail, Globe, ExternalLink, Wifi, Car } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { StarRating } from "@/components/ui/StarRating";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -68,11 +69,7 @@ function LodgingModalContent({ slug }: { slug: string }) {
         <Badge className="w-fit bg-primary-700 text-accent-50 capitalize">{lodging.tipo}</Badge>
         <DialogTitle className="text-xl font-bold text-primary-800">{lodging.nome}</DialogTitle>
         {lodging.estrelas && (
-          <div className="flex gap-0.5">
-            {Array.from({ length: lodging.estrelas }).map((_, s) => (
-              <Star key={s} size={16} className="fill-primary-400 text-primary-400" />
-            ))}
-          </div>
+          <StarRating value={lodging.estrelas} size={16} className="text-primary-400" />
         )}
       </DialogHeader>
       {lodging.imagem_destaque && <img src={lodging.imagem_destaque} alt={lodging.nome} className="h-56 w-full rounded-xl object-cover" />}

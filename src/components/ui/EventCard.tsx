@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { CalendarDays, MapPin } from "lucide-react";
 import { formatDateShort } from "@/lib/utils";
+import { IMAGE_RATIOS } from "@/lib/constants";
+import { AspectImage } from "@/components/ui/AspectImage";
 import type { Evento } from "@/types/database";
 
 type EventCardProps = {
@@ -11,22 +13,14 @@ export function EventCard({ event }: EventCardProps) {
   const { t } = useTranslation();
   const inner = (
     <>
-      <div
-        className="relative h-44 overflow-hidden"
-        style={{ background: "var(--color-bl-card)" }}
+      <AspectImage
+        src={event.imagem_destaque}
+        alt={event.titulo}
+        ratio={IMAGE_RATIOS.cardLandscape}
+        placeholder={
+          <CalendarDays size={44} style={{ color: "var(--color-bl-muted)" }} />
+        }
       >
-        {event.imagem_destaque ? (
-          <img
-            src={event.imagem_destaque}
-            alt={event.titulo}
-            loading="lazy"
-          />
-        ) : (
-          <div className="bl-ph h-full w-full">
-            <CalendarDays size={44} style={{ color: "var(--color-bl-muted)" }} />
-          </div>
-        )}
-
         {event.gratuito && (
           <span
             className="absolute right-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-widest"
@@ -56,7 +50,7 @@ export function EventCard({ event }: EventCardProps) {
             </span>
           )}
         </div>
-      </div>
+      </AspectImage>
 
       <div className="p-5">
         {event.categoria && (

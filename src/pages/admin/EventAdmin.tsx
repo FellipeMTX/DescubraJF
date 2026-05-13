@@ -9,10 +9,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useEvents } from "@/hooks/useEvents";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
 import { slugify, formatDate } from "@/lib/utils";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Evento } from "@/types/database";
 
 type FormData = {
@@ -142,7 +144,14 @@ export default function EventAdmin() {
                 </Field>
                 <Field label="Link externo"><Input value={form.link_externo} onChange={(e) => update("link_externo", e.target.value)} placeholder="https://..." /></Field>
               </div>
-              <Field label="Imagem de capa"><Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} /></Field>
+              <Field label="Imagem de capa">
+                <ImageUploadField
+                  value={imageFile}
+                  onChange={setImageFile}
+                  aspect={IMAGE_RATIOS_NUM.cardLandscape}
+                  currentUrl={editing?.imagem_destaque}
+                />
+              </Field>
               <div className="flex flex-wrap gap-4">
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" checked={form.gratuito} onChange={(e) => update("gratuito", e.target.checked)} className="rounded border-input" />

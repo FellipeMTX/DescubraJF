@@ -2,8 +2,10 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AspectImage } from "@/components/ui/AspectImage";
 import { useFeaturedExperiences } from "@/hooks/useExperiences";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function HomeExperiences() {
@@ -64,39 +66,35 @@ export function HomeExperiences() {
               <Link
                 key={exp.id}
                 to={`/atrativos?slug=${exp.slug}`}
-                className="bl-card bl-card-pop aspect-4/5 block"
+                className="bl-card bl-card-pop block"
               >
-                {exp.imagem_destaque ? (
-                  <img
-                    src={exp.imagem_destaque}
-                    alt={exp.nome}
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="bl-ph h-full w-full">
-                    <span>{exp.nome}</span>
+                <AspectImage
+                  src={exp.imagem_destaque}
+                  alt={exp.nome}
+                  ratio={IMAGE_RATIOS.cardPortrait}
+                  placeholder={<span>{exp.nome}</span>}
+                >
+                  {exp.categoria && (
+                    <div
+                      className="bl-kicker absolute top-4 left-4"
+                      style={{
+                        background: "var(--color-bl-accent2)",
+                        color: "var(--color-bl-ink)",
+                      }}
+                    >
+                      {exp.categoria.nome}
+                    </div>
+                  )}
+                  <div className="bl-card-overlay">
+                    <div
+                      className="text-[13px] italic opacity-85"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="bl-display mt-1 text-2xl">{exp.nome}</div>
                   </div>
-                )}
-                {exp.categoria && (
-                  <div
-                    className="bl-kicker absolute top-4 left-4"
-                    style={{
-                      background: "var(--color-bl-accent2)",
-                      color: "var(--color-bl-ink)",
-                    }}
-                  >
-                    {exp.categoria.nome}
-                  </div>
-                )}
-                <div className="bl-card-overlay">
-                  <div
-                    className="text-[13px] italic opacity-85"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <div className="bl-display mt-1 text-2xl">{exp.nome}</div>
-                </div>
+                </AspectImage>
               </Link>
             ))}
           </div>

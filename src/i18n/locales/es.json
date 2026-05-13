@@ -28,7 +28,7 @@
     "attractions": "Atractivos",
     "routes": "Rutas",
     "events": "Agenda",
-    "tours": "Paseos",
+    "tours": "Nos Vemos por Ahí",
     "whereToEat": "Dónde Comer y Beber",
     "whereToStay": "Dónde Alojarse",
     "services": "Servicios",
@@ -491,5 +491,19 @@
     "siteOfficial": "Sitio oficial",
     "instagram": "Instagram",
     "access": "Acceder"
+  },
+  "admin": {
+    "imageCrop": {
+      "title": "Recortar imagen",
+      "description": "Ajusta el encuadre. La imagen se guardará tal como aparece en el área de recorte.",
+      "zoom": "Zoom",
+      "confirm": "Confirmar recorte",
+      "saving": "Guardando..."
+    },
+    "imageUpload": {
+      "select": "Seleccionar imagen",
+      "change": "Cambiar imagen",
+      "clear": "Eliminar"
+    }
   }
 }

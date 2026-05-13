@@ -28,7 +28,7 @@
     "attractions": "Attractions",
     "routes": "Routes",
     "events": "Events",
-    "tours": "Tours",
+    "tours": "See You Around",
     "whereToEat": "Where to Eat & Drink",
     "whereToStay": "Where to Stay",
     "services": "Services",
@@ -491,5 +491,19 @@
     "siteOfficial": "Official website",
     "instagram": "Instagram",
     "access": "Visit"
+  },
+  "admin": {
+    "imageCrop": {
+      "title": "Crop image",
+      "description": "Adjust the framing. The image will be saved exactly as it appears in the crop area.",
+      "zoom": "Zoom",
+      "confirm": "Confirm crop",
+      "saving": "Saving..."
+    },
+    "imageUpload": {
+      "select": "Select image",
+      "change": "Change image",
+      "clear": "Remove"
+    }
   }
 }

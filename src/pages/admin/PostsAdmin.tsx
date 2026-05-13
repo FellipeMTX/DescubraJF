@@ -10,10 +10,12 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { usePosts } from "@/hooks/usePosts";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
 import { slugify, formatDate } from "@/lib/utils";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Post, PostCategoria } from "@/types/database";
 
 type FormData = {
@@ -147,7 +149,12 @@ export default function PostsAdmin({ categoria }: Props) {
                 <Input value={form.autor} onChange={(e) => update("autor", e.target.value)} />
               </Field>
               <Field label="Imagem de capa">
-                <Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} />
+                <ImageUploadField
+                  value={imageFile}
+                  onChange={setImageFile}
+                  aspect={IMAGE_RATIOS_NUM.postCover}
+                  currentUrl={editing?.imagem_capa}
+                />
               </Field>
               <Field label="Conteúdo">
                 <RichTextEditor

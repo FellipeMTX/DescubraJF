@@ -32,3 +32,21 @@ export const SOCIAL_LINKS = {
   youtube: "#",
   twitter: "#",
 } as const;
+
+export const IMAGE_RATIOS = {
+  cardLandscape: "4/3",
+  cardPortrait: "4/5",
+  cardTall: "3/4",
+  cardSquare: "1/1",
+  postCover: "16/9",
+  hero: "21/9",
+} as const;
+
+export const IMAGE_RATIOS_NUM = {
+  cardLandscape: 4 / 3,
+  cardPortrait: 4 / 5,
+  cardTall: 3 / 4,
+  cardSquare: 1,
+  postCover: 16 / 9,
+  hero: 21 / 9,
+} as const;

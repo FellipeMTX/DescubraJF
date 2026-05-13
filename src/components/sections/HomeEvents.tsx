@@ -2,8 +2,10 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Calendar, MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { AspectImage } from "@/components/ui/AspectImage";
 import { useUpcomingEvents } from "@/hooks/useEvents";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { IMAGE_RATIOS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import type { Evento } from "@/types/database";
 
@@ -122,23 +124,14 @@ function EventHomeCard({ event }: { event: Evento }) {
   const { i18n } = useTranslation();
   const inner = (
     <>
-      <div className="relative aspect-4/3 overflow-hidden">
-        {event.imagem_destaque ? (
-          <img
-            src={event.imagem_destaque}
-            alt={event.titulo}
-            loading="lazy"
-          />
-        ) : (
-          <div
-            className="bl-ph h-full w-full"
-            style={{ background: "rgba(255,255,255,0.08)" }}
-          >
-            <span style={{ color: "rgba(255,255,255,0.5)" }}>
-              {event.titulo}
-            </span>
-          </div>
-        )}
+      <AspectImage
+        src={event.imagem_destaque}
+        alt={event.titulo}
+        ratio={IMAGE_RATIOS.cardLandscape}
+        placeholder={
+          <span style={{ color: "rgba(255,255,255,0.5)" }}>{event.titulo}</span>
+        }
+      >
         <div
           className="absolute top-4 left-4 rounded-xl px-3.5 py-2"
           style={{
@@ -151,7 +144,7 @@ function EventHomeCard({ event }: { event: Evento }) {
         >
           {formatDate(event.data_inicio, i18n.language)}
         </div>
-      </div>
+      </AspectImage>
       <div className="p-5">
         {event.categoria && (
           <div

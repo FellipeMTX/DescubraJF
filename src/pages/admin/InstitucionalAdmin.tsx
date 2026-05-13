@@ -12,9 +12,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useSeturEquipe, useSeturPagina } from "@/hooks/useSetur";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
+import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { SeturMembro, SeturPagina } from "@/types/database";
 
 type PageForm = {
@@ -167,16 +169,12 @@ function PageSection({
             <Input value={form.hero_subtitulo} onChange={(e) => update("hero_subtitulo", e.target.value)} />
           </Field>
           <Field label="Imagem de fundo">
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
+            <ImageUploadField
+              value={imageFile}
+              onChange={setImageFile}
+              aspect={IMAGE_RATIOS_NUM.hero}
+              currentUrl={pagina.hero_imagem}
             />
-            {imageFile ? (
-              <p className="mt-1 text-xs text-muted-foreground">{imageFile.name}</p>
-            ) : pagina.hero_imagem ? (
-              <p className="mt-1 text-xs text-muted-foreground">Atual: {pagina.hero_imagem}</p>
-            ) : null}
           </Field>
         </Fieldset>
 
