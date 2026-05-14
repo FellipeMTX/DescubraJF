@@ -124,3 +124,4 @@ Quando o Supabase for migrado para o plano **Pro ($25/mês)**, o keep-alive do S
 - [ ] Monitor Frontend configurado
 - [ ] Status page criada (opcional)
 - [ ] Alerta testado
+testestestestse
