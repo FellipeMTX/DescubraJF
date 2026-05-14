@@ -1,11 +1,13 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronDown } from "lucide-react";
+import { CalendarDays, ChevronDown, LayoutList } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "@/components/ui/EventCard";
 import { cn } from "@/lib/utils";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { useEvents } from "@/hooks/useEvents";
+import { EventFeaturedCarousel } from "@/components/events/EventFeaturedCarousel";
+import { EventCalendar } from "@/components/events/EventCalendar";
 
 function FilterPill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -83,6 +85,42 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
   );
 }
 
+type ViewMode = "list" | "calendar";
+
+function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (v: ViewMode) => void }) {
+  const { t } = useTranslation();
+  const items: { value: ViewMode; icon: typeof LayoutList; label: string }[] = [
+    { value: "list", icon: LayoutList, label: t("events.list.viewList") },
+    { value: "calendar", icon: CalendarDays, label: t("events.list.viewCalendar") },
+  ];
+  return (
+    <div
+      className="inline-flex gap-0.5 rounded-full border p-1"
+      style={{ background: "var(--color-bl-card)", borderColor: "rgba(0,0,0,0.06)" }}
+    >
+      {items.map(({ value: v, icon: Icon, label }) => {
+        const active = v === value;
+        return (
+          <button
+            key={v}
+            type="button"
+            onClick={() => onChange(v)}
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-1.75 text-sm font-medium transition-colors"
+            style={{
+              background: active ? "var(--color-bl-bg)" : "transparent",
+              color: active ? "var(--color-bl-ink)" : "var(--color-bl-muted)",
+              boxShadow: active ? "0 1px 2px rgba(0,0,0,0.06)" : undefined,
+            }}
+          >
+            <Icon size={14} />
+            {label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 const CATEGORY_VALUES = ["todos", "cultural", "esportivo", "festivo", "show", "gastronomico"] as const;
 const CATEGORY_KEY_MAP: Record<(typeof CATEGORY_VALUES)[number], string> = {
   todos: "events.filters.all",
@@ -102,6 +140,7 @@ export default function EventList() {
   const { t } = useTranslation();
   const [selectedCat, setSelectedCat] = useState("todos");
   const [selectedMonth, setSelectedMonth] = useState("todos");
+  const [view, setView] = useState<ViewMode>("list");
   const { data: events, isLoading } = useEvents();
 
   function getMonthLabel(dateStr: string): string {
@@ -115,12 +154,22 @@ export default function EventList() {
     return `${t(`events.months.${monthIdx + 1}`).slice(0, 3)} ${year}`;
   }
 
-  // Filter by category
+  const featured = useMemo(() => {
+    if (!events?.length) return [];
+    const todayIso = new Date().toISOString().slice(0, 10);
+    const upcoming = events.filter((e) => (e.data_fim || e.data_inicio) >= todayIso);
+    const pool = upcoming.length ? upcoming : events;
+    const destaques = pool.filter((e) => e.destaque);
+    const list = destaques.length ? destaques : pool;
+    return [...list]
+      .sort((a, b) => a.data_inicio.localeCompare(b.data_inicio))
+      .slice(0, 4);
+  }, [events]);
+
   const filteredByCat = selectedCat === "todos"
     ? events
     : events?.filter((e) => e.categoria === selectedCat);
 
-  // Available months from filtered events
   const availableMonths = useMemo(() => {
     if (!filteredByCat?.length) return [];
     const set = new Set<string>();
@@ -133,12 +182,10 @@ export default function EventList() {
     ...availableMonths.map((key) => ({ label: getShortMonthLabel(key), value: key })),
   ];
 
-  // Filter by month
   const filtered = selectedMonth === "todos"
     ? filteredByCat
     : filteredByCat?.filter((e) => getMonthKey(e.data_inicio) === selectedMonth);
 
-  // Group by month
   const grouped = useMemo(() => {
     if (!filtered?.length) return [];
 
@@ -153,14 +200,14 @@ export default function EventList() {
     }
 
     return Array.from(map.entries())
-      .sort(([a], [b]) => b.localeCompare(a))
+      .sort(([a], [b]) => a.localeCompare(b))
       .map(([, value]) => value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered]);
 
   return (
     <div className="bl-app min-h-screen">
-      <div className="mx-auto max-w-7xl px-14 py-12">
+      <div className="mx-auto max-w-7xl px-14 py-12 max-md:px-6 max-md:py-8">
         <PageHeader
           kicker={t("events.list.kicker")}
           title={t("events.list.title")}
@@ -168,8 +215,12 @@ export default function EventList() {
           subtitle={t("events.list.subtitle")}
         />
 
+        {!isLoading && featured.length > 0 && (
+          <EventFeaturedCarousel events={featured} />
+        )}
+
         {/* Filters */}
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-2">
             {CATEGORY_VALUES.map((value) => (
               <FilterPill key={value} active={selectedCat === value} onClick={() => { setSelectedCat(value); setSelectedMonth("todos"); }}>
@@ -177,13 +228,16 @@ export default function EventList() {
               </FilterPill>
             ))}
           </div>
-          {availableMonths.length > 0 && (
-            <MonthDropdown
-              options={monthOptions}
-              selected={selectedMonth}
-              onSelect={setSelectedMonth}
-            />
-          )}
+          <div className="flex flex-wrap items-center gap-3">
+            <ViewToggle value={view} onChange={setView} />
+            {view === "list" && availableMonths.length > 0 && (
+              <MonthDropdown
+                options={monthOptions}
+                selected={selectedMonth}
+                onSelect={setSelectedMonth}
+              />
+            )}
+          </div>
         </div>
 
         {isLoading ? (
@@ -192,13 +246,27 @@ export default function EventList() {
               <Skeleton key={i} className="h-72 rounded-xl" />
             ))}
           </div>
+        ) : view === "calendar" ? (
+          <EventCalendar events={filteredByCat ?? []} />
         ) : grouped.length > 0 ? (
-          <div className="mt-8 space-y-10">
+          <div className="mt-10 space-y-14">
             {grouped.map((group) => (
               <div key={group.label}>
-                <div className="mb-6 flex items-center gap-4">
+                <div className="mb-8 flex items-center gap-6">
                   <div className="h-px flex-1 bg-black/15" />
-                  <h2 className="bl-display shrink-0 text-2xl">{group.label}</h2>
+                  <h2 className="bl-display shrink-0 text-2xl">
+                    {group.label}
+                    <span
+                      className="ml-2 italic"
+                      style={{
+                        color: "var(--color-bl-accent)",
+                        fontFamily: "var(--font-display)",
+                        fontSize: "0.7em",
+                      }}
+                    >
+                      {group.events.length}
+                    </span>
+                  </h2>
                   <div className="h-px flex-1 bg-black/15" />
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
@@ -210,12 +278,13 @@ export default function EventList() {
             ))}
           </div>
         ) : (
-          <p
-            className="mt-12 text-center"
-            style={{ color: "var(--color-bl-muted)" }}
+          <div
+            className="mt-16 rounded-3xl px-6 py-16 text-center"
+            style={{ background: "var(--color-bl-card)", color: "var(--color-bl-muted)" }}
           >
-            {t("events.list.empty")}
-          </p>
+            <CalendarDays size={36} className="mx-auto mb-3" style={{ color: "var(--color-bl-accent)" }} />
+            <p className="m-0 text-[15px]">{t("events.list.empty")}</p>
+          </div>
         )}
       </div>
     </div>

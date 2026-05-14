@@ -132,12 +132,16 @@
   },
   "events": {
     "list": {
-      "kicker": "Agenda da cidade",
-      "title": "Acontece em",
-      "titleHighlight": "JF",
-      "subtitle": "Fique por dentro de tudo o que está rolando na cidade.",
-      "empty": "Nenhum evento encontrado.",
-      "allMonths": "Todos os meses"
+      "kicker": "Agenda cultural",
+      "title": "A cidade está",
+      "titleHighlight": "acontecendo",
+      "subtitle": "Festivais, shows, exposições e celebrações em Juiz de Fora. Filtre por categoria ou navegue mês a mês para planejar sua próxima saída.",
+      "empty": "Nenhum evento encontrado para esta combinação de filtros.",
+      "allMonths": "Todos os meses",
+      "featured": "Em destaque",
+      "viewEvent": "Ver evento",
+      "viewList": "Lista",
+      "viewCalendar": "Calendário"
     },
     "filters": {
       "all": "Todos",
@@ -163,7 +167,25 @@
     },
     "card": {
       "free": "Gratuito",
-      "until": "até"
+      "until": "até",
+      "freeEntry": "Entrada gratuita"
+    },
+    "calendar": {
+      "dow": {
+        "sun": "Dom",
+        "mon": "Seg",
+        "tue": "Ter",
+        "wed": "Qua",
+        "thu": "Qui",
+        "fri": "Sex",
+        "sat": "Sáb"
+      },
+      "more": "mais",
+      "selectDay": "Clique em um dia para ver os eventos.",
+      "noEventsDay": "Nenhum evento neste dia.",
+      "dayOf": "de",
+      "event": "evento",
+      "events": "eventos"
     },
     "detail": {
       "back": "Agenda",
@@ -175,8 +197,36 @@
   "lodging": {
     "title": "Onde Ficar",
     "subtitle": "Lugares para tornar sua estadia memorável",
-    "empty": "Nenhuma hospedagem encontrada nesta categoria.",
+    "empty": "Nenhuma hospedagem com esses filtros.",
     "notFound": "Hospedagem não encontrada.",
+    "list": {
+      "kicker": "Hospedagem",
+      "title": "Onde",
+      "titleHighlight": "descansar em Juiz de Fora",
+      "subtitle": "Hotéis no centro, pousadas charmosas e apart-hotéis para temporadas longas. Encontre o que combina com sua viagem.",
+      "featured": "Hospedagem em destaque",
+      "viewLodging": "Ver hospedagem",
+      "viewDetails": "Ver detalhes",
+      "viewGrid": "Grid",
+      "viewList": "Lista",
+      "allHoods": "Todos os bairros",
+      "allLodgings": "Todas as",
+      "lodgingsHighlight": "hospedagens",
+      "results": "resultados",
+      "clearFilters": "Limpar filtros",
+      "stats": {
+        "total": "Hospedagens",
+        "typesEm": "tipos",
+        "typesLabel": "Hotel · Pousada · Hostel · Flat",
+        "hoodsEm": "bairros",
+        "hoodsLabel": "Cobertura",
+        "stars": "Categorias variadas"
+      },
+      "hoodsCalloutTitle": "Escolha pelo",
+      "hoodsCalloutHighlight": "bairro",
+      "hoodsCalloutDesc": "Cada região tem seu jeito — Centro para quem quer caminhar, Cascatinha perto do shopping, Mariano Procópio para acordar olhando o parque.",
+      "hoodsOptions": "opções"
+    },
     "types": {
       "all": "Todos",
       "hotel": "Hotéis",

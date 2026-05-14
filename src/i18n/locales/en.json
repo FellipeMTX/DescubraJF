@@ -132,12 +132,16 @@
   },
   "events": {
     "list": {
-      "kicker": "City calendar",
-      "title": "What's on in",
-      "titleHighlight": "JF",
-      "subtitle": "Stay up to date with everything happening in the city.",
-      "empty": "No events found.",
-      "allMonths": "All months"
+      "kicker": "Cultural calendar",
+      "title": "The city is",
+      "titleHighlight": "happening",
+      "subtitle": "Festivals, shows, exhibitions and celebrations in Juiz de Fora. Filter by category or browse month by month to plan your next outing.",
+      "empty": "No events found for this filter combination.",
+      "allMonths": "All months",
+      "featured": "Featured",
+      "viewEvent": "View event",
+      "viewList": "List",
+      "viewCalendar": "Calendar"
     },
     "filters": {
       "all": "All",
@@ -163,7 +167,25 @@
     },
     "card": {
       "free": "Free",
-      "until": "until"
+      "until": "until",
+      "freeEntry": "Free entry"
+    },
+    "calendar": {
+      "dow": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      },
+      "more": "more",
+      "selectDay": "Click a day to view events.",
+      "noEventsDay": "No events on this day.",
+      "dayOf": "of",
+      "event": "event",
+      "events": "events"
     },
     "detail": {
       "back": "Calendar",
@@ -175,8 +197,36 @@
   "lodging": {
     "title": "Where to Stay",
     "subtitle": "Places to make your stay memorable",
-    "empty": "No lodging found in this category.",
+    "empty": "No lodging matches these filters.",
     "notFound": "Lodging not found.",
+    "list": {
+      "kicker": "Lodging",
+      "title": "Where to",
+      "titleHighlight": "rest in Juiz de Fora",
+      "subtitle": "Downtown hotels, charming inns and apart-hotels for longer stays. Find what fits your trip.",
+      "featured": "Featured lodging",
+      "viewLodging": "View lodging",
+      "viewDetails": "View details",
+      "viewGrid": "Grid",
+      "viewList": "List",
+      "allHoods": "All neighborhoods",
+      "allLodgings": "All",
+      "lodgingsHighlight": "lodgings",
+      "results": "results",
+      "clearFilters": "Clear filters",
+      "stats": {
+        "total": "Lodgings",
+        "typesEm": "types",
+        "typesLabel": "Hotel · Inn · Hostel · Flat",
+        "hoodsEm": "areas",
+        "hoodsLabel": "Coverage",
+        "stars": "Varied categories"
+      },
+      "hoodsCalloutTitle": "Pick by",
+      "hoodsCalloutHighlight": "neighborhood",
+      "hoodsCalloutDesc": "Each area has its own vibe — downtown for walkers, Cascatinha near the mall, Mariano Procópio to wake up by the park.",
+      "hoodsOptions": "options"
+    },
     "types": {
       "all": "All",
       "hotel": "Hotels",

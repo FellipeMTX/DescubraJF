@@ -5,6 +5,41 @@
 
 ---
 
+## [2026-05-14] Redesign Agenda e Onde Ficar
+
+### O que foi feito
+- **Agenda** ([src/pages/events/EventList.tsx](src/pages/events/EventList.tsx))
+  - Novo carrossel rotativo de destaques ([src/components/events/EventFeaturedCarousel.tsx](src/components/events/EventFeaturedCarousel.tsx)) — usa eventos com `destaque=true` (fallback para 4 próximos eventos)
+  - Toggle Lista/Calendário ao lado dos filtros
+  - Nova view de calendário ([src/components/events/EventCalendar.tsx](src/components/events/EventCalendar.tsx)) — grid 7×6, foto + título nos dias com 1 evento, lista compacta com 2+, legenda de categorias, painel de eventos do dia selecionado
+  - Eventos multi-dia ≤ 7 dias renderizam card cheio em todos os dias; > 7 dias apenas no dia de início + barra compacta nos seguintes
+  - Contador italic accent ao lado do nome do mês na view de lista
+- **Onde Ficar** ([src/pages/lodging/LodgingList.tsx](src/pages/lodging/LodgingList.tsx))
+  - Rewrite completo: PageHeader · stats strip (4 cols) · hero destaque · filtros (type pills com count + bairro dropdown + view toggle grid/list) · listing com contador
+  - Layout 2 colunas com mapa sticky à direita em ≥1100px ([src/components/lodging/LodgingMap.tsx](src/components/lodging/LodgingMap.tsx))
+  - Markers pílula com nome da hospedagem, hover sync card↔mapa, popup com foto/estrelas
+  - Cards limpos: foto, nome, estrelas, bairro, descrição, "Ver detalhes →"
+  - Callout de bairros (fundo escuro) com counts dinâmicos
+- **Utils** ([src/lib/utils.ts](src/lib/utils.ts)) — helpers `parseLocalDate` e `toIsoDay` para normalizar datas do Supabase (timestamp ISO → YYYY-MM-DD)
+- **i18n** — novas chaves `events.list.*`, `events.calendar.*`, `lodging.list.*` em PT/EN/ES
+- **CSS** ([src/index.css](src/index.css)) — estilos Leaflet customizados para markers pílula, popup, zoom controls
+
+### Por que foi feito
+Rebrand visual aplicando o design system editorial (warm cream + clay + terracotta) já consolidado na Home a duas páginas-chave do portal — Agenda e Onde Ficar. Designs originados de mockups HTML do Claude Design.
+
+### Decisões técnicas
+- **Modal vs rota de detalhe**: mantido modal na Onde Ficar (não existe rota `/onde-ficar/:slug`)
+- **Heart de favorito** removido do mock — sem sistema de favoritos no backend, evita placeholder sem função
+- **Pílulas de amenidade/preço** removidas dos cards de hospedagem — conforme última iteração do design
+- **Eventos longos > 7 dias** ficam fechados nos dias de continuação para evitar ruído visual (caso real: "Comida Di Buteco" 24 dias)
+- **Datas do Supabase** vêm como ISO timestamp; criados helpers `parseLocalDate` / `toIsoDay` para normalizar antes de operações de calendário
+
+### Próximos passos
+- Aplicar o mesmo padrão de redesign em Atrativos, Onde Comer e Roteiros
+- Adicionar rota de detalhe `/onde-ficar/:slug` para substituir modal por página
+
+---
+
 ## [2026-04-15] Notícias e Programas/Projetos com editor rich-text
 
 ### O que foi feito

@@ -29,6 +29,15 @@ export function formatDateShort(date: string): string {
   });
 }
 
+export function parseLocalDate(date: string): Date {
+  const [y, m, d] = date.slice(0, 10).split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+export function toIsoDay(date: string): string {
+  return date.slice(0, 10);
+}
+
 export function toMapItems(
   items: Array<{ id: string; nome: string; latitude?: number | null; longitude?: number | null }>
 ) {
