@@ -156,14 +156,13 @@ export default function EventList() {
 
   const featured = useMemo(() => {
     if (!events?.length) return [];
-    const todayIso = new Date().toISOString().slice(0, 10);
-    const upcoming = events.filter((e) => (e.data_fim || e.data_inicio) >= todayIso);
-    const pool = upcoming.length ? upcoming : events;
-    const destaques = pool.filter((e) => e.destaque);
-    const list = destaques.length ? destaques : pool;
-    return [...list]
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayIso = yesterday.toISOString().slice(0, 10);
+    return [...events]
+      .filter((e) => (e.data_fim || e.data_inicio) >= yesterdayIso)
       .sort((a, b) => a.data_inicio.localeCompare(b.data_inicio))
-      .slice(0, 4);
+      .slice(0, 5);
   }, [events]);
 
   const filteredByCat = selectedCat === "todos"

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import { formatDateShort, parseLocalDate } from "@/lib/utils";
@@ -150,18 +149,22 @@ export function EventFeaturedCarousel({ events, intervalMs = 6000 }: Props) {
                     )}
                   </div>
 
-                  <Link
-                    to={`/agenda/${ev.slug}`}
-                    className="inline-flex w-max items-center gap-2 border-b pb-1 text-[15px] font-medium transition-[gap]"
-                    style={{
-                      color: "var(--color-bl-ink)",
-                      borderColor: "var(--color-bl-ink)",
-                      fontFamily: "var(--font-display)",
-                    }}
-                  >
-                    {t("events.list.viewEvent")}
-                    <ArrowRight size={14} />
-                  </Link>
+                  {ev.link_externo && (
+                    <a
+                      href={ev.link_externo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-max items-center gap-2 border-b pb-1 text-[15px] font-medium transition-[gap]"
+                      style={{
+                        color: "var(--color-bl-ink)",
+                        borderColor: "var(--color-bl-ink)",
+                        fontFamily: "var(--font-display)",
+                      }}
+                    >
+                      {t("events.list.viewEvent")}
+                      <ArrowRight size={14} />
+                    </a>
+                  )}
                 </div>
               </div>
             );

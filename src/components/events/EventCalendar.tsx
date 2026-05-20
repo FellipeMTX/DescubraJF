@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn, parseLocalDate, toIsoDay } from "@/lib/utils";
@@ -370,35 +369,50 @@ function CalendarPanel({ iso, events }: { iso: string; events: Evento[] }) {
         </span>
       </h3>
       <div className="flex flex-col gap-3">
-        {events.map((ev) => (
-          <Link
-            key={ev.id}
-            to={`/agenda/${ev.slug}`}
-            className="flex items-center gap-4 rounded-2xl p-3.5 transition-transform hover:translate-x-1"
-            style={{ background: "var(--color-bl-card)" }}
-          >
-            <span
-              className="block h-10 w-1 shrink-0 rounded-sm"
-              style={{ background: categoryColor(ev.categoria) }}
-            />
-            <div className="min-w-0 flex-1">
-              {ev.categoria && (
-                <div
-                  className="text-[10px] font-semibold uppercase tracking-widest"
-                  style={{ color: "var(--color-bl-accent)" }}
-                >
-                  {ev.categoria}
-                </div>
-              )}
-              <div className="bl-display mt-0.5 truncate text-base">{ev.titulo}</div>
-              {ev.local_nome && (
-                <div className="mt-0.5 text-xs" style={{ color: "var(--color-bl-muted)" }}>
-                  {ev.local_nome}
-                </div>
-              )}
+        {events.map((ev) => {
+          const inner = (
+            <>
+              <span
+                className="block h-10 w-1 shrink-0 rounded-sm"
+                style={{ background: categoryColor(ev.categoria) }}
+              />
+              <div className="min-w-0 flex-1">
+                {ev.categoria && (
+                  <div
+                    className="text-[10px] font-semibold uppercase tracking-widest"
+                    style={{ color: "var(--color-bl-accent)" }}
+                  >
+                    {ev.categoria}
+                  </div>
+                )}
+                <div className="bl-display mt-0.5 truncate text-base">{ev.titulo}</div>
+                {ev.local_nome && (
+                  <div className="mt-0.5 text-xs" style={{ color: "var(--color-bl-muted)" }}>
+                    {ev.local_nome}
+                  </div>
+                )}
+              </div>
+            </>
+          );
+          const className = "flex items-center gap-4 rounded-2xl p-3.5 transition-transform hover:translate-x-1";
+          const style = { background: "var(--color-bl-card)" };
+          return ev.link_externo ? (
+            <a
+              key={ev.id}
+              href={ev.link_externo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={className}
+              style={style}
+            >
+              {inner}
+            </a>
+          ) : (
+            <div key={ev.id} className={className} style={style}>
+              {inner}
             </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     </>
   );
