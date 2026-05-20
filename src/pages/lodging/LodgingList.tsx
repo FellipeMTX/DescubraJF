@@ -14,7 +14,6 @@ import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AspectImage } from "@/components/ui/AspectImage";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { DetailModal, ModalContactLink, ModalInfoRow } from "@/components/ui/ListPageLayout";
-import { FeaturedHero } from "@/components/listing/FeaturedHero";
 import { FilterChips, FilterDropdown, ViewToggle } from "@/components/listing/Filters";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { ListingHead, StatsStrip, CategoriesCallout, EmptyState } from "@/components/listing/Sections";
@@ -68,11 +67,6 @@ export default function LodgingList() {
     });
   }, [allLodgings, selectedType, selectedHood]);
 
-  const featured = useMemo(() => {
-    if (!allLodgings?.length) return null;
-    return allLodgings.find((l) => l.destaque) ?? allLodgings[0];
-  }, [allLodgings]);
-
   const stats = useMemo(() => {
     if (!allLodgings?.length) return null;
     const types = new Set(allLodgings.map((l) => l.tipo));
@@ -119,25 +113,6 @@ export default function LodgingList() {
                 label: t("lodging.list.stats.hoodsLabel"),
               },
             ]}
-          />
-        )}
-
-        {featured && (
-          <FeaturedHero
-            imageUrl={featured.imagem_destaque}
-            badge={t("lodging.list.featured")}
-            title={featured.nome}
-            accent={featured.bairro}
-            ctaLabel={t("lodging.list.viewLodging")}
-            onOpen={() => setSelectedSlug(featured.slug)}
-            meta={
-              featured.bairro ? (
-                <span className="inline-flex items-center gap-2">
-                  <MapPin size={14} />
-                  {featured.bairro}
-                </span>
-              ) : null
-            }
           />
         )}
 

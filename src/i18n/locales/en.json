@@ -108,8 +108,7 @@
   "listing": {
     "viewGrid": "Grid",
     "viewList": "List",
-    "viewDetails": "View details",
-    "featuredAria": "Featured"
+    "viewDetails": "View details"
   },
   "experiences": {
     "title": "Attractions",
@@ -121,7 +120,6 @@
       "title": "Places that make",
       "titleHighlight": "Juiz de Fora unforgettable",
       "subtitle": "History, culture, nature and unique experiences await you at every corner. Filter by category or explore on the map.",
-      "featured": "Featured attraction",
       "viewExperience": "Discover this place",
       "allExperiences": "All",
       "experiencesHighlight": "attractions",
@@ -225,8 +223,6 @@
       "title": "Where to",
       "titleHighlight": "rest in Juiz de Fora",
       "subtitle": "Downtown hotels, charming inns and apart-hotels for longer stays. Find what fits your trip.",
-      "featured": "Featured lodging",
-      "viewLodging": "View lodging",
       "viewDetails": "View details",
       "viewGrid": "Grid",
       "viewList": "List",
@@ -279,7 +275,6 @@
       "title": "Flavors of",
       "titleHighlight": "the Geraes",
       "subtitle": "From traditional Mineira cuisine to corner pubs, taste everything our gastronomy has to offer. Filter by category or discover on the map.",
-      "featured": "Featured spot",
       "viewDining": "Discover this place",
       "allDining": "All",
       "diningHighlight": "establishments",

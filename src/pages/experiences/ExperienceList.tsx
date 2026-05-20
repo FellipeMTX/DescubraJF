@@ -24,7 +24,6 @@ import {
   ModalContactLink,
   ModalScheduleList,
 } from "@/components/ui/ListPageLayout";
-import { FeaturedHero } from "@/components/listing/FeaturedHero";
 import { FilterChips, FilterDropdown, ViewToggle } from "@/components/listing/Filters";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { ListingHead, StatsStrip, CategoriesCallout, EmptyState } from "@/components/listing/Sections";
@@ -70,11 +69,6 @@ export default function ExperienceList() {
       return true;
     });
   }, [allExperiences, selectedCategory, selectedHood]);
-
-  const featured = useMemo(() => {
-    if (!allExperiences?.length) return null;
-    return allExperiences.find((e) => e.destaque) ?? allExperiences[0];
-  }, [allExperiences]);
 
   const stats = useMemo(() => {
     if (!allExperiences?.length) return null;
@@ -135,33 +129,6 @@ export default function ExperienceList() {
                 label: "",
               },
             ]}
-          />
-        )}
-
-        {featured && (
-          <FeaturedHero
-            imageUrl={featured.imagem_destaque}
-            badge={t("experiences.list.featured")}
-            title={featured.nome}
-            accent={featured.categoria?.nome ?? null}
-            ctaLabel={t("experiences.list.viewExperience")}
-            onOpen={() => setSelectedSlug(featured.slug)}
-            meta={
-              <>
-                {featured.gratuito && (
-                  <span className="inline-flex items-center gap-2">
-                    <DollarSign size={14} />
-                    {t("experiences.badges.free")}
-                  </span>
-                )}
-                {featured.bairro && (
-                  <span className="inline-flex items-center gap-2">
-                    <MapPin size={14} />
-                    {featured.bairro}
-                  </span>
-                )}
-              </>
-            }
           />
         )}
 

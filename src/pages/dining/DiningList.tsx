@@ -23,7 +23,6 @@ import {
   ModalContactLink,
   ModalScheduleList,
 } from "@/components/ui/ListPageLayout";
-import { FeaturedHero } from "@/components/listing/FeaturedHero";
 import { FilterChips, FilterDropdown, ViewToggle } from "@/components/listing/Filters";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { ListingHead, StatsStrip, CategoriesCallout, EmptyState } from "@/components/listing/Sections";
@@ -72,11 +71,6 @@ export default function DiningList() {
       return true;
     });
   }, [allEstablishments, selectedCategory, selectedHood]);
-
-  const featured = useMemo(() => {
-    if (!allEstablishments?.length) return null;
-    return allEstablishments[0];
-  }, [allEstablishments]);
 
   const stats = useMemo(() => {
     if (!allEstablishments?.length) return null;
@@ -134,25 +128,6 @@ export default function DiningList() {
                 label: "",
               },
             ]}
-          />
-        )}
-
-        {featured && (
-          <FeaturedHero
-            imageUrl={featured.imagem_destaque}
-            badge={t("dining.list.featured")}
-            title={featured.nome}
-            accent={featured.categorias?.[0]?.nome ?? null}
-            ctaLabel={t("dining.list.viewDining")}
-            onOpen={() => setSelectedSlug(featured.slug)}
-            meta={
-              featured.bairro ? (
-                <span className="inline-flex items-center gap-2">
-                  <MapPin size={14} />
-                  {featured.bairro}
-                </span>
-              ) : null
-            }
           />
         )}
 

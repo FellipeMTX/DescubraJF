@@ -108,8 +108,7 @@
   "listing": {
     "viewGrid": "Grid",
     "viewList": "Lista",
-    "viewDetails": "Ver detalles",
-    "featuredAria": "Destacado"
+    "viewDetails": "Ver detalles"
   },
   "experiences": {
     "title": "Atractivos",
@@ -121,7 +120,6 @@
       "title": "Atractivos",
       "titleHighlight": "que hacen Juiz de Fora inolvidable",
       "subtitle": "Historia, cultura, naturaleza y experiencias únicas te esperan en cada rincón. Filtra por categoría o explora en el mapa.",
-      "featured": "Atractivo destacado",
       "viewExperience": "Conoce este lugar",
       "allExperiences": "Todos los",
       "experiencesHighlight": "atractivos",
@@ -225,8 +223,6 @@
       "title": "Dónde",
       "titleHighlight": "descansar en Juiz de Fora",
       "subtitle": "Hoteles en el centro, posadas con encanto y apart-hoteles para estancias largas. Encuentra lo que combina con tu viaje.",
-      "featured": "Alojamiento destacado",
-      "viewLodging": "Ver alojamiento",
       "viewDetails": "Ver detalles",
       "viewGrid": "Cuadrícula",
       "viewList": "Lista",
@@ -279,7 +275,6 @@
       "title": "Sabores de",
       "titleHighlight": "las Geraes",
       "subtitle": "De la cocina mineira tradicional a los bares de esquina, prueba todo lo que nuestra gastronomía ofrece. Filtra por categoría o descubre en el mapa.",
-      "featured": "Sabor destacado",
       "viewDining": "Conoce este lugar",
       "allDining": "Todos los",
       "diningHighlight": "establecimientos",
