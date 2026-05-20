@@ -25,16 +25,26 @@ export type ListingMapItem = {
 
 const JF_CENTER: [number, number] = [-21.7642, -43.3496];
 
+function mapIsVisible(map: L.Map) {
+  const size = map.getSize();
+  return size.x > 0 && size.y > 0;
+}
+
+function hasCoords(i: ListingMapItem): i is ListingMapItem & { latitude: number; longitude: number } {
+  return Number.isFinite(i.latitude) && Number.isFinite(i.longitude);
+}
+
 function FitBounds({ items }: { items: ListingMapItem[] }) {
   const map = useMap();
   useEffect(() => {
-    const coords = items.filter((i) => i.latitude && i.longitude);
+    if (!mapIsVisible(map)) return;
+    const coords = items.filter(hasCoords);
     if (coords.length === 0) return;
     if (coords.length === 1) {
-      map.flyTo([coords[0].latitude!, coords[0].longitude!], 14, { duration: 0.6 });
+      map.flyTo([coords[0].latitude, coords[0].longitude], 14, { duration: 0.6 });
       return;
     }
-    const bounds = L.latLngBounds(coords.map((i) => [i.latitude!, i.longitude!]));
+    const bounds = L.latLngBounds(coords.map((i) => [i.latitude, i.longitude]));
     map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14, animate: true });
   }, [items, map]);
   return null;
@@ -43,9 +53,9 @@ function FitBounds({ items }: { items: ListingMapItem[] }) {
 function FlyToActive({ items, activeId }: { items: ListingMapItem[]; activeId: string | null }) {
   const map = useMap();
   useEffect(() => {
-    if (!activeId) return;
+    if (!activeId || !mapIsVisible(map)) return;
     const item = items.find((i) => i.id === activeId);
-    if (item && item.latitude && item.longitude) {
+    if (item && hasCoords(item)) {
       map.flyTo([item.latitude, item.longitude], 15, { duration: 0.6 });
     }
   }, [activeId, items, map]);
@@ -70,10 +80,7 @@ export function ListingMap({
   ctaLabel,
 }: ListingMapProps) {
   const { t } = useTranslation();
-  const withCoords = useMemo(
-    () => items.filter((i) => i.latitude && i.longitude),
-    [items]
-  );
+  const withCoords = useMemo(() => items.filter(hasCoords), [items]);
 
   if (withCoords.length === 0) {
     return (
@@ -104,7 +111,7 @@ export function ListingMap({
         return (
           <Marker
             key={item.id}
-            position={[item.latitude!, item.longitude!]}
+            position={[item.latitude, item.longitude]}
             opacity={isDim ? 0.4 : 1}
             riseOnHover
             eventHandlers={{
