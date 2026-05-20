@@ -13,7 +13,8 @@ import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useEvents } from "@/hooks/useEvents";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
-import { slugify, formatDate } from "@/lib/utils";
+import { formatDate, localDateToIso } from "@/lib/utils";
+import { uniqueSlug } from "@/lib/slug";
 import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Evento } from "@/types/database";
 
@@ -72,9 +73,10 @@ export default function EventAdmin() {
       if (imageFile) imagem_destaque = await uploadImage(imageFile, "eventos");
 
       const payload = {
-        titulo: form.titulo, slug: slugify(form.titulo),
+        titulo: form.titulo, slug: await uniqueSlug(form.titulo, "eventos", editing?.id),
         descricao_curta: form.descricao_curta || null, descricao: form.descricao || null,
-        data_inicio: form.data_inicio, data_fim: form.data_fim || null,
+        data_inicio: localDateToIso(form.data_inicio),
+        data_fim: form.data_fim ? localDateToIso(form.data_fim) : null,
         local_nome: form.local_nome || null, local_endereco: form.local_endereco || null,
         categoria: form.categoria || null, link_externo: form.link_externo || null,
         gratuito: form.gratuito, destaque: form.destaque,

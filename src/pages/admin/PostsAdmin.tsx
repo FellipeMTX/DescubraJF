@@ -14,7 +14,8 @@ import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { usePosts } from "@/hooks/usePosts";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
-import { slugify, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { uniqueSlug } from "@/lib/slug";
 import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Post, PostCategoria } from "@/types/database";
 
@@ -82,7 +83,7 @@ export default function PostsAdmin({ categoria }: Props) {
       const payload = {
         categoria,
         titulo: form.titulo,
-        slug: slugify(form.titulo),
+        slug: await uniqueSlug(form.titulo, "posts", editing?.id),
         resumo: form.resumo || null,
         conteudo_html: form.conteudo_html || null,
         autor: form.autor || null,

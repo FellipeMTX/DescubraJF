@@ -21,7 +21,7 @@ import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useExperiences, useExperienceCategories } from "@/hooks/useExperiences";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
-import { slugify } from "@/lib/utils";
+import { uniqueSlug } from "@/lib/slug";
 import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Experiencia } from "@/types/database";
 
@@ -109,7 +109,7 @@ export default function ExperienceAdmin() {
 
       const payload = {
         nome: form.nome,
-        slug: slugify(form.nome),
+        slug: await uniqueSlug(form.nome, "experiencias", editing?.id),
         descricao_curta: form.descricao_curta || null,
         descricao: form.descricao || null,
         categoria_id: form.categoria_id || null,

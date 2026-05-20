@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 import { useDiningEstablishments, useDiningCategories } from "@/hooks/useDining";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
-import { slugify } from "@/lib/utils";
+import { uniqueSlug } from "@/lib/slug";
 import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { EstabelecimentoGastronomia } from "@/types/database";
 
@@ -32,13 +32,12 @@ type FormData = {
   bairro: string;
   latitude: string;
   longitude: string;
-  faixa_preco: string;
   estacionamento: boolean;
 };
 
 const EMPTY: FormData = {
   nome: "", descricao_curta: "", descricao: "", categoria_ids: [],
-  endereco: "", numero: "", bairro: "", latitude: "", longitude: "", faixa_preco: "1", estacionamento: false,
+  endereco: "", numero: "", bairro: "", latitude: "", longitude: "", estacionamento: false,
 };
 
 export default function DiningAdmin() {
@@ -61,7 +60,7 @@ export default function DiningAdmin() {
       nome: item.nome, descricao_curta: item.descricao_curta ?? "", descricao: item.descricao ?? "",
       categoria_ids: item.categorias?.map((c) => c.id) ?? [], endereco: item.endereco ?? "",
       numero: "", bairro: item.bairro ?? "", latitude: item.latitude?.toString() ?? "",
-      longitude: item.longitude?.toString() ?? "", faixa_preco: item.faixa_preco?.toString() ?? "1",
+      longitude: item.longitude?.toString() ?? "",
       estacionamento: item.estacionamento,
     });
     setImageFile(null); setDialogOpen(true);
@@ -75,12 +74,12 @@ export default function DiningAdmin() {
       if (imageFile) imagem_destaque = await uploadImage(imageFile, "gastronomia");
 
       const payload = {
-        nome: form.nome, slug: slugify(form.nome), descricao_curta: form.descricao_curta || null,
+        nome: form.nome, slug: await uniqueSlug(form.nome, "estabelecimentos_gastronomia", editing?.id), descricao_curta: form.descricao_curta || null,
         descricao: form.descricao || null,
         endereco: [form.endereco, form.numero].filter(Boolean).join(", ") || null, bairro: form.bairro || null,
         latitude: form.latitude ? parseFloat(form.latitude) : null,
         longitude: form.longitude ? parseFloat(form.longitude) : null,
-        faixa_preco: parseInt(form.faixa_preco) || 1, estacionamento: form.estacionamento,
+        estacionamento: form.estacionamento,
         imagem_destaque, updated_at: new Date().toISOString(),
       };
 
@@ -200,19 +199,10 @@ export default function DiningAdmin() {
                 <Field label="Latitude"><Input value={form.latitude} onChange={(e) => update("latitude", e.target.value)} placeholder="-21.7469" /></Field>
                 <Field label="Longitude"><Input value={form.longitude} onChange={(e) => update("longitude", e.target.value)} placeholder="-43.3560" /></Field>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Faixa de preço">
-                  <select value={form.faixa_preco} onChange={(e) => update("faixa_preco", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
-                    <option value="1">$ Econômico</option>
-                    <option value="2">$$ Moderado</option>
-                    <option value="3">$$$ Premium</option>
-                  </select>
-                </Field>
-                <label className="flex items-center gap-2 pt-6 text-sm">
-                  <input type="checkbox" checked={form.estacionamento} onChange={(e) => update("estacionamento", e.target.checked)} className="rounded border-input" />
-                  Estacionamento
-                </label>
-              </div>
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={form.estacionamento} onChange={(e) => update("estacionamento", e.target.checked)} className="rounded border-input" />
+                Estacionamento
+              </label>
               <Button onClick={handleSave} disabled={saving || !form.nome.trim()} className="w-full">
                 {saving ? "Salvando..." : "Salvar"}
               </Button>

@@ -1,36 +1,31 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, type ReactNode } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { useTranslation } from "react-i18next";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import type { Hospedagem } from "@/types/database";
 
-type LodgingMapProps = {
-  items: Hospedagem[];
-  activeId: string | null;
-  onMarkerHover: (id: string | null) => void;
-  onMarkerClick?: (slug: string) => void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+});
+
+export type ListingMapItem = {
+  id: string;
+  slug: string;
+  nome: string;
+  latitude: number | null;
+  longitude: number | null;
+  imagem_destaque?: string | null;
+  bairro?: string | null;
+  badge?: string | null;
 };
 
 const JF_CENTER: [number, number] = [-21.7642, -43.3496];
 
-function buildMarkerIcon(name: string, state: "default" | "active" | "dim"): L.DivIcon {
-  const cls = `lf-marker${state === "active" ? " active" : ""}${state === "dim" ? " dim" : ""}`;
-  return L.divIcon({
-    html: `<div class="${cls}">${escapeHtml(name)}</div>`,
-    className: "",
-    iconSize: undefined,
-    iconAnchor: [0, 0],
-  });
-}
-
-function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c
-  );
-}
-
-function FitBounds({ items }: { items: Hospedagem[] }) {
+function FitBounds({ items }: { items: ListingMapItem[] }) {
   const map = useMap();
   useEffect(() => {
     const coords = items.filter((i) => i.latitude && i.longitude);
@@ -45,7 +40,7 @@ function FitBounds({ items }: { items: Hospedagem[] }) {
   return null;
 }
 
-function FlyToActive({ items, activeId }: { items: Hospedagem[]; activeId: string | null }) {
+function FlyToActive({ items, activeId }: { items: ListingMapItem[]; activeId: string | null }) {
   const map = useMap();
   useEffect(() => {
     if (!activeId) return;
@@ -57,9 +52,28 @@ function FlyToActive({ items, activeId }: { items: Hospedagem[]; activeId: strin
   return null;
 }
 
-export function LodgingMap({ items, activeId, onMarkerHover, onMarkerClick }: LodgingMapProps) {
+type ListingMapProps = {
+  items: ListingMapItem[];
+  activeId: string | null;
+  onMarkerHover: (id: string | null) => void;
+  onMarkerClick?: (slug: string) => void;
+  renderPopupExtra?: (item: ListingMapItem) => ReactNode;
+  ctaLabel: string;
+};
+
+export function ListingMap({
+  items,
+  activeId,
+  onMarkerHover,
+  onMarkerClick,
+  renderPopupExtra,
+  ctaLabel,
+}: ListingMapProps) {
   const { t } = useTranslation();
-  const withCoords = useMemo(() => items.filter((i) => i.latitude && i.longitude), [items]);
+  const withCoords = useMemo(
+    () => items.filter((i) => i.latitude && i.longitude),
+    [items]
+  );
 
   if (withCoords.length === 0) {
     return (
@@ -80,20 +94,18 @@ export function LodgingMap({ items, activeId, onMarkerHover, onMarkerClick }: Lo
       className="h-full w-full"
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        attribution="&copy; OpenStreetMap &copy; CARTO"
-        maxZoom={19}
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <FitBounds items={withCoords} />
       <FlyToActive items={withCoords} activeId={activeId} />
       {withCoords.map((item) => {
-        const state: "default" | "active" | "dim" =
-          activeId === item.id ? "active" : activeId ? "dim" : "default";
+        const isDim = activeId !== null && activeId !== item.id;
         return (
           <Marker
             key={item.id}
             position={[item.latitude!, item.longitude!]}
-            icon={buildMarkerIcon(item.nome, state)}
+            opacity={isDim ? 0.4 : 1}
             riseOnHover
             eventHandlers={{
               mouseover: () => onMarkerHover(item.id),
@@ -102,20 +114,21 @@ export function LodgingMap({ items, activeId, onMarkerHover, onMarkerClick }: Lo
             }}
           >
             <Popup closeButton offset={[0, -28]} maxWidth={240}>
-              <div className="lf-popup-img" style={{ backgroundImage: `url(${item.imagem_destaque ?? ""})` }} />
+              <div
+                className="lf-popup-img"
+                style={{ backgroundImage: `url(${item.imagem_destaque ?? ""})` }}
+              />
               <div className="lf-popup-body">
                 <p className="t">{item.nome}</p>
                 {item.bairro && <div className="l">{item.bairro}</div>}
                 <div className="row">
-                  {item.estrelas ? (
-                    <span className="stars">{"★".repeat(item.estrelas)}{"☆".repeat(Math.max(0, 5 - item.estrelas))}</span>
-                  ) : <span />}
+                  {renderPopupExtra ? renderPopupExtra(item) : <span />}
                   <button
                     type="button"
                     onClick={() => onMarkerClick?.(item.slug)}
                     className="lf-popup-cta"
                   >
-                    {t("lodging.list.viewDetails")} →
+                    {ctaLabel} →
                   </button>
                 </div>
               </div>

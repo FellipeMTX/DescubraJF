@@ -28,15 +28,13 @@
     "attractions": "Attractions",
     "routes": "Routes",
     "events": "Events",
-    "tours": "See You Around",
     "whereToEat": "Where to Eat & Drink",
     "whereToStay": "Where to Stay",
     "services": "Services",
     "tourismDept": "Tourism Department",
     "institutional": "About Us",
     "programs": "Programs & Projects",
-    "news": "News",
-    "contact": "Contact"
+    "news": "News"
   },
   "footer": {
     "columns": {
@@ -53,9 +51,7 @@
       "events": "Events",
       "establishments": "Establishments",
       "lodging": "Lodging",
-      "institutional": "About Us",
-      "tours": "See You Around",
-      "contact": "Contact"
+      "institutional": "About Us"
     }
   },
   "notFound": {
@@ -109,11 +105,42 @@
       "empty": "No upcoming events at the moment."
     }
   },
+  "listing": {
+    "viewGrid": "Grid",
+    "viewList": "List",
+    "viewDetails": "View details",
+    "featuredAria": "Featured"
+  },
   "experiences": {
     "title": "Attractions",
     "subtitle": "Explore the best of Juiz de Fora",
     "empty": "No attractions found in this category.",
     "notFound": "Attraction not found.",
+    "list": {
+      "kicker": "Attractions",
+      "title": "Places that make",
+      "titleHighlight": "Juiz de Fora unforgettable",
+      "subtitle": "History, culture, nature and unique experiences await you at every corner. Filter by category or explore on the map.",
+      "featured": "Featured attraction",
+      "viewExperience": "Discover this place",
+      "allExperiences": "All",
+      "experiencesHighlight": "attractions",
+      "results": "results",
+      "clearFilters": "Clear filters",
+      "allCategories": "All categories",
+      "stats": {
+        "total": "Attractions",
+        "catsEm": "categories",
+        "catsLabel": "Diverse types",
+        "freeEm": "free",
+        "freeLabel": "Free to visit",
+        "features": "Accessible · Pet-friendly"
+      },
+      "catsCalloutTitle": "Browse by",
+      "catsCalloutHighlight": "category",
+      "catsCalloutDesc": "Find the perfect attraction by type — historic parks, viewpoints, religious sites or culture.",
+      "catsOptions": "attractions"
+    },
     "badges": {
       "free": "Free",
       "accessible": "Accessible",
@@ -186,12 +213,6 @@
       "dayOf": "of",
       "event": "event",
       "events": "events"
-    },
-    "detail": {
-      "back": "Calendar",
-      "title": "Event",
-      "titleHighlight": "Details",
-      "subtitle": "Content will be loaded from Supabase when configured."
     }
   },
   "lodging": {
@@ -253,6 +274,31 @@
     "subtitle": "Taste everything our gastronomy has to offer",
     "empty": "No establishment found in this category.",
     "notFound": "Establishment not found.",
+    "list": {
+      "kicker": "Where to eat & drink",
+      "title": "Flavors of",
+      "titleHighlight": "the Geraes",
+      "subtitle": "From traditional Mineira cuisine to corner pubs, taste everything our gastronomy has to offer. Filter by category or discover on the map.",
+      "featured": "Featured spot",
+      "viewDining": "Discover this place",
+      "allDining": "All",
+      "diningHighlight": "establishments",
+      "results": "results",
+      "clearFilters": "Clear filters",
+      "allCategories": "All categories",
+      "stats": {
+        "total": "Establishments",
+        "catsEm": "categories",
+        "catsLabel": "Variety of cuisines",
+        "priceEm": "ranges",
+        "priceLabel": "For every budget",
+        "extras": "Bars · Cafés · Restaurants"
+      },
+      "catsCalloutTitle": "Browse by",
+      "catsCalloutHighlight": "type",
+      "catsCalloutDesc": "From Mineira cuisine to corner bars, discover the flavors that make JF unique.",
+      "catsOptions": "places"
+    },
     "filters": {
       "all": "All"
     },
@@ -303,11 +349,6 @@
     "subtitle": "Useful services for your stay in Juiz de Fora",
     "empty": "No service found in this category."
   },
-  "tours": {
-    "title": "See You Around",
-    "subtitle": "Discover experiences and tours through the city",
-    "empty": "No tour found in this category."
-  },
   "city": {
     "howToGetHere": {
       "kicker": "Getting to the city",
@@ -331,12 +372,6 @@
       "titleHighlight": "Office",
       "subtitle": "Content will be loaded from Supabase when configured."
     }
-  },
-  "contact": {
-    "kicker": "Get in touch",
-    "title": "Contact",
-    "titleHighlight": "JF",
-    "subtitle": "Coming soon: contact form and Tourism Department information."
   },
   "history": {
     "chapter": "Discover · Chapter I",

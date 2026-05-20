@@ -22,7 +22,6 @@ const ExperienceList = lazy(() => import("./pages/experiences/ExperienceList"));
 const RouteList = lazy(() => import("./pages/routes/RouteList"));
 const RouteDetail = lazy(() => import("./pages/routes/RouteDetail"));
 const EventList = lazy(() => import("./pages/events/EventList"));
-const EventDetail = lazy(() => import("./pages/events/EventDetail"));
 const DiningList = lazy(() => import("./pages/dining/DiningList"));
 const LodgingList = lazy(() => import("./pages/lodging/LodgingList"));
 const History = lazy(() => import("./pages/city/History"));
@@ -31,8 +30,6 @@ const HowToGetHere = lazy(() => import("./pages/city/HowToGetHere"));
 const Press = lazy(() => import("./pages/city/Press"));
 const AboutSetur = lazy(() => import("./pages/city/AboutSetur"));
 const ServiceList = lazy(() => import("./pages/services/ServiceList"));
-const PasseioList = lazy(() => import("./pages/services/PasseioList"));
-const Contact = lazy(() => import("./pages/Contact"));
 const Institucional = lazy(() => import("./pages/secretaria/Institucional"));
 const PostsList = lazy(() => import("./pages/secretaria/PostsList"));
 const PostDetail = lazy(() => import("./pages/secretaria/PostDetail"));
@@ -59,17 +56,14 @@ export const router = createBrowserRouter([
       { path: "roteiros", element: <Lazy><RouteList /></Lazy> },
       { path: "roteiros/:slug", element: <Lazy><RouteDetail /></Lazy> },
       { path: "agenda", element: <Lazy><EventList /></Lazy> },
-      { path: "agenda/:slug", element: <Lazy><EventDetail /></Lazy> },
       { path: "onde-comer", element: <Lazy><DiningList /></Lazy> },
       { path: "onde-ficar", element: <Lazy><LodgingList /></Lazy> },
       { path: "servicos", element: <Lazy><ServiceList /></Lazy> },
-      { path: "passeios", element: <Lazy><PasseioList /></Lazy> },
       { path: "juiz-de-fora/historia", element: <Lazy><History /></Lazy> },
       { path: "juiz-de-fora/informacoes", element: <Lazy><TouristInfo /></Lazy> },
       { path: "juiz-de-fora/como-chegar", element: <Lazy><HowToGetHere /></Lazy> },
       { path: "juiz-de-fora/imprensa", element: <Lazy><Press /></Lazy> },
       { path: "juiz-de-fora/setur", element: <Lazy><AboutSetur /></Lazy> },
-      { path: "contato", element: <Lazy><Contact /></Lazy> },
       { path: "secretaria/institucional", element: <Lazy><Institucional /></Lazy> },
       { path: "secretaria/noticias", element: <Lazy><PostsList categoria="noticia" /></Lazy> },
       { path: "secretaria/noticias/:slug", element: <Lazy><PostDetail categoria="noticia" /></Lazy> },

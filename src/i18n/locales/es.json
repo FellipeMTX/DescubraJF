@@ -28,15 +28,13 @@
     "attractions": "Atractivos",
     "routes": "Rutas",
     "events": "Agenda",
-    "tours": "Nos Vemos por Ahí",
     "whereToEat": "Dónde Comer y Beber",
     "whereToStay": "Dónde Alojarse",
     "services": "Servicios",
     "tourismDept": "Secretaría de Turismo",
     "institutional": "Institucional",
     "programs": "Programas y Proyectos",
-    "news": "Noticias",
-    "contact": "Contacto"
+    "news": "Noticias"
   },
   "footer": {
     "columns": {
@@ -53,9 +51,7 @@
       "events": "Agenda",
       "establishments": "Establecimientos",
       "lodging": "Alojamientos",
-      "institutional": "Institucional",
-      "tours": "Nos Vemos por Ahí",
-      "contact": "Contacto"
+      "institutional": "Institucional"
     }
   },
   "notFound": {
@@ -109,11 +105,42 @@
       "empty": "Ningún evento próximo por el momento."
     }
   },
+  "listing": {
+    "viewGrid": "Grid",
+    "viewList": "Lista",
+    "viewDetails": "Ver detalles",
+    "featuredAria": "Destacado"
+  },
   "experiences": {
     "title": "Atractivos",
     "subtitle": "Explore lo mejor de Juiz de Fora",
     "empty": "No se encontraron atractivos en esta categoría.",
     "notFound": "Atractivo no encontrado.",
+    "list": {
+      "kicker": "Atractivos",
+      "title": "Atractivos",
+      "titleHighlight": "que hacen Juiz de Fora inolvidable",
+      "subtitle": "Historia, cultura, naturaleza y experiencias únicas te esperan en cada rincón. Filtra por categoría o explora en el mapa.",
+      "featured": "Atractivo destacado",
+      "viewExperience": "Conoce este lugar",
+      "allExperiences": "Todos los",
+      "experiencesHighlight": "atractivos",
+      "results": "resultados",
+      "clearFilters": "Limpiar filtros",
+      "allCategories": "Todas las categorías",
+      "stats": {
+        "total": "Atractivos",
+        "catsEm": "categorías",
+        "catsLabel": "Tipos diversos",
+        "freeEm": "gratis",
+        "freeLabel": "Sin costo",
+        "features": "Accesibles · Pet-friendly"
+      },
+      "catsCalloutTitle": "Explora por",
+      "catsCalloutHighlight": "categoría",
+      "catsCalloutDesc": "Encuentra el atractivo perfecto por tipo — parques históricos, miradores, religiosidad o cultura.",
+      "catsOptions": "atractivos"
+    },
     "badges": {
       "free": "Gratis",
       "accessible": "Accesible",
@@ -186,12 +213,6 @@
       "dayOf": "de",
       "event": "evento",
       "events": "eventos"
-    },
-    "detail": {
-      "back": "Agenda",
-      "title": "Detalles del",
-      "titleHighlight": "Evento",
-      "subtitle": "El contenido se cargará desde Supabase cuando esté configurado."
     }
   },
   "lodging": {
@@ -253,6 +274,31 @@
     "subtitle": "Prueba todo lo que nuestra gastronomía ofrece",
     "empty": "No se encontró ningún establecimiento en esta categoría.",
     "notFound": "Establecimiento no encontrado.",
+    "list": {
+      "kicker": "Dónde comer y beber",
+      "title": "Sabores de",
+      "titleHighlight": "las Geraes",
+      "subtitle": "De la cocina mineira tradicional a los bares de esquina, prueba todo lo que nuestra gastronomía ofrece. Filtra por categoría o descubre en el mapa.",
+      "featured": "Sabor destacado",
+      "viewDining": "Conoce este lugar",
+      "allDining": "Todos los",
+      "diningHighlight": "establecimientos",
+      "results": "resultados",
+      "clearFilters": "Limpiar filtros",
+      "allCategories": "Todas las categorías",
+      "stats": {
+        "total": "Establecimientos",
+        "catsEm": "categorías",
+        "catsLabel": "Variedad gastronómica",
+        "priceEm": "rangos",
+        "priceLabel": "Para todos los bolsillos",
+        "extras": "Bares · Cafés · Restaurantes"
+      },
+      "catsCalloutTitle": "Explora por",
+      "catsCalloutHighlight": "tipo",
+      "catsCalloutDesc": "De la cocina mineira a los bares de esquina, descubre los sabores que hacen JF única.",
+      "catsOptions": "lugares"
+    },
     "filters": {
       "all": "Todos"
     },
@@ -303,11 +349,6 @@
     "subtitle": "Servicios útiles para tu estancia en Juiz de Fora",
     "empty": "No se encontró ningún servicio en esta categoría."
   },
-  "tours": {
-    "title": "Nos Vemos por Ahí",
-    "subtitle": "Descubre experiencias y paseos por la ciudad",
-    "empty": "No se encontró ningún paseo en esta categoría."
-  },
   "city": {
     "howToGetHere": {
       "kicker": "Acceso a la ciudad",
@@ -331,12 +372,6 @@
       "titleHighlight": "Prensa",
       "subtitle": "El contenido se cargará desde Supabase cuando esté configurado."
     }
-  },
-  "contact": {
-    "kicker": "Habla con nosotros",
-    "title": "Contacto",
-    "titleHighlight": "JF",
-    "subtitle": "Próximamente: formulario de contacto e información de la Setur."
   },
   "history": {
     "chapter": "Descubra · Capítulo I",

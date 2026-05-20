@@ -34,6 +34,10 @@ export function parseLocalDate(date: string): Date {
   return new Date(y, m - 1, d);
 }
 
+export function localDateToIso(date: string): string {
+  return parseLocalDate(date).toISOString();
+}
+
 export function toIsoDay(date: string): string {
   return date.slice(0, 10);
 }
