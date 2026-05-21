@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Plus, Pencil, Trash2 } from "lucide-react";
-import { StarRating } from "@/components/ui/StarRating";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -17,7 +16,7 @@ import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useLodgingEstablishments } from "@/hooks/useLodging";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
-import { slugify } from "@/lib/utils";
+import { uniqueSlug } from "@/lib/slug";
 import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Hospedagem } from "@/types/database";
 
@@ -26,20 +25,18 @@ type FormData = {
   descricao_curta: string;
   descricao: string;
   tipo: string;
-  estrelas: string;
   endereco: string;
   numero: string;
   bairro: string;
   latitude: string;
   longitude: string;
-  faixa_preco: string;
   comodidades: string;
   destaque: boolean;
 };
 
 const EMPTY: FormData = {
-  nome: "", descricao_curta: "", descricao: "", tipo: "hotel", estrelas: "3",
-  endereco: "", numero: "", bairro: "", latitude: "", longitude: "", faixa_preco: "2", comodidades: "",
+  nome: "", descricao_curta: "", descricao: "", tipo: "hotel",
+  endereco: "", numero: "", bairro: "", latitude: "", longitude: "", comodidades: "",
   destaque: false,
 };
 
@@ -59,9 +56,9 @@ export default function LodgingAdmin() {
     setEditing(item);
     setForm({
       nome: item.nome, descricao_curta: item.descricao_curta ?? "", descricao: item.descricao ?? "",
-      tipo: item.tipo, estrelas: item.estrelas?.toString() ?? "3", endereco: item.endereco ?? "",
+      tipo: item.tipo, endereco: item.endereco ?? "",
       numero: "", bairro: item.bairro ?? "", latitude: item.latitude?.toString() ?? "",
-      longitude: item.longitude?.toString() ?? "", faixa_preco: item.faixa_preco?.toString() ?? "2",
+      longitude: item.longitude?.toString() ?? "",
       comodidades: item.comodidades?.join(", ") ?? "",
       destaque: item.destaque ?? false,
     });
@@ -79,12 +76,11 @@ export default function LodgingAdmin() {
         .split(",").map((c) => c.trim()).filter(Boolean);
 
       const payload = {
-        nome: form.nome, slug: slugify(form.nome), descricao_curta: form.descricao_curta || null,
-        descricao: form.descricao || null, tipo: form.tipo, estrelas: parseFloat(form.estrelas) || null,
+        nome: form.nome, slug: await uniqueSlug(form.nome, "hospedagens", editing?.id), descricao_curta: form.descricao_curta || null,
+        descricao: form.descricao || null, tipo: form.tipo,
         endereco: [form.endereco, form.numero].filter(Boolean).join(", ") || null, bairro: form.bairro || null,
         latitude: form.latitude ? parseFloat(form.latitude) : null,
         longitude: form.longitude ? parseFloat(form.longitude) : null,
-        faixa_preco: parseInt(form.faixa_preco) || 2,
         comodidades: comodidades.length > 0 ? comodidades : null,
         destaque: form.destaque,
         imagem_destaque, updated_at: new Date().toISOString(),
@@ -136,23 +132,14 @@ export default function LodgingAdmin() {
               <Field label="Nome *"><Input value={form.nome} onChange={(e) => update("nome", e.target.value)} /></Field>
               <Field label="Descrição curta"><Input value={form.descricao_curta} onChange={(e) => update("descricao_curta", e.target.value)} /></Field>
               <Field label="Descrição completa"><Textarea value={form.descricao} onChange={(e) => update("descricao", e.target.value)} rows={3} /></Field>
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Tipo">
-                  <select value={form.tipo} onChange={(e) => update("tipo", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
-                    <option value="hotel">Hotel</option>
-                    <option value="pousada">Pousada</option>
-                    <option value="hostel">Hostel</option>
-                    <option value="flat">Flat</option>
-                  </select>
-                </Field>
-                <Field label="Estrelas">
-                  <select value={form.estrelas} onChange={(e) => update("estrelas", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
-                    {[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map((n) => (
-                      <option key={n} value={n}>{n} estrela{n !== 1 ? "s" : ""}</option>
-                    ))}
-                  </select>
-                </Field>
-              </div>
+              <Field label="Tipo">
+                <select value={form.tipo} onChange={(e) => update("tipo", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
+                  <option value="hotel">Hotel</option>
+                  <option value="pousada">Pousada</option>
+                  <option value="hostel">Hostel</option>
+                  <option value="flat">Flat</option>
+                </select>
+              </Field>
               <Field label="Foto principal">
                 <ImageUploadField
                   value={imageFile}
@@ -177,15 +164,6 @@ export default function LodgingAdmin() {
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Latitude"><Input value={form.latitude} onChange={(e) => update("latitude", e.target.value)} placeholder="-21.7469" /></Field>
                 <Field label="Longitude"><Input value={form.longitude} onChange={(e) => update("longitude", e.target.value)} placeholder="-43.3560" /></Field>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Faixa de preço">
-                  <select value={form.faixa_preco} onChange={(e) => update("faixa_preco", e.target.value)} className="w-full rounded-md border border-input px-3 py-2 text-sm">
-                    <option value="1">$ Econômico</option>
-                    <option value="2">$$ Moderado</option>
-                    <option value="3">$$$ Premium</option>
-                  </select>
-                </Field>
               </div>
               <Field label="Comodidades (separadas por vírgula)">
                 <Input value={form.comodidades} onChange={(e) => update("comodidades", e.target.value)} placeholder="wifi, estacionamento, piscina, café da manhã" />
@@ -213,13 +191,12 @@ export default function LodgingAdmin() {
             <tr>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">Nome</th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">Tipo</th>
-              <th className="px-4 py-3 text-left font-medium text-muted-foreground">Estrelas</th>
               <th className="px-4 py-3 text-right font-medium text-muted-foreground">Ações</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {isLoading ? Array.from({ length: 5 }).map((_, i) => (
-              <tr key={i}><td className="px-4 py-3" colSpan={4}><Skeleton className="h-6 w-full" /></td></tr>
+              <tr key={i}><td className="px-4 py-3" colSpan={3}><Skeleton className="h-6 w-full" /></td></tr>
             )) : items?.map((item) => (
               <tr key={item.id} className="hover:bg-muted">
                 <td className="px-4 py-3">
@@ -229,11 +206,6 @@ export default function LodgingAdmin() {
                   </div>
                 </td>
                 <td className="px-4 py-3"><Badge variant="secondary" className="capitalize">{item.tipo}</Badge></td>
-                <td className="px-4 py-3">
-                  {item.estrelas && (
-                    <StarRating value={item.estrelas} size={12} className="text-primary-400" />
-                  )}
-                </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-1">
                     <Button variant="ghost" size="icon-sm" onClick={() => openEdit(item)}><Pencil size={14} /></Button>

@@ -12,7 +12,7 @@ import { ImageUploadField } from "@/components/admin/ImageUploadField";
 import { useRoutes } from "@/hooks/useRoutes";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
-import { slugify } from "@/lib/utils";
+import { uniqueSlug } from "@/lib/slug";
 import { IMAGE_RATIOS_NUM } from "@/lib/constants";
 import type { Roteiro } from "@/types/database";
 
@@ -57,7 +57,7 @@ export default function RouteAdmin() {
 
       const payload = {
         nome: form.nome,
-        slug: slugify(form.nome),
+        slug: await uniqueSlug(form.nome, "roteiros", editing?.id),
         descricao: form.descricao || null,
         descricao_curta: form.descricao_curta || null,
         mapa_url: form.mapa_url || null,

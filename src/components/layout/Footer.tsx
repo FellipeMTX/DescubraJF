@@ -27,11 +27,7 @@ const FOOTER_COLUMNS: ReadonlyArray<{
   },
   {
     titleKey: "footer.columns.services",
-    links: [
-      { labelKey: "footer.links.institutional", href: "/servicos" },
-      { labelKey: "footer.links.tours", href: "/passeios" },
-      { labelKey: "footer.links.contact", href: "/contato" },
-    ],
+    links: [{ labelKey: "footer.links.institutional", href: "/servicos" }],
   },
 ];
 

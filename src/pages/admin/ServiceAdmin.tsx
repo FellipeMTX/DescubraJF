@@ -14,7 +14,7 @@ import {
 import { useAllServiceCategories, useServices } from "@/hooks/useServices";
 import { supabase } from "@/lib/supabase";
 
-import { slugify } from "@/lib/utils";
+import { uniqueSlug } from "@/lib/slug";
 import type { CategoriaServico, Servico } from "@/types/database";
 
 type Tab = "servicos" | "passeios";
@@ -89,7 +89,7 @@ function CategorySection({ tab, selectedCatId, onSelectCat }: { tab: Tab; select
     setSaving(true);
     try {
       const payload = {
-        nome: form.nome, slug: slugify(form.nome), descricao: form.descricao || null,
+        nome: form.nome, slug: await uniqueSlug(form.nome, "categorias_servicos", editing?.id), descricao: form.descricao || null,
         icone: form.icone || null, pagina: form.pagina,
       };
       if (editing) {
@@ -232,7 +232,7 @@ function ItemSection({ tab, categoryId }: { tab: Tab; categoryId: string }) {
       const hasContato = Object.values(contato).some(Boolean);
 
       const payload = {
-        nome: form.nome, slug: slugify(form.nome), descricao_curta: form.descricao_curta || null,
+        nome: form.nome, slug: await uniqueSlug(form.nome, "servicos", editing?.id), descricao_curta: form.descricao_curta || null,
         descricao: form.descricao || null, categoria_id: form.categoria_id || null,
         pagina: form.pagina, endereco: form.endereco || null,
         contato: hasContato ? contato : null, link_externo: form.link_externo || null,

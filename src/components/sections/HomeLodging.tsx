@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AspectImage } from "@/components/ui/AspectImage";
-import { StarRating } from "@/components/ui/StarRating";
 import { useFeaturedLodgings } from "@/hooks/useLodging";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { IMAGE_RATIOS } from "@/lib/constants";
@@ -93,14 +92,6 @@ export function HomeLodging() {
                   </div>
                 </AspectImage>
                 <div className="p-[18px]">
-                  {h.estrelas ? (
-                    <StarRating
-                      value={h.estrelas}
-                      size={13}
-                      className="mb-1.5"
-                      color="var(--color-bl-accent2)"
-                    />
-                  ) : null}
                   <div className="bl-display text-xl">{h.nome}</div>
                   <div
                     className="mt-1 text-xs italic"

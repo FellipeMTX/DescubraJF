@@ -9,7 +9,6 @@ export const NAV_ITEMS = [
       { labelKey: "nav.attractions", href: "/atrativos" },
       { labelKey: "nav.routes", href: "/roteiros" },
       { labelKey: "nav.events", href: "/agenda" },
-      { labelKey: "nav.tours", href: "/passeios" },
     ],
   },
   { labelKey: "nav.whereToEat", href: "/onde-comer" },
@@ -21,7 +20,6 @@ export const NAV_ITEMS = [
       { labelKey: "nav.institutional", href: "/secretaria/institucional" },
       { labelKey: "nav.programs", href: "/secretaria/programas-e-projetos" },
       { labelKey: "nav.news", href: "/secretaria/noticias" },
-      { labelKey: "nav.contact", href: "/contato" },
     ],
   },
 ] as const;
