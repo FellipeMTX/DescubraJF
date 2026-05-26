@@ -120,6 +120,10 @@
       "title": "Atrativos",
       "titleHighlight": "que tornam Juiz de Fora inesquecível",
       "subtitle": "História, cultura, natureza e experiências únicas te esperam em cada canto da cidade. Filtre por categoria ou explore no mapa.",
+      "exploreCta": "Explorar atrativos",
+      "exploreKicker": "Explorar",
+      "featuredCatsTitle": "Categorias em",
+      "featuredCatsHighlight": "destaque",
       "viewExperience": "Conheça este atrativo",
       "allExperiences": "Todos os",
       "experiencesHighlight": "atrativos",
@@ -300,7 +304,9 @@
         "catsLabel": "Variedade gastronômica",
         "priceEm": "faixas",
         "priceLabel": "Para todos os bolsos",
-        "extras": "Bares · Cafés · Restaurantes"
+        "extras": "Bares · Cafés · Restaurantes",
+        "hoodsEm": "bairros",
+        "hoodsLabel": "Espalhados pela cidade"
       },
       "catsCalloutTitle": "Explore por",
       "catsCalloutHighlight": "tipo",
