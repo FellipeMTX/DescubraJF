@@ -11,19 +11,19 @@ const TIMELINE_YEARS = [
 ] as const;
 
 const TIMELINE_IMAGES: Record<string, string | undefined> = {
-  "1703": "/Linha%20do%20tempo_%201703.jpg",
-  "1853": "/Linha%20do%20tempo%20-1853.jpg",
-  "1856": "/Linha%20do%20tempo_%201856.jpg",
-  "1857": "/Linha%20do%20tempo_%201857.jpg",
-  "1861": "/Linha%20do%20tempo_%201861.jpg",
-  "1865": "/Linha%20do%20tempo_%201865.jpg",
-  "1890": "/Linha%20do%20tempo_%201890.jpg",
-  "1907": "/Linha%20do%20tempo_%201907.jpg",
-  "1915": "/Linha%20do%20tempo_%201915.jpg",
-  "1929": "/Linha%20do%20tempo_%201929.jpg",
-  "1934": "/Linha%20do%20tempo_%201934.jpg",
-  "1977": "/Linha%20do%20tempo_%201977.jpg",
-  "2023": "/Linha%20do%20tempo_%202023.jpg",
+  "1703": "/historia/Linha%20do%20tempo_%201703.jpg",
+  "1853": "/historia/Linha%20do%20tempo%20-1853.jpg",
+  "1856": "/historia/Linha%20do%20tempo_%201856.jpg",
+  "1857": "/historia/Linha%20do%20tempo_%201857.jpg",
+  "1861": "/historia/Linha%20do%20tempo_%201861.jpg",
+  "1865": "/historia/Linha%20do%20tempo_%201865.jpg",
+  "1890": "/historia/Linha%20do%20tempo_%201890.jpg",
+  "1907": "/historia/Linha%20do%20tempo_%201907.jpg",
+  "1915": "/historia/Linha%20do%20tempo_%201915.jpg",
+  "1929": "/historia/Linha%20do%20tempo_%201929.jpg",
+  "1934": "/historia/Linha%20do%20tempo_%201934.jpg",
+  "1977": "/historia/Linha%20do%20tempo_%201977.jpg",
+  "2023": "/historia/Linha%20do%20tempo_%202023.jpg",
 };
 
 export default function History() {
@@ -43,7 +43,7 @@ export default function History() {
             {t("history.origins.titleAfter")}
           </>
         }
-        image="/HotelAvenida-02.webp"
+        image="/historia/HotelAvenida-02.webp"
         imageCaption={t("history.origins.imageCaption")}
       >
         <p>{t("history.origins.p1")}</p>
@@ -60,7 +60,7 @@ export default function History() {
             {t("history.immigration.titleBefore")} <span className="bl-em">{t("history.immigration.titleHighlight")}</span>
           </>
         }
-        image="/Chegada-imigrantes-03.webp"
+        image="/historia/Chegada-imigrantes-03.webp"
         imageCaption={t("history.immigration.imageCaption")}
       >
         <p>{t("history.immigration.p1")}</p>
@@ -78,7 +78,7 @@ export default function History() {
             {t("history.architecture.titleAfter")}
           </>
         }
-        image="/arq-07.webp"
+        image="/historia/arq-07.webp"
         imageCaption={t("history.architecture.imageCaption")}
       >
         <p>{t("history.architecture.p1")}</p>
@@ -98,7 +98,7 @@ function HistHero() {
         className="bl-card relative h-[78vh] min-h-[560px] overflow-hidden"
         style={{ borderRadius: 28, cursor: "default" }}
       >
-        <img src="/Foto%202.jpg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+        <img src="/historia/Foto%202.jpg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
         <div
           className="absolute inset-0"
           style={{
@@ -199,7 +199,7 @@ function HistIntro() {
             style={{ maxHeight: 580, cursor: "default" }}
           >
             <img
-              src="/PacoMunicipal-01.webp"
+              src="/historia/PacoMunicipal-01.webp"
               alt={t("history.intro.palaceAlt")}
               loading="lazy"
               className="h-full w-full object-cover"
@@ -479,7 +479,7 @@ function HistManchester() {
             }}
           >
             <img
-              src="/Foto%204.jpg"
+              src="/historia/Foto%204.jpg"
               alt={t("history.manchester.imageAlt")}
               loading="lazy"
               className="h-full w-full object-cover"
@@ -627,7 +627,7 @@ function HistSurprise() {
           <figure className="m-0 hidden md:block">
             <div className="bl-card relative aspect-4/5 overflow-hidden" style={{ maxHeight: 560, cursor: "default" }}>
               <img
-                src="/Foto%207.jpg"
+                src="/historia/Foto%207.jpg"
                 alt={t("history.surprise.kicker")}
                 loading="lazy"
                 className="h-full w-full object-cover"
