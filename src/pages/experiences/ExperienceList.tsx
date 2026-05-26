@@ -138,7 +138,7 @@ export default function ExperienceList() {
       <div className="relative w-full">
         <div className="overflow-hidden">
           <img
-            src="/atrativosBanner.png"
+            src="/atrativosBanner2.png"
             alt={t("experiences.list.title")}
             className="block h-auto w-full"
           />
@@ -243,14 +243,16 @@ export default function ExperienceList() {
         )}
 
         {/* Filtros de bairro + view toggle */}
-        <div className="mt-16 flex flex-wrap items-center justify-end gap-2.5">
-          {bairros.length > 0 && (
+        <div className="mt-16 grid grid-cols-2 gap-2.5 lg:flex lg:items-center lg:justify-between">
+          {bairros.length > 0 ? (
             <FilterDropdown
               items={bairros}
               selected={selectedHood}
-              allLabel={t("experiences.list.allCategories")}
+              allLabel={t("experiences.list.allHoods")}
               onSelect={setSelectedHood}
             />
+          ) : (
+            <span />
           )}
           <ViewToggle value={view} onChange={setView} />
         </div>
@@ -459,7 +461,7 @@ function CategoryChip({
       className={cn(
         "group/chip flex min-w-30 shrink-0 cursor-pointer flex-col items-center gap-2 rounded-2xl border px-4 py-3 text-center transition-all duration-300 max-md:min-w-27 max-md:px-3 max-md:py-2.5 max-sm:min-w-24 max-sm:gap-1.5 max-sm:px-2.5 max-sm:py-2",
         "hover:-translate-y-0.5 hover:shadow-md",
-        "data-[active=false]:hover:!bg-[var(--color-bl-accent)] data-[active=false]:hover:!text-white data-[active=false]:hover:!border-[var(--color-bl-accent)]"
+        "data-[active=false]:hover:bg-bl-accent! data-[active=false]:hover:text-white! data-[active=false]:hover:border-bl-accent!"
       )}
       style={{
         background: active ? "var(--color-bl-ink)" : "var(--color-bl-card)",
@@ -506,7 +508,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
   const { data: exp, isLoading } = useExperienceBySlug(slug);
 
   if (isLoading) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (!exp) return <p className="text-[var(--color-bl-muted)]">{t("experiences.notFound")}</p>;
+  if (!exp) return <p className="text-bl-muted">{t("experiences.notFound")}</p>;
 
   const hasContact = exp.contato && Object.values(exp.contato).some(Boolean);
   const hasSchedule = exp.horario_funcionamento && Object.keys(exp.horario_funcionamento).length > 0;

@@ -129,7 +129,7 @@
       "experiencesHighlight": "atractivos",
       "results": "resultados",
       "clearFilters": "Limpiar filtros",
-      "allCategories": "Todas las categorías",
+      "allHoods": "Todos los barrios",
       "stats": {
         "total": "Atractivos",
         "catsEm": "categorías",
@@ -297,7 +297,7 @@
       "diningHighlight": "establecimientos",
       "results": "resultados",
       "clearFilters": "Limpiar filtros",
-      "allCategories": "Todas las categorías",
+      "allHoods": "Todos los barrios",
       "stats": {
         "total": "Establecimientos",
         "catsEm": "categorías",

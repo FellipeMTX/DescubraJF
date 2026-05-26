@@ -129,7 +129,7 @@
       "experiencesHighlight": "attractions",
       "results": "results",
       "clearFilters": "Clear filters",
-      "allCategories": "All categories",
+      "allHoods": "All neighborhoods",
       "stats": {
         "total": "Attractions",
         "catsEm": "categories",
@@ -297,7 +297,7 @@
       "diningHighlight": "establishments",
       "results": "results",
       "clearFilters": "Clear filters",
-      "allCategories": "All categories",
+      "allHoods": "All neighborhoods",
       "stats": {
         "total": "Establishments",
         "catsEm": "categories",

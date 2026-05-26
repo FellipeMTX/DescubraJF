@@ -49,11 +49,13 @@ export function FilterDropdown({
   selected,
   allLabel,
   onSelect,
+  className,
 }: {
   items: { name: string; count: number }[];
   selected: string;
   allLabel: string;
   onSelect: (v: string) => void;
+  className?: string;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -69,12 +71,12 @@ export function FilterDropdown({
   }, []);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className={cn("relative", className)}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2.5 text-sm font-medium transition-colors",
+          "flex w-full cursor-pointer items-center gap-2 rounded-full border px-3.5 py-2.5 text-sm font-medium transition-colors",
           hasValue ? "border-transparent" : "border-black/12 hover:border-bl-ink"
         )}
         style={{
@@ -88,13 +90,13 @@ export function FilterDropdown({
             style={{ background: "var(--color-bl-accent)" }}
           />
         )}
-        <MapPin size={14} />
+        <MapPin size={14} className="max-sm:hidden" />
         <span>{label}</span>
-        <ChevronDown size={12} className={cn("transition-transform", open && "rotate-180")} />
+        <ChevronDown size={12} className={cn("max-sm:hidden transition-transform", open && "rotate-180")} />
       </button>
       {open && (
         <div
-          className="absolute right-0 z-20 mt-2 max-h-72 w-56 overflow-y-auto rounded-2xl border border-black/10 p-1 shadow-xl"
+          className="absolute left-1/2 z-20 mt-2 max-h-72 w-56 -translate-x-1/2 overflow-y-auto rounded-2xl border border-black/10 p-1 shadow-xl [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-black/15"
           style={{ background: "var(--color-bl-bg)" }}
         >
           <button
@@ -134,9 +136,11 @@ export function FilterDropdown({
 export function ViewToggle({
   value,
   onChange,
+  className,
 }: {
   value: "grid" | "list";
   onChange: (v: "grid" | "list") => void;
+  className?: string;
 }) {
   const { t } = useTranslation();
   const items: { v: "grid" | "list"; icon: typeof LayoutGrid; label: string }[] = [
@@ -144,7 +148,7 @@ export function ViewToggle({
     { v: "list", icon: LayoutList, label: t("listing.viewList") },
   ];
   return (
-    <div className="inline-flex rounded-full p-1" style={{ background: "var(--color-bl-card)" }}>
+    <div className={cn("flex rounded-full p-1", className)} style={{ background: "var(--color-bl-card)" }}>
       {items.map(({ v, icon: Icon, label }) => {
         const active = v === value;
         return (
@@ -152,7 +156,7 @@ export function ViewToggle({
             key={v}
             type="button"
             onClick={() => onChange(v)}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all"
+            className="flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all [&>svg]:max-sm:hidden"
             style={{
               background: active ? "var(--color-bl-bg)" : "transparent",
               color: active ? "var(--color-bl-ink)" : "var(--color-bl-muted)",
