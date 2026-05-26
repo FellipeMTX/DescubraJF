@@ -168,6 +168,19 @@
       "viewList": "Lista",
       "viewCalendar": "Calendário"
     },
+    "export": {
+      "cta": "Exportar PDF",
+      "title": "Exportar agenda em PDF",
+      "subtitle": "Escolha o intervalo de datas. A janela de impressão do navegador será aberta — selecione \"Salvar como PDF\" no destino.",
+      "docTitle": "Agenda · Descubra Juiz de Fora",
+      "from": "De",
+      "to": "Até",
+      "count_one": "{{count}} evento no intervalo",
+      "count_other": "{{count}} eventos no intervalo",
+      "empty": "Nenhum evento neste intervalo.",
+      "cancel": "Cancelar",
+      "confirm": "Gerar PDF"
+    },
     "filters": {
       "all": "Todos",
       "cultural": "Cultural",

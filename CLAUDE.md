@@ -102,6 +102,8 @@ Há disables legítimos em poucos lugares — antes de remover, entenda o motivo
    - Detalhe 2
    ```
 
+   **Nunca incluir `Co-Authored-By` (nem nenhuma outra atribuição de coautoria) nas mensagens de commit.**
+
 2. **Atualizar o CHANGELOG.md** adicionando uma entrada no topo com:
    - **Data** do commit
    - **Fase** correspondente do plano de implementação
