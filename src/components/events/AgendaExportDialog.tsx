@@ -48,33 +48,59 @@ function escapeHtml(s: string) {
   );
 }
 
+function monthKey(iso: string) {
+  const [y, m] = iso.split("-");
+  return `${y}-${m}`;
+}
+
+function monthLabel(iso: string) {
+  const [y, m] = iso.split("-").map(Number);
+  return new Date(y, m - 1, 1)
+    .toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
+    .replace(/^./, (c) => c.toUpperCase());
+}
+
+function renderEvent(e: Evento) {
+  const dStart = formatLong(toIsoDay(e.data_inicio));
+  const dEnd = e.data_fim && toIsoDay(e.data_fim) !== toIsoDay(e.data_inicio)
+    ? ` — ${formatLong(toIsoDay(e.data_fim))}`
+    : "";
+  const local = e.local_nome
+    ? `<div class="meta">${escapeHtml(e.local_nome)}${e.local_endereco ? " · " + escapeHtml(e.local_endereco) : ""}</div>`
+    : "";
+  const desc = e.descricao_curta
+    ? `<div class="desc">${escapeHtml(e.descricao_curta)}</div>`
+    : "";
+  const cat = e.categoria
+    ? `<span class="tag">${escapeHtml(e.categoria)}</span>`
+    : "";
+  const free = e.gratuito ? `<span class="tag free">Gratuito</span>` : "";
+  return `<article class="event">
+    <div class="date">${dStart}${dEnd}</div>
+    <h2 class="title">${escapeHtml(e.titulo)}</h2>
+    <div class="tags">${cat}${free}</div>
+    ${local}${desc}
+  </article>`;
+}
+
 function buildHtml(
   events: Evento[],
   labels: { title: string; range: string; empty: string }
 ) {
-  const rows = events
-    .map((e) => {
-      const dStart = formatLong(toIsoDay(e.data_inicio));
-      const dEnd = e.data_fim && toIsoDay(e.data_fim) !== toIsoDay(e.data_inicio)
-        ? ` — ${formatLong(toIsoDay(e.data_fim))}`
-        : "";
-      const local = e.local_nome
-        ? `<div class="meta">${escapeHtml(e.local_nome)}${e.local_endereco ? " · " + escapeHtml(e.local_endereco) : ""}</div>`
-        : "";
-      const desc = e.descricao_curta
-        ? `<div class="desc">${escapeHtml(e.descricao_curta)}</div>`
-        : "";
-      const cat = e.categoria
-        ? `<span class="tag">${escapeHtml(e.categoria)}</span>`
-        : "";
-      const free = e.gratuito ? `<span class="tag free">Gratuito</span>` : "";
-      return `<article class="event">
-        <div class="date">${dStart}${dEnd}</div>
-        <h2 class="title">${escapeHtml(e.titulo)}</h2>
-        <div class="tags">${cat}${free}</div>
-        ${local}${desc}
-      </article>`;
-    })
+  const groups = new Map<string, Evento[]>();
+  for (const e of events) {
+    const key = monthKey(toIsoDay(e.data_inicio));
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(e);
+  }
+  const sections = Array.from(groups.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(
+      ([key, group]) => `<section class="month">
+        <h2 class="month-title">${escapeHtml(monthLabel(key + "-01"))}<span class="month-count">${group.length}</span></h2>
+        ${group.map(renderEvent).join("")}
+      </section>`
+    )
     .join("");
 
   return `<!DOCTYPE html>
@@ -85,7 +111,12 @@ function buildHtml(
   header { border-bottom: 2px solid #241510; padding-bottom: 16px; margin-bottom: 24px; }
   h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.02em; }
   .range { color: #8c7058; font-size: 13px; }
+  .month { margin-bottom: 28px; }
+  .month-title { font-size: 18px; font-weight: 600; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(36,21,16,0.18); display: flex; align-items: baseline; justify-content: space-between; letter-spacing: -0.01em; page-break-after: avoid; }
+  .month:first-of-type .month-title { margin-top: 0; }
+  .month-count { font-size: 12px; font-style: italic; color: #b8482e; font-weight: 500; }
   .event { padding: 14px 0; border-bottom: 1px dashed rgba(36,21,16,0.18); page-break-inside: avoid; }
+  .event:last-child { border-bottom: none; }
   .date { font-size: 11px; color: #b8482e; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; }
   .title { font-size: 16px; font-weight: 600; margin: 2px 0 6px; }
   .tags { margin-bottom: 6px; }
@@ -101,7 +132,7 @@ function buildHtml(
     <h1>${escapeHtml(labels.title)}</h1>
     <div class="range">${escapeHtml(labels.range)}</div>
   </header>
-  ${rows || `<div class="empty">${escapeHtml(labels.empty)}</div>`}
+  ${sections || `<div class="empty">${escapeHtml(labels.empty)}</div>`}
   ${"<script>"}window.addEventListener("load", () => setTimeout(() => window.print(), 200));${"</script>"}
 </body></html>`;
 }
