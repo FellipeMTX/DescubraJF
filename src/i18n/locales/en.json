@@ -120,6 +120,10 @@
       "title": "Places that make",
       "titleHighlight": "Juiz de Fora unforgettable",
       "subtitle": "History, culture, nature and unique experiences await you at every corner. Filter by category or explore on the map.",
+      "exploreCta": "Explore attractions",
+      "exploreKicker": "Explore",
+      "featuredCatsTitle": "Featured",
+      "featuredCatsHighlight": "categories",
       "viewExperience": "Discover this place",
       "allExperiences": "All",
       "experiencesHighlight": "attractions",
@@ -300,7 +304,9 @@
         "catsLabel": "Variety of cuisines",
         "priceEm": "ranges",
         "priceLabel": "For every budget",
-        "extras": "Bars · Cafés · Restaurants"
+        "extras": "Bars · Cafés · Restaurants",
+        "hoodsEm": "neighborhoods",
+        "hoodsLabel": "Spread across the city"
       },
       "catsCalloutTitle": "Browse by",
       "catsCalloutHighlight": "type",

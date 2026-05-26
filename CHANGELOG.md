@@ -5,6 +5,36 @@
 
 ---
 
+## [2026-05-26] Redesign Atrativos, Onde Comer e Onde Ficar
+
+### O que foi feito
+- **Atrativos** ([src/pages/experiences/ExperienceList.tsx](src/pages/experiences/ExperienceList.tsx))
+  - Hero full-bleed com `atrativosBanner.png` ocupando largura total da página
+  - Stats card flutuante (3 cols: Atrativos · Categorias · Gratuitos) sobreposto ao banner em estilo glass-morphism escuro
+  - Strip horizontal de chips de categoria com ícones (`getIconByName(cat.icone)`), setas de scroll funcionais e fade entre hero e conteúdo
+  - Removido `PageHeader`, `StatsStrip` antigo, `FilterChips` (filtro duplicado), kicker, subtítulo e CTA do hero
+- **Onde Comer** ([src/pages/dining/DiningList.tsx](src/pages/dining/DiningList.tsx)) — mesmo padrão usando `ondeComerBanner1.png`, stats 3 cols (Estabelecimentos · Categorias · Bairros), chips com ícones do banco
+- **Onde Ficar** ([src/pages/lodging/LodgingList.tsx](src/pages/lodging/LodgingList.tsx)) — mesmo padrão usando `ondeFicarBanner1.png`, stats 3 cols (Hospedagens · Tipos · Bairros), chips com ícones mapeados por tipo (`Hotel`, `BedDouble`, `Users`, `Building2`)
+- **Limpeza de assets** — removidas 14 imagens não usadas em [public/](public/): `DescubraHorizontalPretoSF.png`, `logoTurBranco.png`, `Foto 1/3/5/6/8.jpg`, `Linha do tempo_ 1936.jpg`, `OndeFicarBanner.jpeg`, `atrativosBanner.jpeg`, `icons.svg`, `ChegadaImigrantes-04.webp`, `ManchesterMineira-05.webp`, `ManschesterMineira-06.webp`
+- **i18n** — novas chaves `experiences.list.exploreCta/exploreKicker/featuredCatsTitle/featuredCatsHighlight` e `dining.list.stats.hoodsEm/hoodsLabel` em PT/EN/ES
+
+### Por que foi feito
+Padronizar visualmente as três páginas de listagem (Atrativos, Onde Comer, Onde Ficar) seguindo o mesmo design system editorial do redesign anterior (Agenda e Onde Ficar). O hero full-bleed com stats overlay e chips horizontais navegáveis ficou validado nessa iteração e foi replicado para garantir consistência entre as listagens.
+
+### Decisões técnicas
+- **HeroStat horizontal**: ícone à esquerda + texto à direita (revertido de uma tentativa vertical que não agradou). Em telas `< 640px` o ícone some pra economizar espaço; sublabel some no mobile pelo mesmo motivo
+- **Sempre 3 colunas** no stats card (sem stacking em mobile); padding, gap, ícone e fonts usam `clamp()` ou breakpoints `max-md`/`max-sm` para escalar
+- **Card 15% menor** que a versão inicial (`max-w-5xl` → `max-w-4xl`, `rounded-3xl` → `rounded-2xl`, `p-6` → `p-5`, ícones `26` → `22`)
+- **Filtro único por categoria**: removido o `FilterChips` antigo, mantido apenas o strip horizontal com ícones — evita confusão visual de dois filtros redundantes
+- **Setas de scroll funcionais** com `useEffect` + `ResizeObserver` + scroll listener gerenciando `canScrollLeft`/`canScrollRight`; sem fade overlay (criava blob visível atrás do botão)
+- **Lodging sem categorias no DB**: chips usam `TYPE_ICON_MAP` hardcoded já que os tipos (`hotel`, `pousada`, `hostel`, `flat`) são fixos no schema
+
+### Próximos passos
+- Aplicar o mesmo padrão de redesign em Roteiros
+- Considerar mover o componente `HeroStat` + `CategoryChip` + `ScrollArrow` para um shared module em `src/components/listing/` para evitar duplicação entre as 3 páginas
+
+---
+
 ## [2026-05-14] Redesign Agenda e Onde Ficar
 
 ### O que foi feito
