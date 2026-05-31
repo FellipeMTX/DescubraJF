@@ -6,6 +6,7 @@ import {
   Bold, Italic, Heading2, Heading3, List, ListOrdered,
   Quote, Link as LinkIcon, Image as ImageIcon, Undo, Redo,
   Images, Minus,
+  AlignLeft, AlignCenter, AlignRight, AlignJustify,
 } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { uploadImage } from "@/lib/storage";
 import { GalleryExtension } from "@/components/admin/tiptap/GalleryExtension";
 import { TextColorExtension } from "@/components/admin/tiptap/TextColorExtension";
+import { TextAlignExtension } from "@/components/admin/tiptap/TextAlignExtension";
 
 type Props = {
   value: string;
@@ -29,6 +31,7 @@ export function RichTextEditor({ value, onChange }: Props) {
       Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-primary-600 underline" } }),
       GalleryExtension,
       TextColorExtension,
+      TextAlignExtension,
     ],
     content: value,
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
@@ -92,6 +95,35 @@ export function RichTextEditor({ value, onChange }: Props) {
         </ToolbarButton>
         <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive("blockquote")} label="Citação">
           <Quote size={16} />
+        </ToolbarButton>
+        <Divider />
+        <ToolbarButton
+          onClick={() => editor.chain().focus().setTextAlign("left").run()}
+          active={editor.isActive({ textAlign: "left" })}
+          label="Alinhar à esquerda"
+        >
+          <AlignLeft size={16} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().setTextAlign("center").run()}
+          active={editor.isActive({ textAlign: "center" })}
+          label="Centralizar"
+        >
+          <AlignCenter size={16} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().setTextAlign("right").run()}
+          active={editor.isActive({ textAlign: "right" })}
+          label="Alinhar à direita"
+        >
+          <AlignRight size={16} />
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={() => editor.chain().focus().setTextAlign("justify").run()}
+          active={editor.isActive({ textAlign: "justify" })}
+          label="Justificar"
+        >
+          <AlignJustify size={16} />
         </ToolbarButton>
         <Divider />
         <ToolbarButton onClick={handleLink} active={editor.isActive("link")} label="Link">

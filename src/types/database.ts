@@ -222,6 +222,8 @@ export type Post = {
   imagem_capa: string | null;
   autor: string | null;
   publicado: boolean;
+  /** Data de publicação escolhida pelo admin. Quando NULL, usar `created_at` como fallback. */
+  data_publicacao: string | null;
   created_at: string;
   updated_at: string;
 };
