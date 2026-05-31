@@ -33,6 +33,10 @@ const ServiceList = lazy(() => import("./pages/services/ServiceList"));
 const Institucional = lazy(() => import("./pages/secretaria/Institucional"));
 const PostsList = lazy(() => import("./pages/secretaria/PostsList"));
 const PostDetail = lazy(() => import("./pages/secretaria/PostDetail"));
+const PracaCervejeira = lazy(() => import("./pages/secretaria/programas/PracaCervejeira"));
+const EditalFomento = lazy(() => import("./pages/secretaria/programas/EditalFomento"));
+const CaminhandoHistoria = lazy(() => import("./pages/secretaria/programas/CaminhandoHistoria"));
+const Educatur = lazy(() => import("./pages/secretaria/programas/Educatur"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Admin
@@ -68,6 +72,10 @@ export const router = createBrowserRouter([
       { path: "secretaria/noticias", element: <Lazy><PostsList categoria="noticia" /></Lazy> },
       { path: "secretaria/noticias/:slug", element: <Lazy><PostDetail categoria="noticia" /></Lazy> },
       { path: "secretaria/programas-e-projetos", element: <Lazy><PostsList categoria="programa_projeto" /></Lazy> },
+      { path: "secretaria/programas-e-projetos/praca-cervejeira", element: <Lazy><PracaCervejeira /></Lazy> },
+      { path: "secretaria/programas-e-projetos/edital-de-fomento-ao-turismo", element: <Lazy><EditalFomento /></Lazy> },
+      { path: "secretaria/programas-e-projetos/caminhando-pela-historia", element: <Lazy><CaminhandoHistoria /></Lazy> },
+      { path: "secretaria/programas-e-projetos/educatur", element: <Lazy><Educatur /></Lazy> },
       { path: "secretaria/programas-e-projetos/:slug", element: <Lazy><PostDetail categoria="programa_projeto" /></Lazy> },
       { path: "*", element: <Lazy><NotFound /></Lazy> },
     ],

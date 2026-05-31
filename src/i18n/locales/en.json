@@ -584,7 +584,219 @@
         "backLink": "Back to Programs & Projects"
       }
     },
-    "notFound": "Post not found."
+    "notFound": "Post not found.",
+    "publishedOn": "Published on"
+  },
+  "programas": {
+    "common": {
+      "breadcrumb": "Programs and Projects",
+      "wantParticipate": "I want to join",
+      "wantSubscribe": "Subscribe",
+      "nextEditions": "See next editions",
+      "nextRoteiros": "See next tours"
+    },
+    "pracaCervejeira": {
+      "title": "Praça Cervejeira",
+      "description": "Meetings, flavors and good beer moving Juiz de Fora.",
+      "meta": { "since": "Since 2023", "location": "Juiz de Fora - MG" },
+      "highlights": [
+        { "title": "Craft beer", "description": "Valuing local and regional breweries." },
+        { "title": "Beer trucks and food trucks", "description": "Diverse food for all tastes." },
+        { "title": "Music and culture", "description": "Musical and cultural attractions to liven up the event." },
+        { "title": "Tourism and economy", "description": "Strengthens tourism and generates income for the city." }
+      ],
+      "about": {
+        "title": "About Praça Cervejeira",
+        "paragraphs": [
+          "Praça Cervejeira transforms squares in Juiz de Fora into meeting points dedicated to craft beer. The initiative brings beer trucks and food trucks to different public spaces, strengthening the local production chain and encouraging beer tourism.",
+          "The program stimulates craft beer consumption, moves the creative economy, generates income and attracts visitors. In addition to tastings, the events may include music and cultural attractions, creating accessible and vibrant experiences.",
+          "By promoting the beer sector, the initiative reinforces the city's cultural identity and positions Juiz de Fora as a relevant destination for good beer lovers."
+        ]
+      },
+      "encontra": {
+        "title": "What you'll find",
+        "items": [
+          { "title": "Craft beers", "description": "Tasting local and regional labels." },
+          { "title": "Beer trucks", "description": "Cold, quality beer." },
+          { "title": "Food trucks", "description": "Varied gastronomy to go with it." },
+          { "title": "Live music", "description": "Bands and DJs to liven up the event." },
+          { "title": "Local producers", "description": "Crafts, products and experiences." }
+        ]
+      },
+      "onde": {
+        "title": "Where it happens",
+        "items": [
+          { "title": "Praça da Estação", "description": "One of Juiz de Fora's postcards, perfect for big gatherings." },
+          { "title": "Parque Halfeld", "description": "Green and central space, ideal for cultural and leisure activities." },
+          { "title": "Morro do Imperador", "description": "Panoramic view and pleasant climate to enjoy good beer and company." },
+          { "title": "Other points in the city", "description": "Praça Cervejeira moves through different neighborhoods, always close to you." }
+        ],
+        "extra": {
+          "title": "Stay tuned",
+          "description": "Follow the schedule and don't miss the next editions of Praça Cervejeira.",
+          "button": "See next events"
+        }
+      },
+      "bottom": {
+        "title": "Join Praça Cervejeira!",
+        "description": "Live unique experiences, support local producers and celebrate beer culture in Juiz de Fora."
+      }
+    },
+    "editalFomento": {
+      "title": "Tourism Funding Call",
+      "description": "Financial support for projects, events and actions that contribute to strengthening tourism in Juiz de Fora.",
+      "meta": { "date": "May 19, 2026" },
+      "cta": {
+        "openEdital": "Open the call",
+        "schedule": "Schedule",
+        "downloadEdital": "Download the call",
+        "viewCalendar": "View calendar"
+      },
+      "heroQuote": "Investing in tourism is investing in the future of our city.",
+      "highlights": [
+        { "title": "Stimulates creativity", "description": "Values innovative ideas and local initiatives." },
+        { "title": "Boosts the economy", "description": "Strengthens tourism and generates income for the municipality." },
+        { "title": "Expands experiences", "description": "Qualifies services, moves culture and tourism." },
+        { "title": "Strengthens partnerships", "description": "Consolidates Setur as a coordinator of the sector." }
+      ],
+      "about": {
+        "title": "About the Call",
+        "paragraphs": [
+          "The Juiz de Fora Tourism Department annually holds the Tourism Funding Call, an initiative that financially supports projects, events and actions that contribute to strengthening tourism in the municipality.",
+          "The call aims to stimulate creativity, value local initiatives and boost the tourism economy, considering proposals that promote experiences, qualify services, move culture and expand the city's tourism potential.",
+          "Across its editions, the program has consolidated Setur's role as a coordinator and promoter of the sector, strengthening partnerships with cultural producers, entrepreneurs, institutions and civil society organizations.",
+          "More than a financing instrument, the call represents the Department's commitment to sustainable tourism development and to collectively building a city increasingly prepared to welcome."
+        ],
+        "keypoints": [
+          { "title": "Goal", "description": "Support projects, events and actions that boost tourism and local development." },
+          { "title": "Who can participate", "description": "Individuals, microenterprises, companies, collectives, institutions and civil society organizations." },
+          { "title": "What can be supported", "description": "Cultural projects, tourism events, training, research, promotion actions and much more." },
+          { "title": "Resources", "description": "Financial support according to categories and criteria defined in the call." },
+          { "title": "How to participate", "description": "Registrations and proposal submissions following the call's guidelines and annexes." }
+        ]
+      },
+      "impacto": {
+        "title": "Call impact",
+        "stats": [
+          { "value": "+150", "label": "supported projects", "description": "Since the start of the program." },
+          { "value": "10", "label": "editions held", "description": "Strengthening local tourism." },
+          { "value": "+R$ 3M", "label": "invested in tourism", "description": "Generating development." },
+          { "value": "Citywide impact", "description": "Benefits for residents and visitors." }
+        ]
+      },
+      "funciona": {
+        "title": "How it works",
+        "steps": [
+          { "title": "Call launch", "description": "Publication of the call with rules, criteria and deadlines." },
+          { "title": "Registration", "description": "Proponents submit their proposals within the deadline." },
+          { "title": "Analysis and selection", "description": "Technical evaluation of proposals by a specialized committee." },
+          { "title": "Result", "description": "Disclosure of selected projects." },
+          { "title": "Execution and accountability", "description": "Projects executed with Setur monitoring." }
+        ]
+      },
+      "bottom": {
+        "title": "Turn ideas into experiences!",
+        "description": "Join the Tourism Funding Call and help build stronger tourism in Juiz de Fora."
+      }
+    },
+    "caminhandoHistoria": {
+      "title": "Walking Through History",
+      "description": "Guided experiences combining culture, heritage and tourism so you can discover Juiz de Fora in a unique and unforgettable way.",
+      "meta": { "since": "Since 2022", "location": "Juiz de Fora - MG" },
+      "highlights": [
+        { "title": "8+", "description": "historical and tourist sites." },
+        { "title": "Guided tours", "description": "with educators and specialists." },
+        { "title": "Heritage", "description": "culturally valued and preserved." },
+        { "title": "Education", "description": "heritage education and social inclusion." }
+      ],
+      "about": {
+        "title": "About the Project",
+        "paragraphs": [
+          "Walking Through History invites residents and visitors to discover Juiz de Fora through guided experiences at historical and tourist sites in the city.",
+          "The project combines heritage education, culture and tourism, promoting knowledge, belonging and appreciation of local memory.",
+          "Each tour offers mediated activities and educational experiences that strengthen the connection between participants, historical heritage and cultural identity."
+        ]
+      },
+      "locais": {
+        "title": "Sites visited",
+        "items": [
+          { "title": "Hofbauer Factory", "description": "Important industrial heritage that marked the city's economic history." },
+          { "title": "Nossa Senhora da Glória Church", "description": "Religious and architectural landmark of great historical and cultural relevance." },
+          { "title": "Mariano Procópio Museum", "description": "One of Brazil's most important museums, with a rich historical collection." },
+          { "title": "Praça da Estação", "description": "Historic space that preserves the railway memory of Juiz de Fora." },
+          { "title": "Municipal Market", "description": "Reference of local culture, gastronomy and traditions of the city." }
+        ]
+      },
+      "funciona": {
+        "title": "How it works",
+        "steps": [
+          { "title": "Registration", "description": "Sign up for the project." },
+          { "title": "Tour definition", "description": "Sites and activities are defined according to the group." },
+          { "title": "Guided tour", "description": "Exploration of historical points with educators and mediators." },
+          { "title": "Educational activities", "description": "Dynamics and content on heritage, culture and local history." },
+          { "title": "Cultural experience", "description": "Heritage appreciation and strengthening of local tourism." }
+        ]
+      },
+      "galeria": { "title": "Gallery", "button": "See more photos" },
+      "bottom": {
+        "title": "JOIN THE PROGRAM",
+        "description": "Come and learn the history of Juiz de Fora in an interactive way!"
+      }
+    },
+    "educatur": {
+      "title": "Educatur",
+      "description": "Tourism as a tool for learning and civic education.",
+      "meta": { "since": "Since 2022", "location": "Juiz de Fora - MG" },
+      "highlights": [
+        { "title": "Educational tourism", "description": "Hands-on learning in real places." },
+        { "title": "Civic education", "description": "Activities that develop awareness and belonging." },
+        { "title": "Guided experiences", "description": "Mediated visits and educational activities." },
+        { "title": "Social impact", "description": "Transforming lives and strengthening communities." }
+      ],
+      "about": {
+        "title": "About Educatur",
+        "paragraphs": [
+          "Educatur is a program by the City of Juiz de Fora, coordinated by the Tourism Department, that takes public school students to learn about the main tourist and cultural points of the city. With guided tours and educational activities, the program uses tourism as a tool for learning and civic education.",
+          "Up to the first semester of 2025, Educatur impacted 304 students from 12 schools and community centers, including students from Regular Education and Youth and Adult Education (EJA). The classes visited seven tourist attractions, with transportation provided.",
+          "More than teaching history and culture, Educatur transforms residents' perception of their own city, strengthening local pride and the appreciation of Juiz de Fora's identity."
+        ]
+      },
+      "atrativos": {
+        "title": "Attractions visited",
+        "items": [
+          { "title": "Railway Station", "description": "Symbol of the history and development of Juiz de Fora." },
+          { "title": "Mariano Procópio Museum", "description": "One of Brazil's most important museums, with a rich historical collection." },
+          { "title": "Lajinha Park", "description": "Nature, leisure and history in one of the city's most traditional parks." },
+          { "title": "Central Cine-Theatro", "description": "Cultural heritage that tells the history of art and entertainment." },
+          { "title": "Morro do Imperador", "description": "Stunning panoramic view and contact with nature." },
+          { "title": "Municipal Market", "description": "Culture, flavors and traditions that are part of the city." },
+          { "title": "Parque Halfeld", "description": "A green space in the heart of Juiz de Fora." }
+        ]
+      },
+      "impacto": {
+        "title": "Educatur's Impact",
+        "stats": [
+          { "value": "304", "label": "students impacted", "description": "Up to the first semester of 2025." },
+          { "value": "12", "label": "schools and community centers" },
+          { "value": "2", "label": "education modalities", "description": "Regular Education and EJA." },
+          { "value": "7", "label": "tourist attractions visited" }
+        ]
+      },
+      "funciona": {
+        "title": "How it works",
+        "steps": [
+          { "title": "Planning", "description": "Definition of schools, tours and activities." },
+          { "title": "Transportation", "description": "Safe and free transportation for students." },
+          { "title": "Guided tour", "description": "Exploration of attractions with specialized guides." },
+          { "title": "Educational activities", "description": "Dynamics and content that stimulate learning." },
+          { "title": "Transformation", "description": "Strengthening of identity and local pride." }
+        ]
+      },
+      "bottom": {
+        "title": "Be part of Educatur!",
+        "description": "Turn tourism into learning and the city into inspiration."
+      }
+    }
   },
   "categoryGrid": {
     "siteOfficial": "Official website",
