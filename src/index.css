@@ -57,7 +57,6 @@
   --color-bl-card: #ecdcc4;
   --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
   --t-anim: 1.5;
 
   /* ── Subtema "Programas e Projetos" (paleta verde) ── */
@@ -93,35 +92,6 @@
   font-weight: 700;
   letter-spacing: -0.022em;
   line-height: 1.02;
-}
-
-/* Roteiro: reaproveita os componentes programa/* remapeando os tokens
-   --color-bl-prog-* para a paleta quente/rust do portal (bl-app). */
-.bl-rot {
-  background: var(--color-bl-bg);
-  color: var(--color-bl-ink);
-  font-family: var(--font-body);
-  line-height: 1.55;
-  --color-bl-prog-bg: #f7eee2;
-  --color-bl-prog-ink: #241510;
-  --color-bl-prog-ink2: #2a1a12;
-  --color-bl-prog-accent: #b8482e;
-  --color-bl-prog-soft: #efe1cb;
-  --color-bl-prog-card: #f3e9d8;
-  --color-bl-prog-muted: #8c7058;
-  --color-bl-prog-line: #e4d6bf;
-  --color-bl-prog-cta-bg: #3c4a32;
-  --color-bl-prog-cta-yellow: #e7d4ad;
-}
-.bl-rot-title {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.04;
-}
-.bl-rot-title em {
-  font-style: italic;
-  color: var(--color-bl-prog-accent);
 }
 
 /* Scroll reveal animations */

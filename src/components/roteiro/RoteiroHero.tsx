@@ -78,14 +78,18 @@ export function RoteiroHero({
         )}
 
         <h1
-          className="bl-rot-title m-0 mt-4"
-          style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", color: "var(--color-bl-prog-ink)" }}
+          className="bl-prog-display m-0 mt-4 leading-[1.05]"
+          style={{
+            fontSize: "clamp(2.25rem, 5.5vw, 3.75rem)",
+            color: "var(--color-bl-prog-ink)",
+            textTransform: "uppercase",
+          }}
         >
           {titulo}
           {tituloAccent && (
             <>
               {" "}
-              <em>{tituloAccent}</em>
+              <span style={{ color: "var(--color-bl-prog-accent)" }}>{tituloAccent}</span>
             </>
           )}
         </h1>

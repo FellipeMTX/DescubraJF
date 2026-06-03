@@ -36,7 +36,7 @@ export default function RouteDetail() {
 
   if (isLoading) {
     return (
-      <div className="bl-rot min-h-screen">
+      <div className="bl-prog min-h-screen">
         <div className="mx-auto max-w-6xl px-6 py-12 md:px-10">
           <Skeleton className="h-12 w-80" />
           <Skeleton className="mt-6 h-72 w-full rounded-[18px]" />
@@ -67,7 +67,7 @@ export default function RouteDetail() {
   const cols = (pontos && pontos.length >= 5 ? 5 : pontos && pontos.length <= 2 ? 2 : pontos?.length ?? 3) as 2 | 3 | 4 | 5;
 
   return (
-    <div className="bl-rot min-h-screen">
+    <div className="bl-prog min-h-screen">
       <div className="mx-auto flex max-w-6xl flex-col gap-14 px-6 py-10 md:gap-16 md:px-10 md:py-12">
         <RoteiroHero
           eyebrow={layout?.hero.eyebrow ?? t("routes.list.kicker")}
