@@ -640,7 +640,7 @@ Idioma: PT ativo por padrão, EN/ES desabilitados até Fase 7
 - [ ] `DateFilter.tsx`: seletor de mês + dias da semana como chips clicáveis
 - [ ] Atualizar `HomeEvents.tsx` com dados reais + filtro de data
 - [ ] `RouteList.tsx`: título "Caminhando pela História", grid de cards
-- [ ] `RouteDetail.tsx`: descrição, mapa Leaflet com múltiplos pins (pontos do roteiro), lista de pontos
+- [x] `RouteDetail.tsx`: layout editorial rico editável no /admin (hero, stats, sobre, destaques, mapa embed + dicas, CTA) — ver `roteiros.layout` (jsonb) e `roteiro_pontos`
 - [ ] Admin: `EventAdmin.tsx`, `RouteAdmin.tsx`
 
 ---

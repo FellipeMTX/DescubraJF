@@ -355,7 +355,16 @@
       "notFoundHighlight": "not found",
       "back": "Back to Routes",
       "breadcrumb": "Routes",
-      "mapPlaceholder": "Map coming soon"
+      "mapPlaceholder": "Map coming soon",
+      "viewMap": "View on map",
+      "save": "Save route",
+      "viewAllOnMap": "View all on map",
+      "openInMaps": "Open route in Google Maps",
+      "mapTitle": "Route map",
+      "aboutTitle": "About the route",
+      "highlightsTitle": "Route highlights",
+      "tipsTitle": "Tips to make the most of it",
+      "otherRoutes": "View other routes"
     }
   },
   "services": {

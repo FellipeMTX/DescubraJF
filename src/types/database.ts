@@ -42,6 +42,48 @@ export type Experiencia = {
   categoria?: CategoriaExperiencia;
 };
 
+/** Item com ícone (nome kebab-case de `getIconByName`) + textos. */
+export type RoteiroIconItem = {
+  icon: string;
+  titulo: string;
+  descricao?: string;
+};
+
+/** Conteúdo rico da página de um roteiro, editável no /admin (coluna jsonb). */
+export type RoteiroLayout = {
+  hero: {
+    eyebrow?: string;
+    titulo: string;
+    tituloAccent?: string;
+    subtitulo?: string;
+    descricao?: string;
+    ctaPrimaryLabel?: string;
+    ctaSecondaryLabel?: string;
+  };
+  stats: { icon: string; label: string; value: string; descricao?: string }[];
+  sobre: {
+    titulo: string;
+    paragrafos: string[];
+    card: {
+      titulo: string;
+      descricao?: string;
+      bullets: RoteiroIconItem[];
+    };
+  };
+  destaquesTitulo?: string;
+  dicas: {
+    titulo: string;
+    items: RoteiroIconItem[];
+  };
+  /** Link externo para "Abrir roteiro no Google Maps". */
+  mapsLink?: string;
+  bottomCta: {
+    titulo: string;
+    descricao?: string;
+    label?: string;
+  };
+};
+
 export type Roteiro = {
   id: string;
   nome: string;
@@ -52,11 +94,26 @@ export type Roteiro = {
   imagens: string[] | null;
   mapa_url: string | null;
   mapa_embed_id: string | null;
+  layout: RoteiroLayout | null;
   destaque: boolean;
   ativo: boolean;
   ordem: number;
   created_at: string;
   updated_at: string;
+};
+
+/** Ponto/parada de um roteiro — alimenta os cards de "Destaques". */
+export type RoteiroPonto = {
+  id: string;
+  roteiro_id: string;
+  experiencia_id: string | null;
+  nome: string;
+  descricao: string | null;
+  local: string | null;
+  imagem: string | null;
+  ordem: number;
+  latitude: number | null;
+  longitude: number | null;
 };
 
 export type Evento = {

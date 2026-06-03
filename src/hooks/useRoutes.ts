@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import type { Roteiro } from "@/types/database";
+import type { Roteiro, RoteiroPonto } from "@/types/database";
 
 export function useRoutes() {
   return useQuery({
@@ -32,5 +32,22 @@ export function useRouteBySlug(slug: string) {
       return data as Roteiro;
     },
     enabled: !!slug,
+  });
+}
+
+export function useRoutePontos(roteiroId: string) {
+  return useQuery({
+    queryKey: ["roteiro_pontos", roteiroId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("roteiro_pontos")
+        .select("*")
+        .eq("roteiro_id", roteiroId)
+        .order("ordem");
+
+      if (error) throw error;
+      return data as RoteiroPonto[];
+    },
+    enabled: !!roteiroId,
   });
 }

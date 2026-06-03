@@ -6,10 +6,11 @@ import {
   HeartPulse, Accessibility, Eye, Camera, Mountain, Trees, Sun, Umbrella,
   Music, Palette, BookOpen, GraduationCap, ShoppingBag, Store, Coffee,
   Wine, Beer, IceCream, Wifi, CircleParking, Dog, Baby, Users, HandHeart,
+  Clock, Footprints, ShoppingCart, Sparkles, Map as MapIcon, Tag, Gem,
   type LucideIcon,
 } from "lucide-react";
 
-const ICONS: { name: string; label: string; icon: LucideIcon }[] = [
+export const ICONS: { name: string; label: string; icon: LucideIcon }[] = [
   // Saúde
   { name: "hospital", label: "Hospital", icon: Hospital },
   { name: "stethoscope", label: "Saúde", icon: Stethoscope },
@@ -30,6 +31,11 @@ const ICONS: { name: string; label: string; icon: LucideIcon }[] = [
   { name: "circle-parking", label: "Estacionamento", icon: CircleParking },
   // Turismo & Cultura
   { name: "map-pin", label: "Local", icon: MapPin },
+  { name: "map", label: "Mapa", icon: MapIcon },
+  { name: "clock", label: "Horário", icon: Clock },
+  { name: "footprints", label: "A pé", icon: Footprints },
+  { name: "sparkles", label: "Destaque", icon: Sparkles },
+  { name: "gem", label: "Tradição", icon: Gem },
   { name: "landmark", label: "Monumento", icon: Landmark },
   { name: "church", label: "Igreja", icon: Church },
   { name: "camera", label: "Fotografia", icon: Camera },
@@ -55,6 +61,8 @@ const ICONS: { name: string; label: string; icon: LucideIcon }[] = [
   // Comércio & Alimentação
   { name: "store", label: "Loja", icon: Store },
   { name: "shopping-bag", label: "Compras", icon: ShoppingBag },
+  { name: "shopping-cart", label: "Carrinho", icon: ShoppingCart },
+  { name: "tag", label: "Etiqueta", icon: Tag },
   { name: "utensils", label: "Restaurante", icon: Utensils },
   { name: "coffee", label: "Café", icon: Coffee },
   { name: "wine", label: "Vinho", icon: Wine },
