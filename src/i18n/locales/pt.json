@@ -355,7 +355,16 @@
       "notFoundHighlight": "não encontrado",
       "back": "Voltar para Roteiros",
       "breadcrumb": "Roteiros",
-      "mapPlaceholder": "Mapa em breve"
+      "mapPlaceholder": "Mapa em breve",
+      "viewMap": "Ver no mapa",
+      "save": "Salvar roteiro",
+      "viewAllOnMap": "Ver todos no mapa",
+      "openInMaps": "Abrir roteiro no Google Maps",
+      "mapTitle": "Mapa do roteiro",
+      "aboutTitle": "Sobre o roteiro",
+      "highlightsTitle": "Destaques do roteiro",
+      "tipsTitle": "Dicas para aproveitar melhor",
+      "otherRoutes": "Ver outros roteiros"
     }
   },
   "services": {

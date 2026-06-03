@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS roteiros (
   imagens TEXT[],
   mapa_url TEXT,
   mapa_embed_id TEXT,
+  layout JSONB,
   destaque BOOLEAN DEFAULT false,
   ativo BOOLEAN DEFAULT true,
   ordem INT DEFAULT 0,
@@ -76,6 +77,8 @@ CREATE TABLE IF NOT EXISTS roteiro_pontos (
   experiencia_id UUID REFERENCES experiencias(id) ON DELETE SET NULL,
   nome TEXT NOT NULL,
   descricao TEXT,
+  local TEXT,
+  imagem TEXT,
   ordem INT DEFAULT 0,
   latitude DECIMAL,
   longitude DECIMAL

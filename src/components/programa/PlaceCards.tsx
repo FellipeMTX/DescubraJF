@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import { MapPin, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
 type PlaceItem = {
@@ -6,6 +6,8 @@ type PlaceItem = {
   icon?: LucideIcon;
   title: string;
   description?: string;
+  /** Linha opcional de localização (ex.: "Centro"), exibida com um pin. */
+  location?: string;
 };
 
 type Props = {
@@ -68,6 +70,14 @@ export function PlaceCards({ items, extra, columns = 4 }: Props) {
                   style={{ color: "var(--color-bl-prog-muted)" }}
                 >
                   {item.description}
+                </p>
+              )}
+              {item.location && (
+                <p
+                  className="m-0 mt-0.5 inline-flex items-center gap-1 text-[12px] font-medium"
+                  style={{ color: "var(--color-bl-prog-accent)" }}
+                >
+                  <MapPin size={13} /> {item.location}
                 </p>
               )}
             </div>

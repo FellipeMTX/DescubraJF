@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Artefatos do Playwright MCP (snapshots/console/screenshots)
+.playwright-mcp/
+
+# Config local de MCP (caminhos/credenciais por máquina)
+.mcp.json

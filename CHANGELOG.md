@@ -5,6 +5,32 @@
 
 ---
 
+## [2026-06-03] Página de Roteiro editável (layout rico) + admin
+
+### O que foi feito
+- **Página pública de roteiro** ([src/pages/routes/RouteDetail.tsx](src/pages/routes/RouteDetail.tsx)) reescrita para um layout editorial rico e fiel ao design de referência: hero (eyebrow, título serifado com palavra em itálico, subtítulo, descrição, CTAs), barra de até 6 estatísticas, seção "Sobre" (texto + card de bullets), cards de "Destaques", seção de mapa (embed Google) + card de "Dicas" e CTA final. Cada seção é condicional — roteiros sem `layout` degradam para hero + mapa.
+- **Componentes novos** em [src/components/roteiro/](src/components/roteiro/): `RoteiroHero`, `RoteiroStats`, `RoteiroInfoCard`, `RoteiroMap`. Reusam os componentes `programa/*` (`SectionTitle`, `TextWithSide`, `BottomCTAStrip`, `PlaceCards`) no **mesmo tema verde dos Programas** (`.bl-prog`), sem duplicar componentes.
+- **Admin** ([src/pages/admin/RouteAdmin.tsx](src/pages/admin/RouteAdmin.tsx) + [src/components/admin/roteiro/](src/components/admin/roteiro/)): formulário por seções (hero, stats, sobre, destaques, mapa & dicas, CTA) com seletor de ícones compacto (`IconField`), listas repetíveis (`RepeatableList`) e upload de imagem por destaque. Grava o conteúdo em `roteiros.layout` (jsonb) e sincroniza os destaques em `roteiro_pontos`.
+- **Modelo de dados**: coluna `roteiros.layout` (jsonb) + colunas `roteiro_pontos.imagem`/`.local`. Migração idempotente em [supabase/add-roteiro-layout.sql](supabase/add-roteiro-layout.sql) (cria a tabela se faltar, RLS, recarrega o cache do PostgREST). Seed de referência em [supabase/seed-roteiro-compras.sql](supabase/seed-roteiro-compras.sql).
+- **Ícones**: `ICONS` de [src/components/ui/IconPicker.tsx](src/components/ui/IconPicker.tsx) exportado e ampliado (`clock`, `footprints`, `shopping-cart`, `sparkles`, `map`, `tag`, `gem`).
+- **i18n**: novas chaves `routes.detail.*` em PT/EN/ES.
+
+### Por que foi feito
+Entregar o redesign de Roteiros (próximo passo do ciclo anterior) com um layout fixo e fiel ao design, mas com todo o conteúdo editável por roteiro no /admin — sem hardcode por página.
+
+### Decisões técnicas
+- **Mesmo tema dos Programas**: a página de roteiro usa o tema `.bl-prog` (paleta verde + tokens `--color-bl-prog-*`) e reaproveita os componentes `programa/*`, padronizando tipografia e cores entre Roteiros e Programas/Projetos.
+- **JSONB + `roteiro_pontos`**: blocos do conteúdo em `layout` (jsonb); destaques (que também viram marcadores) na tabela `roteiro_pontos`, sincronizados por delete+insert no save.
+- **Título do hero**: Space Grotesk em caixa-alta (mesmo padrão dos Programas), com a palavra de destaque no acento verde.
+- **Mapa**: embed do Google My Maps; `RoteiroMap` normaliza URLs `viewer`/`edit` → `embed` (o Google bloqueia os dois primeiros em iframe).
+- **Robustez**: `ImageUploadField` ganhou cleanup de blob URL e `RepeatableList` usa chave estável (evita preview trocado ao reordenar destaques).
+
+### Próximos passos
+- Preencher o `layout` dos roteiros existentes via /admin.
+- (Opcional) extrair `HeroStat`/`CategoryChip`/`ScrollArrow` para módulo compartilhado em `src/components/listing/`.
+
+---
+
 ## [2026-05-26] Redesign Atrativos, Onde Comer e Onde Ficar
 
 ### O que foi feito

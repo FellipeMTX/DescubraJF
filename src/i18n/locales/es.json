@@ -355,7 +355,16 @@
       "notFoundHighlight": "no encontrada",
       "back": "Volver a Rutas",
       "breadcrumb": "Rutas",
-      "mapPlaceholder": "Mapa próximamente"
+      "mapPlaceholder": "Mapa próximamente",
+      "viewMap": "Ver en el mapa",
+      "save": "Guardar ruta",
+      "viewAllOnMap": "Ver todo en el mapa",
+      "openInMaps": "Abrir ruta en Google Maps",
+      "mapTitle": "Mapa de la ruta",
+      "aboutTitle": "Sobre la ruta",
+      "highlightsTitle": "Destacados de la ruta",
+      "tipsTitle": "Consejos para aprovechar mejor",
+      "otherRoutes": "Ver otras rutas"
     }
   },
   "services": {
