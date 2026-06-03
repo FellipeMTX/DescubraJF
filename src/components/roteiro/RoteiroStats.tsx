@@ -30,12 +30,12 @@ export function RoteiroStats({ items }: Props) {
           return (
             <div
               key={i}
-              className="flex items-start gap-3 px-4 py-4 lg:border-l lg:first:border-l-0"
+              className="flex items-center gap-3 px-4 py-4 lg:border-l lg:first:border-l-0"
               style={{ borderColor: "var(--color-bl-prog-line)" }}
             >
               <Icon
                 size={24}
-                className="mt-0.5 shrink-0"
+                className="shrink-0"
                 style={{ color: "var(--color-bl-prog-ink)" }}
               />
               <div className="min-w-0 flex-1">
