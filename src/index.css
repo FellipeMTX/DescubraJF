@@ -58,6 +58,18 @@
   --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --t-anim: 1.5;
+
+  /* ── Subtema "Programas e Projetos" (paleta verde) ── */
+  --color-bl-prog-bg: #f7f2e8;
+  --color-bl-prog-ink: #1b3d2f;
+  --color-bl-prog-ink2: #163027;
+  --color-bl-prog-accent: #2e6f4e;
+  --color-bl-prog-soft: #e2ebd3;
+  --color-bl-prog-card: #f3edde;
+  --color-bl-prog-muted: #6b7d6b;
+  --color-bl-prog-line: #d8dcc9;
+  --color-bl-prog-cta-bg: #1f3a2e;
+  --color-bl-prog-cta-yellow: #f1c56a;
 }
 
 /* ===== Redesign Blend — base ===== */
@@ -66,6 +78,20 @@
   color: var(--color-bl-ink);
   font-family: var(--font-body);
   line-height: 1.55;
+}
+
+/* ===== Subtema verde para Programas e Projetos ===== */
+.bl-prog {
+  background: var(--color-bl-prog-bg);
+  color: var(--color-bl-prog-ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+.bl-prog-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
 }
 
 /* Scroll reveal animations */

@@ -137,7 +137,7 @@ export default function LodgingList() {
       <div className="relative w-full">
         <div className="overflow-hidden">
           <img
-            src="/ondeFicarBanner1.png"
+            src="/ondeFicarBanner2.png"
             alt={t("lodging.list.title")}
             className="block h-auto w-full"
           />
@@ -228,7 +228,7 @@ export default function LodgingList() {
         </section>
 
         {/* Filtros de bairro + view toggle */}
-        <div className="mt-16 flex flex-wrap items-center justify-end gap-2.5">
+        <div className="mt-16 grid grid-cols-2 gap-2.5 lg:flex lg:items-center lg:justify-between">
           <FilterDropdown
             items={bairros}
             selected={selectedHood}

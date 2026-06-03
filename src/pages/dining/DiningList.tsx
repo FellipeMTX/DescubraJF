@@ -140,7 +140,7 @@ export default function DiningList() {
       <div className="relative w-full">
         <div className="overflow-hidden">
           <img
-            src="/ondeComerBanner1.png"
+            src="/ondeComerBanner2.png"
             alt={t("dining.list.title")}
             className="block h-auto w-full"
           />
@@ -243,14 +243,16 @@ export default function DiningList() {
         )}
 
         {/* Filtros de bairro + view toggle */}
-        <div className="mt-16 flex flex-wrap items-center justify-end gap-2.5">
-          {bairros.length > 0 && (
+        <div className="mt-16 grid grid-cols-2 gap-2.5 lg:flex lg:items-center lg:justify-between">
+          {bairros.length > 0 ? (
             <FilterDropdown
               items={bairros}
               selected={selectedHood}
-              allLabel={t("dining.list.allCategories")}
+              allLabel={t("dining.list.allHoods")}
               onSelect={setSelectedHood}
             />
+          ) : (
+            <span />
           )}
           <ViewToggle value={view} onChange={setView} />
         </div>

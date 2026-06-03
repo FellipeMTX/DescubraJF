@@ -25,11 +25,23 @@ type FormData = {
   conteudo_html: string;
   autor: string;
   publicado: boolean;
+  /** YYYY-MM-DD ou "" quando vazio (usa created_at como fallback). */
+  data_publicacao: string;
 };
 
 const EMPTY: FormData = {
-  titulo: "", resumo: "", conteudo_html: "", autor: "", publicado: false,
+  titulo: "", resumo: "", conteudo_html: "", autor: "", publicado: false, data_publicacao: "",
 };
+
+function isoToDateInput(iso: string | null): string {
+  return iso ? iso.slice(0, 10) : "";
+}
+
+function dateInputToIso(date: string): string | null {
+  if (!date) return null;
+  // noon UTC pra evitar deslocamento de timezone que mude o dia
+  return `${date}T12:00:00.000Z`;
+}
 
 const LABELS: Record<PostCategoria, { title: string; subtitle: string; singular: string }> = {
   noticia: {
@@ -69,6 +81,7 @@ export default function PostsAdmin({ categoria }: Props) {
       conteudo_html: item.conteudo_html ?? "",
       autor: item.autor ?? "",
       publicado: item.publicado,
+      data_publicacao: isoToDateInput(item.data_publicacao),
     });
     setImageFile(null); setDialogOpen(true);
   }
@@ -88,6 +101,7 @@ export default function PostsAdmin({ categoria }: Props) {
         conteudo_html: form.conteudo_html || null,
         autor: form.autor || null,
         publicado: form.publicado,
+        data_publicacao: dateInputToIso(form.data_publicacao),
         imagem_capa,
         updated_at: new Date().toISOString(),
       };
@@ -148,6 +162,16 @@ export default function PostsAdmin({ categoria }: Props) {
               </Field>
               <Field label="Autor">
                 <Input value={form.autor} onChange={(e) => update("autor", e.target.value)} />
+              </Field>
+              <Field label="Data de publicação (opcional)">
+                <Input
+                  type="date"
+                  value={form.data_publicacao}
+                  onChange={(e) => update("data_publicacao", e.target.value)}
+                />
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Se vazio, usa a data de criação do registro.
+                </p>
               </Field>
               <Field label="Imagem de capa">
                 <ImageUploadField
@@ -211,7 +235,7 @@ export default function PostsAdmin({ categoria }: Props) {
                   </div>
                 </td>
                 <td className="px-4 py-3 text-xs text-muted-foreground">{item.autor ?? "—"}</td>
-                <td className="px-4 py-3 text-xs text-muted-foreground">{formatDate(item.created_at)}</td>
+                <td className="px-4 py-3 text-xs text-muted-foreground">{formatDate(item.data_publicacao ?? item.created_at)}</td>
                 <td className="px-4 py-3">
                   {item.publicado
                     ? <Badge variant="secondary">Publicado</Badge>
