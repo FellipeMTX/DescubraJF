@@ -3,13 +3,10 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Menu, ChevronDown } from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
+import type { NavItem } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
 import { LanguageSelector } from "./LanguageSelector";
-
-type NavItem =
-  | { labelKey: string; href: string; children?: undefined }
-  | { labelKey: string; children: ReadonlyArray<{ labelKey: string; href: string }>; href?: undefined };
 
 export function Header() {
   const { t } = useTranslation();

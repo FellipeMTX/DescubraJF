@@ -15,6 +15,7 @@ export type Experiencia = {
   descricao: string | null;
   descricao_curta: string | null;
   categoria_id: string | null;
+  categoria_ids: string[];
   latitude: number | null;
   longitude: number | null;
   imagem_destaque: string | null;
@@ -38,8 +39,8 @@ export type Experiencia = {
   ordem: number;
   created_at: string;
   updated_at: string;
-  // Joined fields
-  categoria?: CategoriaExperiencia;
+  // Joined/resolved fields
+  categorias: CategoriaExperiencia[];
 };
 
 /** Item com ícone (nome kebab-case de `getIconByName`) + textos. */

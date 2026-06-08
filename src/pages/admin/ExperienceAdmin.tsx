@@ -18,6 +18,8 @@ import { MapPreview } from "@/components/ui/MapPreview";
 import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { CategoryManagerDialog } from "@/components/ui/CategoryManagerDialog";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { CategoryPills } from "@/components/ui/CategoryPills";
+import { cn } from "@/lib/utils";
 import { useExperiences, useExperienceCategories } from "@/hooks/useExperiences";
 import { supabase } from "@/lib/supabase";
 import { uploadImage } from "@/lib/storage";
@@ -29,7 +31,7 @@ type FormData = {
   nome: string;
   descricao_curta: string;
   descricao: string;
-  categoria_id: string;
+  categoria_ids: string[];
   endereco: string;
   numero: string;
   bairro: string;
@@ -45,7 +47,7 @@ const EMPTY_FORM: FormData = {
   nome: "",
   descricao_curta: "",
   descricao: "",
-  categoria_id: "",
+  categoria_ids: [],
   endereco: "",
   numero: "",
   bairro: "",
@@ -82,7 +84,7 @@ export default function ExperienceAdmin() {
       nome: exp.nome,
       descricao_curta: exp.descricao_curta ?? "",
       descricao: exp.descricao ?? "",
-      categoria_id: exp.categoria_id ?? "",
+      categoria_ids: exp.categoria_ids ?? [],
       endereco: exp.endereco ?? "",
       numero: "",
       bairro: exp.bairro ?? "",
@@ -112,7 +114,8 @@ export default function ExperienceAdmin() {
         slug: await uniqueSlug(form.nome, "experiencias", editing?.id),
         descricao_curta: form.descricao_curta || null,
         descricao: form.descricao || null,
-        categoria_id: form.categoria_id || null,
+        categoria_ids: form.categoria_ids,
+        categoria_id: form.categoria_ids[0] ?? null,
         endereco: [form.endereco, form.numero].filter(Boolean).join(", ") || null,
         bairro: form.bairro || null,
         latitude: form.latitude ? parseFloat(form.latitude) : null,
@@ -155,7 +158,7 @@ export default function ExperienceAdmin() {
     await queryClient.invalidateQueries({ queryKey: ["experiencias"] });
   }
 
-  function updateForm(field: keyof FormData, value: string | boolean) {
+  function updateForm(field: keyof FormData, value: string | boolean | string[]) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -257,14 +260,7 @@ export default function ExperienceAdmin() {
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      {exp.categoria && (
-                        <Badge
-                          className="text-white"
-                          style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}
-                        >
-                          {exp.categoria.nome}
-                        </Badge>
-                      )}
+                      <CategoryPills categorias={exp.categorias} />
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap gap-1">
@@ -306,7 +302,7 @@ function ExperienceForm({
   imageFile: File | null;
   currentImageUrl: string | null;
   saving: boolean;
-  onUpdate: (field: keyof FormData, value: string | boolean) => void;
+  onUpdate: (field: keyof FormData, value: string | boolean | string[]) => void;
   onImageChange: (file: File | null) => void;
   onSave: () => void;
 }) {
@@ -341,19 +337,34 @@ function ExperienceForm({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-foreground">Categoria</label>
-        <select
-          value={form.categoria_id}
-          onChange={(e) => onUpdate("categoria_id", e.target.value)}
-          className="w-full rounded-md border border-input px-3 py-2 text-sm"
-        >
-          <option value="">Selecione...</option>
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>
-              {cat.nome}
-            </option>
-          ))}
-        </select>
+        <label className="text-sm font-medium text-foreground">Categorias</label>
+        <div className="mt-1 flex flex-wrap gap-2">
+          {categories.map((cat) => {
+            const checked = form.categoria_ids.includes(cat.id);
+            return (
+              <button
+                type="button"
+                key={cat.id}
+                onClick={() =>
+                  onUpdate(
+                    "categoria_ids",
+                    checked
+                      ? form.categoria_ids.filter((id) => id !== cat.id)
+                      : [...form.categoria_ids, cat.id]
+                  )
+                }
+                className={cn(
+                  "rounded-full border px-3 py-1 text-sm transition-colors",
+                  checked
+                    ? "border-primary-500 bg-primary-500 text-white"
+                    : "border-input text-foreground hover:bg-muted"
+                )}
+              >
+                {cat.nome}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <ImageUploadField

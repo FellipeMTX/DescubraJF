@@ -1,7 +1,6 @@
 {
   "common": {
     "siteName": "Descubra Juiz de Fora",
-    "siteDescription": "Official tourism portal of Juiz de Fora. Discover attractions, routes, dining, and lodging.",
     "menu": "Menu",
     "closeMenu": "Close menu",
     "selectLanguage": "Select language",
@@ -37,22 +36,8 @@
     "news": "News"
   },
   "footer": {
-    "columns": {
-      "history": "History",
-      "whatToDo": "What to Do",
-      "whereToEat": "Where to Eat",
-      "whereToStay": "Where to Stay",
-      "services": "Services"
-    },
-    "links": {
-      "history": "Go to History",
-      "attractions": "Attractions",
-      "routes": "Routes",
-      "events": "Events",
-      "establishments": "Establishments",
-      "lodging": "Lodging",
-      "institutional": "About Us"
-    }
+    "explore": "Explore",
+    "cadastur": "All content on this portal complies with the official CADASTUR registry."
   },
   "notFound": {
     "title": "Page not found",

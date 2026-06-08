@@ -1,5 +1,8 @@
 export const SITE_NAME_KEY = "common.siteName";
-export const SITE_DESCRIPTION_KEY = "common.siteDescription";
+
+export type NavItem =
+  | { labelKey: string; href: string; children?: undefined }
+  | { labelKey: string; children: ReadonlyArray<{ labelKey: string; href: string }>; href?: undefined };
 
 export const NAV_ITEMS = [
   { labelKey: "nav.history", href: "/juiz-de-fora/historia" },
