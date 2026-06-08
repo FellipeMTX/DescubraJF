@@ -7,7 +7,7 @@ import {
 } from "@clerk/clerk-react";
 import {
   MapPin, CalendarDays, Image, UtensilsCrossed, BedDouble, Route, ChevronLeft, Briefcase, Compass,
-  Newspaper, FolderKanban, Building2,
+  Newspaper, Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +23,6 @@ const NAV_LINKS = [
   { label: "Banners", href: "/admin/banners", icon: Image },
   { label: "Eventos", href: "/admin/eventos", icon: CalendarDays },
   { label: "Notícias", href: "/admin/noticias", icon: Newspaper },
-  { label: "Programas e Projetos", href: "/admin/programas-e-projetos", icon: FolderKanban },
   { label: "Institucional", href: "/admin/institucional", icon: Building2 },
 ];
 

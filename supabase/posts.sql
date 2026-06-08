@@ -1,12 +1,12 @@
 -- ===========================================
--- Posts (Notícias + Programas e Projetos)
+-- Posts (Notícias)
 -- Executar no SQL Editor do Supabase
 -- ===========================================
 
 -- 1. Tabela posts
 CREATE TABLE IF NOT EXISTS posts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  categoria TEXT NOT NULL CHECK (categoria IN ('noticia', 'programa_projeto')),
+  categoria TEXT NOT NULL CHECK (categoria IN ('noticia')),
   titulo TEXT NOT NULL,
   slug TEXT NOT NULL,
   resumo TEXT,

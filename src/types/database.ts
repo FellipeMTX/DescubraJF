@@ -268,7 +268,7 @@ export type Servico = {
   categoria?: CategoriaServico;
 };
 
-export type PostCategoria = "noticia" | "programa_projeto";
+export type PostCategoria = "noticia";
 
 export type Post = {
   id: string;

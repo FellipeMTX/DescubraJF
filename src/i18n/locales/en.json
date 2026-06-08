@@ -570,12 +570,7 @@
       "list": {
         "title": "Programs &",
         "titleHighlight": "Projects",
-        "subtitle": "Learn about the programs and projects of the Juiz de Fora Tourism Department.",
-        "empty": "No program or project published at the moment."
-      },
-      "detail": {
-        "back": "Programs & Projects",
-        "backLink": "Back to Programs & Projects"
+        "subtitle": "Learn about the programs and projects of the Juiz de Fora Tourism Department."
       }
     },
     "notFound": "Post not found.",
