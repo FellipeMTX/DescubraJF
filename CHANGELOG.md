@@ -5,6 +5,25 @@
 
 ---
 
+## [2026-06-08] Rodapé, eventos em andamento e atrativos (parágrafos + múltiplas categorias)
+
+### O que foi feito
+- **Rodapé** ([src/components/layout/Footer.tsx](src/components/layout/Footer.tsx)): redesenhado e passou a ser dirigido por `NAV_ITEMS` (mesma fonte da navbar). O tipo `NavItem` foi exportado de `constants.ts` e reutilizado no `Header`. Layout com o selo da Prefeitura/Setur ao lado das colunas de links e a frase do CADASTUR como nota de rodapé (chave `footer.cadastur` em PT/EN/ES). Removidas as chaves órfãs `footer.columns`/`footer.links` e `common.siteDescription`.
+- **Home / eventos** ([src/hooks/useEvents.ts](src/hooks/useEvents.ts)): `useUpcomingEvents` passou a considerar `data_fim`, exibindo eventos **em andamento** (que ainda não terminaram) além dos futuros.
+- **Descrição em parágrafos**: novo componente [src/components/ui/DescriptionText.tsx](src/components/ui/DescriptionText.tsx) divide a descrição em parágrafos com espaçamento (tratando inclusive texto legado *hard-wrapped*), aplicado nos modais de atrativos, hospedagem e gastronomia.
+- **Múltiplas categorias por atrativo**: coluna `categoria_ids[]` ([supabase/add-experiencia-multi-categoria.sql](supabase/add-experiencia-multi-categoria.sql)). Os hooks de experiências resolvem as categorias num só lugar; novo [src/components/ui/CategoryPills.tsx](src/components/ui/CategoryPills.tsx) renderiza N badges (card, modal e admin); o admin troca o `select` único por chips de múltipla seleção.
+
+### Por que foi feito
+Ajustes de UX solicitados (rodapé alinhado à navbar, eventos mais fiéis ao que está acontecendo, descrição legível em parágrafos) e suporte a atrativos que pertencem a mais de uma categoria.
+
+### Decisões técnicas
+- Rodapé e navbar compartilham `NAV_ITEMS` para nunca dessincronizar.
+- Categorias múltiplas via **coluna array** (Opção A), sem tabela de junção: resolução client-side a partir das categorias já carregadas, com `categoria_id` mantido como categoria principal/legado.
+- `DescriptionText` detecta blocos *hard-wrapped* por comprimento de linha e os rejunta, quebrando parágrafo apenas em linhas curtas.
+
+### Próximos passos
+- Cadastrar 2+ categorias nos atrativos pelo /admin conforme necessário.
+
 ## [2026-06-03] Página de Roteiro editável (layout rico) + admin
 
 ### O que foi feito
