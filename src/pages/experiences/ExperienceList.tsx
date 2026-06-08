@@ -17,7 +17,8 @@ import {
   Phone,
   Sparkles,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { CategoryPills } from "@/components/ui/CategoryPills";
+import { DescriptionText } from "@/components/ui/DescriptionText";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -56,7 +57,7 @@ export default function ExperienceList() {
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = { todos: allExperiences?.length ?? 0 };
     for (const e of allExperiences ?? []) {
-      if (e.categoria?.slug) counts[e.categoria.slug] = (counts[e.categoria.slug] ?? 0) + 1;
+      for (const c of e.categorias) counts[c.slug] = (counts[c.slug] ?? 0) + 1;
     }
     return counts;
   }, [allExperiences]);
@@ -73,7 +74,7 @@ export default function ExperienceList() {
 
   const filtered = useMemo(() => {
     return (allExperiences ?? []).filter((e) => {
-      if (selectedCategory !== "todos" && e.categoria?.slug !== selectedCategory) return false;
+      if (selectedCategory !== "todos" && !e.categorias.some((c) => c.slug === selectedCategory)) return false;
       if (selectedHood !== "todos" && e.bairro !== selectedHood) return false;
       return true;
     });
@@ -81,7 +82,7 @@ export default function ExperienceList() {
 
   const stats = useMemo(() => {
     if (!allExperiences?.length) return null;
-    const cats = new Set(allExperiences.map((e) => e.categoria?.slug).filter(Boolean));
+    const cats = new Set(allExperiences.flatMap((e) => e.categorias.map((c) => c.slug)));
     const free = allExperiences.filter((e) => e.gratuito).length;
     return { total: allExperiences.length, cats: cats.size, free };
   }, [allExperiences]);
@@ -300,13 +301,8 @@ export default function ExperienceList() {
                   onClick={() => setSelectedSlug(exp.slug)}
                   placeholderIcon={<MapPin size={36} style={{ color: "var(--color-bl-muted)" }} />}
                   badge={
-                    exp.categoria ? (
-                      <Badge
-                        className="text-accent-50"
-                        style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}
-                      >
-                        {exp.categoria.nome}
-                      </Badge>
+                    exp.categorias.length > 0 ? (
+                      <CategoryPills categorias={exp.categorias} badgeClassName="text-accent-50" />
                     ) : undefined
                   }
                 />
@@ -524,14 +520,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
         />
       )}
       <DialogHeader className="gap-1.5">
-        {exp.categoria && (
-          <Badge
-            className="w-fit text-accent-50"
-            style={{ backgroundColor: exp.categoria.cor ?? "var(--color-primary-400)" }}
-          >
-            {exp.categoria.nome}
-          </Badge>
-        )}
+        <CategoryPills categorias={exp.categorias} badgeClassName="text-accent-50" />
         <DialogTitle className="text-lg font-bold text-primary-800">{exp.nome}</DialogTitle>
       </DialogHeader>
       {(exp.gratuito || exp.acessibilidade || exp.pet_friendly) && (
@@ -541,9 +530,7 @@ function ExperienceModalContent({ slug }: { slug: string }) {
           {exp.pet_friendly && <ModalPill icon={<Dog size={12} />}>{t("experiences.badges.petFriendly")}</ModalPill>}
         </div>
       )}
-      {exp.descricao && (
-        <p className="text-sm leading-relaxed text-primary-700">{exp.descricao}</p>
-      )}
+      <DescriptionText text={exp.descricao} />
       <div className="space-y-2.5 border-t border-primary-100 pt-3">
         {hasSchedule && (
           <ModalInfoRow icon={<Clock size={14} />}>

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { DescriptionText } from "@/components/ui/DescriptionText";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AspectImage } from "@/components/ui/AspectImage";
@@ -504,9 +505,7 @@ function LodgingModalContent({ slug }: { slug: string }) {
           ))}
         </div>
       )}
-      {lodging.descricao && (
-        <p className="text-sm leading-relaxed text-primary-700">{lodging.descricao}</p>
-      )}
+      <DescriptionText text={lodging.descricao} />
       <div className="space-y-2.5 border-t border-primary-100 pt-3">
         {lodging.endereco && (
           <ModalInfoRow icon={<MapPin size={14} />}>

@@ -74,15 +74,20 @@ export function HomeExperiences() {
                   ratio={IMAGE_RATIOS.cardPortrait}
                   placeholder={<span>{exp.nome}</span>}
                 >
-                  {exp.categoria && (
-                    <div
-                      className="bl-kicker absolute top-4 left-4"
-                      style={{
-                        background: "var(--color-bl-accent2)",
-                        color: "var(--color-bl-ink)",
-                      }}
-                    >
-                      {exp.categoria.nome}
+                  {exp.categorias.length > 0 && (
+                    <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                      {exp.categorias.map((cat) => (
+                        <div
+                          key={cat.id}
+                          className="bl-kicker"
+                          style={{
+                            background: "var(--color-bl-accent2)",
+                            color: "var(--color-bl-ink)",
+                          }}
+                        >
+                          {cat.nome}
+                        </div>
+                      ))}
                     </div>
                   )}
                   <div className="bl-card-overlay">
