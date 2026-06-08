@@ -1,7 +1,6 @@
 {
   "common": {
     "siteName": "Descubra Juiz de Fora",
-    "siteDescription": "Portal turístico oficial de Juiz de Fora. Descubra atrativos, roteiros, gastronomia e hospedagens.",
     "menu": "Menu",
     "closeMenu": "Fechar menu",
     "selectLanguage": "Selecionar idioma",
@@ -37,22 +36,8 @@
     "news": "Notícias"
   },
   "footer": {
-    "columns": {
-      "history": "História",
-      "whatToDo": "O que Fazer",
-      "whereToEat": "Onde Comer",
-      "whereToStay": "Onde Ficar",
-      "services": "Serviços"
-    },
-    "links": {
-      "history": "Ir para História",
-      "attractions": "Atrativos",
-      "routes": "Roteiros",
-      "events": "Agenda",
-      "establishments": "Estabelecimentos",
-      "lodging": "Hospedagens",
-      "institutional": "Institucional"
-    }
+    "explore": "Explorar",
+    "cadastur": "Todo o conteúdo deste portal está em conformidade com os registros oficiais do CADASTUR."
   },
   "notFound": {
     "title": "Página não encontrada",

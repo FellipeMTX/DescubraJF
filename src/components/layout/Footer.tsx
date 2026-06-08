@@ -1,35 +1,12 @@
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import { NAV_ITEMS } from "@/lib/constants";
+import type { NavItem } from "@/lib/constants";
 
-const FOOTER_COLUMNS: ReadonlyArray<{
-  titleKey: string;
-  links: ReadonlyArray<{ labelKey: string; href: string }>;
-}> = [
-  {
-    titleKey: "footer.columns.history",
-    links: [{ labelKey: "footer.links.history", href: "/juiz-de-fora/historia" }],
-  },
-  {
-    titleKey: "footer.columns.whatToDo",
-    links: [
-      { labelKey: "footer.links.attractions", href: "/atrativos" },
-      { labelKey: "footer.links.routes", href: "/roteiros" },
-      { labelKey: "footer.links.events", href: "/agenda" },
-    ],
-  },
-  {
-    titleKey: "footer.columns.whereToEat",
-    links: [{ labelKey: "footer.links.establishments", href: "/onde-comer" }],
-  },
-  {
-    titleKey: "footer.columns.whereToStay",
-    links: [{ labelKey: "footer.links.lodging", href: "/onde-ficar" }],
-  },
-  {
-    titleKey: "footer.columns.services",
-    links: [{ labelKey: "footer.links.institutional", href: "/servicos" }],
-  },
-];
+const navItems = NAV_ITEMS as readonly NavItem[];
+
+const COLUMN_HEADING = "mb-4 text-[11px] font-semibold uppercase tracking-widest";
+const FOOTER_LINK = "mb-2 block text-[13px] transition-colors hover:text-bl-ink";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -40,38 +17,66 @@ export function Footer() {
       style={{ background: "var(--color-bl-card)", color: "var(--color-bl-ink)" }}
     >
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 border-b border-black/10 pb-14 md:grid-cols-5">
-          {FOOTER_COLUMNS.map((col) => (
-            <div key={col.titleKey}>
-              <div className="mb-4 text-[11px] font-semibold uppercase tracking-widest">
-                {t(col.titleKey)}
-              </div>
-              {col.links.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="mb-2 block text-[13px] transition-colors hover:text-[var(--color-bl-ink)]"
-                  style={{ color: "var(--color-bl-muted)" }}
-                >
-                  {t(link.labelKey)}
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center justify-center pt-12">
+        <div className="flex flex-col items-center gap-12 sm:flex-row sm:items-center sm:justify-center sm:gap-20">
+          {/* Tourism Department / City Hall logo, alongside the link columns */}
           <a
             href="https://www.pjf.mg.gov.br/"
             target="_blank"
             rel="noopener noreferrer"
+            className="shrink-0"
           >
             <img
               src="/LogoSeturColor.png"
               alt={t("common.tourismLogoAlt")}
-              className="h-20 object-contain"
+              className="h-11.25 object-contain"
             />
           </a>
+
+          <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:gap-16">
+            {/* Standalone nav links grouped under one heading */}
+            <div>
+              <div className={COLUMN_HEADING}>{t("footer.explore")}</div>
+              {navItems.map((item) =>
+                item.children ? null : (
+                  <Link
+                    key={item.labelKey}
+                    to={item.href}
+                    className={FOOTER_LINK}
+                    style={{ color: "var(--color-bl-muted)" }}
+                  >
+                    {t(item.labelKey)}
+                  </Link>
+                )
+              )}
+            </div>
+
+            {/* Grouped nav items (one column each) */}
+            {navItems.map((item) =>
+              item.children ? (
+                <div key={item.labelKey}>
+                  <div className={COLUMN_HEADING}>{t(item.labelKey)}</div>
+                  {item.children.map((link) => (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      className={FOOTER_LINK}
+                      style={{ color: "var(--color-bl-muted)" }}
+                    >
+                      {t(link.labelKey)}
+                    </Link>
+                  ))}
+                </div>
+              ) : null
+            )}
+          </div>
         </div>
+
+        <p
+          className="mx-auto mt-12 max-w-md text-center text-[12px] leading-relaxed"
+          style={{ color: "var(--color-bl-muted)" }}
+        >
+          {t("footer.cadastur")}
+        </p>
       </div>
     </footer>
   );
