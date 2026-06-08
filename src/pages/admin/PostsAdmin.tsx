@@ -49,11 +49,6 @@ const LABELS: Record<PostCategoria, { title: string; subtitle: string; singular:
     subtitle: "Gerencie as notícias publicadas",
     singular: "Notícia",
   },
-  programa_projeto: {
-    title: "Programas e Projetos",
-    subtitle: "Gerencie os programas e projetos publicados",
-    singular: "Programa/Projeto",
-  },
 };
 
 type Props = { categoria: PostCategoria };

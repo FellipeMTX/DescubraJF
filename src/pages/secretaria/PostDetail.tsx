@@ -13,16 +13,10 @@ const PATHS: Record<PostCategoria, { kickerKey: string; backKey: string; basePat
     backKey: "posts.news.detail.back",
     basePath: "/secretaria/noticias",
   },
-  programa_projeto: {
-    kickerKey: "posts.programs.kicker",
-    backKey: "posts.programs.detail.back",
-    basePath: "/secretaria/programas-e-projetos",
-  },
 };
 
 const RETURN_KEYS: Record<PostCategoria, string> = {
   noticia: "posts.news.detail.backLink",
-  programa_projeto: "posts.programs.detail.backLink",
 };
 
 type Props = { categoria: PostCategoria };
@@ -171,7 +165,6 @@ export default function PostDetail({ categoria }: Props) {
               className="bl-em"
               style={{
                 fontSize: "clamp(15px, 1.6vw, 18px)",
-                fontStyle: "italic",
               }}
             >
               {formatDate(post.data_publicacao ?? post.created_at)}

@@ -570,12 +570,7 @@
       "list": {
         "title": "Programas e",
         "titleHighlight": "Projetos",
-        "subtitle": "Conheça os programas e projetos da Secretaria de Turismo de Juiz de Fora.",
-        "empty": "Nenhum programa ou projeto publicado no momento."
-      },
-      "detail": {
-        "back": "Programas e Projetos",
-        "backLink": "Voltar para Programas e Projetos"
+        "subtitle": "Conheça os programas e projetos da Secretaria de Turismo de Juiz de Fora."
       }
     },
     "notFound": "Post não encontrado.",

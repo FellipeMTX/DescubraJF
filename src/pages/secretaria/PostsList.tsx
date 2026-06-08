@@ -10,7 +10,6 @@ import type { PostCategoria } from "@/types/database";
 
 const BASE_PATHS: Record<PostCategoria, string> = {
   noticia: "/secretaria/noticias",
-  programa_projeto: "/secretaria/programas-e-projetos",
 };
 
 const I18N_KEYS: Record<
@@ -23,13 +22,6 @@ const I18N_KEYS: Record<
     highlight: "posts.news.list.titleHighlight",
     subtitle: "posts.news.list.subtitle",
     empty: "posts.news.list.empty",
-  },
-  programa_projeto: {
-    kicker: "posts.programs.kicker",
-    title: "posts.programs.list.title",
-    highlight: "posts.programs.list.titleHighlight",
-    subtitle: "posts.programs.list.subtitle",
-    empty: "posts.programs.list.empty",
   },
 };
 
