@@ -77,9 +77,8 @@
       "titleHighlight": "Geraes",
       "titleSuffix": ".",
       "description": "From traditional Mineira cuisine to corner pubs, taste everything our gastronomy has to offer.",
-      "cta": "View establishments",
-      "empty": "No categories available.",
-      "metaLabel": "Establishments"
+      "cta": "View all establishments",
+      "empty": "No establishments available."
     },
     "events": {
       "kicker": "What's on in JF",

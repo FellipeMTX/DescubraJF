@@ -77,9 +77,8 @@
       "titleHighlight": "Geraes",
       "titleSuffix": ".",
       "description": "De la cocina mineira tradicional a los bares de esquina, prueba todo lo que nuestra gastronomía ofrece.",
-      "cta": "Ver establecimientos",
-      "empty": "Ninguna categoría registrada.",
-      "metaLabel": "Establecimientos"
+      "cta": "Ver todos los establecimientos",
+      "empty": "Ningún establecimiento registrado."
     },
     "events": {
       "kicker": "Pasa en JF",

@@ -5,6 +5,25 @@
 
 ---
 
+## [2026-06-08] Home: "Sabores das Geraes" como cards de estabelecimentos
+
+### O que foi feito
+- **Seção de gastronomia da home** ([src/components/sections/HomeDining.tsx](src/components/sections/HomeDining.tsx)): reescrita para seguir a mesma estrutura das seções 01/02 (Atrativos/Hospedagem) — cabeçalho em duas colunas no topo (título à esquerda, descrição + botão à direita) em vez do antigo layout de sidebar *sticky*. Os antigos *tiles* de categoria deram lugar a **3 cards de estabelecimento**, cada um com badge de categoria, imagem (`AspectImage` com placeholder) e rodapé com número + nome + bairro com ícone de pin.
+- **Fonte de dados**: passou de `useDiningCategories` para `useDiningEstablishments` (os 3 primeiros ativos por `ordem`).
+- **Dedup por marca**: helper `pickDistinctBrands` mantém só um estabelecimento por marca (chave = 2 primeiras palavras do nome), evitando repetir redes multiunidade (ex.: 3× "Aceite Forneria", 2× "Berttu's Restaurante") na home.
+- **i18n** (PT/EN/ES): `home.dining.cta` → "Ver todos os estabelecimentos", `empty` agora fala de estabelecimentos e a chave órfã `metaLabel` foi removida.
+
+### Por que foi feito
+Alinhar a seção ao design de referência (mesma linguagem visual das demais seções da home) e mostrar estabelecimentos reais em destaque, com variedade de marcas.
+
+### Decisões técnicas
+- **Sem campo de nota**: o print de referência mostrava uma avaliação (★), mas `estabelecimentos_gastronomia` não tem esse campo — o pill foi omitido em vez de inventar dado.
+- **Dedup só na home**: a página `/onde-comer` continua listando todas as unidades (são listagens reais com endereços distintos); a deduplicação por marca vale apenas para o teaser.
+- **Imagem real com placeholder**: usa `imagem_destaque` (com fallback de placeholder), em vez das ilustrações decorativas do mockup.
+
+### Próximos passos
+- (Opcional) modelar "marca/rede" no schema caso se queira agrupar unidades de forma robusta, em vez da heurística por nome.
+
 ## [2026-06-08] Rodapé, eventos em andamento e atrativos (parágrafos + múltiplas categorias)
 
 ### O que foi feito

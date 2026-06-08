@@ -77,9 +77,8 @@
       "titleHighlight": "Geraes",
       "titleSuffix": ".",
       "description": "Da cozinha mineira tradicional aos botecos de esquina, experimente tudo o que nossa gastronomia oferece.",
-      "cta": "Ver estabelecimentos",
-      "empty": "Nenhuma categoria cadastrada.",
-      "metaLabel": "Estabelecimentos"
+      "cta": "Ver todos os estabelecimentos",
+      "empty": "Nenhum estabelecimento cadastrado."
     },
     "events": {
       "kicker": "Acontece em JF",
