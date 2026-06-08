@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -136,7 +135,7 @@
 }
 .bl-em {
   font-family: var(--font-display);
-  font-style: italic;
+  font-weight: 500;
   color: var(--color-bl-accent);
 }
 .bl-kicker {
@@ -160,7 +159,8 @@
 }
 .bl-num {
   font-family: var(--font-display);
-  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--color-bl-accent);
   font-size: 14px;
 }
