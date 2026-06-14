@@ -631,7 +631,7 @@
       }
     },
     "editalFomento": {
-      "title": "Tourism Funding Call",
+      "title": "Tourism Development Program",
       "description": "Financial support for projects, events and actions that contribute to strengthening tourism in Juiz de Fora.",
       "meta": { "date": "May 19, 2026" },
       "cta": {
@@ -650,14 +650,14 @@
       "about": {
         "title": "About the Call",
         "paragraphs": [
-          "The Juiz de Fora Tourism Department annually holds the Tourism Funding Call, an initiative that financially supports projects, events and actions that contribute to strengthening tourism in the municipality.",
+          "Since 2012, the Juiz de Fora Tourism Department has held the Tourism Projects Development Program, an initiative that financially supports projects, events and actions that contribute to strengthening tourism in the municipality.",
           "The call aims to stimulate creativity, value local initiatives and boost the tourism economy, considering proposals that promote experiences, qualify services, move culture and expand the city's tourism potential.",
           "Across its editions, the program has consolidated Setur's role as a coordinator and promoter of the sector, strengthening partnerships with cultural producers, entrepreneurs, institutions and civil society organizations.",
           "More than a financing instrument, the call represents the Department's commitment to sustainable tourism development and to collectively building a city increasingly prepared to welcome."
         ],
         "keypoints": [
           { "title": "Goal", "description": "Support projects, events and actions that boost tourism and local development." },
-          { "title": "Who can participate", "description": "Individuals, microenterprises, companies, collectives, institutions and civil society organizations." },
+          { "title": "Who can participate", "description": "Civil society organizations." },
           { "title": "What can be supported", "description": "Cultural projects, tourism events, training, research, promotion actions and much more." },
           { "title": "Resources", "description": "Financial support according to categories and criteria defined in the call." },
           { "title": "How to participate", "description": "Registrations and proposal submissions following the call's guidelines and annexes." }
@@ -666,10 +666,9 @@
       "impacto": {
         "title": "Call impact",
         "stats": [
-          { "value": "+150", "label": "supported projects", "description": "Since the start of the program." },
-          { "value": "10", "label": "editions held", "description": "Strengthening local tourism." },
-          { "value": "+R$ 3M", "label": "invested in tourism", "description": "Generating development." },
-          { "value": "Citywide impact", "description": "Benefits for residents and visitors." }
+          { "value": "+130", "label": "approved projects", "description": "Since the program was created in 2012." },
+          { "value": "12", "label": "editions held", "description": "Strengthening local tourism." },
+          { "value": "+R$ 1.5M", "label": "invested in tourism", "description": "Generating development." }
         ]
       },
       "funciona": {

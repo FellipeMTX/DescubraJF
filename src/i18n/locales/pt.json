@@ -631,7 +631,7 @@
       }
     },
     "editalFomento": {
-      "title": "Edital de Fomento ao Turismo",
+      "title": "Programa de Fomento ao Turismo",
       "description": "Apoio financeiro a projetos, eventos e ações que contribuam para o fortalecimento da atividade turística em Juiz de Fora.",
       "meta": { "date": "19 de maio de 2026" },
       "cta": {
@@ -650,14 +650,14 @@
       "about": {
         "title": "Sobre o Edital",
         "paragraphs": [
-          "A Secretaria de Turismo de Juiz de Fora realiza anualmente o Edital de Fomento ao Turismo, iniciativa que apoia financeiramente projetos, eventos e ações que contribuam para o fortalecimento da atividade turística no município.",
+          "A Secretaria de Turismo de Juiz de Fora realiza, desde 2012, o Programa de Fomento a Projetos Turísticos, iniciativa que apoia financeiramente projetos, eventos e ações que contribuam para o fortalecimento da atividade turística no município.",
           "O edital tem como objetivo estimular a criatividade, valorizar iniciativas locais e impulsionar a economia do turismo, contemplando propostas que promovam experiências, qualifiquem serviços, movimentem a cultura e ampliem o potencial turístico da cidade.",
           "Ao longo das edições, o programa vem consolidando o papel da Setur como articuladora e incentivadora do setor, fortalecendo parcerias com produtores culturais, empreendedores, instituições e organizações da sociedade civil.",
           "Mais do que um instrumento de financiamento, o edital representa o compromisso da Secretaria com o desenvolvimento sustentável do turismo e com a construção coletiva de uma cidade cada vez mais preparada para receber."
         ],
         "keypoints": [
           { "title": "Objetivo", "description": "Apoiar projetos, eventos e ações que impulsionem o turismo e o desenvolvimento local." },
-          { "title": "Quem pode participar", "description": "Pessoas físicas, MEIs, empresas, coletivos, instituições e organizações da sociedade civil." },
+          { "title": "Quem pode participar", "description": "Organizações da Sociedade Civil." },
           { "title": "O que pode ser apoiado", "description": "Projetos culturais, eventos turísticos, capacitações, pesquisas, ações de promoção e muito mais." },
           { "title": "Recursos", "description": "Apoio financeiro conforme categorias e critérios definidos no edital." },
           { "title": "Como participar", "description": "Inscrições e envio de propostas conforme orientações do edital e seus anexos." }
@@ -666,10 +666,9 @@
       "impacto": {
         "title": "O impacto do edital",
         "stats": [
-          { "value": "+150", "label": "projetos apoiados", "description": "Desde o início do programa." },
-          { "value": "10", "label": "edições realizadas", "description": "Fortalecendo o turismo local." },
-          { "value": "+R$ 3 mi", "label": "investidos no turismo", "description": "Gerando desenvolvimento." },
-          { "value": "Impacto em toda a cidade", "description": "Benefícios para moradores e visitantes." }
+          { "value": "+130", "label": "projetos aprovados", "description": "Desde a criação do programa, em 2012." },
+          { "value": "12", "label": "edições realizadas", "description": "Fortalecendo o turismo local." },
+          { "value": "+R$ 1,5 mi", "label": "investidos no turismo", "description": "Gerando desenvolvimento." }
         ]
       },
       "funciona": {

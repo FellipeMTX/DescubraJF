@@ -631,7 +631,7 @@
       }
     },
     "editalFomento": {
-      "title": "Convocatoria de Fomento al Turismo",
+      "title": "Programa de Fomento al Turismo",
       "description": "Apoyo financiero a proyectos, eventos y acciones que contribuyan al fortalecimiento de la actividad turística en Juiz de Fora.",
       "meta": { "date": "19 de mayo de 2026" },
       "cta": {
@@ -650,14 +650,14 @@
       "about": {
         "title": "Sobre la Convocatoria",
         "paragraphs": [
-          "La Secretaría de Turismo de Juiz de Fora realiza anualmente la Convocatoria de Fomento al Turismo, iniciativa que apoya financieramente proyectos, eventos y acciones que contribuyan al fortalecimiento de la actividad turística en el municipio.",
+          "La Secretaría de Turismo de Juiz de Fora realiza, desde 2012, el Programa de Fomento a Proyectos Turísticos, iniciativa que apoya financieramente proyectos, eventos y acciones que contribuyan al fortalecimiento de la actividad turística en el municipio.",
           "La convocatoria tiene como objetivo estimular la creatividad, valorar iniciativas locales e impulsar la economía del turismo, contemplando propuestas que promuevan experiencias, califiquen servicios, muevan la cultura y amplíen el potencial turístico de la ciudad.",
           "A lo largo de las ediciones, el programa ha consolidado el papel de Setur como articuladora e incentivadora del sector, fortaleciendo alianzas con productores culturales, emprendedores, instituciones y organizaciones de la sociedad civil.",
           "Más que un instrumento de financiamiento, la convocatoria representa el compromiso de la Secretaría con el desarrollo sostenible del turismo y con la construcción colectiva de una ciudad cada vez más preparada para recibir."
         ],
         "keypoints": [
           { "title": "Objetivo", "description": "Apoyar proyectos, eventos y acciones que impulsen el turismo y el desarrollo local." },
-          { "title": "Quién puede participar", "description": "Personas físicas, microempresas, empresas, colectivos, instituciones y organizaciones de la sociedad civil." },
+          { "title": "Quién puede participar", "description": "Organizaciones de la Sociedad Civil." },
           { "title": "Qué puede ser apoyado", "description": "Proyectos culturales, eventos turísticos, capacitaciones, investigaciones, acciones de promoción y mucho más." },
           { "title": "Recursos", "description": "Apoyo financiero según categorías y criterios definidos en la convocatoria." },
           { "title": "Cómo participar", "description": "Inscripciones y envío de propuestas según las orientaciones de la convocatoria y sus anexos." }
@@ -666,10 +666,9 @@
       "impacto": {
         "title": "El impacto de la convocatoria",
         "stats": [
-          { "value": "+150", "label": "proyectos apoyados", "description": "Desde el inicio del programa." },
-          { "value": "10", "label": "ediciones realizadas", "description": "Fortaleciendo el turismo local." },
-          { "value": "+R$ 3 mi", "label": "invertidos en turismo", "description": "Generando desarrollo." },
-          { "value": "Impacto en toda la ciudad", "description": "Beneficios para residentes y visitantes." }
+          { "value": "+130", "label": "proyectos aprobados", "description": "Desde la creación del programa, en 2012." },
+          { "value": "12", "label": "ediciones realizadas", "description": "Fortaleciendo el turismo local." },
+          { "value": "+R$ 1,5 mi", "label": "invertidos en turismo", "description": "Generando desarrollo." }
         ]
       },
       "funciona": {
