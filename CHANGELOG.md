@@ -5,6 +5,26 @@
 
 ---
 
+## [2026-06-14] Programas e Projetos: conteúdo e imagens (Caminhando, Fomento, Educatur)
+
+### O que foi feito
+- **Caminhando pela História** ([src/pages/secretaria/programas/CaminhandoHistoria.tsx](src/pages/secretaria/programas/CaminhandoHistoria.tsx)): destaques atualizados (109+ pontos históricos, 1.696 participantes, 48 edições); "Locais Visitados" trocados para Museu Ferroviário, Museu de Etnologia Indígena e História Natural, Centro de Preservação da Memória Negra, Centro de Ciências e Memorial da República; etapas 2 e 4 de "Como funciona" viram "Escolha do roteiro" e "Educação Patrimonial". Fotos reais (de `public/caminhandoHistoria/`) no hero, na seção "Sobre", nos cards de locais (alinhados em 5/4) e na galeria.
+- **Programa de Fomento ao Turismo** ([src/pages/secretaria/programas/EditalFomento.tsx](src/pages/secretaria/programas/EditalFomento.tsx)): renomeado de "Edital" para "Programa"; "Sobre" passa a citar realização desde 2012; "Quem pode participar" restrito a Organizações da Sociedade Civil; impacto reduzido a 3 indicadores (+130 projetos aprovados, 12 edições, +R$ 1,5 mi investidos).
+- **Educatur** ([src/pages/secretaria/programas/Educatur.tsx](src/pages/secretaria/programas/Educatur.tsx)): "Sobre" ampliado (atividades lúdicas e interativas; recorte 2022–1º sem. 2026); impacto atualizado (2.000 alunos, 27 escolas/centros, 13 atrativos); etapa "Transporte" removida de "Como funciona"; logo no hero, foto dos alunos na seção "Sobre" e fotos dos atrativos reaproveitadas do banco de `/atrativos` (cópias em `public/educatur/atrativos/`).
+- **Lista de programas e projetos** ([src/pages/secretaria/programas/ProgramsList.tsx](src/pages/secretaria/programas/ProgramsList.tsx)): capa nova para o Programa de Fomento (antes sem imagem) e capa do Educatur com o logo do programa.
+- **i18n** (PT/EN/ES): todos os textos acima nas três línguas.
+
+### Por que foi feito
+Atualizar as páginas de Programas e Projetos com os dados e as imagens oficiais fornecidos pela Secretaria de Turismo.
+
+### Decisões técnicas
+- **Imagens otimizadas**: fotos convertidas para `.webp` e redimensionadas (≤1200px nas páginas de detalhe, ≤800px nos cards de atrativos), reduzindo bastante o peso dos arquivos originais.
+- **Atrativos do Educatur**: imagens copiadas do banco (`experiencias.imagem_destaque`) para `public/`, evitando dependência de runtime do Supabase numa página estática e egress do Storage.
+- **Números em formato local**: separador de milhar com ponto em PT/ES (1.696, 2.000) e vírgula em EN (1,696, 2,000).
+
+### Próximos passos
+- "Atrativos Visitados" do Educatur ainda lista 7 itens, mas o indicador fala em 13 — incluir os demais quando a lista completa for fornecida.
+
 ## [2026-06-08] Home: "Sabores das Geraes" como cards de estabelecimentos
 
 ### O que foi feito
