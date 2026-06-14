@@ -692,9 +692,9 @@
       "description": "Guided experiences combining culture, heritage and tourism so you can discover Juiz de Fora in a unique and unforgettable way.",
       "meta": { "since": "Since 2022", "location": "Juiz de Fora - MG" },
       "highlights": [
-        { "title": "8+", "description": "historical and tourist sites." },
-        { "title": "Guided tours", "description": "with educators and specialists." },
-        { "title": "Heritage", "description": "culturally valued and preserved." },
+        { "title": "109+", "description": "historical and tourist sites." },
+        { "title": "1,696", "description": "participants in guided tours." },
+        { "title": "48", "description": "editions held." },
         { "title": "Education", "description": "heritage education and social inclusion." }
       ],
       "about": {
@@ -708,20 +708,20 @@
       "locais": {
         "title": "Sites visited",
         "items": [
-          { "title": "Hofbauer Factory", "description": "Important industrial heritage that marked the city's economic history." },
-          { "title": "Nossa Senhora da Glória Church", "description": "Religious and architectural landmark of great historical and cultural relevance." },
-          { "title": "Mariano Procópio Museum", "description": "One of Brazil's most important museums, with a rich historical collection." },
-          { "title": "Praça da Estação", "description": "Historic space that preserves the railway memory of Juiz de Fora." },
-          { "title": "Municipal Market", "description": "Reference of local culture, gastronomy and traditions of the city." }
+          { "title": "Railway Museum", "description": "Preserves the memory of the railway and its importance to the development of Juiz de Fora and the region." },
+          { "title": "Museum of Indigenous Ethnology and Natural History", "description": "Collection dedicated to indigenous cultures and biodiversity, promoting scientific and cultural knowledge." },
+          { "title": "Black Memory Preservation Center", "description": "Space dedicated to valuing the history, culture and contributions of the Black population." },
+          { "title": "Science Center", "description": "Interactive environment that encourages scientific learning through hands-on experiences and educational exhibitions." },
+          { "title": "Republic Memorial", "description": "Place dedicated to preserving republican memory and important national historical events." }
         ]
       },
       "funciona": {
         "title": "How it works",
         "steps": [
           { "title": "Registration", "description": "Sign up for the project." },
-          { "title": "Tour definition", "description": "Sites and activities are defined according to the group." },
+          { "title": "Tour selection", "description": "Sites and activities are defined according to the group." },
           { "title": "Guided tour", "description": "Exploration of historical points with educators and mediators." },
-          { "title": "Educational activities", "description": "Dynamics and content on heritage, culture and local history." },
+          { "title": "Heritage education", "description": "Knowledge, belonging and appreciation of local memory." },
           { "title": "Cultural experience", "description": "Heritage appreciation and strengthening of local tourism." }
         ]
       },

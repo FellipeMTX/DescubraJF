@@ -692,9 +692,9 @@
       "description": "Experiencias guiadas que unen cultura, patrimonio y turismo para que conozcas Juiz de Fora de una manera única e inolvidable.",
       "meta": { "since": "Desde 2022", "location": "Juiz de Fora - MG" },
       "highlights": [
-        { "title": "8+", "description": "lugares históricos y turísticos." },
-        { "title": "Visitas guiadas", "description": "con educadores y especialistas." },
-        { "title": "Patrimonio", "description": "cultural valorado y preservado." },
+        { "title": "109+", "description": "puntos históricos y turísticos." },
+        { "title": "1.696", "description": "participantes en visitas guiadas." },
+        { "title": "48", "description": "ediciones realizadas." },
         { "title": "Educación", "description": "patrimonial e inclusión social." }
       ],
       "about": {
@@ -708,20 +708,20 @@
       "locais": {
         "title": "Lugares Visitados",
         "items": [
-          { "title": "Fábrica Hofbauer", "description": "Importante patrimonio industrial que marcó la historia económica de la ciudad." },
-          { "title": "Iglesia Nuestra Señora de la Gloria", "description": "Marco religioso y arquitectónico de gran relevancia histórica y cultural." },
-          { "title": "Museo Mariano Procópio", "description": "Uno de los museos más importantes de Brasil, con un rico acervo histórico." },
-          { "title": "Praça da Estação", "description": "Espacio histórico que preserva la memoria ferroviaria de Juiz de Fora." },
-          { "title": "Mercado Municipal", "description": "Referencia de la cultura local, gastronomía y tradiciones de la ciudad." }
+          { "title": "Museo Ferroviario", "description": "Preserva la memoria del ferrocarril y su importancia para el desarrollo de Juiz de Fora y la región." },
+          { "title": "Museo de Etnología Indígena e Historia Natural", "description": "Acervo dedicado a las culturas indígenas y a la biodiversidad, promoviendo conocimiento científico y cultural." },
+          { "title": "Centro de Preservación de la Memoria Negra", "description": "Espacio dedicado a la valorización de la historia, la cultura y las contribuciones de la población negra." },
+          { "title": "Centro de Ciencias", "description": "Ambiente interactivo que estimula el aprendizaje científico a través de experiencias y exposiciones educativas." },
+          { "title": "Memorial de la República", "description": "Lugar dedicado a la preservación de la memoria republicana y de importantes acontecimientos históricos nacionales." }
         ]
       },
       "funciona": {
         "title": "Cómo Funciona",
         "steps": [
           { "title": "Inscripción", "description": "Realiza tu inscripción al proyecto." },
-          { "title": "Definición del recorrido", "description": "Lugares y actividades se definen según el grupo." },
+          { "title": "Elección del recorrido", "description": "Lugares y actividades se definen según el grupo." },
           { "title": "Visita guiada", "description": "Exploración de los puntos históricos con educadores y mediadores." },
-          { "title": "Actividades educativas", "description": "Dinámicas y contenidos sobre patrimonio, cultura e historia local." },
+          { "title": "Educación Patrimonial", "description": "Conocimiento, pertenencia y valorización de la memoria local." },
           { "title": "Experiencia cultural", "description": "Valoración del patrimonio y fortalecimiento del turismo local." }
         ]
       },
