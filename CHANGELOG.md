@@ -5,6 +5,19 @@
 
 ---
 
+## [2026-06-14] Rodapé: layout em colunas com contato e selos
+
+### O que foi feito
+- **Rodapé** ([src/components/layout/Footer.tsx](src/components/layout/Footer.tsx)): novo layout em grade (marca + 3 colunas de navegação + contato). Coluna da marca com logo, tagline e divisória; colunas "Explorar" (links sem submenu), "O que fazer" e "Secretaria de Turismo" (filhos de `NAV_ITEMS`), cada uma com ícone no cabeçalho. Bloco de contato (telefone, e-mail, endereço) e selos do Ministério do Turismo + CADASTUR (`public/cadastur-logo.webp`). Linha de direitos com ano dinâmico.
+- **i18n** (PT/EN/ES): novas chaves `footer.tagline`, `footer.phoneLabel`, `footer.emailLabel`, `footer.addressLabel`, `footer.ministry` e `footer.rights`.
+
+### Por que foi feito
+Alinhar o rodapé ao design de referência, com as informações de contato da Setur e os selos institucionais.
+
+### Decisões técnicas
+- Colunas de navegação derivadas de `NAV_ITEMS` (mesma fonte da navbar), sem duplicar a lista de links.
+- Classes utilitárias do tema (`bl-bg`, `bl-muted`, `bl-accent2`) no lugar de estilos inline.
+
 ## [2026-06-14] Programas e Projetos: conteúdo e imagens (Caminhando, Fomento, Educatur)
 
 ### O que foi feito

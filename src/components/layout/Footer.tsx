@@ -1,81 +1,154 @@
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import {
+  MapPin,
+  Camera,
+  Building2,
+  Phone,
+  Mail,
+  ShieldCheck,
+  Award,
+} from "lucide-react";
 import { NAV_ITEMS } from "@/lib/constants";
 import type { NavItem } from "@/lib/constants";
 
 const navItems = NAV_ITEMS as readonly NavItem[];
 
-const COLUMN_HEADING = "mb-4 text-[11px] font-semibold uppercase tracking-widest";
-const FOOTER_LINK = "mb-2 block text-[13px] transition-colors hover:text-bl-ink";
+// Flat nav entries (no submenu) feed the "Explorar" column
+const exploreLinks = navItems.filter(
+  (item): item is Extract<NavItem, { href: string }> => item.children === undefined
+);
+
+function groupChildren(labelKey: string) {
+  const item = navItems.find((i) => i.labelKey === labelKey);
+  return item?.children ?? [];
+}
+
+const HEADING =
+  "flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-bl-ink";
+const LINK = "block text-[13px] text-bl-muted transition-colors hover:text-bl-ink";
+const BADGE =
+  "flex size-12 shrink-0 items-center justify-center rounded-full bg-bl-card text-bl-ink";
+const DIVIDER = "my-12 border-t border-bl-muted/20";
 
 export function Footer() {
   const { t } = useTranslation();
+  const year = new Date().getFullYear();
+
+  const navColumns = [
+    { Icon: MapPin, heading: t("footer.explore"), links: exploreLinks },
+    { Icon: Camera, heading: t("nav.whatToDo"), links: groupChildren("nav.whatToDo") },
+    { Icon: Building2, heading: t("nav.tourismDept"), links: groupChildren("nav.tourismDept") },
+  ];
+
+  const contactItems = [
+    { Icon: Phone, label: t("footer.phoneLabel"), lines: ["(32) 3690-XXXX", "(32) 3690-YYYY"] },
+    { Icon: Mail, label: t("footer.emailLabel"), lines: ["turismo@pjf.mg.gov.br"] },
+    {
+      Icon: MapPin,
+      label: t("footer.addressLabel"),
+      lines: ["Av. Rio Branco, 2234 – Centro", "Juiz de Fora – MG | CEP 36013-020"],
+    },
+  ];
 
   return (
-    <footer
-      className="px-14 pt-20 pb-10"
-      style={{ background: "var(--color-bl-card)", color: "var(--color-bl-ink)" }}
-    >
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-center gap-12 sm:flex-row sm:items-center sm:justify-center sm:gap-20">
-          {/* Tourism Department / City Hall logo, alongside the link columns */}
-          <a
-            href="https://www.pjf.mg.gov.br/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0"
-          >
-            <img
-              src="/LogoSeturColor.png"
-              alt={t("common.tourismLogoAlt")}
-              className="h-11.25 object-contain"
-            />
-          </a>
+    <footer className="bg-bl-bg text-bl-ink">
+      <div className="mx-auto max-w-7xl px-6 pt-16 pb-10 sm:px-10 lg:px-14">
+        {/* Brand + navigation */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+          <div>
+            <a
+              href="https://www.pjf.mg.gov.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <img
+                src="/LogoSeturColor.png"
+                alt={t("common.tourismLogoAlt")}
+                className="h-12 object-contain"
+              />
+            </a>
+            <p className="mt-6 max-w-xs text-[13px] leading-relaxed text-bl-muted">
+              {t("footer.tagline")}
+            </p>
+            <div className="mt-6 h-px w-40 bg-bl-muted/25" />
+          </div>
 
-          <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:gap-16">
-            {/* Standalone nav links grouped under one heading */}
-            <div>
-              <div className={COLUMN_HEADING}>{t("footer.explore")}</div>
-              {navItems.map((item) =>
-                item.children ? null : (
-                  <Link
-                    key={item.labelKey}
-                    to={item.href}
-                    className={FOOTER_LINK}
-                    style={{ color: "var(--color-bl-muted)" }}
-                  >
-                    {t(item.labelKey)}
+          {navColumns.map(({ Icon, heading, links }) => (
+            <div key={heading}>
+              <div className={HEADING}>
+                <Icon size={16} className="text-bl-accent2" />
+                {heading}
+              </div>
+              <nav className="mt-4 flex flex-col gap-2.5">
+                {links.map((link) => (
+                  <Link key={link.href} to={link.href} className={LINK}>
+                    {t(link.labelKey)}
                   </Link>
-                )
-              )}
+                ))}
+              </nav>
             </div>
+          ))}
+        </div>
 
-            {/* Grouped nav items (one column each) */}
-            {navItems.map((item) =>
-              item.children ? (
-                <div key={item.labelKey}>
-                  <div className={COLUMN_HEADING}>{t(item.labelKey)}</div>
-                  {item.children.map((link) => (
-                    <Link
-                      key={link.href}
-                      to={link.href}
-                      className={FOOTER_LINK}
-                      style={{ color: "var(--color-bl-muted)" }}
-                    >
-                      {t(link.labelKey)}
-                    </Link>
+        <div className={DIVIDER} />
+
+        {/* Contact */}
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {contactItems.map(({ Icon, label, lines }) => (
+            <div key={label} className="flex items-center gap-4">
+              <span className={BADGE}>
+                <Icon size={20} />
+              </span>
+              <div>
+                <div className={HEADING}>{label}</div>
+                <div className="mt-1.5 space-y-0.5 text-[13px] text-bl-muted">
+                  {lines.map((line) => (
+                    <p key={line}>{line}</p>
                   ))}
                 </div>
-              ) : null
-            )}
+              </div>
+            </div>
+          ))}
+
+          {/* CADASTUR seal */}
+          <div className="flex items-center gap-4">
+            <span className={BADGE}>
+              <Award size={20} />
+            </span>
+            <div>
+              <div className={HEADING}>CADASTUR</div>
+              <div className="mt-1.5 flex items-center gap-2.5">
+                {/* Asset is a padded square; bg-cover crops to the logo's content band */}
+                <span
+                  role="img"
+                  aria-label="Cadastur"
+                  className="h-7 w-32.5 bg-cover bg-center bg-no-repeat"
+                  style={{ backgroundImage: "url(/cadastur-logo.webp)" }}
+                />
+                <span className="h-7 w-px bg-bl-muted/30" />
+                <span className="max-w-[14ch] text-[10px] font-semibold uppercase leading-tight tracking-wide text-bl-muted">
+                  {t("footer.ministry")}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <p
-          className="mx-auto mt-12 max-w-md text-center text-[12px] leading-relaxed"
-          style={{ color: "var(--color-bl-muted)" }}
-        >
-          {t("footer.cadastur")}
+        <div className={DIVIDER} />
+
+        {/* CADASTUR compliance notice */}
+        <div className="flex items-center justify-center gap-2 text-center text-[12px] text-bl-muted">
+          <ShieldCheck size={16} className="shrink-0 text-bl-accent2" />
+          <span>{t("footer.cadastur")}</span>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="bg-bl-ink">
+        <p className="mx-auto max-w-7xl px-6 py-5 text-center text-[12px] text-bl-bg/70 sm:px-10 lg:px-14">
+          {t("footer.rights", { year })}
         </p>
       </div>
     </footer>

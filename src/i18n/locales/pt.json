@@ -37,7 +37,13 @@
   },
   "footer": {
     "explore": "Explorar",
-    "cadastur": "Todo o conteúdo deste portal está em conformidade com os registros oficiais do CADASTUR."
+    "tagline": "Promovendo Juiz de Fora como destino turístico inovador, sustentável e acolhedor.",
+    "phoneLabel": "Telefone",
+    "emailLabel": "E-mail",
+    "addressLabel": "Endereço",
+    "ministry": "Ministério do Turismo",
+    "cadastur": "Todo o conteúdo deste portal está em conformidade com os registros oficiais do CADASTUR.",
+    "rights": "© {{year}} Prefeitura de Juiz de Fora – Secretaria de Turismo. Todos os direitos reservados."
   },
   "notFound": {
     "title": "Página não encontrada",

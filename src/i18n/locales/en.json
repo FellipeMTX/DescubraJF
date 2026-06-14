@@ -37,7 +37,13 @@
   },
   "footer": {
     "explore": "Explore",
-    "cadastur": "All content on this portal complies with the official CADASTUR registry."
+    "tagline": "Promoting Juiz de Fora as an innovative, sustainable and welcoming tourist destination.",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "addressLabel": "Address",
+    "ministry": "Ministry of Tourism",
+    "cadastur": "All content on this portal complies with the official CADASTUR registry.",
+    "rights": "© {{year}} City of Juiz de Fora – Department of Tourism. All rights reserved."
   },
   "notFound": {
     "title": "Page not found",
