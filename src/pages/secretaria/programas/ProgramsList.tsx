@@ -9,7 +9,7 @@ import { IMAGE_RATIOS } from "@/lib/constants";
  * — nome e subtítulo vêm do i18n `programas.*`, capas de `public/programas/`. */
 const PROGRAMS = [
   { slug: "praca-cervejeira", i18n: "pracaCervejeira", image: "/programas/praca-cervejeira.png" },
-  { slug: "edital-de-fomento-ao-turismo", i18n: "editalFomento", image: null },
+  { slug: "edital-de-fomento-ao-turismo", i18n: "editalFomento", image: "/programas/edital-de-fomento-ao-turismo.webp" },
   { slug: "caminhando-pela-historia", i18n: "caminhandoHistoria", image: "/programas/caminhando-pela-historia.png" },
   { slug: "educatur", i18n: "educatur", image: "/programas/educatur.webp" },
 ] as const;
