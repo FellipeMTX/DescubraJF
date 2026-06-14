@@ -743,8 +743,8 @@
       "about": {
         "title": "Sobre el Educatur",
         "paragraphs": [
-          "Educatur es un programa de la Alcaldía de Juiz de Fora, coordinado por la Secretaría de Turismo, que lleva estudiantes de la red pública a conocer los principales puntos turísticos y culturales de la ciudad. Con visitas guiadas y actividades educativas, el programa utiliza el turismo como herramienta de aprendizaje y formación ciudadana.",
-          "Hasta el primer semestre de 2025, Educatur impactó a 304 alumnos de 12 escuelas y centros de convivencia, incluyendo estudiantes de la Enseñanza Regular y de la Enseñanza de Jóvenes y Adultos (EJA). Las clases visitaron siete atractivos turísticos, con transporte garantizado.",
+          "Educatur es un programa de la Alcaldía de Juiz de Fora, coordinado por la Secretaría de Turismo, que lleva estudiantes de la red pública a conocer los principales puntos turísticos y culturales de la ciudad. Con visitas guiadas y actividades educativas, lúdicas e interactivas, el programa utiliza el turismo como herramienta de aprendizaje, descubrimiento, valorización del patrimonio local, fortalecimiento del sentimiento de pertenencia y formación ciudadana.",
+          "De 2022 al primer semestre de 2026, Educatur impactó a 2.000 alumnos de 27 escuelas y centros de convivencia, incluyendo estudiantes de la Enseñanza Regular y de la Enseñanza de Jóvenes y Adultos (EJA). Las clases visitaron trece atractivos turísticos.",
           "Más que enseñar historia y cultura, Educatur transforma la percepción de los residentes sobre su propia ciudad, fortaleciendo el orgullo local y la valoración de la identidad juiz-forana."
         ]
       },
@@ -763,17 +763,16 @@
       "impacto": {
         "title": "El Impacto del Educatur",
         "stats": [
-          { "value": "304", "label": "alumnos impactados", "description": "Hasta el primer semestre de 2025." },
-          { "value": "12", "label": "escuelas y centros de convivencia" },
+          { "value": "2.000", "label": "alumnos impactados", "description": "Hasta el primer semestre de 2026." },
+          { "value": "27", "label": "escuelas y centros de convivencia" },
           { "value": "2", "label": "modalidades de enseñanza", "description": "Enseñanza Regular y EJA." },
-          { "value": "7", "label": "atractivos turísticos visitados" }
+          { "value": "13", "label": "atractivos turísticos visitados" }
         ]
       },
       "funciona": {
         "title": "Cómo Funciona",
         "steps": [
           { "title": "Planificación", "description": "Definición de escuelas, recorridos y actividades." },
-          { "title": "Transporte", "description": "Transporte seguro y gratuito para los alumnos." },
           { "title": "Visita guiada", "description": "Exploración de los atractivos con guías especializados." },
           { "title": "Actividades educativas", "description": "Dinámicas y contenidos que estimulan el aprendizaje." },
           { "title": "Transformación", "description": "Fortalecimiento de la identidad y del orgullo local." }

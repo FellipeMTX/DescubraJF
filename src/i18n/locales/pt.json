@@ -743,8 +743,8 @@
       "about": {
         "title": "Sobre o Educatur",
         "paragraphs": [
-          "O Educatur é um programa da Prefeitura de Juiz de Fora, coordenado pela Secretaria de Turismo, que leva estudantes da rede pública para conhecerem os principais pontos turísticos e culturais da cidade. Com visitas guiadas e atividades educativas, o programa utiliza o turismo como ferramenta de aprendizado e formação cidadã.",
-          "Até o primeiro semestre de 2025, o Educatur impactou 304 alunos de 12 escolas e centros de convivência, incluindo estudantes do Ensino Regular e do Ensino de Jovens e Adultos (EJA). As turmas visitaram sete atrativos turísticos, com transporte garantido.",
+          "O Educatur é um programa da Prefeitura de Juiz de Fora, coordenado pela Secretaria de Turismo, que leva estudantes da rede pública para conhecer os principais pontos turísticos e culturais da cidade. Com visitas guiadas e atividades educativas, lúdicas e interativas, o programa utiliza o turismo como ferramenta de aprendizado, descoberta, valorização do patrimônio local, fortalecimento do sentimento de pertencimento e formação cidadã.",
+          "De 2022 ao primeiro semestre de 2026, o Educatur impactou 2.000 alunos de 27 escolas e centros de convivência, incluindo estudantes do Ensino Regular e do Ensino de Jovens e Adultos (EJA). As turmas visitaram treze atrativos turísticos.",
           "Mais do que ensinar história e cultura, o Educatur transforma a percepção dos moradores sobre sua própria cidade, fortalecendo o orgulho local e a valorização da identidade juiz-forana."
         ]
       },
@@ -763,17 +763,16 @@
       "impacto": {
         "title": "O Impacto do Educatur",
         "stats": [
-          { "value": "304", "label": "alunos impactados", "description": "Até o primeiro semestre de 2025." },
-          { "value": "12", "label": "escolas e centros de convivência" },
+          { "value": "2.000", "label": "alunos impactados", "description": "Até o primeiro semestre de 2026." },
+          { "value": "27", "label": "escolas e centros de convivência" },
           { "value": "2", "label": "modalidades de ensino", "description": "Ensino Regular e EJA." },
-          { "value": "7", "label": "atrativos turísticos visitados" }
+          { "value": "13", "label": "atrativos turísticos visitados" }
         ]
       },
       "funciona": {
         "title": "Como Funciona",
         "steps": [
           { "title": "Planejamento", "description": "Definição das escolas, roteiros e atividades." },
-          { "title": "Transporte", "description": "Transporte seguro e gratuito para os alunos." },
           { "title": "Visita guiada", "description": "Exploração dos atrativos com guias especializados." },
           { "title": "Atividades educativas", "description": "Dinâmicas e conteúdos que estimulam o aprendizado." },
           { "title": "Transformação", "description": "Fortalecimento da identidade e do orgulho local." }

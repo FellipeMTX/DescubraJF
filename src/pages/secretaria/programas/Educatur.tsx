@@ -14,7 +14,6 @@ import {
   Leaf,
   Building2,
   ClipboardList,
-  Bus,
   Footprints,
   Sparkles,
 } from "lucide-react";
@@ -36,18 +35,17 @@ type StatText = { value: string; label?: string; description?: string };
 const HIGHLIGHT_ICONS: LucideIcon[] = [MapPin, Users, BookOpen, Heart];
 const ATRATIVOS_ICONS: LucideIcon[] = [Train, Landmark, Trees, Drama, Camera, ShoppingBasket, Leaf];
 const STATS_ICONS: LucideIcon[] = [Users, Building2, Users, MapPin];
-const STEP_ICONS: LucideIcon[] = [ClipboardList, Bus, Footprints, BookOpen, Sparkles];
+const STEP_ICONS: LucideIcon[] = [ClipboardList, Footprints, BookOpen, Sparkles];
 
-function ImagePlaceholder({ label }: { label: string }) {
-  return (
-    <div
-      className="flex h-full w-full items-center justify-center text-center text-[11px] font-semibold uppercase tracking-[0.18em]"
-      style={{ color: "var(--color-bl-prog-muted)" }}
-    >
-      {label}
-    </div>
-  );
-}
+const ATRATIVOS_IMAGES = [
+  "/educatur/atrativos/estacao-ferroviaria.webp",
+  "/educatur/atrativos/museu-mariano-procopio.webp",
+  "/educatur/atrativos/parque-da-lajinha.webp",
+  "/educatur/atrativos/cine-theatro-central.webp",
+  "/educatur/atrativos/morro-do-imperador.webp",
+  "/educatur/atrativos/mercado-municipal.webp",
+  "/educatur/atrativos/parque-halfeld.webp",
+];
 
 export default function Educatur() {
   const { t } = useTranslation();
@@ -70,7 +68,13 @@ export default function Educatur() {
         ]}
         primaryCta={{ label: t("programas.common.wantParticipate"), icon: UserPlus, href: "#participar" }}
         secondaryCta={{ label: t("programas.common.nextRoteiros"), icon: Calendar, href: "#roteiros" }}
-        image={<ImagePlaceholder label="imagem · educatur" />}
+        image={
+          <img
+            src="/educatur/educatur-hero.webp"
+            alt={t(`${ns}.title`)}
+            className="h-full w-full bg-white object-contain p-8"
+          />
+        }
       />
 
       <HighlightsBar items={highlights.map((h, i) => ({ ...h, icon: HIGHLIGHT_ICONS[i] }))} />
@@ -78,7 +82,13 @@ export default function Educatur() {
       <TextWithSide
         title={t(`${ns}.about.title`)}
         paragraphs={aboutParagraphs}
-        side={<ImagePlaceholder label="imagem · alunos em visita" />}
+        side={
+          <img
+            src="/educatur/alunos-em-visita.webp"
+            alt={t(`${ns}.about.title`)}
+            className="block aspect-5/4 w-full object-cover"
+          />
+        }
       />
 
       <section>
@@ -88,7 +98,14 @@ export default function Educatur() {
           items={atrativos.map((it, i) => ({
             ...it,
             icon: ATRATIVOS_ICONS[i],
-            image: <ImagePlaceholder label={`atrativo ${i + 1}`} />,
+            image: (
+              <img
+                src={ATRATIVOS_IMAGES[i]}
+                alt={it.title}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ),
           }))}
         />
       </section>

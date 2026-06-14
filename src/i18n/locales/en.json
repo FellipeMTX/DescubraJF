@@ -743,8 +743,8 @@
       "about": {
         "title": "About Educatur",
         "paragraphs": [
-          "Educatur is a program by the City of Juiz de Fora, coordinated by the Tourism Department, that takes public school students to learn about the main tourist and cultural points of the city. With guided tours and educational activities, the program uses tourism as a tool for learning and civic education.",
-          "Up to the first semester of 2025, Educatur impacted 304 students from 12 schools and community centers, including students from Regular Education and Youth and Adult Education (EJA). The classes visited seven tourist attractions, with transportation provided.",
+          "Educatur is a program by the City of Juiz de Fora, coordinated by the Tourism Department, that takes public school students to learn about the main tourist and cultural points of the city. With guided tours and educational, playful and interactive activities, the program uses tourism as a tool for learning, discovery, appreciation of local heritage, strengthening the sense of belonging and civic education.",
+          "From 2022 to the first semester of 2026, Educatur impacted 2,000 students from 27 schools and community centers, including students from Regular Education and Youth and Adult Education (EJA). The classes visited thirteen tourist attractions.",
           "More than teaching history and culture, Educatur transforms residents' perception of their own city, strengthening local pride and the appreciation of Juiz de Fora's identity."
         ]
       },
@@ -763,17 +763,16 @@
       "impacto": {
         "title": "Educatur's Impact",
         "stats": [
-          { "value": "304", "label": "students impacted", "description": "Up to the first semester of 2025." },
-          { "value": "12", "label": "schools and community centers" },
+          { "value": "2,000", "label": "students impacted", "description": "Up to the first semester of 2026." },
+          { "value": "27", "label": "schools and community centers" },
           { "value": "2", "label": "education modalities", "description": "Regular Education and EJA." },
-          { "value": "7", "label": "tourist attractions visited" }
+          { "value": "13", "label": "tourist attractions visited" }
         ]
       },
       "funciona": {
         "title": "How it works",
         "steps": [
           { "title": "Planning", "description": "Definition of schools, tours and activities." },
-          { "title": "Transportation", "description": "Safe and free transportation for students." },
           { "title": "Guided tour", "description": "Exploration of attractions with specialized guides." },
           { "title": "Educational activities", "description": "Dynamics and content that stimulate learning." },
           { "title": "Transformation", "description": "Strengthening of identity and local pride." }
