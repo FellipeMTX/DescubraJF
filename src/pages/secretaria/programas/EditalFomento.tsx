@@ -34,7 +34,7 @@ type StatText = { value: string; label?: string; description?: string };
 
 const HIGHLIGHT_ICONS: LucideIcon[] = [Lightbulb, TrendingUp, Users, Handshake];
 const KEYPOINT_ICONS: LucideIcon[] = [Target, Users, CalendarDays, Banknote, ClipboardList];
-const STATS_ICONS: LucideIcon[] = [Users, CalendarDays, TrendingUp, Sprout];
+const STATS_ICONS: LucideIcon[] = [Award, CalendarDays, TrendingUp];
 const STEP_ICONS: LucideIcon[] = [Megaphone, ClipboardList, Search, CheckCircle2, Award];
 
 export default function EditalFomento() {

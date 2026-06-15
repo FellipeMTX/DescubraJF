@@ -37,7 +37,13 @@
   },
   "footer": {
     "explore": "Explorar",
-    "cadastur": "Todo o conteúdo deste portal está em conformidade com os registros oficiais do CADASTUR."
+    "tagline": "Promovendo Juiz de Fora como destino turístico inovador, sustentável e acolhedor.",
+    "phoneLabel": "Telefone",
+    "emailLabel": "E-mail",
+    "addressLabel": "Endereço",
+    "ministry": "Ministério do Turismo",
+    "cadastur": "Todo o conteúdo deste portal está em conformidade com os registros oficiais do CADASTUR.",
+    "rights": "© {{year}} Prefeitura de Juiz de Fora – Secretaria de Turismo. Todos os direitos reservados."
   },
   "notFound": {
     "title": "Página não encontrada",
@@ -77,9 +83,8 @@
       "titleHighlight": "Geraes",
       "titleSuffix": ".",
       "description": "Da cozinha mineira tradicional aos botecos de esquina, experimente tudo o que nossa gastronomia oferece.",
-      "cta": "Ver estabelecimentos",
-      "empty": "Nenhuma categoria cadastrada.",
-      "metaLabel": "Estabelecimentos"
+      "cta": "Ver todos os estabelecimentos",
+      "empty": "Nenhum estabelecimento cadastrado."
     },
     "events": {
       "kicker": "Acontece em JF",
@@ -632,7 +637,7 @@
       }
     },
     "editalFomento": {
-      "title": "Edital de Fomento ao Turismo",
+      "title": "Programa de Fomento ao Turismo",
       "description": "Apoio financeiro a projetos, eventos e ações que contribuam para o fortalecimento da atividade turística em Juiz de Fora.",
       "meta": { "date": "19 de maio de 2026" },
       "cta": {
@@ -651,14 +656,14 @@
       "about": {
         "title": "Sobre o Edital",
         "paragraphs": [
-          "A Secretaria de Turismo de Juiz de Fora realiza anualmente o Edital de Fomento ao Turismo, iniciativa que apoia financeiramente projetos, eventos e ações que contribuam para o fortalecimento da atividade turística no município.",
+          "A Secretaria de Turismo de Juiz de Fora realiza, desde 2012, o Programa de Fomento a Projetos Turísticos, iniciativa que apoia financeiramente projetos, eventos e ações que contribuam para o fortalecimento da atividade turística no município.",
           "O edital tem como objetivo estimular a criatividade, valorizar iniciativas locais e impulsionar a economia do turismo, contemplando propostas que promovam experiências, qualifiquem serviços, movimentem a cultura e ampliem o potencial turístico da cidade.",
           "Ao longo das edições, o programa vem consolidando o papel da Setur como articuladora e incentivadora do setor, fortalecendo parcerias com produtores culturais, empreendedores, instituições e organizações da sociedade civil.",
           "Mais do que um instrumento de financiamento, o edital representa o compromisso da Secretaria com o desenvolvimento sustentável do turismo e com a construção coletiva de uma cidade cada vez mais preparada para receber."
         ],
         "keypoints": [
           { "title": "Objetivo", "description": "Apoiar projetos, eventos e ações que impulsionem o turismo e o desenvolvimento local." },
-          { "title": "Quem pode participar", "description": "Pessoas físicas, MEIs, empresas, coletivos, instituições e organizações da sociedade civil." },
+          { "title": "Quem pode participar", "description": "Organizações da Sociedade Civil." },
           { "title": "O que pode ser apoiado", "description": "Projetos culturais, eventos turísticos, capacitações, pesquisas, ações de promoção e muito mais." },
           { "title": "Recursos", "description": "Apoio financeiro conforme categorias e critérios definidos no edital." },
           { "title": "Como participar", "description": "Inscrições e envio de propostas conforme orientações do edital e seus anexos." }
@@ -667,10 +672,9 @@
       "impacto": {
         "title": "O impacto do edital",
         "stats": [
-          { "value": "+150", "label": "projetos apoiados", "description": "Desde o início do programa." },
-          { "value": "10", "label": "edições realizadas", "description": "Fortalecendo o turismo local." },
-          { "value": "+R$ 3 mi", "label": "investidos no turismo", "description": "Gerando desenvolvimento." },
-          { "value": "Impacto em toda a cidade", "description": "Benefícios para moradores e visitantes." }
+          { "value": "+130", "label": "projetos aprovados", "description": "Desde a criação do programa, em 2012." },
+          { "value": "12", "label": "edições realizadas", "description": "Fortalecendo o turismo local." },
+          { "value": "+R$ 1,5 mi", "label": "investidos no turismo", "description": "Gerando desenvolvimento." }
         ]
       },
       "funciona": {
@@ -693,9 +697,9 @@
       "description": "Experiências guiadas que unem cultura, patrimônio e turismo para você conhecer Juiz de Fora de um jeito único e inesquecível.",
       "meta": { "since": "Desde 2022", "location": "Juiz de Fora - MG" },
       "highlights": [
-        { "title": "8+", "description": "locais históricos e turísticos." },
-        { "title": "Visitas guiadas", "description": "com educadores e especialistas." },
-        { "title": "Patrimônio", "description": "cultural valorizado e preservado." },
+        { "title": "109+", "description": "pontos históricos e turísticos." },
+        { "title": "1.696", "description": "participantes em visitas guiadas." },
+        { "title": "48", "description": "edições realizadas." },
         { "title": "Educação", "description": "patrimonial e inclusão social." }
       ],
       "about": {
@@ -709,20 +713,20 @@
       "locais": {
         "title": "Locais Visitados",
         "items": [
-          { "title": "Fábrica Hofbauer", "description": "Importante patrimônio industrial que marcou a história econômica da cidade." },
-          { "title": "Igreja Nossa Senhora da Glória", "description": "Marco religioso e arquitetônico de grande relevância histórica e cultural." },
-          { "title": "Museu Mariano Procópio", "description": "Um dos mais importantes museus do Brasil, com rico acervo histórico." },
-          { "title": "Praça da Estação", "description": "Espaço histórico que preserva a memória ferroviária de Juiz de Fora." },
-          { "title": "Mercado Municipal", "description": "Referência da cultura local, gastronomia e tradições da cidade." }
+          { "title": "Museu Ferroviário", "description": "Preserva a memória da ferrovia e sua importância para o desenvolvimento de Juiz de Fora e da região." },
+          { "title": "Museu de Etnologia Indígena e História Natural", "description": "Acervo dedicado às culturas indígenas e à biodiversidade, promovendo conhecimento científico e cultural." },
+          { "title": "Centro de Preservação da Memória Negra", "description": "Espaço voltado à valorização da história, da cultura e das contribuições da população negra." },
+          { "title": "Centro de Ciências", "description": "Ambiente interativo que estimula a aprendizagem científica por meio de experiências e exposições educativas." },
+          { "title": "Memorial da República", "description": "Local dedicado à preservação da memória republicana e de importantes acontecimentos históricos nacionais." }
         ]
       },
       "funciona": {
         "title": "Como Funciona",
         "steps": [
           { "title": "Inscrição", "description": "Faça sua inscrição no projeto." },
-          { "title": "Definição do roteiro", "description": "Locais e atividades são definidos conforme o grupo." },
+          { "title": "Escolha do roteiro", "description": "Locais e atividades são definidos conforme o grupo." },
           { "title": "Visita guiada", "description": "Exploração dos pontos históricos com educadores e mediadores." },
-          { "title": "Atividades educativas", "description": "Dinâmicas e conteúdos sobre patrimônio, cultura e história local." },
+          { "title": "Educação Patrimonial", "description": "Conhecimento, pertencimento e valorização da memória local." },
           { "title": "Experiência cultural", "description": "Valorização do patrimônio e fortalecimento do turismo local." }
         ]
       },
@@ -745,8 +749,8 @@
       "about": {
         "title": "Sobre o Educatur",
         "paragraphs": [
-          "O Educatur é um programa da Prefeitura de Juiz de Fora, coordenado pela Secretaria de Turismo, que leva estudantes da rede pública para conhecerem os principais pontos turísticos e culturais da cidade. Com visitas guiadas e atividades educativas, o programa utiliza o turismo como ferramenta de aprendizado e formação cidadã.",
-          "Até o primeiro semestre de 2025, o Educatur impactou 304 alunos de 12 escolas e centros de convivência, incluindo estudantes do Ensino Regular e do Ensino de Jovens e Adultos (EJA). As turmas visitaram sete atrativos turísticos, com transporte garantido.",
+          "O Educatur é um programa da Prefeitura de Juiz de Fora, coordenado pela Secretaria de Turismo, que leva estudantes da rede pública para conhecer os principais pontos turísticos e culturais da cidade. Com visitas guiadas e atividades educativas, lúdicas e interativas, o programa utiliza o turismo como ferramenta de aprendizado, descoberta, valorização do patrimônio local, fortalecimento do sentimento de pertencimento e formação cidadã.",
+          "De 2022 ao primeiro semestre de 2026, o Educatur impactou 2.000 alunos de 27 escolas e centros de convivência, incluindo estudantes do Ensino Regular e do Ensino de Jovens e Adultos (EJA). As turmas visitaram treze atrativos turísticos.",
           "Mais do que ensinar história e cultura, o Educatur transforma a percepção dos moradores sobre sua própria cidade, fortalecendo o orgulho local e a valorização da identidade juiz-forana."
         ]
       },
@@ -765,17 +769,16 @@
       "impacto": {
         "title": "O Impacto do Educatur",
         "stats": [
-          { "value": "304", "label": "alunos impactados", "description": "Até o primeiro semestre de 2025." },
-          { "value": "12", "label": "escolas e centros de convivência" },
+          { "value": "2.000", "label": "alunos impactados", "description": "Até o primeiro semestre de 2026." },
+          { "value": "27", "label": "escolas e centros de convivência" },
           { "value": "2", "label": "modalidades de ensino", "description": "Ensino Regular e EJA." },
-          { "value": "7", "label": "atrativos turísticos visitados" }
+          { "value": "13", "label": "atrativos turísticos visitados" }
         ]
       },
       "funciona": {
         "title": "Como Funciona",
         "steps": [
           { "title": "Planejamento", "description": "Definição das escolas, roteiros e atividades." },
-          { "title": "Transporte", "description": "Transporte seguro e gratuito para os alunos." },
           { "title": "Visita guiada", "description": "Exploração dos atrativos com guias especializados." },
           { "title": "Atividades educativas", "description": "Dinâmicas e conteúdos que estimulam o aprendizado." },
           { "title": "Transformação", "description": "Fortalecimento da identidade e do orgulho local." }

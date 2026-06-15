@@ -5,10 +5,9 @@ import {
   Users,
   Landmark,
   GraduationCap,
-  Factory,
-  Church,
   Train,
-  ShoppingBasket,
+  Feather,
+  FlaskConical,
   ClipboardList,
   Map,
   Footprints,
@@ -29,20 +28,24 @@ import { SectionTitle } from "@/components/programa/SectionTitle";
 
 type ItemText = { title: string; description: string };
 
-const HIGHLIGHT_ICONS: LucideIcon[] = [MapPin, Users, Landmark, GraduationCap];
-const LOCAIS_ICONS: LucideIcon[] = [Factory, Church, Landmark, Train, ShoppingBasket];
+const HIGHLIGHT_ICONS: LucideIcon[] = [MapPin, Users, Calendar, GraduationCap];
+const LOCAIS_ICONS: LucideIcon[] = [Train, Feather, BookOpen, FlaskConical, Landmark];
 const STEP_ICONS: LucideIcon[] = [ClipboardList, Map, Footprints, BookOpen, Heart];
 
-function GalleryPlaceholder({ label }: { label: string }) {
-  return (
-    <div
-      className="flex aspect-5/4 w-full items-center justify-center text-center text-[11px] font-semibold uppercase tracking-[0.18em]"
-      style={{ background: "var(--color-bl-prog-soft)", color: "var(--color-bl-prog-muted)" }}
-    >
-      {label}
-    </div>
-  );
-}
+const LOCAIS_IMAGES = [
+  "/caminhandoHistoria/museu-ferroviario.webp",
+  "/caminhandoHistoria/museu-etnologia-indigena.webp",
+  "/caminhandoHistoria/memoria-negra.webp",
+  "/caminhandoHistoria/centro-de-ciencias.webp",
+  "/caminhandoHistoria/memorial-da-republica.webp",
+];
+
+const GALERIA_IMAGES = [
+  "/caminhandoHistoria/galeria-1.webp",
+  "/caminhandoHistoria/galeria-2.webp",
+  "/caminhandoHistoria/galeria-3.webp",
+  "/caminhandoHistoria/galeria-4.webp",
+];
 
 export default function CaminhandoHistoria() {
   const { t } = useTranslation();
@@ -66,12 +69,11 @@ export default function CaminhandoHistoria() {
         primaryCta={{ label: t("programas.common.wantParticipate"), icon: UserPlus, href: "#participar" }}
         secondaryCta={{ label: t("programas.common.nextRoteiros"), icon: Calendar, href: "#roteiros" }}
         image={
-          <div
-            className="flex h-full w-full items-center justify-center text-center text-[13px] font-semibold uppercase tracking-[0.18em]"
-            style={{ color: "var(--color-bl-prog-muted)" }}
-          >
-            imagem · museu
-          </div>
+          <img
+            src="/caminhandoHistoria/hero-grupo-museu.webp"
+            alt={t(`${ns}.title`)}
+            className="h-full w-full object-cover"
+          />
         }
       />
 
@@ -81,12 +83,11 @@ export default function CaminhandoHistoria() {
         title={t(`${ns}.about.title`)}
         paragraphs={aboutParagraphs}
         side={
-          <div
-            className="flex aspect-5/4 w-full items-center justify-center text-center text-[13px] font-semibold uppercase tracking-[0.18em]"
-            style={{ color: "var(--color-bl-prog-muted)" }}
-          >
-            imagem · grupo guiado
-          </div>
+          <img
+            src="/caminhandoHistoria/sobre-grupo-guiado.webp"
+            alt={t(`${ns}.about.title`)}
+            className="block aspect-5/4 w-full object-cover"
+          />
         }
       />
 
@@ -97,7 +98,13 @@ export default function CaminhandoHistoria() {
           items={locaisItems.map((it, i) => ({
             ...it,
             icon: LOCAIS_ICONS[i],
-            image: <GalleryPlaceholder label={`local ${i + 1}`} />,
+            image: (
+              <img
+                src={LOCAIS_IMAGES[i]}
+                alt={it.title}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ),
           }))}
         />
       </section>
@@ -109,22 +116,22 @@ export default function CaminhandoHistoria() {
 
       <section>
         <SectionTitle title={t(`${ns}.galeria.title`)} className="mb-6" />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
-          {Array.from({ length: 6 }).map((_, i) => (
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          {GALERIA_IMAGES.map((src, i) => (
             <div
-              key={i}
+              key={src}
               className="aspect-square overflow-hidden rounded-[12px]"
               style={{
                 background: "var(--color-bl-prog-soft)",
                 border: "1px solid var(--color-bl-prog-line)",
               }}
             >
-              <div
-                className="flex h-full w-full items-center justify-center text-[11px] font-semibold uppercase tracking-[0.18em]"
-                style={{ color: "var(--color-bl-prog-muted)" }}
-              >
-                foto {i + 1}
-              </div>
+              <img
+                src={src}
+                alt={`${t(`${ns}.galeria.title`)} ${i + 1}`}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
             </div>
           ))}
         </div>

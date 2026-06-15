@@ -37,7 +37,13 @@
   },
   "footer": {
     "explore": "Explore",
-    "cadastur": "All content on this portal complies with the official CADASTUR registry."
+    "tagline": "Promoting Juiz de Fora as an innovative, sustainable and welcoming tourist destination.",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "addressLabel": "Address",
+    "ministry": "Ministry of Tourism",
+    "cadastur": "All content on this portal complies with the official CADASTUR registry.",
+    "rights": "© {{year}} City of Juiz de Fora – Department of Tourism. All rights reserved."
   },
   "notFound": {
     "title": "Page not found",
@@ -77,9 +83,8 @@
       "titleHighlight": "Geraes",
       "titleSuffix": ".",
       "description": "From traditional Mineira cuisine to corner pubs, taste everything our gastronomy has to offer.",
-      "cta": "View establishments",
-      "empty": "No categories available.",
-      "metaLabel": "Establishments"
+      "cta": "View all establishments",
+      "empty": "No establishments available."
     },
     "events": {
       "kicker": "What's on in JF",
@@ -632,7 +637,7 @@
       }
     },
     "editalFomento": {
-      "title": "Tourism Funding Call",
+      "title": "Tourism Development Program",
       "description": "Financial support for projects, events and actions that contribute to strengthening tourism in Juiz de Fora.",
       "meta": { "date": "May 19, 2026" },
       "cta": {
@@ -651,14 +656,14 @@
       "about": {
         "title": "About the Call",
         "paragraphs": [
-          "The Juiz de Fora Tourism Department annually holds the Tourism Funding Call, an initiative that financially supports projects, events and actions that contribute to strengthening tourism in the municipality.",
+          "Since 2012, the Juiz de Fora Tourism Department has held the Tourism Projects Development Program, an initiative that financially supports projects, events and actions that contribute to strengthening tourism in the municipality.",
           "The call aims to stimulate creativity, value local initiatives and boost the tourism economy, considering proposals that promote experiences, qualify services, move culture and expand the city's tourism potential.",
           "Across its editions, the program has consolidated Setur's role as a coordinator and promoter of the sector, strengthening partnerships with cultural producers, entrepreneurs, institutions and civil society organizations.",
           "More than a financing instrument, the call represents the Department's commitment to sustainable tourism development and to collectively building a city increasingly prepared to welcome."
         ],
         "keypoints": [
           { "title": "Goal", "description": "Support projects, events and actions that boost tourism and local development." },
-          { "title": "Who can participate", "description": "Individuals, microenterprises, companies, collectives, institutions and civil society organizations." },
+          { "title": "Who can participate", "description": "Civil society organizations." },
           { "title": "What can be supported", "description": "Cultural projects, tourism events, training, research, promotion actions and much more." },
           { "title": "Resources", "description": "Financial support according to categories and criteria defined in the call." },
           { "title": "How to participate", "description": "Registrations and proposal submissions following the call's guidelines and annexes." }
@@ -667,10 +672,9 @@
       "impacto": {
         "title": "Call impact",
         "stats": [
-          { "value": "+150", "label": "supported projects", "description": "Since the start of the program." },
-          { "value": "10", "label": "editions held", "description": "Strengthening local tourism." },
-          { "value": "+R$ 3M", "label": "invested in tourism", "description": "Generating development." },
-          { "value": "Citywide impact", "description": "Benefits for residents and visitors." }
+          { "value": "+130", "label": "approved projects", "description": "Since the program was created in 2012." },
+          { "value": "12", "label": "editions held", "description": "Strengthening local tourism." },
+          { "value": "+R$ 1.5M", "label": "invested in tourism", "description": "Generating development." }
         ]
       },
       "funciona": {
@@ -693,9 +697,9 @@
       "description": "Guided experiences combining culture, heritage and tourism so you can discover Juiz de Fora in a unique and unforgettable way.",
       "meta": { "since": "Since 2022", "location": "Juiz de Fora - MG" },
       "highlights": [
-        { "title": "8+", "description": "historical and tourist sites." },
-        { "title": "Guided tours", "description": "with educators and specialists." },
-        { "title": "Heritage", "description": "culturally valued and preserved." },
+        { "title": "109+", "description": "historical and tourist sites." },
+        { "title": "1,696", "description": "participants in guided tours." },
+        { "title": "48", "description": "editions held." },
         { "title": "Education", "description": "heritage education and social inclusion." }
       ],
       "about": {
@@ -709,20 +713,20 @@
       "locais": {
         "title": "Sites visited",
         "items": [
-          { "title": "Hofbauer Factory", "description": "Important industrial heritage that marked the city's economic history." },
-          { "title": "Nossa Senhora da Glória Church", "description": "Religious and architectural landmark of great historical and cultural relevance." },
-          { "title": "Mariano Procópio Museum", "description": "One of Brazil's most important museums, with a rich historical collection." },
-          { "title": "Praça da Estação", "description": "Historic space that preserves the railway memory of Juiz de Fora." },
-          { "title": "Municipal Market", "description": "Reference of local culture, gastronomy and traditions of the city." }
+          { "title": "Railway Museum", "description": "Preserves the memory of the railway and its importance to the development of Juiz de Fora and the region." },
+          { "title": "Museum of Indigenous Ethnology and Natural History", "description": "Collection dedicated to indigenous cultures and biodiversity, promoting scientific and cultural knowledge." },
+          { "title": "Black Memory Preservation Center", "description": "Space dedicated to valuing the history, culture and contributions of the Black population." },
+          { "title": "Science Center", "description": "Interactive environment that encourages scientific learning through hands-on experiences and educational exhibitions." },
+          { "title": "Republic Memorial", "description": "Place dedicated to preserving republican memory and important national historical events." }
         ]
       },
       "funciona": {
         "title": "How it works",
         "steps": [
           { "title": "Registration", "description": "Sign up for the project." },
-          { "title": "Tour definition", "description": "Sites and activities are defined according to the group." },
+          { "title": "Tour selection", "description": "Sites and activities are defined according to the group." },
           { "title": "Guided tour", "description": "Exploration of historical points with educators and mediators." },
-          { "title": "Educational activities", "description": "Dynamics and content on heritage, culture and local history." },
+          { "title": "Heritage education", "description": "Knowledge, belonging and appreciation of local memory." },
           { "title": "Cultural experience", "description": "Heritage appreciation and strengthening of local tourism." }
         ]
       },
@@ -745,8 +749,8 @@
       "about": {
         "title": "About Educatur",
         "paragraphs": [
-          "Educatur is a program by the City of Juiz de Fora, coordinated by the Tourism Department, that takes public school students to learn about the main tourist and cultural points of the city. With guided tours and educational activities, the program uses tourism as a tool for learning and civic education.",
-          "Up to the first semester of 2025, Educatur impacted 304 students from 12 schools and community centers, including students from Regular Education and Youth and Adult Education (EJA). The classes visited seven tourist attractions, with transportation provided.",
+          "Educatur is a program by the City of Juiz de Fora, coordinated by the Tourism Department, that takes public school students to learn about the main tourist and cultural points of the city. With guided tours and educational, playful and interactive activities, the program uses tourism as a tool for learning, discovery, appreciation of local heritage, strengthening the sense of belonging and civic education.",
+          "From 2022 to the first semester of 2026, Educatur impacted 2,000 students from 27 schools and community centers, including students from Regular Education and Youth and Adult Education (EJA). The classes visited thirteen tourist attractions.",
           "More than teaching history and culture, Educatur transforms residents' perception of their own city, strengthening local pride and the appreciation of Juiz de Fora's identity."
         ]
       },
@@ -765,17 +769,16 @@
       "impacto": {
         "title": "Educatur's Impact",
         "stats": [
-          { "value": "304", "label": "students impacted", "description": "Up to the first semester of 2025." },
-          { "value": "12", "label": "schools and community centers" },
+          { "value": "2,000", "label": "students impacted", "description": "Up to the first semester of 2026." },
+          { "value": "27", "label": "schools and community centers" },
           { "value": "2", "label": "education modalities", "description": "Regular Education and EJA." },
-          { "value": "7", "label": "tourist attractions visited" }
+          { "value": "13", "label": "tourist attractions visited" }
         ]
       },
       "funciona": {
         "title": "How it works",
         "steps": [
           { "title": "Planning", "description": "Definition of schools, tours and activities." },
-          { "title": "Transportation", "description": "Safe and free transportation for students." },
           { "title": "Guided tour", "description": "Exploration of attractions with specialized guides." },
           { "title": "Educational activities", "description": "Dynamics and content that stimulate learning." },
           { "title": "Transformation", "description": "Strengthening of identity and local pride." }

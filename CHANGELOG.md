@@ -5,6 +5,58 @@
 
 ---
 
+## [2026-06-14] Rodapé: layout em colunas com contato e selos
+
+### O que foi feito
+- **Rodapé** ([src/components/layout/Footer.tsx](src/components/layout/Footer.tsx)): novo layout em grade (marca + 3 colunas de navegação + contato). Coluna da marca com logo, tagline e divisória; colunas "Explorar" (links sem submenu), "O que fazer" e "Secretaria de Turismo" (filhos de `NAV_ITEMS`), cada uma com ícone no cabeçalho. Bloco de contato (telefone, e-mail, endereço) e selos do Ministério do Turismo + CADASTUR (`public/cadastur-logo.webp`). Linha de direitos com ano dinâmico.
+- **i18n** (PT/EN/ES): novas chaves `footer.tagline`, `footer.phoneLabel`, `footer.emailLabel`, `footer.addressLabel`, `footer.ministry` e `footer.rights`.
+
+### Por que foi feito
+Alinhar o rodapé ao design de referência, com as informações de contato da Setur e os selos institucionais.
+
+### Decisões técnicas
+- Colunas de navegação derivadas de `NAV_ITEMS` (mesma fonte da navbar), sem duplicar a lista de links.
+- Classes utilitárias do tema (`bl-bg`, `bl-muted`, `bl-accent2`) no lugar de estilos inline.
+
+## [2026-06-14] Programas e Projetos: conteúdo e imagens (Caminhando, Fomento, Educatur)
+
+### O que foi feito
+- **Caminhando pela História** ([src/pages/secretaria/programas/CaminhandoHistoria.tsx](src/pages/secretaria/programas/CaminhandoHistoria.tsx)): destaques atualizados (109+ pontos históricos, 1.696 participantes, 48 edições); "Locais Visitados" trocados para Museu Ferroviário, Museu de Etnologia Indígena e História Natural, Centro de Preservação da Memória Negra, Centro de Ciências e Memorial da República; etapas 2 e 4 de "Como funciona" viram "Escolha do roteiro" e "Educação Patrimonial". Fotos reais (de `public/caminhandoHistoria/`) no hero, na seção "Sobre", nos cards de locais (alinhados em 5/4) e na galeria.
+- **Programa de Fomento ao Turismo** ([src/pages/secretaria/programas/EditalFomento.tsx](src/pages/secretaria/programas/EditalFomento.tsx)): renomeado de "Edital" para "Programa"; "Sobre" passa a citar realização desde 2012; "Quem pode participar" restrito a Organizações da Sociedade Civil; impacto reduzido a 3 indicadores (+130 projetos aprovados, 12 edições, +R$ 1,5 mi investidos).
+- **Educatur** ([src/pages/secretaria/programas/Educatur.tsx](src/pages/secretaria/programas/Educatur.tsx)): "Sobre" ampliado (atividades lúdicas e interativas; recorte 2022–1º sem. 2026); impacto atualizado (2.000 alunos, 27 escolas/centros, 13 atrativos); etapa "Transporte" removida de "Como funciona"; logo no hero, foto dos alunos na seção "Sobre" e fotos dos atrativos reaproveitadas do banco de `/atrativos` (cópias em `public/educatur/atrativos/`).
+- **Lista de programas e projetos** ([src/pages/secretaria/programas/ProgramsList.tsx](src/pages/secretaria/programas/ProgramsList.tsx)): capa nova para o Programa de Fomento (antes sem imagem) e capa do Educatur com o logo do programa.
+- **i18n** (PT/EN/ES): todos os textos acima nas três línguas.
+
+### Por que foi feito
+Atualizar as páginas de Programas e Projetos com os dados e as imagens oficiais fornecidos pela Secretaria de Turismo.
+
+### Decisões técnicas
+- **Imagens otimizadas**: fotos convertidas para `.webp` e redimensionadas (≤1200px nas páginas de detalhe, ≤800px nos cards de atrativos), reduzindo bastante o peso dos arquivos originais.
+- **Atrativos do Educatur**: imagens copiadas do banco (`experiencias.imagem_destaque`) para `public/`, evitando dependência de runtime do Supabase numa página estática e egress do Storage.
+- **Números em formato local**: separador de milhar com ponto em PT/ES (1.696, 2.000) e vírgula em EN (1,696, 2,000).
+
+### Próximos passos
+- "Atrativos Visitados" do Educatur ainda lista 7 itens, mas o indicador fala em 13 — incluir os demais quando a lista completa for fornecida.
+
+## [2026-06-08] Home: "Sabores das Geraes" como cards de estabelecimentos
+
+### O que foi feito
+- **Seção de gastronomia da home** ([src/components/sections/HomeDining.tsx](src/components/sections/HomeDining.tsx)): reescrita para seguir a mesma estrutura das seções 01/02 (Atrativos/Hospedagem) — cabeçalho em duas colunas no topo (título à esquerda, descrição + botão à direita) em vez do antigo layout de sidebar *sticky*. Os antigos *tiles* de categoria deram lugar a **3 cards de estabelecimento**, cada um com badge de categoria, imagem (`AspectImage` com placeholder) e rodapé com número + nome + bairro com ícone de pin.
+- **Fonte de dados**: passou de `useDiningCategories` para `useDiningEstablishments` (os 3 primeiros ativos por `ordem`).
+- **Dedup por marca**: helper `pickDistinctBrands` mantém só um estabelecimento por marca (chave = 2 primeiras palavras do nome), evitando repetir redes multiunidade (ex.: 3× "Aceite Forneria", 2× "Berttu's Restaurante") na home.
+- **i18n** (PT/EN/ES): `home.dining.cta` → "Ver todos os estabelecimentos", `empty` agora fala de estabelecimentos e a chave órfã `metaLabel` foi removida.
+
+### Por que foi feito
+Alinhar a seção ao design de referência (mesma linguagem visual das demais seções da home) e mostrar estabelecimentos reais em destaque, com variedade de marcas.
+
+### Decisões técnicas
+- **Sem campo de nota**: o print de referência mostrava uma avaliação (★), mas `estabelecimentos_gastronomia` não tem esse campo — o pill foi omitido em vez de inventar dado.
+- **Dedup só na home**: a página `/onde-comer` continua listando todas as unidades (são listagens reais com endereços distintos); a deduplicação por marca vale apenas para o teaser.
+- **Imagem real com placeholder**: usa `imagem_destaque` (com fallback de placeholder), em vez das ilustrações decorativas do mockup.
+
+### Próximos passos
+- (Opcional) modelar "marca/rede" no schema caso se queira agrupar unidades de forma robusta, em vez da heurística por nome.
+
 ## [2026-06-08] Rodapé, eventos em andamento e atrativos (parágrafos + múltiplas categorias)
 
 ### O que foi feito
