@@ -5,6 +5,22 @@
 
 ---
 
+## [2026-06-24] Notícias: paginação (mais recente → mais antiga)
+
+### O que foi feito
+- **Paginação** na listagem de notícias (`/secretaria/noticias`): novo hook `usePostsPaginated` ([src/hooks/usePosts.ts](src/hooks/usePosts.ts)) usando `range()` + `count` exato no Supabase, sempre ordenado por `created_at` desc; `PostsList` ([src/pages/secretaria/PostsList.tsx](src/pages/secretaria/PostsList.tsx)) passou a paginar (9 por página) com rolagem ao topo a cada troca de página.
+- **Componente reutilizável** `Pagination` ([src/components/ui/Pagination.tsx](src/components/ui/Pagination.tsx)) — numerada, com reticências para intervalos longos, no tema visual da página.
+- **i18n** (PT/EN/ES): chaves `common.pagination.*` (label, previous, next, goToPage).
+
+### Por que foi feito
+A lista de notícias cresceu (mais de 90 releases) e era exibida toda de uma vez; a paginação melhora desempenho e navegação, mantendo a ordem cronológica decrescente.
+
+### Decisões técnicas
+- Paginação no **servidor** (`range`), não fatiando no cliente, para não buscar todos os posts de uma vez; `keepPreviousData` evita "piscar" a lista ao trocar de página.
+- `usePosts` (usado pelo admin, que precisa de todos os registros) mantido intacto; criado hook separado `usePostsPaginated`.
+
+---
+
 ## [2026-06-14] Rodapé: layout em colunas com contato e selos
 
 ### O que foi feito

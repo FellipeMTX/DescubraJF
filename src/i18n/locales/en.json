@@ -1,5 +1,11 @@
 {
   "common": {
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous page",
+      "next": "Next page",
+      "goToPage": "Go to page {{page}}"
+    },
     "siteName": "Descubra Juiz de Fora",
     "menu": "Menu",
     "closeMenu": "Close menu",
