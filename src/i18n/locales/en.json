@@ -80,8 +80,7 @@
       "titleSuffix": ".",
       "description": "From charming inns to premium hotels, find the perfect place to rest and enjoy the city.",
       "cta": "View all hotels",
-      "typeDefault": "Hotel",
-      "fallbackDescription": "Lodging {{n}}"
+      "typeDefault": "Hotel"
     },
     "dining": {
       "kicker": "Where to eat & drink",
@@ -608,28 +607,27 @@
       "about": {
         "title": "About Praça Cervejeira",
         "paragraphs": [
-          "Praça Cervejeira transforms squares in Juiz de Fora into meeting points dedicated to craft beer. The initiative brings beer trucks and food trucks to different public spaces, strengthening the local production chain and encouraging beer tourism.",
-          "The program stimulates craft beer consumption, moves the creative economy, generates income and attracts visitors. In addition to tastings, the events may include music and cultural attractions, creating accessible and vibrant experiences.",
-          "By promoting the beer sector, the initiative reinforces the city's cultural identity and positions Juiz de Fora as a relevant destination for good beer lovers."
+          "More than enjoying a good beer, Praça Cervejeira invites residents and visitors to discover the flavors produced in Juiz de Fora, supporting local breweries and experiencing moments that bring together gastronomy, culture and conviviality. Beyond the chance to taste different labels, the program offers a lineup of music and cultural attractions, creating accessible, vibrant experiences open to the whole community.",
+          "By promoting the brewing sector, the initiative strengthens the city's cultural identity, drives the creative economy, generates opportunities for local entrepreneurs and establishes Juiz de Fora as a relevant destination for craft beer lovers."
         ]
       },
       "encontra": {
         "title": "What you'll find",
         "items": [
-          { "title": "Craft beers", "description": "Tasting local and regional labels." },
-          { "title": "Beer trucks", "description": "Cold, quality beer." },
-          { "title": "Food trucks", "description": "Varied gastronomy to go with it." },
-          { "title": "Live music", "description": "Bands and DJs to liven up the event." },
-          { "title": "Local producers", "description": "Crafts, products and experiences." }
+          { "title": "Craft breweries", "description": "Labels produced by local and regional breweries." },
+          { "title": "Live music", "description": "Musical programming to make each edition even more special." },
+          { "title": "Food trucks", "description": "Varied cuisine to go with a good beer." },
+          { "title": "Local producers", "description": "Handcrafted products and creative-economy experiences." },
+          { "title": "Conviviality", "description": "Spaces to gather friends and families and enjoy the best of beer culture." }
         ]
       },
       "onde": {
         "title": "Where it happens",
         "items": [
-          { "title": "Praça da Estação", "description": "One of Juiz de Fora's postcards, perfect for big gatherings." },
-          { "title": "Parque Halfeld", "description": "Green and central space, ideal for cultural and leisure activities." },
-          { "title": "Morro do Imperador", "description": "Panoramic view and pleasant climate to enjoy good beer and company." },
-          { "title": "Other points in the city", "description": "Praça Cervejeira moves through different neighborhoods, always close to you." }
+          { "title": "Parque Halfeld", "description": "The main hub of Praça Cervejeira, with frequent live music and craft-brewery gatherings in the heart of the city." },
+          { "title": "Praça do Bom Pastor", "description": "Hosts weekend editions with live music, bringing together food, craft beers and open-air leisure." },
+          { "title": "Praça Kennedy", "description": "A venue that also hosts Praça Cervejeira editions, strengthening beer culture across different parts of the city." },
+          { "title": "Feira da Riani", "description": "Part of the Praça Cervejeira circuit, with Thursday programming and partner breweries." }
         ],
         "extra": {
           "title": "Stay tuned",
@@ -736,7 +734,7 @@
           { "title": "Cultural experience", "description": "Heritage appreciation and strengthening of local tourism." }
         ]
       },
-      "galeria": { "title": "Gallery", "button": "See more photos" },
+      "galeria": { "title": "Gallery" },
       "bottom": {
         "title": "JOIN THE PROGRAM",
         "description": "Come and learn the history of Juiz de Fora in an interactive way!"
@@ -790,6 +788,7 @@
           { "title": "Transformation", "description": "Strengthening of identity and local pride." }
         ]
       },
+      "galeria": { "title": "Gallery" },
       "bottom": {
         "title": "Be part of Educatur!",
         "description": "Turn tourism into learning and the city into inspiration."

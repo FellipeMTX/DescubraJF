@@ -80,8 +80,7 @@
       "titleSuffix": ".",
       "description": "De posadas con encanto a hoteles premium, encuentra el lugar perfecto para descansar y disfrutar de la ciudad.",
       "cta": "Ver todos los hoteles",
-      "typeDefault": "Hotel",
-      "fallbackDescription": "Alojamiento {{n}}"
+      "typeDefault": "Hotel"
     },
     "dining": {
       "kicker": "Dónde comer y beber",
@@ -608,28 +607,27 @@
       "about": {
         "title": "Sobre la Praça Cervejeira",
         "paragraphs": [
-          "La Praça Cervejeira transforma plazas de Juiz de Fora en puntos de encuentro dedicados a la cerveza artesanal. La iniciativa lleva beer trucks y food trucks a diferentes espacios públicos, fortaleciendo la cadena productiva local e incentivando el turismo cervecero.",
-          "El programa estimula el consumo de cervezas artesanales, mueve la economía creativa, genera ingresos y atrae visitantes. Además de degustaciones, los eventos pueden incluir música y atracciones culturales, creando experiencias accesibles y vibrantes.",
-          "Al promover el sector cervecero, la iniciativa refuerza la identidad cultural de la ciudad y consolida Juiz de Fora como destino relevante para amantes de la buena cerveza."
+          "Más que disfrutar de una buena cerveza, la Praça Cervejeira invita a residentes y visitantes a descubrir los sabores producidos en Juiz de Fora, apoyando a las cervecerías locales y viviendo experiencias que unen gastronomía, cultura y convivencia. Además de la oportunidad de degustar diferentes etiquetas, el programa ofrece una programación con música y atracciones culturales, creando experiencias accesibles, vibrantes y abiertas a toda la comunidad.",
+          "Al promover el sector cervecero, la iniciativa refuerza la identidad cultural de la ciudad, dinamiza la economía creativa, genera oportunidades para emprendedores locales y consolida a Juiz de Fora como un destino relevante para los aficionados a la cerveza artesanal."
         ]
       },
       "encontra": {
         "title": "Lo que encuentras",
         "items": [
-          { "title": "Cervezas artesanales", "description": "Degustación de etiquetas locales y regionales." },
-          { "title": "Beer trucks", "description": "Cerveza fría de calidad." },
-          { "title": "Food trucks", "description": "Gastronomía variada para acompañar." },
-          { "title": "Música en vivo", "description": "Bandas y DJs para animar el evento." },
-          { "title": "Productores locales", "description": "Artesanía, productos y experiencias." }
+          { "title": "Cervecerías artesanales", "description": "Etiquetas producidas por cervecerías locales y regionales." },
+          { "title": "Música en vivo", "description": "Programación musical para hacer cada edición aún más especial." },
+          { "title": "Food trucks", "description": "Gastronomía variada para acompañar una buena cerveza." },
+          { "title": "Productores locales", "description": "Productos artesanales y experiencias de la economía creativa." },
+          { "title": "Convivencia", "description": "Espacios para reunir amigos y familias y disfrutar lo mejor de la cultura cervecera." }
         ]
       },
       "onde": {
         "title": "Dónde sucede",
         "items": [
-          { "title": "Praça da Estação", "description": "Una de las postales de Juiz de Fora, perfecta para grandes encuentros." },
-          { "title": "Parque Halfeld", "description": "Espacio verde y central, ideal para actividades culturales y de ocio." },
-          { "title": "Morro do Imperador", "description": "Vista panorámica y clima agradable para disfrutar buena cerveza y compañía." },
-          { "title": "Otros puntos de la ciudad", "description": "La Praça Cervejeira circula por diferentes barrios, siempre cerca de ti." }
+          { "title": "Parque Halfeld", "description": "Principal punto de la Praça Cervejeira, con programación musical frecuente y encuentro de cervecerías artesanales en el corazón de la ciudad." },
+          { "title": "Praça do Bom Pastor", "description": "Recibe ediciones con música en vivo los fines de semana, reuniendo gastronomía, cervezas artesanales y ocio al aire libre." },
+          { "title": "Praça Kennedy", "description": "Espacio que también recibe ediciones de la Praça Cervejeira, fortaleciendo la cultura cervecera en diferentes regiones de la ciudad." },
+          { "title": "Feira da Riani", "description": "Participa del circuito de la Praça Cervejeira con programación los jueves y presencia de cervecerías asociadas." }
         ],
         "extra": {
           "title": "Mantente al día",
@@ -736,7 +734,7 @@
           { "title": "Experiencia cultural", "description": "Valoración del patrimonio y fortalecimiento del turismo local." }
         ]
       },
-      "galeria": { "title": "Galería", "button": "Ver más fotos" },
+      "galeria": { "title": "Galería" },
       "bottom": {
         "title": "PARTICIPA DEL PROGRAMA",
         "description": "¡Ven y conoce la historia de Juiz de Fora de forma interactiva!"
@@ -790,6 +788,7 @@
           { "title": "Transformación", "description": "Fortalecimiento de la identidad y del orgullo local." }
         ]
       },
+      "galeria": { "title": "Galería" },
       "bottom": {
         "title": "¡Forma parte del Educatur!",
         "description": "Transforma el turismo en aprendizaje y la ciudad en inspiración."

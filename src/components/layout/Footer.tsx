@@ -42,12 +42,12 @@ export function Footer() {
   ];
 
   const contactItems = [
-    { Icon: Phone, label: t("footer.phoneLabel"), lines: ["(32) 3690-XXXX", "(32) 3690-YYYY"] },
-    { Icon: Mail, label: t("footer.emailLabel"), lines: ["turismo@pjf.mg.gov.br"] },
+    { Icon: Phone, label: t("footer.phoneLabel"), lines: ["(32) 2104-8171"] },
+    { Icon: Mail, label: t("footer.emailLabel"), lines: ["seturjf@gmail.com"] },
     {
       Icon: MapPin,
       label: t("footer.addressLabel"),
-      lines: ["Av. Rio Branco, 2234 – Centro", "Juiz de Fora – MG | CEP 36013-020"],
+      lines: ["Avenida Brasil, 2001", "5º andar – Centro", "Juiz de Fora – MG", "CEP 36060-010"],
     },
   ];
 
@@ -95,7 +95,7 @@ export function Footer() {
         <div className={DIVIDER} />
 
         {/* Contact */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1.4fr]">
           {contactItems.map(({ Icon, label, lines }) => (
             <div key={label} className="flex items-center gap-4">
               <span className={BADGE}>
@@ -117,18 +117,20 @@ export function Footer() {
             <span className={BADGE}>
               <Award size={20} />
             </span>
-            <div>
+            <div className="min-w-0 flex-1">
               <div className={HEADING}>CADASTUR</div>
-              <div className="mt-1.5 flex items-center gap-2.5">
-                {/* Asset is a padded square; bg-cover crops to the logo's content band */}
-                <span
+              <div className="mt-2 flex flex-col items-start gap-1.5">
+                {/* High-res transparent logo (with slogan), shown complete via bg-contain */}
+                <a
+                  href="https://cadastur.turismo.gov.br/hotsite/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   role="img"
                   aria-label="Cadastur"
-                  className="h-7 w-32.5 bg-cover bg-center bg-no-repeat"
+                  className="h-12 w-full bg-contain bg-left bg-no-repeat transition-opacity hover:opacity-80"
                   style={{ backgroundImage: "url(/cadastur-logo.webp)" }}
                 />
-                <span className="h-7 w-px bg-bl-muted/30" />
-                <span className="max-w-[14ch] text-[10px] font-semibold uppercase leading-tight tracking-wide text-bl-muted">
+                <span className="text-[10px] font-semibold uppercase leading-tight tracking-wide text-bl-muted">
                   {t("footer.ministry")}
                 </span>
               </div>

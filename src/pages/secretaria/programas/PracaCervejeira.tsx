@@ -5,7 +5,6 @@ import {
   Truck,
   Music2,
   Users,
-  Utensils,
   ShoppingBag,
   TrendingUp,
   UserPlus,
@@ -24,18 +23,15 @@ import { SectionTitle } from "@/components/programa/SectionTitle";
 type ItemText = { title: string; description: string };
 
 const HIGHLIGHT_ICONS: LucideIcon[] = [Beer, Truck, Music2, Users];
-const ENCONTRA_ICONS: LucideIcon[] = [Beer, Truck, Utensils, Music2, ShoppingBag];
+const ENCONTRA_ICONS: LucideIcon[] = [Beer, Music2, Truck, ShoppingBag, Users];
 
-function ImagePlaceholder({ label }: { label: string }) {
-  return (
-    <div
-      className="flex h-full w-full items-center justify-center text-center text-[13px] font-semibold uppercase tracking-[0.18em]"
-      style={{ color: "var(--color-bl-prog-muted)" }}
-    >
-      {label}
-    </div>
-  );
-}
+// Ordem segue onde.items: Parque Halfeld, Praça do Bom Pastor, Praça Kennedy, Feira da Riani
+const ONDE_IMAGES = [
+  "/pracaCervejeira/local-parque-halfeld.webp",
+  "/pracaCervejeira/local-bom-pastor.webp",
+  "/pracaCervejeira/local-praca-kennedy.webp",
+  "/pracaCervejeira/local-feira-riani.webp",
+];
 
 export default function PracaCervejeira() {
   const { t } = useTranslation();
@@ -57,7 +53,13 @@ export default function PracaCervejeira() {
         ]}
         primaryCta={{ label: t("programas.common.wantParticipate"), icon: UserPlus, href: "#participar" }}
         secondaryCta={{ label: t("programas.common.nextEditions"), icon: Calendar, href: "#edicoes" }}
-        image={<ImagePlaceholder label="imagem · praça cervejeira" />}
+        image={
+          <img
+            src="/pracaCervejeira/hero.webp"
+            alt={t(`${ns}.title`)}
+            className="h-full w-full object-cover"
+          />
+        }
       />
 
       <HighlightsBar
@@ -67,7 +69,13 @@ export default function PracaCervejeira() {
       <TextWithSide
         title={t(`${ns}.about.title`)}
         paragraphs={aboutParagraphs}
-        side={<ImagePlaceholder label="imagem · evento" />}
+        side={
+          <img
+            src="/pracaCervejeira/evento.webp"
+            alt={t(`${ns}.about.title`)}
+            className="block aspect-video w-full object-cover"
+          />
+        }
       />
 
       <section>
@@ -84,7 +92,14 @@ export default function PracaCervejeira() {
           columns={5}
           items={ondeItems.map((it, i) => ({
             ...it,
-            image: <ImagePlaceholder label={`local ${i + 1}`} />,
+            image: (
+              <img
+                src={ONDE_IMAGES[i]}
+                alt={it.title}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ),
           }))}
           extra={
             <article

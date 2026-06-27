@@ -54,7 +54,7 @@ export function DescriptionText({
   if (paragraphs.length === 0) return null;
 
   return (
-    <div className={cn("space-y-3 text-sm leading-relaxed text-primary-700", className)}>
+    <div className={cn("space-y-3 text-justify text-sm leading-relaxed text-primary-700", className)}>
       {paragraphs.map((paragraph, i) => (
         <p key={i}>{paragraph}</p>
       ))}

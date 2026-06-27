@@ -183,13 +183,13 @@ function HistIntro() {
           >
             {t("history.intro.mainBefore")} <span className="bl-em">{t("history.intro.mainHighlight")}</span>
           </p>
-          <p className="mb-4 text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
+          <p className="mb-4 text-justify text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
             {t("history.intro.p1")}
           </p>
-          <p className="mb-4 text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
+          <p className="mb-4 text-justify text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
             {t("history.intro.p2")}
           </p>
-          <p className="text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
+          <p className="text-justify text-base leading-[1.7]" style={{ color: "var(--color-bl-muted)" }}>
             {t("history.intro.p3")}
           </p>
         </div>
@@ -401,7 +401,7 @@ function HistStorySection({
             {title}
           </h2>
           <div
-            className="flex flex-col gap-4 text-base leading-[1.75]"
+            className="flex flex-col gap-4 text-justify text-base leading-[1.75]"
             style={{ color: "var(--color-bl-muted)" }}
           >
             {children}
@@ -507,7 +507,7 @@ function HistManchester() {
             {t("history.manchester.titleAfter")}
           </h2>
           <div
-            className="flex flex-col gap-4 text-base leading-[1.75]"
+            className="flex flex-col gap-4 text-justify text-base leading-[1.75]"
             style={{ color: "var(--color-bl-muted)" }}
           >
             <p className="m-0">{t("history.manchester.p1")}</p>
@@ -612,13 +612,13 @@ function HistSurprise() {
               {t("history.surprise.titleAfter")}
             </h2>
             <p
-              className="m-0 mb-4 text-[17px] leading-[1.75]"
+              className="m-0 mb-4 text-justify text-[17px] leading-[1.75]"
               style={{ color: "rgba(255,255,255,0.78)" }}
             >
               {t("history.surprise.p1")}
             </p>
             <p
-              className="m-0 text-[17px] leading-[1.75]"
+              className="m-0 text-justify text-[17px] leading-[1.75]"
               style={{ color: "rgba(255,255,255,0.78)" }}
             >
               {t("history.surprise.p2")}

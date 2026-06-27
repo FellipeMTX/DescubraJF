@@ -13,7 +13,6 @@ import {
   Footprints,
   BookOpen,
   Heart,
-  Images,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -25,6 +24,7 @@ import { PlaceCards } from "@/components/programa/PlaceCards";
 import { TimelineSteps } from "@/components/programa/TimelineSteps";
 import { BottomCTAStrip } from "@/components/programa/BottomCTAStrip";
 import { SectionTitle } from "@/components/programa/SectionTitle";
+import { Gallery } from "@/components/ui/Gallery";
 
 type ItemText = { title: string; description: string };
 
@@ -116,34 +116,7 @@ export default function CaminhandoHistoria() {
 
       <section>
         <SectionTitle title={t(`${ns}.galeria.title`)} className="mb-6" />
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {GALERIA_IMAGES.map((src, i) => (
-            <div
-              key={src}
-              className="aspect-square overflow-hidden rounded-[12px]"
-              style={{
-                background: "var(--color-bl-prog-soft)",
-                border: "1px solid var(--color-bl-prog-line)",
-              }}
-            >
-              <img
-                src={src}
-                alt={`${t(`${ns}.galeria.title`)} ${i + 1}`}
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 flex justify-end">
-          <a
-            href="#galeria-completa"
-            className="inline-flex items-center gap-2 rounded-[8px] px-4 py-2 text-[12.5px] font-semibold no-underline"
-            style={{ background: "var(--color-bl-prog-cta-bg)", color: "#fff" }}
-          >
-            <Images size={14} /> {t(`${ns}.galeria.button`)}
-          </a>
-        </div>
+        <Gallery images={GALERIA_IMAGES} className="md:grid-cols-4" />
       </section>
 
       <BottomCTAStrip

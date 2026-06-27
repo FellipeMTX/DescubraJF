@@ -32,7 +32,7 @@ export function HomeExperiences() {
               className="bl-display m-0"
               style={{ fontSize: "clamp(40px, 4.4vw, 64px)" }}
             >
-              {t("home.experiences.title")} <span className="bl-em">{t("home.experiences.titleHighlight")}</span>
+              {t("home.experiences.title")} <span className="bl-em block">{t("home.experiences.titleHighlight")}</span>
             </h2>
           </div>
           <div>

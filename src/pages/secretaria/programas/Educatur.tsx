@@ -28,6 +28,7 @@ import { StatsRow } from "@/components/programa/StatsRow";
 import { TimelineSteps } from "@/components/programa/TimelineSteps";
 import { BottomCTAStrip } from "@/components/programa/BottomCTAStrip";
 import { SectionTitle } from "@/components/programa/SectionTitle";
+import { Gallery } from "@/components/ui/Gallery";
 
 type ItemText = { title: string; description: string };
 type StatText = { value: string; label?: string; description?: string };
@@ -118,6 +119,11 @@ export default function Educatur() {
       <section>
         <SectionTitle title={t(`${ns}.funciona.title`)} className="mb-8" />
         <TimelineSteps steps={steps.map((s, i) => ({ ...s, icon: STEP_ICONS[i] }))} />
+      </section>
+
+      <section>
+        <SectionTitle title={t(`${ns}.galeria.title`)} className="mb-6" />
+        <Gallery images={ATRATIVOS_IMAGES} />
       </section>
 
       <BottomCTAStrip

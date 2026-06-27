@@ -68,7 +68,7 @@ export function HomeLodging() {
               gridVisible && "in"
             )}
           >
-            {lodgings?.map((h, i) => (
+            {lodgings?.map((h) => (
               <Link
                 key={h.id}
                 to="/onde-ficar"
@@ -93,15 +93,17 @@ export function HomeLodging() {
                 </AspectImage>
                 <div className="p-[18px]">
                   <div className="bl-display text-xl">{h.nome}</div>
-                  <div
-                    className="mt-1 text-xs italic"
-                    style={{
-                      color: "var(--color-bl-muted)",
-                      fontFamily: "var(--font-display)",
-                    }}
-                  >
-                    {h.descricao_curta || t("home.lodging.fallbackDescription", { n: i + 1 })}
-                  </div>
+                  {h.descricao_curta && (
+                    <div
+                      className="mt-1 text-xs italic"
+                      style={{
+                        color: "var(--color-bl-muted)",
+                        fontFamily: "var(--font-display)",
+                      }}
+                    >
+                      {h.descricao_curta}
+                    </div>
+                  )}
                 </div>
               </Link>
             ))}

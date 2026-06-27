@@ -103,10 +103,10 @@ function Intro({ pagina }: { pagina: SeturPagina }) {
     <RevealSection className="py-20" style={{ background: "var(--color-bl-bg)" }}>
       <div className="mx-auto max-w-3xl px-4 md:px-14">
         {pagina.intro_texto_1 && (
-          <p className="text-lg leading-[1.75]">{pagina.intro_texto_1}</p>
+          <p className="text-justify text-lg leading-[1.75]">{pagina.intro_texto_1}</p>
         )}
         {pagina.intro_texto_2 && (
-          <p className="mt-5 text-lg leading-[1.75]">{pagina.intro_texto_2}</p>
+          <p className="mt-5 text-justify text-lg leading-[1.75]">{pagina.intro_texto_2}</p>
         )}
         {pagina.intro_titulo_secao && (
           <h2
@@ -117,7 +117,7 @@ function Intro({ pagina }: { pagina: SeturPagina }) {
           </h2>
         )}
         {pagina.intro_texto_3 && (
-          <p className="mt-5 text-lg leading-[1.75]">{pagina.intro_texto_3}</p>
+          <p className="mt-5 text-justify text-lg leading-[1.75]">{pagina.intro_texto_3}</p>
         )}
       </div>
     </RevealSection>
