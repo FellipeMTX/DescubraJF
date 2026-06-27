@@ -17,7 +17,7 @@ export function TextWithSide({ title, paragraphs, side, sidePosition = "right" }
         {paragraphs.map((p, i) => (
           <p
             key={i}
-            className="m-0 text-[14.5px] leading-[1.65]"
+            className="m-0 text-justify text-[14.5px] leading-[1.65]"
             style={{ color: "var(--color-bl-prog-ink)" }}
           >
             {p}

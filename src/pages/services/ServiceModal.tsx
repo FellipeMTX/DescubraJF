@@ -97,16 +97,25 @@ export function ServiceModal({ service, category, onClose }: Props) {
         {/* body */}
         <div className="overflow-y-auto px-6.5 pt-5.5 pb-6.5">
           {service.descricao && (
-            <p
-              className="m-0 mb-4.5 text-[16px] leading-normal"
-              style={{
-                color: "var(--color-bl-ink)",
-                fontFamily: "var(--font-display)",
-                opacity: 0.85,
-              }}
-            >
-              {service.descricao}
-            </p>
+            <div className="mb-4.5 flex flex-col gap-3">
+              {service.descricao
+                .split(/\n+/)
+                .map((paragraph) => paragraph.trim())
+                .filter(Boolean)
+                .map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="m-0 text-[16px] leading-normal"
+                    style={{
+                      color: "var(--color-bl-ink)",
+                      fontFamily: "var(--font-display)",
+                      opacity: 0.85,
+                    }}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+            </div>
           )}
 
           {(fullAddress || service.contato?.telefone) && (

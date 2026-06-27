@@ -78,7 +78,7 @@ export function BottomCTAStrip({ title, description, primaryCta, secondaryCta, w
           </h3>
           {description && (
             <p
-              className="m-0 mt-2 text-[13.5px] leading-snug"
+              className="m-0 mt-2 text-justify text-[13.5px] leading-snug"
               style={{ color: "rgba(255,255,255,0.75)" }}
             >
               {description}

@@ -5,6 +5,30 @@
 
 ---
 
+## [2026-06-26] Ajustes finais para o lançamento (footer, home, listagens, programas, textos, Museus)
+
+### O que foi feito
+- **Footer** ([src/components/layout/Footer.tsx](src/components/layout/Footer.tsx)): dados de contato atualizados (telefone `(32) 2104-8171`, e-mail `seturjf@gmail.com`, endereço Av. Brasil, 2001, 5º andar – Centro); endereço reescrito em 4 linhas curtas (sem palavras órfãs); selo **CADASTUR** virou link para `cadastur.turismo.gov.br/hotsite`; logo CADASTUR substituído por versão em alta resolução **com slogan** ("Fazendo o turismo legal"), maior e legível (`public/cadastur-logo.webp`).
+- **Home**: hero "Tem **de** tudo em" com "Juiz de Fora" em linha própria ([HomeExperiences.tsx](src/components/sections/HomeExperiences.tsx)); cards de "Onde Ficar" sem o rótulo placeholder "Hospedagem N" ([HomeLodging.tsx](src/components/sections/HomeLodging.tsx)).
+- **Listagens** (Atrativos/Onde Ficar/Onde Comer): cards menores no desktop (`lg:grid-cols-3`); descrição da modal com **parágrafos** e texto **justificado** ([DescriptionText.tsx](src/components/ui/DescriptionText.tsx)).
+- **Serviços**: modal com suporte a parágrafos na descrição ([ServiceModal.tsx](src/pages/services/ServiceModal.tsx)).
+- **Programas**:
+  - **Praça Cervejeira** ([PracaCervejeira.tsx](src/pages/secretaria/programas/PracaCervejeira.tsx)): textos "Sobre", "O que você encontra" e "Onde acontece" atualizados; imagem do hero (bandeira), do evento (#CervejaNaPraça) e fotos dos 4 locais (Parque Halfeld, Bom Pastor, Kennedy, Feira da Riani) em `public/pracaCervejeira/`; remoção do `ImagePlaceholder`.
+  - **Galerias**: Caminhando pela História passou a usar o componente `Gallery` (lightbox); EducaTur ganhou seção de galeria.
+  - **Capas** dos programas (`caminhando-pela-historia.png`, `edital-de-fomento-ao-turismo.webp`) substituídas.
+- **Alinhamento de texto (justificado)** no texto corrido de programas (`TextWithSide`, `BottomCTAStrip`), institucional ([Institucional.tsx](src/pages/secretaria/Institucional.tsx)), história ([History.tsx](src/pages/city/History.tsx)) e roteiros (hero, "Sobre", card de dicas).
+- **Atrativos — categoria "Museus"**: nova categoria com os 5 museus (mantidos também em "História e Cultura"); aplicada no Supabase e documentada em [supabase/seed-categoria-museus.sql](supabase/seed-categoria-museus.sql).
+
+### Por que foi feito
+Rodada de ajustes finais de conteúdo e UI antes do lançamento, a partir de revisões visuais.
+
+### Decisões técnicas
+- Texto justificado aplicado nos **componentes compartilhados** (TextWithSide, DescriptionText, BottomCTAStrip, RoteiroHero/InfoCard) para consistência; descrições curtas em colunas estreitas (card "Por que fazer") mantidas à esquerda para não criar buracos.
+- Imagens convertidas para webp/png otimizados; capa do Caminhando recebeu faixa creme lateral para mostrar o círculo inteiro no formato 4:3 dos cards.
+- Categoria "Museus" é multi-categoria (`categoria_ids uuid[]`): os museus foram marcados sem sair de "História e Cultura".
+
+---
+
 ## [2026-06-24] Notícias: paginação (mais recente → mais antiga)
 
 ### O que foi feito

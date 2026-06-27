@@ -268,9 +268,9 @@ export default function DiningList() {
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_460px]">
           {isLoading ? (
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} className="h-80 rounded-3xl" />
+                <Skeleton key={i} className="h-72 rounded-3xl" />
               ))}
             </div>
           ) : filtered.length === 0 ? (
@@ -284,7 +284,7 @@ export default function DiningList() {
             <div
               className={cn(
                 "grid gap-5",
-                view === "list" ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"
+                view === "list" ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
               )}
             >
               {filtered.map((est) => (

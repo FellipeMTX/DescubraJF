@@ -101,7 +101,7 @@ export default function RouteDetail() {
               <SectionTitle title={sobre.titulo || t("routes.detail.aboutTitle")} className="mb-6" />
               <div className="flex flex-col gap-4">
                 {sobre.paragrafos?.map((p, i) => (
-                  <p key={i} className="m-0 text-[14.5px] leading-[1.7]" style={{ color: "var(--color-bl-prog-ink)" }}>
+                  <p key={i} className="m-0 text-justify text-[14.5px] leading-[1.7]" style={{ color: "var(--color-bl-prog-ink)" }}>
                     {p}
                   </p>
                 ))}

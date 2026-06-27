@@ -34,7 +34,7 @@ export function RoteiroInfoCard({ title, intro, items, columns = 1 }: Props) {
       )}
       {intro && (
         <p
-          className="m-0 mt-2 text-[13.5px] leading-relaxed"
+          className="m-0 mt-2 text-justify text-[13.5px] leading-relaxed"
           style={{ color: "var(--color-bl-prog-muted)" }}
         >
           {intro}
@@ -65,7 +65,7 @@ export function RoteiroInfoCard({ title, intro, items, columns = 1 }: Props) {
                 </p>
                 {item.description && (
                   <p
-                    className="m-0 mt-1 text-[12.5px] leading-snug"
+                    className={`m-0 mt-1 text-[12.5px] leading-snug ${columns === 1 ? "text-justify" : ""}`}
                     style={{ color: "var(--color-bl-prog-muted)" }}
                   >
                     {item.description}

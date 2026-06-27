@@ -105,7 +105,7 @@ export function RoteiroHero({
 
         {descricao && (
           <p
-            className="m-0 mt-4 text-[14.5px] leading-relaxed"
+            className="m-0 mt-4 text-justify text-[14.5px] leading-relaxed"
             style={{ color: "var(--color-bl-prog-muted)", maxWidth: "46ch" }}
           >
             {descricao}
