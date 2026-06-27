@@ -5,6 +5,23 @@
 
 ---
 
+## [2026-06-27] Vercel Web Analytics
+
+### O que foi feito
+- Adicionado **Vercel Web Analytics** ([App.tsx](src/App.tsx)): instalado o pacote `@vercel/analytics` e incluído o componente `<Analytics />` na árvore de providers.
+
+### Por que foi feito
+Para acompanhar os acessos ao site (visitantes, pageviews, páginas mais acessadas) após a migração do domínio `descubrajuizdefora.com` para a Vercel.
+
+### Decisões técnicas
+- Usado o **Web Analytics nativo da Vercel** (grátis no plano Hobby, sem cookies/dados pessoais — não exige banner de consentimento), em vez de Google Analytics, pela simplicidade e integração direta com o painel.
+- Requer ativar o Web Analytics no painel da Vercel (aba **Analytics → Enable**) para começar a coletar dados.
+
+### Próximos passos
+- Ativar o Web Analytics no painel da Vercel e mergear na `main` para o deploy de produção.
+
+---
+
 ## [2026-06-27] Atrativos: filtro de categorias em uma linha + logo do CADASTUR
 
 ### O que foi feito
