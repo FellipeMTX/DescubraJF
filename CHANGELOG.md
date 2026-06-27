@@ -5,6 +5,22 @@
 
 ---
 
+## [2026-06-27] Atrativos: filtro de categorias em uma linha + logo do CADASTUR
+
+### O que foi feito
+- **Filtro de categorias (Atrativos)** ([ExperienceList.tsx](src/pages/experiences/ExperienceList.tsx)): os chips agora cabem todos em **uma linha** no desktop (lg+), sem rolagem horizontal (chips flexíveis/compactos); no mobile seguem com rolagem. O número de "categorias" no banner passou a contar o **total de categorias** (10) em vez de só as que têm atrativos; removido o sublabel "Acessíveis · Pet-friendly".
+- **Rodapé — logo do CADASTUR** ([Footer.tsx](src/components/layout/Footer.tsx)): substituído pelo logo oficial vetorial com slogan (`public/cadastur-logo.webp`); renderizado como `<img>` com `w-auto`, no **tamanho exato da arte** (corrige a largura excedente). Removidos os wrappers `flex-1` que esticavam o container e a coluna do selo voltou à largura padrão.
+
+### Por que foi feito
+Com a categoria "Museus" (10 no total) os chips não cabiam em uma linha e o contador mostrava 9; e o selo do CADASTUR ficava com largura maior que a logo.
+
+### Decisões técnicas
+- Chips com `lg:flex-1` (largura igual, preenchem a linha) apenas no desktop; mobile mantém `min-w` + rolagem (11 chips não cabem em telas pequenas).
+- Contador de categorias usa `categories.length` (categorias ativas), batendo com os chips.
+- Logo via `<img w-auto>` (auto-ajuste à arte) no lugar de `bg-image w-full`.
+
+---
+
 ## [2026-06-26] Ajustes finais para o lançamento (footer, home, listagens, programas, textos, Museus)
 
 ### O que foi feito

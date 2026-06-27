@@ -82,10 +82,9 @@ export default function ExperienceList() {
 
   const stats = useMemo(() => {
     if (!allExperiences?.length) return null;
-    const cats = new Set(allExperiences.flatMap((e) => e.categorias.map((c) => c.slug)));
     const free = allExperiences.filter((e) => e.gratuito).length;
-    return { total: allExperiences.length, cats: cats.size, free };
-  }, [allExperiences]);
+    return { total: allExperiences.length, cats: categories?.length ?? 0, free };
+  }, [allExperiences, categories]);
 
   const categoryItems = useMemo(
     () => (categories ?? []).map((c) => ({ name: c.nome, count: categoryCounts[c.slug] ?? 0 })),
@@ -174,7 +173,6 @@ export default function ExperienceList() {
                   icon={<Layers size={22} />}
                   value={stats.cats}
                   label={t("experiences.list.stats.catsEm")}
-                  sublabel={t("experiences.list.stats.features")}
                   divider
                 />
                 <HeroStat
@@ -455,7 +453,7 @@ function CategoryChip({
       onClick={onClick}
       data-active={active ? "true" : "false"}
       className={cn(
-        "group/chip flex min-w-30 shrink-0 cursor-pointer flex-col items-center gap-2 rounded-2xl border px-4 py-3 text-center transition-all duration-300 max-md:min-w-27 max-md:px-3 max-md:py-2.5 max-sm:min-w-24 max-sm:gap-1.5 max-sm:px-2.5 max-sm:py-2",
+        "group/chip flex min-w-30 shrink-0 cursor-pointer flex-col items-center gap-2 rounded-2xl border px-4 py-3 text-center transition-all duration-300 max-md:min-w-27 max-md:px-3 max-md:py-2.5 max-sm:min-w-24 max-sm:gap-1.5 max-sm:px-2.5 max-sm:py-2 lg:min-w-0 lg:flex-1 lg:gap-1.5 lg:px-2 lg:py-2.5",
         "hover:-translate-y-0.5 hover:shadow-md",
         "data-[active=false]:hover:bg-bl-accent! data-[active=false]:hover:text-white! data-[active=false]:hover:border-bl-accent!"
       )}
@@ -467,7 +465,7 @@ function CategoryChip({
     >
       <span
         className={cn(
-          "flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-300",
+          "flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-300 lg:h-9 lg:w-9",
           "group-hover/chip:bg-white/15 group-hover/chip:text-white"
         )}
         style={{
@@ -478,7 +476,7 @@ function CategoryChip({
         {icon}
       </span>
       <span
-        className="text-[13px] font-medium leading-tight"
+        className="text-[13px] font-medium leading-tight lg:text-[11px]"
         style={{ fontFamily: "var(--font-display)" }}
       >
         {label}
