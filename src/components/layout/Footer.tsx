@@ -47,7 +47,7 @@ export function Footer() {
     {
       Icon: MapPin,
       label: t("footer.addressLabel"),
-      lines: ["Avenida Brasil, 2001", "5º andar – Centro", "Juiz de Fora – MG", "CEP 36060-010"],
+      lines: ["Avenida Brasil, 2001", "5º andar – Centro"],
     },
   ];
 
@@ -95,7 +95,7 @@ export function Footer() {
         <div className={DIVIDER} />
 
         {/* Contact */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1.4fr]">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {contactItems.map(({ Icon, label, lines }) => (
             <div key={label} className="flex items-center gap-4">
               <span className={BADGE}>
@@ -117,24 +117,16 @@ export function Footer() {
             <span className={BADGE}>
               <Award size={20} />
             </span>
-            <div className="min-w-0 flex-1">
-              <div className={HEADING}>CADASTUR</div>
-              <div className="mt-2 flex flex-col items-start gap-1.5">
-                {/* High-res transparent logo (with slogan), shown complete via bg-contain */}
-                <a
-                  href="https://cadastur.turismo.gov.br/hotsite/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  role="img"
-                  aria-label="Cadastur"
-                  className="h-12 w-full bg-contain bg-left bg-no-repeat transition-opacity hover:opacity-80"
-                  style={{ backgroundImage: "url(/cadastur-logo.webp)" }}
-                />
-                <span className="text-[10px] font-semibold uppercase leading-tight tracking-wide text-bl-muted">
-                  {t("footer.ministry")}
-                </span>
-              </div>
-            </div>
+            {/* Logo oficial transparente; <img> w-auto fica do tamanho da logo */}
+            <a
+              href="https://cadastur.turismo.gov.br/hotsite/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Cadastur"
+              className="inline-block transition-opacity hover:opacity-80"
+            >
+              <img src="/cadastur-logo.webp" alt="Cadastur" className="h-9 w-auto" />
+            </a>
           </div>
         </div>
 
