@@ -5,6 +5,27 @@
 
 ---
 
+## [2026-07-09] Favicon com o símbolo da marca
+
+### O que foi feito
+- **Favicon** ([index.html](index.html)): substituído o `favicon.svg` que vinha do template (um raio roxo, sem relação com o projeto) pelo símbolo da marca — a torre do Cristo com o sol, dentro de um disco branco.
+- Adicionados `public/favicon.ico` (16, 32 e 48px na mesma imagem) e `public/apple-touch-icon.png` (180px).
+- Removido `public/favicon.svg`, que não é mais referenciado por nada.
+
+### Por que foi feito
+A aba do navegador exibia um ícone genérico de template desde o início do projeto.
+
+### Decisões técnicas
+- `.ico` multi-resolução em vez de um único PNG: o navegador escolhe o tamanho exato e evita o borrão de reescalar uma imagem grande para 16px.
+- O disco branco vem do arquivo de origem e é opaco, então o ícone se mantém legível tanto em abas de tema claro quanto escuro, sem precisar de duas versões.
+- O `apple-touch-icon` usa fundo `primary-800` (`#0E0929`) porque o iOS não aceita transparência e aplica a própria máscara de cantos arredondados.
+- Em 16px o desenho fica ruidoso (o anel, os raios do sol e as montanhas colapsam nessa resolução). Engrossar o traço antes de reduzir foi testado e não melhorou, então ficou a redução limpa. Telas retina usam o de 32px, que está nítido.
+
+### Próximos passos
+- Se o 16px incomodar, desenhar uma variante simplificada só para esse tamanho (por exemplo, apenas a torre) e embuti-la no mesmo `.ico`.
+
+---
+
 ## [2026-06-27] Vercel Web Analytics
 
 ### O que foi feito
