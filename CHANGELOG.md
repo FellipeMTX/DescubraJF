@@ -5,6 +5,26 @@
 
 ---
 
+## [2026-07-13] Serviços: corrige modal de detalhes cortado
+
+### O que foi feito
+- **Modal de detalhes do serviço** ([ServiceModal.tsx](src/pages/services/ServiceModal.tsx)): corrigido o modal que abria com 384px (em vez dos 720px projetados) e com o conteúdo cortado à esquerda — ícone, início do título e do texto ficavam invisíveis.
+- **`.gitignore`**: adicionados `.vercel` e `.env*` (arquivos locais de credenciais/link da Vercel não devem ser versionados).
+
+### Por que foi feito
+Na página de Serviços, ao clicar em "Mais detalhes", o modal aparecia estreito e com a lateral esquerda do conteúdo cortada, ilegível.
+
+### Decisões técnicas
+- Causa 1 — largura: o `DialogContent` base tem `sm:max-w-sm` e o override `max-w-none` do modal não o anula, porque o `tailwind-merge` só resolve conflitos entre classes com o **mesmo prefixo de variante**. Fix: adicionar `sm:max-w-none` ao override.
+- Causa 2 — corte à esquerda: o link longo do Cadastur no rodapé inflava a trilha do grid além do container; com `overflow-hidden` no popup, o foco automático do Base UI ao abrir rolava o conteúdo e cortava a esquerda. Fix: `min-w-0` no rodapé, permitindo que o link trunque (`truncate`) como projetado.
+- Correção restrita ao `ServiceModal` — o `dialog.tsx` compartilhado não foi alterado, evitando regressão nos demais modais.
+- Verificado com screenshots em viewport desktop (1500px) e estreito (500px): conteúdo íntegro no desktop, URL truncando com reticências no mobile.
+
+### Próximos passos
+- Conferir se outros usos de `DialogContent` com override de `max-w` sem o prefixo `sm:` sofrem do mesmo problema.
+
+---
+
 ## [2026-07-09] Favicon com o símbolo da marca
 
 ### O que foi feito

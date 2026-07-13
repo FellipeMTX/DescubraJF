@@ -49,7 +49,7 @@ export function ServiceModal({ service, category, onClose }: Props) {
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent
         showCloseButton={false}
-        className="grid w-[min(720px,calc(100vw-3rem))] max-w-none grid-rows-[auto_minmax(0,1fr)_auto] gap-0 overflow-hidden rounded-[22px] border-0 p-0 shadow-2xl ring-0"
+        className="grid w-[min(720px,calc(100vw-3rem))] max-w-none sm:max-w-none grid-rows-[auto_minmax(0,1fr)_auto] gap-0 overflow-hidden rounded-[22px] border-0 p-0 shadow-2xl ring-0"
         style={{ background: PANEL_BG, maxHeight: "calc(100vh - 4rem)" }}
       >
         {/* head */}
@@ -193,7 +193,7 @@ export function ServiceModal({ service, category, onClose }: Props) {
 
         {/* foot */}
         <div
-          className="flex shrink-0 items-center justify-between gap-3 border-t px-6.5 py-3.5"
+          className="flex min-w-0 shrink-0 items-center justify-between gap-3 border-t px-6.5 py-3.5"
           style={{
             background: "var(--color-bl-card)",
             borderColor: LINE,

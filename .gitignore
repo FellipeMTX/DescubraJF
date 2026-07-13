@@ -28,3 +28,5 @@ dist-ssr
 
 # Config local de MCP (caminhos/credenciais por máquina)
 .mcp.json
+.vercel
+.env*
