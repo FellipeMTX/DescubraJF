@@ -34,7 +34,7 @@ export function useEvents() {
         .from("eventos")
         .select("*")
         .eq("ativo", true)
-        .order("data_inicio", { ascending: false });
+        .order("data_inicio");
 
       if (error) throw error;
       return data as Evento[];
