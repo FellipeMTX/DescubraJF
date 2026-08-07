@@ -5,6 +5,27 @@
 
 ---
 
+## [2026-07-31] Eventos: agenda de agosto, timezone e ordenação cronológica
+
+### O que foi feito
+- **Seed de agosto/2026** ([seed-eventos-agosto-2026.sql](supabase/seed-eventos-agosto-2026.sql)): 64 eventos novos importados da planilha "Eventos com potencial turístico 2026" da SETUR, correção de data/local de 5 eventos existentes (Encontro de Veículos Antigos, Festa Portuguesa, Miss Brasil Gay, Harmoniza, Torresmo e Costela), títulos alinhados ao texto da planilha e remoção do único evento sem correspondência nela. As duas paradas (08/08 GAG-MGM e 23/08 ASTRA) são eventos distintos, como na planilha.
+- **Correção de timezone nos dados**: eventos inseridos via sessão SQL em UTC ficaram com `data_inicio` à meia-noite UTC, que em Brasília é 21h do dia anterior — o site exibia tudo um dia antes. Aplicado `+3h` nos 66 registros afetados e adicionado `SET timezone = 'America/Sao_Paulo'` no topo do seed para reexecuções.
+- **Ordenação da agenda** ([useEvents.ts](src/hooks/useEvents.ts)): a query buscava `data_inicio` decrescente; dentro de cada mês a agenda exibia o dia 30 antes do dia 01. Trocada para crescente.
+
+### Por que foi feito
+A agenda de agosto estava incompleta em relação à planilha oficial, alguns eventos apareciam com a data um dia antes (bug de timezone) e a listagem mensal vinha em ordem invertida.
+
+### Decisões técnicas
+- Convenção de datas do app: gravar meia-noite de Brasília (`03:00 UTC`) em `timestamptz`, mesmo comportamento do `localDateToIso` do admin. O frontend formata no fuso do navegador.
+- Seed idempotente (`ON CONFLICT (slug) DO NOTHING`); eventos marcados "Não irá acontecer" na planilha ficam de fora.
+- Sem categoria "religioso"/"feira" na base — mapeados para as 5 categorias existentes (`festivo`/`cultural`), evitando filtro novo no frontend.
+- A ordenação crescente vale também para o `EventAdmin` (mesmo hook) — ordem cronológica é a esperada numa agenda.
+
+### Próximos passos
+- Avaliar `timeZone: "America/Sao_Paulo"` fixo em `formatDate`/`formatDateShort` para visitantes fora do fuso de Brasília.
+
+---
+
 ## [2026-07-13] Serviços: corrige modal de detalhes cortado
 
 ### O que foi feito
