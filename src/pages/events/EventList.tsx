@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { useEvents } from "@/hooks/useEvents";
 import { EventFeaturedCarousel } from "@/components/events/EventFeaturedCarousel";
 import { EventCalendar } from "@/components/events/EventCalendar";
-import { AgendaExportDialog } from "@/components/events/AgendaExportDialog";
+import { OfficialCalendarDownload } from "@/components/events/OfficialCalendarDownload";
 
 function FilterPill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -229,7 +229,7 @@ export default function EventList() {
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <AgendaExportDialog events={events ?? []} />
+            <OfficialCalendarDownload />
             <ViewToggle value={view} onChange={setView} />
             {view === "list" && availableMonths.length > 0 && (
               <MonthDropdown

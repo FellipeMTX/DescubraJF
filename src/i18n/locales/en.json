@@ -167,17 +167,7 @@
       "viewCalendar": "Calendar"
     },
     "export": {
-      "cta": "Export PDF",
-      "title": "Export calendar as PDF",
-      "subtitle": "Pick a date range. The browser print dialog will open — choose \"Save as PDF\" as the destination.",
-      "docTitle": "Calendar · Descubra Juiz de Fora",
-      "from": "From",
-      "to": "To",
-      "count_one": "{{count}} event in range",
-      "count_other": "{{count}} events in range",
-      "empty": "No events in this range.",
-      "cancel": "Cancel",
-      "confirm": "Generate PDF"
+      "cta": "Download Official Calendar"
     },
     "filters": {
       "all": "All",

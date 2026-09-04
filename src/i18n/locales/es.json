@@ -167,17 +167,7 @@
       "viewCalendar": "Calendario"
     },
     "export": {
-      "cta": "Exportar PDF",
-      "title": "Exportar agenda en PDF",
-      "subtitle": "Elige el intervalo de fechas. Se abrirá el diálogo de impresión del navegador — elige \"Guardar como PDF\" como destino.",
-      "docTitle": "Agenda · Descubra Juiz de Fora",
-      "from": "Desde",
-      "to": "Hasta",
-      "count_one": "{{count}} evento en el intervalo",
-      "count_other": "{{count}} eventos en el intervalo",
-      "empty": "Ningún evento en este intervalo.",
-      "cancel": "Cancelar",
-      "confirm": "Generar PDF"
+      "cta": "Descargar Calendario Oficial"
     },
     "filters": {
       "all": "Todos",
