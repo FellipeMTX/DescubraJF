@@ -221,14 +221,14 @@ export default function EventList() {
 
         {/* Filters */}
         <div className="mt-14 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex min-w-0 flex-nowrap gap-2 overflow-x-auto pb-1">
             {CATEGORY_VALUES.map((value) => (
               <FilterPill key={value} active={selectedCat === value} onClick={() => { setSelectedCat(value); setSelectedMonth("todos"); }}>
                 {t(CATEGORY_KEY_MAP[value])}
               </FilterPill>
             ))}
           </div>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex min-w-0 flex-nowrap items-center gap-3 overflow-x-auto pb-1 sm:justify-end">
             <OfficialCalendarDownload />
             <ViewToggle value={view} onChange={setView} />
             {view === "list" && availableMonths.length > 0 && (
