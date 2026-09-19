@@ -61,7 +61,7 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
             : { color: "var(--color-bl-ink)" }
         }
       >
-        <span className="sm:hidden">{yearLabel}</span>
+        <span className="sm:hidden">{selected === "todos" ? yearLabel : selectedLabel.replace(/\s+\d{4}$/, "")}</span>
         <span className="max-sm:hidden">{selectedLabel}</span>
         <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
       </button>
@@ -82,7 +82,8 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
                   : { color: "var(--color-bl-ink)" }
               }
             >
-              {opt.label}
+              <span className="sm:hidden">{opt.value === "todos" ? yearLabel : opt.label.replace(/\s+\d{4}$/, "")}</span>
+              <span className="max-sm:hidden">{opt.label}</span>
             </button>
           ))}
         </div>
@@ -269,7 +270,7 @@ export default function EventList() {
         )}
 
         {/* Filters */}
-        <div className="mt-14 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 pb-2 sm:flex sm:gap-3">
+        <div className="mt-14 flex items-center justify-between gap-2 pb-2 sm:gap-3">
           <div className="order-1 justify-self-start sm:order-none">
             <CategoryMultiSelect
               selected={selectedCategories}
@@ -277,7 +278,7 @@ export default function EventList() {
             />
           </div>
           {selectedCategories.length > 0 && (
-            <div className="order-5 col-span-2 hidden flex-wrap items-center gap-2 sm:order-none sm:flex sm:col-auto">
+            <div className="order-5 hidden flex-wrap items-center gap-2 sm:order-none sm:flex">
               {selectedCategories.map((category) => (
                 <SelectedCategoryPill key={category} onRemove={() => { setSelectedCategories((current) => current.filter((value) => value !== category)); setSelectedMonth("todos"); }}>
                   {t(CATEGORY_KEY_MAP[category])}
@@ -286,7 +287,7 @@ export default function EventList() {
             </div>
           )}
           {view === "list" && availableMonths.length > 0 && (
-            <div className="order-3 justify-self-start sm:order-none">
+            <div className="order-2 sm:order-none">
               <MonthDropdown
                 options={monthOptions}
                 selected={selectedMonth}
@@ -294,10 +295,10 @@ export default function EventList() {
               />
             </div>
           )}
-          <div className="order-2 justify-self-end sm:order-none sm:ml-auto">
+          <div className="order-3 sm:order-none sm:ml-auto">
             <AgendaDownloadMenu events={events ?? []} />
           </div>
-          <div className="order-4 justify-self-end sm:order-none">
+          <div className="order-4 sm:order-none">
             <ViewToggle value={view} onChange={setView} />
           </div>
         </div>
