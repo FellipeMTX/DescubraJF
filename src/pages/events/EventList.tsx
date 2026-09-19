@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { CalendarDays, ChevronDown, LayoutList } from "lucide-react";
+import { CalendarDays, Check, ChevronDown, LayoutList, SlidersHorizontal, X } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EventCard } from "@/components/ui/EventCard";
 import { cn } from "@/lib/utils";
@@ -8,23 +8,26 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { useEvents } from "@/hooks/useEvents";
 import { EventFeaturedCarousel } from "@/components/events/EventFeaturedCarousel";
 import { EventCalendar } from "@/components/events/EventCalendar";
-import { OfficialCalendarDownload } from "@/components/events/OfficialCalendarDownload";
+import { AgendaDownloadMenu } from "@/components/events/AgendaDownloadMenu";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-function FilterPill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function SelectedCategoryPill({ children, onRemove }: { children: React.ReactNode; onRemove: () => void }) {
   return (
     <button
-      onClick={onClick}
-      className={cn(
-        "cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-        active ? "border-transparent" : "border-black/15 hover:border-black/30"
-      )}
-      style={
-        active
-          ? { background: "var(--color-bl-card)", color: "var(--color-bl-ink)", borderColor: "transparent" }
-          : { color: "var(--color-bl-ink)" }
-      }
+      type="button"
+      onClick={onRemove}
+      className="inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-transparent px-3 py-2 text-sm font-medium transition-colors hover:opacity-80"
+      style={{ background: "var(--color-bl-card)", color: "var(--color-bl-ink)" }}
     >
       {children}
+      <X size={14} aria-hidden="true" />
     </button>
   );
 }
@@ -34,6 +37,7 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const selectedLabel = options.find((o) => o.value === selected)?.label ?? t("events.list.allMonths");
+  const yearLabel = options.find((o) => o.value !== "todos")?.value.slice(0, 4) ?? new Date().getFullYear().toString();
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -44,7 +48,7 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
   }, []);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative z-30 shrink-0">
       <button
         onClick={() => setOpen(!open)}
         className={cn(
@@ -57,7 +61,8 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
             : { color: "var(--color-bl-ink)" }
         }
       >
-        {selectedLabel}
+        <span className="sm:hidden">{selected === "todos" ? yearLabel : selectedLabel.replace(/\s+\d{4}$/, "")}</span>
+        <span className="max-sm:hidden">{selectedLabel}</span>
         <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
       </button>
 
@@ -77,7 +82,8 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
                   : { color: "var(--color-bl-ink)" }
               }
             >
-              {opt.label}
+              <span className="sm:hidden">{opt.value === "todos" ? yearLabel : opt.label.replace(/\s+\d{4}$/, "")}</span>
+              <span className="max-sm:hidden">{opt.label}</span>
             </button>
           ))}
         </div>
@@ -106,7 +112,8 @@ function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (v: ViewMo
             key={v}
             type="button"
             onClick={() => onChange(v)}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-1.75 text-sm font-medium transition-colors"
+            className="inline-flex size-10 cursor-pointer items-center justify-center gap-1.5 rounded-full px-0 py-0 text-sm font-medium transition-colors sm:size-auto sm:px-4 sm:py-1.75"
+            aria-label={label}
             style={{
               background: active ? "var(--color-bl-bg)" : "transparent",
               color: active ? "var(--color-bl-ink)" : "var(--color-bl-muted)",
@@ -114,7 +121,7 @@ function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (v: ViewMo
             }}
           >
             <Icon size={14} />
-            {label}
+            <span className="max-sm:sr-only">{label}</span>
           </button>
         );
       })}
@@ -132,6 +139,49 @@ const CATEGORY_KEY_MAP: Record<(typeof CATEGORY_VALUES)[number], string> = {
   gastronomico: "events.filters.gastronomic",
 };
 
+type EventCategory = Exclude<(typeof CATEGORY_VALUES)[number], "todos">;
+
+function CategoryMultiSelect({ selected, onChange }: { selected: EventCategory[]; onChange: (categories: EventCategory[]) => void }) {
+  const { t } = useTranslation();
+  const toggle = (category: EventCategory) => onChange(selected.includes(category) ? selected.filter((value) => value !== category) : [...selected, category]);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30"
+        style={{ color: "var(--color-bl-ink)" }}
+      >
+        <SlidersHorizontal size={14} aria-hidden="true" />
+        {selected.length ? <><span className="sm:hidden">{selected.length}</span><span className="max-sm:hidden">{t("events.filters.categoriesSelected", { count: selected.length })}</span></> : t("events.filters.all")}
+        <ChevronDown size={14} aria-hidden="true" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-56 rounded-2xl border border-black/10 bg-bl-bg! p-1.5 shadow-xl">
+        <DropdownMenuItem
+          onClick={() => onChange([])}
+          className="cursor-pointer rounded-xl px-3 py-2.5 hover:bg-black/5! focus:bg-black/5!"
+          style={{ color: "var(--color-bl-ink)" }}
+        >
+          <span className="flex-1">{t("events.filters.all")}</span>
+          {selected.length === 0 && <Check size={14} aria-hidden="true" />}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-black/10" />
+        {CATEGORY_VALUES.filter((value): value is EventCategory => value !== "todos").map((category) => (
+          <DropdownMenuCheckboxItem
+            key={category}
+            checked={selected.includes(category)}
+            onCheckedChange={() => toggle(category)}
+            closeOnClick={false}
+            className="cursor-pointer rounded-xl px-3 py-2.5 hover:bg-black/5! focus:bg-black/5!"
+            style={{ color: "var(--color-bl-ink)" }}
+          >
+            {t(CATEGORY_KEY_MAP[category])}
+          </DropdownMenuCheckboxItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 function getMonthKey(dateStr: string): string {
   const d = new Date(dateStr);
   return `${d.getFullYear()}-${String(d.getMonth()).padStart(2, "0")}`;
@@ -139,7 +189,7 @@ function getMonthKey(dateStr: string): string {
 
 export default function EventList() {
   const { t } = useTranslation();
-  const [selectedCat, setSelectedCat] = useState("todos");
+  const [selectedCategories, setSelectedCategories] = useState<EventCategory[]>([]);
   const [selectedMonth, setSelectedMonth] = useState("todos");
   const [view, setView] = useState<ViewMode>("list");
   const { data: events, isLoading } = useEvents();
@@ -166,9 +216,9 @@ export default function EventList() {
       .slice(0, 5);
   }, [events]);
 
-  const filteredByCat = selectedCat === "todos"
+  const filteredByCat = selectedCategories.length === 0
     ? events
-    : events?.filter((e) => e.categoria === selectedCat);
+    : events?.filter((event) => selectedCategories.includes(event.categoria as EventCategory));
 
   const availableMonths = useMemo(() => {
     if (!filteredByCat?.length) return [];
@@ -220,24 +270,36 @@ export default function EventList() {
         )}
 
         {/* Filters */}
-        <div className="mt-14 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-2">
-            {CATEGORY_VALUES.map((value) => (
-              <FilterPill key={value} active={selectedCat === value} onClick={() => { setSelectedCat(value); setSelectedMonth("todos"); }}>
-                {t(CATEGORY_KEY_MAP[value])}
-              </FilterPill>
-            ))}
+        <div className="mt-14 flex items-center justify-between gap-2 pb-2 sm:gap-3">
+          <div className="order-1 justify-self-start sm:order-none">
+            <CategoryMultiSelect
+              selected={selectedCategories}
+              onChange={(categories) => { setSelectedCategories(categories); setSelectedMonth("todos"); }}
+            />
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <OfficialCalendarDownload />
-            <ViewToggle value={view} onChange={setView} />
-            {view === "list" && availableMonths.length > 0 && (
+          {selectedCategories.length > 0 && (
+            <div className="order-5 hidden flex-wrap items-center gap-2 sm:order-none sm:flex">
+              {selectedCategories.map((category) => (
+                <SelectedCategoryPill key={category} onRemove={() => { setSelectedCategories((current) => current.filter((value) => value !== category)); setSelectedMonth("todos"); }}>
+                  {t(CATEGORY_KEY_MAP[category])}
+                </SelectedCategoryPill>
+              ))}
+            </div>
+          )}
+          {view === "list" && availableMonths.length > 0 && (
+            <div className="order-2 sm:order-none">
               <MonthDropdown
                 options={monthOptions}
                 selected={selectedMonth}
                 onSelect={setSelectedMonth}
               />
-            )}
+            </div>
+          )}
+          <div className="order-3 sm:order-none sm:ml-auto">
+            <AgendaDownloadMenu events={events ?? []} />
+          </div>
+          <div className="order-4 sm:order-none">
+            <ViewToggle value={view} onChange={setView} />
           </div>
         </div>
 
