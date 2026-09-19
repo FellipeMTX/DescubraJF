@@ -266,31 +266,35 @@ export default function EventList() {
         )}
 
         {/* Filters */}
-        <div className="mt-14 flex items-center justify-between gap-3 pb-2">
-          <div className="flex items-center gap-2">
+        <div className="mt-14 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 pb-2 sm:flex sm:gap-3">
+          <div className="order-1 justify-self-start sm:order-none">
             <CategoryMultiSelect
               selected={selectedCategories}
               onChange={(categories) => { setSelectedCategories(categories); setSelectedMonth("todos"); }}
             />
-            {selectedCategories.length > 0 && (
-              <div className="flex items-center gap-2">
-                {selectedCategories.map((category) => (
-                  <SelectedCategoryPill key={category} onRemove={() => { setSelectedCategories((current) => current.filter((value) => value !== category)); setSelectedMonth("todos"); }}>
-                    {t(CATEGORY_KEY_MAP[category])}
-                  </SelectedCategoryPill>
-                ))}
-              </div>
-            )}
-            {view === "list" && availableMonths.length > 0 && (
+          </div>
+          {selectedCategories.length > 0 && (
+            <div className="order-5 col-span-2 flex flex-wrap items-center gap-2 sm:order-none sm:col-auto">
+              {selectedCategories.map((category) => (
+                <SelectedCategoryPill key={category} onRemove={() => { setSelectedCategories((current) => current.filter((value) => value !== category)); setSelectedMonth("todos"); }}>
+                  {t(CATEGORY_KEY_MAP[category])}
+                </SelectedCategoryPill>
+              ))}
+            </div>
+          )}
+          {view === "list" && availableMonths.length > 0 && (
+            <div className="order-3 justify-self-start sm:order-none">
               <MonthDropdown
                 options={monthOptions}
                 selected={selectedMonth}
                 onSelect={setSelectedMonth}
               />
-            )}
-          </div>
-          <div className="flex shrink-0 items-center gap-3">
+            </div>
+          )}
+          <div className="order-2 justify-self-end sm:order-none sm:ml-auto">
             <AgendaDownloadMenu events={events ?? []} />
+          </div>
+          <div className="order-4 justify-self-end sm:order-none">
             <ViewToggle value={view} onChange={setView} />
           </div>
         </div>
