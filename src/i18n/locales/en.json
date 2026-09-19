@@ -167,7 +167,19 @@
       "viewCalendar": "Calendar"
     },
     "export": {
-      "cta": "Download Official Calendar"
+      "menuCta": "Download calendar",
+      "officialOption": "Download official calendar",
+      "customOption": "Download calendar",
+      "title": "Export calendar as PDF",
+      "subtitle": "Pick a date range. The browser print dialog will open — choose \"Save as PDF\" as the destination.",
+      "docTitle": "Calendar · Descubra Juiz de Fora",
+      "from": "From",
+      "to": "To",
+      "count_one": "{{count}} event in range",
+      "count_other": "{{count}} events in range",
+      "empty": "No events in this range.",
+      "cancel": "Cancel",
+      "confirm": "Generate PDF"
     },
     "filters": {
       "all": "All",
@@ -175,7 +187,9 @@
       "sportive": "Sports",
       "festive": "Festive",
       "show": "Shows",
-      "gastronomic": "Gastronomic"
+      "gastronomic": "Gastronomic",
+      "categoriesSelected_one": "{{count}} category",
+      "categoriesSelected_other": "{{count}} categories"
     },
     "months": {
       "1": "January",

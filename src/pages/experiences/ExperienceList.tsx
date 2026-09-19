@@ -138,7 +138,7 @@ export default function ExperienceList() {
       <div className="relative w-full">
         <div className="overflow-hidden">
           <img
-            src="/atrativosBanner2.png"
+            src="/novo-atrativo.png"
             alt={t("experiences.list.title")}
             className="block h-auto w-full"
           />
