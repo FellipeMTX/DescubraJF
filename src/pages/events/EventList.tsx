@@ -37,6 +37,7 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const selectedLabel = options.find((o) => o.value === selected)?.label ?? t("events.list.allMonths");
+  const yearLabel = options.find((o) => o.value !== "todos")?.value.slice(0, 4) ?? new Date().getFullYear().toString();
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -60,7 +61,8 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
             : { color: "var(--color-bl-ink)" }
         }
       >
-        {selectedLabel}
+        <span className="sm:hidden">{yearLabel}</span>
+        <span className="max-sm:hidden">{selectedLabel}</span>
         <ChevronDown size={14} className={cn("transition-transform", open && "rotate-180")} />
       </button>
 
@@ -109,7 +111,8 @@ function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (v: ViewMo
             key={v}
             type="button"
             onClick={() => onChange(v)}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-1.75 text-sm font-medium transition-colors"
+            className="inline-flex size-10 cursor-pointer items-center justify-center gap-1.5 rounded-full px-0 py-0 text-sm font-medium transition-colors sm:size-auto sm:px-4 sm:py-1.75"
+            aria-label={label}
             style={{
               background: active ? "var(--color-bl-bg)" : "transparent",
               color: active ? "var(--color-bl-ink)" : "var(--color-bl-muted)",
@@ -117,7 +120,7 @@ function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (v: ViewMo
             }}
           >
             <Icon size={14} />
-            {label}
+            <span className="max-sm:sr-only">{label}</span>
           </button>
         );
       })}
@@ -148,7 +151,7 @@ function CategoryMultiSelect({ selected, onChange }: { selected: EventCategory[]
         style={{ color: "var(--color-bl-ink)" }}
       >
         <SlidersHorizontal size={14} aria-hidden="true" />
-        {selected.length ? t("events.filters.categoriesSelected", { count: selected.length }) : t("events.filters.all")}
+        {selected.length ? <><span className="sm:hidden">{selected.length}</span><span className="max-sm:hidden">{t("events.filters.categoriesSelected", { count: selected.length })}</span></> : t("events.filters.all")}
         <ChevronDown size={14} aria-hidden="true" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-56 rounded-2xl border border-black/10 bg-bl-bg! p-1.5 shadow-xl">
@@ -274,7 +277,7 @@ export default function EventList() {
             />
           </div>
           {selectedCategories.length > 0 && (
-            <div className="order-5 col-span-2 flex flex-wrap items-center gap-2 sm:order-none sm:col-auto">
+            <div className="order-5 col-span-2 hidden flex-wrap items-center gap-2 sm:order-none sm:flex sm:col-auto">
               {selectedCategories.map((category) => (
                 <SelectedCategoryPill key={category} onRemove={() => { setSelectedCategories((current) => current.filter((value) => value !== category)); setSelectedMonth("todos"); }}>
                   {t(CATEGORY_KEY_MAP[category])}
