@@ -47,7 +47,7 @@ function MonthDropdown({ options, selected, onSelect }: { options: { label: stri
   }, []);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative z-30 shrink-0">
       <button
         onClick={() => setOpen(!open)}
         className={cn(
@@ -266,14 +266,14 @@ export default function EventList() {
         )}
 
         {/* Filters */}
-        <div className="mt-14 flex items-center justify-between gap-3 overflow-x-auto pb-2 lg:flex-nowrap">
-          <div className="flex min-w-0 items-center gap-2">
+        <div className="mt-14 flex items-center justify-between gap-3 pb-2">
+          <div className="flex items-center gap-2">
             <CategoryMultiSelect
               selected={selectedCategories}
               onChange={(categories) => { setSelectedCategories(categories); setSelectedMonth("todos"); }}
             />
             {selectedCategories.length > 0 && (
-              <div className="flex min-w-0 items-center gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: "none" }}>
+              <div className="flex items-center gap-2">
                 {selectedCategories.map((category) => (
                   <SelectedCategoryPill key={category} onRemove={() => { setSelectedCategories((current) => current.filter((value) => value !== category)); setSelectedMonth("todos"); }}>
                     {t(CATEGORY_KEY_MAP[category])}
